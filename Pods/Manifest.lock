@@ -2,23 +2,19 @@ PODS:
   - Alamofire (4.8.0)
   - AlamofireRSSParser (2.2.0):
     - Alamofire
-  - NavigationDrawer (1.0.0)
 
 DEPENDENCIES:
   - AlamofireRSSParser
-  - NavigationDrawer
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireRSSParser
-    - NavigationDrawer
 
 SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   AlamofireRSSParser: 4feb3c8cedf1fba2759ba30cf37cdf6ba45efd38
-  NavigationDrawer: bc637c0a1700b04f8cd9a5e88b709f6793ca6ac6
 
-PODFILE CHECKSUM: f065b2a0a54c86cd4d4721a6d84f9432746cd046
+PODFILE CHECKSUM: 6883e6d122192cfce197410c9fc9855524476546
 
 COCOAPODS: 1.5.3

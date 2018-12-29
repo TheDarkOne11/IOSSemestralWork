@@ -6,6 +6,5 @@ target 'IOSSemestralWork' do
     use_frameworks!
 
     # Pods for IOSSemestralWork
-    pod 'NavigationDrawer'
     pod 'AlamofireRSSParser'
 end
