@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AlamofireRSSParser
 
 class MyRSSItem {
     var title: String = ""
@@ -14,4 +15,15 @@ class MyRSSItem {
     var itemDescription: String = ""
     var author: String = ""
     
+    init() {
+    }
+    
+    convenience init(with rssItem: RSSItem) {
+        self.init()
+        
+        self.title = rssItem.title ?? "Unknown"
+        self.link = rssItem.link ?? "Unknown"
+        self.author = rssItem.author ?? "Unknown"
+        self.itemDescription = rssItem.itemDescription ?? "Unknown"
+    }
 }

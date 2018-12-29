@@ -12,41 +12,54 @@ import AlamofireRSSParser
 import NavigationDrawer
 
 class ItemsTableViewController: UITableViewController {
+    // Interactor used for NavigationDrawer
     let interactor = Interactor()
+    var myRssItems = [MyRSSItem]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        for i in 1...20 {
+            let myItem = MyRSSItem()
+            myItem.title = "Title\(i)"
+            myRssItems.append(myItem)
+        }
+        
 //        fetchData()
     }
     
-//    func fetchData() {
-//        let url = "http://servis.idnes.cz/rss.aspx?c=zpravodaj"
-//
-//        Alamofire.request(url).responseRSS() { (response) -> Void in
-//            if let feed: RSSFeed = response.result.value {
-//                //do something with your new RSSFeed object!
-//                for item in feed.items {
-//                    let myItem = MyRSSItem()
-//                    myItem.title = item.title ?? "Unknown"
-//                    myItem.link = item.link ?? "Unknown"
-//                    myItem.author = item.author ?? "Unknown"
-//                    myItem.itemDescription = item.itemDescription ?? "Unknown"
-//
-//                    print(item)
-//                }
-//            }
-//        }
-//    }
+    func fetchData() {
+        let url = "http://servis.idnes.cz/rss.aspx?c=zpravodaj"
+
+        print("Fetching:")
+        Alamofire.request(url).responseRSS() { (response) -> Void in
+            if let feed: RSSFeed = response.result.value {
+                //do something with your new RSSFeed object!
+                for item in feed.items {
+                    let myItem = MyRSSItem(with: item)
+                    self.myRssItems.append(myItem)
+
+                    print(myItem.title)
+                    print(myItem.link)
+                    print(myItem.author)
+                    print(myItem.itemDescription)
+                    print("\n###############################################\n")
+                }
+            }
+        }
+    }
     
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return myRssItems.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "feedItemCell", for: indexPath)
+        let currItem: MyRSSItem = myRssItems[indexPath.row]
+        
+        cell.textLabel?.text = currItem.title
         
         return cell
     }
@@ -71,6 +84,9 @@ extension ItemsTableViewController: UIViewControllerTransitioningDelegate {
         performSegue(withIdentifier: "showSlidingMenu", sender: nil)
     }
     
+    /**
+     Handles gesture for swiping from the left edge of the screen to the right.
+     */
     @IBAction func edgePanGesture(_ sender: UIPanGestureRecognizer) {        
         let translation = sender.translation(in: view)
         
