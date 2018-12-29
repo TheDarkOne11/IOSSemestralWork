@@ -40,15 +40,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4B70A86A21D79DE600289496 /* Support files */ = {
-			isa = PBXGroup;
-			children = (
-				4BE8A60121D6CB06009B66F0 /* Assets.xcassets */,
-				4BE8A60621D6CB06009B66F0 /* Info.plist */,
-			);
-			path = "Support files";
-			sourceTree = "<group>";
-		};
 		4BA1365E21D79490009D4EBB /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -98,7 +89,8 @@
 				4BA1366021D794A5009D4EBB /* Model */,
 				4BA1365F21D7949B009D4EBB /* View */,
 				4BA1365E21D79490009D4EBB /* Controller */,
-				4B70A86A21D79DE600289496 /* Support files */,
+				4BE8A60121D6CB06009B66F0 /* Assets.xcassets */,
+				4BE8A60621D6CB06009B66F0 /* Info.plist */,
 			);
 			path = IOSSemestralWork;
 			sourceTree = "<group>";
