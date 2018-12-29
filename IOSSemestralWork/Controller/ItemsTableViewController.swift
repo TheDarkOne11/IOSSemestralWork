@@ -15,21 +15,27 @@ class ItemsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchData()
+//        fetchData()
     }
     
-    func fetchData() {
-        let url = "http://servis.idnes.cz/rss.aspx?c=zpravodaj"
-        
-        Alamofire.request(url).responseRSS() { (response) -> Void in
-            if let feed: RSSFeed = response.result.value {
-                //do something with your new RSSFeed object!
-                for item in feed.items {
-                    print(item)
-                }
-            }
-        }
-    }
+//    func fetchData() {
+//        let url = "http://servis.idnes.cz/rss.aspx?c=zpravodaj"
+//        
+//        Alamofire.request(url).responseRSS() { (response) -> Void in
+//            if let feed: RSSFeed = response.result.value {
+//                //do something with your new RSSFeed object!
+//                for item in feed.items {
+//                    let myItem = MyRSSItem()
+//                    myItem.title = item.title ?? "Unknown"
+//                    myItem.link = item.link ?? "Unknown"
+//                    myItem.author = item.author ?? "Unknown"
+//                    myItem.itemDescription = item.itemDescription ?? "Unknown"
+//                    
+//                    print(item)
+//                }
+//            }
+//        }
+//    }
     
     // MARK: - Table view data source
     
