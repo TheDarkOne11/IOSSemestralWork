@@ -12,6 +12,10 @@
 		4B70A86E21D7A55B00289496 /* SlidingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B70A86D21D7A55B00289496 /* SlidingViewController.swift */; };
 		4B70A87021D7F1F100289496 /* FeedCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B70A86F21D7F1F100289496 /* FeedCategory.swift */; };
 		4B70A87221D7F24F00289496 /* MyRSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B70A87121D7F24F00289496 /* MyRSSFeed.swift */; };
+		4B70A87421D7F48600289496 /* NavDrawerViewModelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B70A87321D7F48600289496 /* NavDrawerViewModelItem.swift */; };
+		4B70A87921D7FC1D00289496 /* NavDrawerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B70A87821D7FC1D00289496 /* NavDrawerViewModel.swift */; };
+		4B70A87B21D8072C00289496 /* NavDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B70A87A21D8072C00289496 /* NavDrawer.swift */; };
+		4B70A87F21D81A8400289496 /* NavDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B70A87E21D81A8400289496 /* NavDrawerViewController.swift */; };
 		4BA1365D21D7947F009D4EBB /* ItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1365C21D7947F009D4EBB /* ItemsTableViewController.swift */; };
 		4BE8A5FB21D6CB05009B66F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */; };
 		4BE8A60021D6CB05009B66F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BE8A5FE21D6CB05009B66F0 /* Main.storyboard */; };
@@ -26,6 +30,10 @@
 		4B70A86D21D7A55B00289496 /* SlidingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingViewController.swift; sourceTree = "<group>"; };
 		4B70A86F21D7F1F100289496 /* FeedCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCategory.swift; sourceTree = "<group>"; };
 		4B70A87121D7F24F00289496 /* MyRSSFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRSSFeed.swift; sourceTree = "<group>"; };
+		4B70A87321D7F48600289496 /* NavDrawerViewModelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavDrawerViewModelItem.swift; sourceTree = "<group>"; };
+		4B70A87821D7FC1D00289496 /* NavDrawerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavDrawerViewModel.swift; sourceTree = "<group>"; };
+		4B70A87A21D8072C00289496 /* NavDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavDrawer.swift; sourceTree = "<group>"; };
+		4B70A87E21D81A8400289496 /* NavDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavDrawerViewController.swift; sourceTree = "<group>"; };
 		4BA1365C21D7947F009D4EBB /* ItemsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsTableViewController.swift; sourceTree = "<group>"; };
 		4BE8A5F721D6CB05009B66F0 /* IOSSemestralWork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOSSemestralWork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -48,11 +56,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B70A87521D7F8AF00289496 /* NavDrawer */ = {
+			isa = PBXGroup;
+			children = (
+				4B70A87A21D8072C00289496 /* NavDrawer.swift */,
+				4B70A87821D7FC1D00289496 /* NavDrawerViewModel.swift */,
+				4B70A87321D7F48600289496 /* NavDrawerViewModelItem.swift */,
+			);
+			path = NavDrawer;
+			sourceTree = "<group>";
+		};
 		4BA1365E21D79490009D4EBB /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				4BA1365C21D7947F009D4EBB /* ItemsTableViewController.swift */,
 				4B70A86D21D7A55B00289496 /* SlidingViewController.swift */,
+				4B70A87E21D81A8400289496 /* NavDrawerViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -69,6 +88,7 @@
 		4BA1366021D794A5009D4EBB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4B70A87521D7F8AF00289496 /* NavDrawer */,
 				4B70A86F21D7F1F100289496 /* FeedCategory.swift */,
 				4B70A87121D7F24F00289496 /* MyRSSFeed.swift */,
 				4B70A86B21D7A12700289496 /* MyRSSItem.swift */,
@@ -248,12 +268,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B70A87B21D8072C00289496 /* NavDrawer.swift in Sources */,
 				4BA1365D21D7947F009D4EBB /* ItemsTableViewController.swift in Sources */,
 				4B70A87021D7F1F100289496 /* FeedCategory.swift in Sources */,
+				4B70A87921D7FC1D00289496 /* NavDrawerViewModel.swift in Sources */,
 				4B70A87221D7F24F00289496 /* MyRSSFeed.swift in Sources */,
+				4B70A87421D7F48600289496 /* NavDrawerViewModelItem.swift in Sources */,
 				4B70A86C21D7A12700289496 /* MyRSSItem.swift in Sources */,
 				4BE8A5FB21D6CB05009B66F0 /* AppDelegate.swift in Sources */,
 				4B70A86E21D7A55B00289496 /* SlidingViewController.swift in Sources */,
+				4B70A87F21D81A8400289496 /* NavDrawerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
