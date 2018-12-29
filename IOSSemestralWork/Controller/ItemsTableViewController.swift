@@ -9,11 +9,8 @@
 import UIKit
 import Alamofire
 import AlamofireRSSParser
-import NavigationDrawer
 
 class ItemsTableViewController: UITableViewController {
-    // Interactor used for NavigationDrawer
-    let interactor = Interactor()
     var myRssItems = [MyRSSItem]()
     
     override func viewDidLoad() {
@@ -24,9 +21,6 @@ class ItemsTableViewController: UITableViewController {
             myItem.title = "Title\(i)"
             myRssItems.append(myItem)
         }
-        
-        //TODO: REMOVE
-        self.performSegue(withIdentifier: "showSlidingMenu", sender: nil)
         
 //        fetchData()
     }
@@ -79,53 +73,4 @@ class ItemsTableViewController: UITableViewController {
      // Pass the selected object to the new view controller.
      }
      */
-}
-
-// MARK: NavigationDrawer
-
-extension ItemsTableViewController: UIViewControllerTransitioningDelegate {
-    @IBAction func navDrawerPressed(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "showSlidingMenu", sender: nil)
-    }
-    
-    /**
-     Handles gesture for swiping from the left edge of the screen to the right.
-     */
-    @IBAction func edgePanGesture(_ sender: UIPanGestureRecognizer) {        
-        let translation = sender.translation(in: view)
-        
-        let progress = MenuHelper.calculateProgress(translationInView: translation, viewBounds: view.bounds, direction: .Right)
-        
-        MenuHelper.mapGestureStateToInteractor(
-            gestureState: sender.state,
-            progress: progress,
-            interactor: interactor){
-                self.performSegue(withIdentifier: "showSlidingMenu", sender: nil)
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationViewController = segue.destination as? SlidingViewController {
-            destinationViewController.transitioningDelegate = self
-            destinationViewController.interactor = self.interactor
-        }
-    }
-    
-    // MARK: UIViewControllerTransitioningDelegate functions
-    
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return PresentMenuAnimator()
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return DismissMenuAnimator()
-    }
-    
-    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return interactor.hasStarted ? interactor : nil
-    }
-    
-    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return interactor.hasStarted ? interactor : nil
-    }
 }
