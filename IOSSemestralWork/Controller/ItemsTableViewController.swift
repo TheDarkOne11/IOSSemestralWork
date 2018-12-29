@@ -9,8 +9,10 @@
 import UIKit
 import Alamofire
 import AlamofireRSSParser
+import NavigationDrawer
 
 class ItemsTableViewController: UITableViewController {
+    let interactor = Interactor()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +22,7 @@ class ItemsTableViewController: UITableViewController {
     
 //    func fetchData() {
 //        let url = "http://servis.idnes.cz/rss.aspx?c=zpravodaj"
-//        
+//
 //        Alamofire.request(url).responseRSS() { (response) -> Void in
 //            if let feed: RSSFeed = response.result.value {
 //                //do something with your new RSSFeed object!
@@ -30,7 +32,7 @@ class ItemsTableViewController: UITableViewController {
 //                    myItem.link = item.link ?? "Unknown"
 //                    myItem.author = item.author ?? "Unknown"
 //                    myItem.itemDescription = item.itemDescription ?? "Unknown"
-//                    
+//
 //                    print(item)
 //                }
 //            }
@@ -60,5 +62,50 @@ class ItemsTableViewController: UITableViewController {
      // Pass the selected object to the new view controller.
      }
      */
+}
+
+// MARK: NavigationDrawer
+
+extension ItemsTableViewController: UIViewControllerTransitioningDelegate {
+    @IBAction func navDrawerPressed(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "showSlidingMenu", sender: nil)
+    }
     
+    @IBAction func edgePanGesture(_ sender: UIPanGestureRecognizer) {        
+        let translation = sender.translation(in: view)
+        
+        let progress = MenuHelper.calculateProgress(translationInView: translation, viewBounds: view.bounds, direction: .Right)
+        
+        MenuHelper.mapGestureStateToInteractor(
+            gestureState: sender.state,
+            progress: progress,
+            interactor: interactor){
+                self.performSegue(withIdentifier: "showSlidingMenu", sender: nil)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationViewController = segue.destination as? SlidingViewController {
+            destinationViewController.transitioningDelegate = self
+            destinationViewController.interactor = self.interactor
+        }
+    }
+    
+    // MARK: UIViewControllerTransitioningDelegate functions
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return PresentMenuAnimator()
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return DismissMenuAnimator()
+    }
+    
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactor.hasStarted ? interactor : nil
+    }
+    
+    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactor.hasStarted ? interactor : nil
+    }
 }
