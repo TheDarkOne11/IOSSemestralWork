@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		434AF0675DA05159F971DB51 /* Pods_IOSSemestralWork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41DAE754AFF5F4B367771429 /* Pods_IOSSemestralWork.framework */; };
+		4BA1365D21D7947F009D4EBB /* ItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1365C21D7947F009D4EBB /* ItemsTableViewController.swift */; };
+		4BA1366221D79721009D4EBB /* MyRssParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1366121D79721009D4EBB /* MyRssParser.swift */; };
 		4BE8A5FB21D6CB05009B66F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */; };
-		4BE8A5FD21D6CB05009B66F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8A5FC21D6CB05009B66F0 /* ViewController.swift */; };
 		4BE8A60021D6CB05009B66F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BE8A5FE21D6CB05009B66F0 /* Main.storyboard */; };
 		4BE8A60221D6CB06009B66F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BE8A60121D6CB06009B66F0 /* Assets.xcassets */; };
 		4BE8A60521D6CB06009B66F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BE8A60321D6CB06009B66F0 /* LaunchScreen.storyboard */; };
@@ -18,9 +19,10 @@
 /* Begin PBXFileReference section */
 		1A26211D2B8C7051A78A3F05 /* Pods-IOSSemestralWork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSSemestralWork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IOSSemestralWork/Pods-IOSSemestralWork.debug.xcconfig"; sourceTree = "<group>"; };
 		41DAE754AFF5F4B367771429 /* Pods_IOSSemestralWork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IOSSemestralWork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BA1365C21D7947F009D4EBB /* ItemsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsTableViewController.swift; sourceTree = "<group>"; };
+		4BA1366121D79721009D4EBB /* MyRssParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyRssParser.swift; sourceTree = "<group>"; };
 		4BE8A5F721D6CB05009B66F0 /* IOSSemestralWork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOSSemestralWork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4BE8A5FC21D6CB05009B66F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4BE8A5FF21D6CB05009B66F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4BE8A60121D6CB06009B66F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4BE8A60421D6CB06009B66F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -40,6 +42,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4BA1365E21D79490009D4EBB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4BA1366121D79721009D4EBB /* MyRssParser.swift */,
+				4BA1365C21D7947F009D4EBB /* ItemsTableViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		4BA1365F21D7949B009D4EBB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4BE8A60321D6CB06009B66F0 /* LaunchScreen.storyboard */,
+				4BE8A5FE21D6CB05009B66F0 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4BA1366021D794A5009D4EBB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		4BE8A5EE21D6CB05009B66F0 = {
 			isa = PBXGroup;
 			children = (
@@ -62,10 +89,10 @@
 			isa = PBXGroup;
 			children = (
 				4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */,
-				4BE8A5FC21D6CB05009B66F0 /* ViewController.swift */,
-				4BE8A5FE21D6CB05009B66F0 /* Main.storyboard */,
+				4BA1366021D794A5009D4EBB /* Model */,
+				4BA1365F21D7949B009D4EBB /* View */,
+				4BA1365E21D79490009D4EBB /* Controller */,
 				4BE8A60121D6CB06009B66F0 /* Assets.xcassets */,
-				4BE8A60321D6CB06009B66F0 /* LaunchScreen.storyboard */,
 				4BE8A60621D6CB06009B66F0 /* Info.plist */,
 			);
 			path = IOSSemestralWork;
@@ -208,7 +235,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BE8A5FD21D6CB05009B66F0 /* ViewController.swift in Sources */,
+				4BA1366221D79721009D4EBB /* MyRssParser.swift in Sources */,
+				4BA1365D21D7947F009D4EBB /* ItemsTableViewController.swift in Sources */,
 				4BE8A5FB21D6CB05009B66F0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
