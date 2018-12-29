@@ -25,6 +25,9 @@ class ItemsTableViewController: UITableViewController {
             myRssItems.append(myItem)
         }
         
+        //TODO: REMOVE
+        self.performSegue(withIdentifier: "showSlidingMenu", sender: nil)
+        
 //        fetchData()
     }
     
