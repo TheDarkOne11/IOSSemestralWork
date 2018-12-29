@@ -33,7 +33,10 @@
                             <outletCollection property="gestureRecognizers" destination="Zvq-QI-xdN" appends="YES" id="Kgc-X5-4jk"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="7U8-7p-826"/>
+                    <navigationItem key="navigationItem" id="7U8-7p-826">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="86R-iQ-XQy"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="TZR-6B-YPl"/>
+                    </navigationItem>
                     <connections>
                         <segue destination="Xga-xy-Za1" kind="show" identifier="ShowCategory" id="Hdz-1f-Z7t"/>
                         <segue destination="abS-kR-Rcu" kind="show" identifier="ShowItem" id="g0Y-Kg-VgR"/>

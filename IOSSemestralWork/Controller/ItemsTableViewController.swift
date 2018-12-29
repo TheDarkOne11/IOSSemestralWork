@@ -16,9 +16,9 @@ class ItemsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        myItems.append(Folder(with: "All Items", isContentsViewable: false))
-        myItems.append(Folder(with: "Starred Items", isContentsViewable: false))
-        myItems.append(Folder(with: "TestFolder"))
+        myItems.append(Folder(with: "All Items"))
+        myItems.append(Folder(with: "Starred Items"))
+        myItems.append(Folder(with: "TestFolder", isContentsViewable: true))
         myItems.append(MyRSSFeed(with: "Zpravodaj"))
         
 //        for i in 1...20 {
@@ -78,6 +78,20 @@ class ItemsTableViewController: UITableViewController {
     }
     
     // MARK: TableView methods
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item: Item = myItems[indexPath.row]
+        
+        switch item.type {
+        case .folder:
+            let currItem = item as! Folder
+        case .myRssFeed:
+            let currItem = item as! MyRSSFeed
+        case .myRssItem:
+            let currItem = item as! MyRSSItem
+        }
+        
+    }
     
     /*
      // MARK: - Navigation

@@ -14,7 +14,7 @@ class Folder: Item {
     // Can we see MyRSSFeeds in a separate window?
     var isContentsViewable = false
     
-    init(with title: String, isContentsViewable: Bool? = true) {
+    init(with title: String, isContentsViewable: Bool? = false) {
         super.init(with: title, type: .folder)
         self.isContentsViewable = isContentsViewable!
     }
