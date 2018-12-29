@@ -46,6 +46,7 @@ class ItemsTableViewController: UITableViewController {
                     print("\n###############################################\n")
                 }
             }
+            self.tableView.reloadData()
         }
     }
     
@@ -56,7 +57,7 @@ class ItemsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "feedItemCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedItemCell", for: indexPath)
         let currItem: MyRSSItem = myRssItems[indexPath.row]
         
         cell.textLabel?.text = currItem.title
