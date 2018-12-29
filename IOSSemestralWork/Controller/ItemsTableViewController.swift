@@ -7,22 +7,29 @@
 //
 
 import UIKit
+import Alamofire
+import AlamofireRSSParser
 
 class ItemsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fetchData()
     }
     
-//    func fetchData() {
-//        let parser = MyFeedParser()
-//        let myUrl = "http://servis.idnes.cz/rss.aspx?c=zpravodaj"
-//        parser.parseFeed(url: myUrl) { (rssItems: [RssItem]) in
-//            self.rssItems = rssItems;
-//            
-//        }
-//    }
+    func fetchData() {
+        let url = "http://servis.idnes.cz/rss.aspx?c=zpravodaj"
+        
+        Alamofire.request(url).responseRSS() { (response) -> Void in
+            if let feed: RSSFeed = response.result.value {
+                //do something with your new RSSFeed object!
+                for item in feed.items {
+                    print(item)
+                }
+            }
+        }
+    }
     
     // MARK: - Table view data source
     
