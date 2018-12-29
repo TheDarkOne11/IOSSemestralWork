@@ -11,10 +11,15 @@ import Alamofire
 import AlamofireRSSParser
 
 class ItemsTableViewController: UITableViewController {
-    var myRssItems = [MyRSSItem]()
+    var myItems = [Item]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        myItems.append(Folder(with: "All Items", isContentsViewable: false))
+        myItems.append(Folder(with: "Starred Items", isContentsViewable: false))
+        myItems.append(Folder(with: "TestFolder"))
+        myItems.append(MyRSSFeed(with: "Zpravodaj"))
         
 //        for i in 1...20 {
 //            let myItem = MyRSSItem()
@@ -22,7 +27,7 @@ class ItemsTableViewController: UITableViewController {
 //            myRssItems.append(myItem)
 //        }
         
-        fetchData()
+//        fetchData()
     }
     
     func fetchData() {
@@ -34,7 +39,7 @@ class ItemsTableViewController: UITableViewController {
                 //do something with your new RSSFeed object!
                 for item in feed.items {
                     let myItem = MyRSSItem(with: item)
-                    self.myRssItems.append(myItem)
+                    self.myItems.append(myItem)
 
                     print(myItem.title)
                     print(myItem.link)
@@ -50,14 +55,24 @@ class ItemsTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myRssItems.count
+        return myItems.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedItemCell", for: indexPath)
-        let currItem: MyRSSItem = myRssItems[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
+        let item: Item = myItems[indexPath.row]
         
-        cell.textLabel?.text = currItem.title
+        switch item.type {
+        case .folder:
+            let currItem = item as! Folder
+            cell.textLabel?.text = currItem.title + "_Folder"
+        case .myRssFeed:
+            let currItem = item as! MyRSSFeed
+            cell.textLabel?.text = currItem.title + "_MyRSSFeed"
+        case .myRssItem:
+            let currItem = item as! MyRSSItem
+            cell.textLabel?.text = currItem.title + "_MyRSSItem"
+        }
         
         return cell
     }

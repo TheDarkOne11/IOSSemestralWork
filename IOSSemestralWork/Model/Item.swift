@@ -8,10 +8,18 @@
 
 import Foundation
 
+enum ItemType {
+    case folder
+    case myRssFeed
+    case myRssItem
+}
+
 class Item {
     var title: String
+    var type: ItemType
     
-    init(with title: String) {
+    init(with title: String, type: ItemType) {
         self.title = title
+        self.type = type
     }
 }

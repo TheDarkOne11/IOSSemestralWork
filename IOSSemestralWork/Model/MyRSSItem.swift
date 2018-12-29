@@ -15,7 +15,7 @@ class MyRSSItem: Item {
     var author: String = ""
     
     init(with rssItem: RSSItem) {
-        super.init(with: rssItem.title ?? "Unknown")
+        super.init(with: rssItem.title ?? "Unknown", type: .myRssItem)
         
         self.link = rssItem.link ?? "Unknown"
         self.author = rssItem.author ?? "Unknown"

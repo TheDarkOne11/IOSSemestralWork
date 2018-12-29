@@ -10,4 +10,8 @@ import Foundation
 
 class MyRSSFeed: Item {
     var link: String = ""
+    
+    init(with title: String) {
+        super.init(with: title, type: .myRssFeed)
+    }
 }
