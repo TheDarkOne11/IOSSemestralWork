@@ -9,7 +9,7 @@
 import Foundation
 
 class Folder: Item {
-    var myRssItems = [MyRSSItem]()
+    var myRssFeeds = [MyRSSFeed]()
     
     // Can we see MyRSSFeeds in a separate window?
     var isContentsViewable = false
