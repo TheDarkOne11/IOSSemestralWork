@@ -33,7 +33,6 @@ class ItemsTableViewController: UITableViewController {
     func fetchData() {
         let url = "http://servis.idnes.cz/rss.aspx?c=zpravodaj"
 
-        print("Fetching:")
         Alamofire.request(url).responseRSS() { (response) -> Void in
             if let feed: RSSFeed = response.result.value {
                 //do something with your new RSSFeed object!
@@ -81,6 +80,8 @@ class ItemsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item: Item = myItems[indexPath.row]
+        
+        performSegue(withIdentifier: "ShowRssItems", sender: nil)
         
         switch item.type {
         case .folder:
