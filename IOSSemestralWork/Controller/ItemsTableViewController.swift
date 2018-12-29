@@ -16,13 +16,13 @@ class ItemsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for i in 1...20 {
-            let myItem = MyRSSItem()
-            myItem.title = "Title\(i)"
-            myRssItems.append(myItem)
-        }
+//        for i in 1...20 {
+//            let myItem = MyRSSItem()
+//            myItem.title = "Title\(i)"
+//            myRssItems.append(myItem)
+//        }
         
-//        fetchData()
+        fetchData()
     }
     
     func fetchData() {

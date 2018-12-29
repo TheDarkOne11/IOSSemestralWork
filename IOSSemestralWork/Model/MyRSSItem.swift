@@ -9,19 +9,14 @@
 import Foundation
 import AlamofireRSSParser
 
-class MyRSSItem {
-    var title: String = ""
+class MyRSSItem: Item {
     var link: String = ""
     var itemDescription: String = ""
     var author: String = ""
     
-    init() {
-    }
-    
-    convenience init(with rssItem: RSSItem) {
-        self.init()
+    init(with rssItem: RSSItem) {
+        super.init(with: rssItem.title ?? "Unknown")
         
-        self.title = rssItem.title ?? "Unknown"
         self.link = rssItem.link ?? "Unknown"
         self.author = rssItem.author ?? "Unknown"
         self.itemDescription = rssItem.itemDescription ?? "Unknown"
