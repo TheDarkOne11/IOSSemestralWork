@@ -13,10 +13,15 @@ import UIKit
  */
 class FolderTableVC: ItemTableVC {
     
-    var selectedFolder: Folder?
+    var selectedFolder: Folder? {
+        didSet {
+            title = selectedFolder?.title
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
 
     // MARK: Data loading

@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -171,7 +172,7 @@
                             <outlet property="delegate" destination="BZ7-lg-lld" id="fBM-8e-Kky"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="7U8-7p-826" userLabel="Navigation Item">
+                    <navigationItem key="navigationItem" title="RSS Reader" id="7U8-7p-826" userLabel="Navigation Item">
                         <barButtonItem key="leftBarButtonItem" systemItem="edit" id="86R-iQ-XQy"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="TZR-6B-YPl">
                             <connections>
@@ -248,10 +249,28 @@
                     <navigationItem key="navigationItem" title="Title" id="n0E-Jd-9lk" userLabel="Navigation Item">
                         <barButtonItem key="rightBarButtonItem" title="Simple settings" id="3nj-xG-cho"/>
                     </navigationItem>
+                    <connections>
+                        <segue destination="NxK-Ou-RbK" kind="show" identifier="ShowRssItem" id="v9s-kR-BfZ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mbf-OE-Gxv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1810" y="994"/>
+        </scene>
+        <!--RSSItem View-->
+        <scene sceneID="cGP-rl-hzG">
+            <objects>
+                <viewController id="NxK-Ou-RbK" userLabel="RSSItem View" customClass="RSSItemVC" customModule="IOSSemestralWork" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fRD-Yo-BJL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="6eC-wc-ZA5"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ktf-rp-Yaq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3154" y="994"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Aep-Hd-P28">
@@ -291,6 +310,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="g0Y-Kg-VgR"/>
+        <segue reference="nmV-WM-iEA"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -12,7 +12,11 @@ import UIKit
  Displays all RssFeedItems of the selected feed or feeds.
  */
 class RSSFeedTableVC: UITableViewController {
-    var selectedFeed: MyRSSFeed?
+    var selectedFeed: MyRSSFeed? {
+        didSet {
+            title = selectedFeed?.title
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
