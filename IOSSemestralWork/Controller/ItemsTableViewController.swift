@@ -16,6 +16,9 @@ class ItemsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // TODO: Remove
+        performSegue(withIdentifier: "ShowAddFeed", sender: nil)
+        
         myItems.append(Folder(with: "All Items"))
         myItems.append(Folder(with: "Starred Items"))
         myItems.append(Folder(with: "TestFolder", isContentsViewable: true))

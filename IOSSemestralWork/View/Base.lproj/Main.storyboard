@@ -6,9 +6,98 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--New Feed View Controller-->
+        <scene sceneID="2yH-68-6Ho">
+            <objects>
+                <viewController id="yIo-oW-5GS" customClass="NewFeedViewController" customModule="IOSSemestralWork" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="omW-3K-XD6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="61m-Jc-vdZ">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Add a new RSS Feed" id="5he-i8-wvH">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="9RW-2d-GDn">
+                                            <connections>
+                                                <action selector="cancelBtnPressed:" destination="yIo-oW-5GS" id="pIh-tN-Hy4"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="ReN-Xt-tVx">
+                                            <connections>
+                                                <action selector="saveBtnPressed:" destination="yIo-oW-5GS" id="Cki-MO-Nru"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="HlV-Cp-jx2">
+                                <rect key="frame" x="16" y="80" width="343" height="68"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="gb6-xz-9fv">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xQk-MN-BdQ">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="example.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nQt-Rv-xta">
+                                                <rect key="frame" x="66" y="0.0" width="277" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="50A-Oq-Wd0">
+                                        <rect key="frame" x="0.0" y="38" width="343" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Link:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zmd-LN-s0d">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://servis.idnes.cz/rss.aspx?c=zpravodaj" borderStyle="roundedRect" placeholder="www.example.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CVS-Ce-Ted">
+                                                <rect key="frame" x="66" y="0.0" width="277" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="gb6-xz-9fv" firstAttribute="leading" secondItem="HlV-Cp-jx2" secondAttribute="leading" id="UTV-tw-hyH"/>
+                                    <constraint firstAttribute="trailing" secondItem="50A-Oq-Wd0" secondAttribute="trailing" id="Xhb-iI-yrW"/>
+                                    <constraint firstAttribute="trailing" secondItem="gb6-xz-9fv" secondAttribute="trailing" id="cYx-nO-NqJ"/>
+                                    <constraint firstItem="nQt-Rv-xta" firstAttribute="width" secondItem="CVS-Ce-Ted" secondAttribute="width" id="deF-T6-QcZ"/>
+                                    <constraint firstItem="50A-Oq-Wd0" firstAttribute="leading" secondItem="HlV-Cp-jx2" secondAttribute="leading" id="kHA-Wn-10L"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="HlV-Cp-jx2" firstAttribute="leading" secondItem="7kQ-9s-ViQ" secondAttribute="leading" constant="16" id="Gn6-5P-wnK"/>
+                            <constraint firstItem="61m-Jc-vdZ" firstAttribute="leading" secondItem="7kQ-9s-ViQ" secondAttribute="leading" id="MnA-LY-52N"/>
+                            <constraint firstItem="HlV-Cp-jx2" firstAttribute="top" secondItem="61m-Jc-vdZ" secondAttribute="bottom" constant="16" id="S34-Yp-QUm"/>
+                            <constraint firstItem="61m-Jc-vdZ" firstAttribute="trailing" secondItem="7kQ-9s-ViQ" secondAttribute="trailing" id="e3D-ye-UBd"/>
+                            <constraint firstItem="61m-Jc-vdZ" firstAttribute="top" secondItem="7kQ-9s-ViQ" secondAttribute="top" id="eah-vR-oqE"/>
+                            <constraint firstItem="7kQ-9s-ViQ" firstAttribute="trailing" secondItem="HlV-Cp-jx2" secondAttribute="trailing" constant="16" id="vCy-uu-5Oa"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7kQ-9s-ViQ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ckq-sO-NoV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2348" y="-646"/>
+        </scene>
         <!--Title-->
         <scene sceneID="Pnh-ZL-UKu">
             <objects>
@@ -30,12 +119,15 @@
                         <connections>
                             <outlet property="dataSource" destination="BZ7-lg-lld" id="CdC-Rp-NAb"/>
                             <outlet property="delegate" destination="BZ7-lg-lld" id="fBM-8e-Kky"/>
-                            <outletCollection property="gestureRecognizers" destination="Zvq-QI-xdN" appends="YES" id="Kgc-X5-4jk"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="7U8-7p-826">
+                    <navigationItem key="navigationItem" title="Title" id="7U8-7p-826" userLabel="Navigation Item">
                         <barButtonItem key="leftBarButtonItem" systemItem="edit" id="86R-iQ-XQy"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="TZR-6B-YPl"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="TZR-6B-YPl">
+                            <connections>
+                                <segue destination="yIo-oW-5GS" kind="presentation" identifier="ShowAddFeed" id="xbT-gK-qra"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="Xga-xy-Za1" kind="show" identifier="ShowFolderContents" id="Hdz-1f-Z7t"/>
@@ -43,9 +135,6 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bBa-Ee-MKG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="Zvq-QI-xdN">
-                    <rectEdge key="edges" left="YES"/>
-                </screenEdgePanGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1308" y="134"/>
         </scene>
