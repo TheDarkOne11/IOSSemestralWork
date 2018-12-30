@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--New Feed View Controller-->
+        <!--New FeedVC-->
         <scene sceneID="30B-Ie-Z7H">
             <objects>
-                <tableViewController id="QE6-n0-ctg" customClass="NewFeedViewController" customModule="IOSSemestralWork" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="QE6-n0-ctg" customClass="NewFeedVC" customModule="IOSSemestralWork" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="19" sectionFooterHeight="18" id="jk2-z3-tYK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -151,7 +151,7 @@
         <!--Main View-->
         <scene sceneID="Pnh-ZL-UKu">
             <objects>
-                <tableViewController id="BZ7-lg-lld" userLabel="Main View" customClass="ItemsTableViewController" customModule="IOSSemestralWork" sceneMemberID="viewController">
+                <tableViewController id="BZ7-lg-lld" userLabel="Main View" customClass="ItemsTableVC" customModule="IOSSemestralWork" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="BmC-uv-pKA" userLabel="Items Table View">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -191,7 +191,7 @@
         <!--Folder View-->
         <scene sceneID="8yf-1L-oKX">
             <objects>
-                <tableViewController id="Xga-xy-Za1" userLabel="Folder View" sceneMemberID="viewController">
+                <tableViewController id="Xga-xy-Za1" userLabel="Folder View" customClass="FolderTableVC" customModule="IOSSemestralWork" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="q7N-Ux-QbZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -222,10 +222,10 @@
             </objects>
             <point key="canvasLocation" x="2348" y="134"/>
         </scene>
-        <!--RSSFeed Items View-->
+        <!--RSSFeed View-->
         <scene sceneID="Ida-0e-Yqu">
             <objects>
-                <tableViewController id="abS-kR-Rcu" userLabel="RSSFeed Items View" sceneMemberID="viewController">
+                <tableViewController id="abS-kR-Rcu" userLabel="RSSFeed View" customClass="RSSFeedTableVC" customModule="IOSSemestralWork" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="xTy-xX-Vhv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

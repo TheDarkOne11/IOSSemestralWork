@@ -10,6 +10,7 @@ import Foundation
 
 class MyRSSFeed: Item {
     var link: String = ""
+    var myRssItems = [MyRSSItem]()
     
     init(with title: String) {
         super.init(with: title, type: .myRssFeed)

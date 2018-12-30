@@ -14,11 +14,11 @@ class MyRSSItem: Item {
     var itemDescription: String = ""
     var author: String = ""
     
-    init(with rssItem: RSSItem) {
-        super.init(with: rssItem.title ?? "Unknown", type: .myRssItem)
+    init(with rssItem: RSSItem?) {
+        super.init(with: rssItem?.title ?? "Unknown", type: .myRssItem)
         
-        self.link = rssItem.link ?? "Unknown"
-        self.author = rssItem.author ?? "Unknown"
-        self.itemDescription = rssItem.itemDescription ?? "Unknown"
+        self.link = rssItem?.link ?? "Unknown"
+        self.author = rssItem?.author ?? "Unknown"
+        self.itemDescription = rssItem?.itemDescription ?? "Unknown"
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewFeedViewController: UITableViewController {
+class NewFeedVC: UITableViewController {
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var pickerTableViewCell: UITableViewCell!
     @IBOutlet weak var folderNameLabel: UILabel!
@@ -58,7 +58,7 @@ class NewFeedViewController: UITableViewController {
 
 // MARK: UIPickerView methods
 
-extension NewFeedViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+extension NewFeedVC: UIPickerViewDelegate, UIPickerViewDataSource {
     /**
      Number of columns.
      */

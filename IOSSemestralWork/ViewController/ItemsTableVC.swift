@@ -10,19 +10,25 @@ import UIKit
 import Alamofire
 import AlamofireRSSParser
 
-class ItemsTableViewController: UITableViewController {
+class ItemsTableVC: UITableViewController {
     var myItems = [Item]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // TODO: Remove
-        performSegue(withIdentifier: "ShowAddFeed", sender: nil)
+        var testFeed = MyRSSFeed(with: "Technika")
+        testFeed.myRssItems.append(MyRSSItem(with: nil))
+        
+        let testFolder = Folder(with: "TestFolder", isContentsViewable: true)
+        testFolder.myRssFeeds.append(testFeed)
+        
+        testFeed = MyRSSFeed(with: "Zpravodaj")
+        testFeed.myRssItems.append(MyRSSItem(with: nil))
         
         myItems.append(Folder(with: "All Items"))
         myItems.append(Folder(with: "Starred Items"))
-        myItems.append(Folder(with: "TestFolder", isContentsViewable: true))
-        myItems.append(MyRSSFeed(with: "Zpravodaj"))
+        myItems.append(testFolder)
+        myItems.append(testFeed)
         
 //        for i in 1...20 {
 //            let myItem = MyRSSItem()
@@ -84,26 +90,49 @@ class ItemsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item: Item = myItems[indexPath.row]
         
-        performSegue(withIdentifier: "ShowRssItems", sender: nil)
-        
         switch item.type {
         case .folder:
             let currItem = item as! Folder
+            
+            performSegue(withIdentifier: "ShowFolderContents", sender: nil)
         case .myRssFeed:
             let currItem = item as! MyRSSFeed
+            
+            performSegue(withIdentifier: "ShowRssItems", sender: nil)
         case .myRssItem:
-            let currItem = item as! MyRSSItem
+            // MyRssItems won't be visible on the main screen
+            break
         }
         
     }
     
-    /*
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let indexPath = tableView.indexPathForSelectedRow else {
+            print("IndexPath problem")
+            return
+        }
+        
+        let item = myItems[indexPath.row]
+        
+        switch item.type {
+        case .folder:
+            let folder = item as! Folder
+            let destinationVC = segue.destination as! FolderTableVC
+            
+            destinationVC.selectedFolder = folder
+        case .myRssFeed:
+            let feed = item as! MyRSSFeed
+            let destinationVC = segue.destination as! RSSFeedTableVC
+            
+            destinationVC.selectedFeed = feed
+        case .myRssItem:
+            // MyRssItems won't be visible on the main screen
+            break
+        }
+        
+        
+    }
 }
