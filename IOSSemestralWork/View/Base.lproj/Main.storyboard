@@ -151,7 +151,7 @@
         <!--Main View-->
         <scene sceneID="Pnh-ZL-UKu">
             <objects>
-                <tableViewController id="BZ7-lg-lld" userLabel="Main View" customClass="ItemsTableVC" customModule="IOSSemestralWork" sceneMemberID="viewController">
+                <tableViewController id="BZ7-lg-lld" userLabel="Main View" customClass="MainTableVC" customModule="IOSSemestralWork" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="BmC-uv-pKA" userLabel="Items Table View">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -291,6 +291,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="nmV-WM-iEA"/>
+        <segue reference="g0Y-Kg-VgR"/>
     </inferredMetricsTieBreakers>
 </document>

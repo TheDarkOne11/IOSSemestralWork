@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FolderTableVC: UITableViewController {
+class FolderTableVC: ItemTableVC {
     
     var selectedFolder: Folder?
 
@@ -16,18 +16,16 @@ class FolderTableVC: UITableViewController {
         super.viewDidLoad()
     }
 
-    // MARK: - Table view data source
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return selectedFolder?.myRssFeeds.count ?? 1
-    }
+    // MARK: Data loading
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
-        let currFeed = selectedFolder?.myRssFeeds[indexPath.row]
-        cell.textLabel?.text = currFeed?.title
+    override func loadData() {
+        super.loadData()
         
-        return cell
+        if let currRssFeeds = selectedFolder?.myRssFeeds {
+            for item in currRssFeeds {
+                myItems.append(item)
+            }
+        }
     }
 
 }

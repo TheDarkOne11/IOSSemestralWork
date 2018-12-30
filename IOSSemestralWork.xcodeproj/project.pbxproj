@@ -13,7 +13,8 @@
 		4B50A3A521D829E000462B71 /* MyRSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B50A3A421D829E000462B71 /* MyRSSFeed.swift */; };
 		4B50A3E721D83E9400462B71 /* NewFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B50A3E621D83E9400462B71 /* NewFeedVC.swift */; };
 		4B70A86C21D7A12700289496 /* MyRSSItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B70A86B21D7A12700289496 /* MyRSSItem.swift */; };
-		4BA1365D21D7947F009D4EBB /* ItemsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1365C21D7947F009D4EBB /* ItemsTableVC.swift */; };
+		4BA1365D21D7947F009D4EBB /* MainTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1365C21D7947F009D4EBB /* MainTableVC.swift */; };
+		4BD68B5F21D95F0000B3A14E /* ItemTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD68B5E21D95F0000B3A14E /* ItemTableVC.swift */; };
 		4BDFB70421D8D31100361136 /* FolderTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDFB70321D8D31000361136 /* FolderTableVC.swift */; };
 		4BDFB70621D8D82200361136 /* RSSFeedTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDFB70521D8D82200361136 /* RSSFeedTableVC.swift */; };
 		4BE8A5FB21D6CB05009B66F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */; };
@@ -30,7 +31,8 @@
 		4B50A3A421D829E000462B71 /* MyRSSFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRSSFeed.swift; sourceTree = "<group>"; };
 		4B50A3E621D83E9400462B71 /* NewFeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFeedVC.swift; sourceTree = "<group>"; };
 		4B70A86B21D7A12700289496 /* MyRSSItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRSSItem.swift; sourceTree = "<group>"; };
-		4BA1365C21D7947F009D4EBB /* ItemsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsTableVC.swift; sourceTree = "<group>"; };
+		4BA1365C21D7947F009D4EBB /* MainTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableVC.swift; sourceTree = "<group>"; };
+		4BD68B5E21D95F0000B3A14E /* ItemTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableVC.swift; sourceTree = "<group>"; };
 		4BDFB70321D8D31000361136 /* FolderTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderTableVC.swift; sourceTree = "<group>"; };
 		4BDFB70521D8D82200361136 /* RSSFeedTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedTableVC.swift; sourceTree = "<group>"; };
 		4BE8A5F721D6CB05009B66F0 /* IOSSemestralWork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOSSemestralWork.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,10 +59,11 @@
 		4BA1365E21D79490009D4EBB /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4B50A3E621D83E9400462B71 /* NewFeedVC.swift */,
-				4BA1365C21D7947F009D4EBB /* ItemsTableVC.swift */,
+				4BD68B5E21D95F0000B3A14E /* ItemTableVC.swift */,
+				4BA1365C21D7947F009D4EBB /* MainTableVC.swift */,
 				4BDFB70321D8D31000361136 /* FolderTableVC.swift */,
 				4BDFB70521D8D82200361136 /* RSSFeedTableVC.swift */,
+				4B50A3E621D83E9400462B71 /* NewFeedVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -258,7 +261,8 @@
 				4B50A3A121D8280500462B71 /* Item.swift in Sources */,
 				4B50A3A321D8290900462B71 /* Folder.swift in Sources */,
 				4B50A3A521D829E000462B71 /* MyRSSFeed.swift in Sources */,
-				4BA1365D21D7947F009D4EBB /* ItemsTableVC.swift in Sources */,
+				4BA1365D21D7947F009D4EBB /* MainTableVC.swift in Sources */,
+				4BD68B5F21D95F0000B3A14E /* ItemTableVC.swift in Sources */,
 				4B70A86C21D7A12700289496 /* MyRSSItem.swift in Sources */,
 				4BDFB70621D8D82200361136 /* RSSFeedTableVC.swift in Sources */,
 				4BDFB70421D8D31100361136 /* FolderTableVC.swift in Sources */,
