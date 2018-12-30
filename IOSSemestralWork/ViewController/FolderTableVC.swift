@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ Displays the TableView of the selected folders items.
+ */
 class FolderTableVC: ItemTableVC {
     
     var selectedFolder: Folder?

@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ Displays all RssFeedItems of the selected feed or feeds.
+ */
 class RSSFeedTableVC: UITableViewController {
     var selectedFeed: MyRSSFeed?
 

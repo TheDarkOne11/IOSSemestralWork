@@ -10,6 +10,9 @@ import UIKit
 import Alamofire
 import AlamofireRSSParser
 
+/**
+ Displays the primary TableView for all possible items.
+ */
 class MainTableVC: ItemTableVC {
     
     override func viewDidLoad() {
@@ -104,8 +107,20 @@ class MainTableVC: ItemTableVC {
         let testFolder = Folder(with: "TestFolder", isContentsViewable: true)
         testFolder.myRssFeeds.append(testFeed)
         
+        var testRssItem = MyRSSItem(with: nil)
+        testRssItem.title = "My quite long title"
+        testRssItem.author = "Petr B"
+        testRssItem.link = "www.google.com"
+        testRssItem.itemDescription = "This is the dummy RSS Item which will be displayed in a separate view."
+        
         testFeed = MyRSSFeed(with: "Zpravodaj")
-        testFeed.myRssItems.append(MyRSSItem(with: nil))
+        testFeed.myRssItems.append(testRssItem)
+        testRssItem.title = "MyTitle2"
+        testFeed.myRssItems.append(testRssItem)
+        testRssItem.title = "MyTitle4"
+        testFeed.myRssItems.append(testRssItem)
+        testRssItem.title = "MyTitle3"
+        testFeed.myRssItems.append(testRssItem)
         
         myItems.append(testFolder)
         myItems.append(testFeed)

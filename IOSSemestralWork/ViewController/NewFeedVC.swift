@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ Displays the View used for creating new feeds.
+ */
 class NewFeedVC: UITableViewController {
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var pickerTableViewCell: UITableViewCell!
