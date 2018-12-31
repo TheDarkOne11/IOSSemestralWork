@@ -17,8 +17,8 @@ class MainTableVC: ItemTableVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        fetchData()
+                
+//        fetchData()
     }
     
     // MARK: Data manipulation
