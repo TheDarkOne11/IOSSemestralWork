@@ -14,6 +14,7 @@ class RSSItemVC: UIViewController {
 
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var webView: WKWebView!
     
     func loadItem() {
         let testRssItem = MyRSSItem(with: nil)
