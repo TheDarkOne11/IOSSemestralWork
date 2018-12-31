@@ -36,17 +36,6 @@ class RSSItemVC: UIViewController {
     }
 }
 
-//
-//  String+HTML.swift
-//  AttributedString
-//
-//  Created by Costantino Pistagna on 08/11/2017.
-//  Copyright © 2017 sofapps.it All rights reserved.
-//
-
-import UIKit
-import Foundation
-
 extension UIColor {
     var hexString:String? {
         if let components = self.cgColor.components {
