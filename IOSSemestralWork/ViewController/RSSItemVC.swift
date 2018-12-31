@@ -9,11 +9,7 @@
 import UIKit
 
 class RSSItemVC: UIViewController {
-    var selectedRssItem: MyRSSItem? {
-        didSet {
-            title = selectedRssItem!.title
-        }
-    }
+    var selectedRssItem: MyRSSItem?
 
     override func viewDidLoad() {
         super.viewDidLoad()

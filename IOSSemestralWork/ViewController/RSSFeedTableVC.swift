@@ -54,6 +54,7 @@ class RSSFeedTableVC: UITableViewController {
         if segue.identifier == "ShowRssItem" {
             let destinationVC = segue.destination as! RSSItemVC
             
+            destinationVC.title = title
             destinationVC.selectedRssItem = selectedFeed?.myRssItems[indexPath.row]
         }
     }
