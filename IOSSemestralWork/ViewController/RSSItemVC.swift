@@ -12,45 +12,58 @@ import WebKit
 class RSSItemVC: UIViewController {
     var selectedRssItem: MyRSSItem?
     
-    @IBOutlet weak var webView: WKWebView!
-
+    var webView: WKWebView?
     
-    func loadItem() {
-        let testRssItem = MyRSSItem(with: nil)
-        testRssItem.title = "Prezident Zeman plánuje odpočinkový rok. Jen krátké cesty, ale znovu Čína"
-        testRssItem.author = "Unknown"
-        testRssItem.link = "https://zpravy.idnes.cz/zeman-hrad-odpocinek-zahranicni-cesty-dxg-/domaci.aspx?c=A181218_104225_domaci_jabe#utm_source=rss&utm_medium=feed&utm_campaign=zpravodaj&utm_content=main"
-        testRssItem.itemDescription = """
-        Od listopadové návštěvy v Izraeli odpočívá, na konec letošního roku si naordinoval i s hradním mluvčím Jiřím Ovčáčkem třítýdenní dovolenou. A odpočinkový režim bude mít prezident Miloš Zeman i příští rok. Zatím má v plánu pět zahraničních cest. Vyrazí opět na Slovensko a do Číny.
-        
-        <ul><b>Další články k tématu:</b><li><a href=\"https://zpravy.idnes.cz/videa-tydne-zeman-parodie-orsava-teroristicky-utok-strasburk-d1-kolaps-pocasi-soukup-urazka-barrando-ibd-/domaci.aspx?c=A181216_154745_domaci_rejs#utm_source=rss&utm_medium=feed&utm_campaign=zpravodaj&utm_content=related\">VIDEA TÝDNE: Zeman v parodii, útok ve Štrasburku a kolaps na dálnici D1</a></li><li><a href=\"https://kultura.zpravy.idnes.cz/harry-potter-zeman-parodie-video-michal-orsava-fln-/filmvideo.aspx?c=A181214_170737_filmvideo_kiz#utm_source=rss&utm_medium=feed&utm_campaign=zpravodaj&utm_content=related\">VIDEO: Takto se točila parodie na Harryho Pottera se Zemanem a Babišem</a></li><li><a href=\"https://zpravy.idnes.cz/eu-rusko-sankce-diplomacie-d0k-/zahranicni.aspx?c=A181213_185215_zahranicni_luka#utm_source=rss&utm_medium=feed&utm_campaign=zpravodaj&utm_content=related\">Zemanovi navzdory. EU znovu prodloužila hospodářské sankce proti Rusku</a></li><li><a href=\"https://zpravy.idnes.cz/zeman-vecere-adventni-lany-zamek-vlada-premier-ministri-babis-pu7-/domaci.aspx?c=A181210_183953_domaci_pmk#utm_source=rss&utm_medium=feed&utm_campaign=zpravodaj&utm_content=related\">Ministři večeřeli u prezidenta Zemana, adventní setkání se má stát tradicí</a></li></ul>
-        """
-        selectedRssItem = testRssItem
-    }
+    // Template string for javascript script thich loads data to the HTML template
+    var inputDataScript =   """
+                                document.getElementById(`title`).innerHTML = `%@`;
+                                document.getElementById(`description`).innerHTML = `%@`;
+                            """
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadItem()
         
-//        if let url = Bundle.main.url(forResource: "RSSItemFormat", withExtension: "html", subdirectory: ".") {
-//            print("Loaded")
-//            webView.loadFileURL(url, allowingReadAccessTo: url)
-//            let request = URLRequest(url: url)
-//            webView.load(request)
-//        }
         
-        if let url = URL(string: "https://www.apple.com") {
-            print("Loading")
+        // Add WebKitView into the view
+        let layoutGuide = view.safeAreaLayoutGuide
+        let webView = WKWebView(frame: .zero)
+        
+        view.addSubview(webView)
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor).isActive = true
+        webView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor).isActive = true
+        webView.topAnchor.constraint(equalTo: layoutGuide.topAnchor).isActive = true
+        webView.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor).isActive = true
+        
+        // Load HTML template
+        if let url = Bundle.main.url(forResource: "RSSItemFormat", withExtension: "html", subdirectory: ".") {
+            print("Loading webView")
+            webView.loadFileURL(url, allowingReadAccessTo: url)
             let request = URLRequest(url: url)
             webView.load(request)
         }
         
-        let contentController = WKUserContentController()
-        let scriptSource = "document.body.innerHTML = \"Hello JavaScript!\";"
-        let script = WKUserScript(source: scriptSource, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
-        contentController.addUserScript(script)
+        self.webView = webView
+        reloadPage()
+    }
+    
+    // MARK: WebView methods
+    
+    /**
+     Loads new information in the HTML template using the selectedRssItem.
+     */
+    func reloadPage() {
+        guard let webView = self.webView else { fatalError() }
         
-        webView.configuration.userContentController = contentController
+        if let rssItem = selectedRssItem {
+            let controller = webView.configuration.userContentController
+            let scriptSource = String(format: inputDataScript, rssItem.title, rssItem.itemDescription)
+            let script = WKUserScript(source: scriptSource, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+
+            controller.removeAllUserScripts()
+            controller.addUserScript(script)
+        }
+        
         webView.reload()
     }
     
@@ -58,24 +71,9 @@ class RSSItemVC: UIViewController {
     
     @IBAction func goToWebButtonPressed(_ sender: UIBarButtonItem) {
         // Open the URL in Safari
-        guard let url = URL(string: "https://www.idnes.cz") else { return }
-        UIApplication.shared.open(url)
-    }
-}
-
-extension UILabel {
-    func setHTMLFromString(htmlText: String, family: String? = "-apple-system") {
-        let modifiedFont = String(format:"<span style=\"font-family: \(family!), 'HelveticaNeue'; font-size: \(self.font!.pointSize)\">%@</span>", htmlText)
-        
-        
-        //process collection values
-        let attrStr = try! NSAttributedString(
-            data: modifiedFont.data(using: .unicode, allowLossyConversion: true)!,
-            options: [.documentType: NSAttributedString.DocumentType.html,
-                      .characterEncoding: String.Encoding.utf8.rawValue],
-            documentAttributes: nil)
-        
-        
-        self.attributedText = attrStr
+        if let link = selectedRssItem?.link {
+            guard let url = URL(string: link) else { return }
+            UIApplication.shared.open(url)
+        }
     }
 }

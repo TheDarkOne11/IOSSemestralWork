@@ -264,23 +264,7 @@
                     <view key="view" contentMode="scaleToFill" id="fRD-Yo-BJL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PvG-7W-m7N">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="PvG-7W-m7N" firstAttribute="top" secondItem="6eC-wc-ZA5" secondAttribute="top" id="1Aa-ho-R2J"/>
-                            <constraint firstItem="6eC-wc-ZA5" firstAttribute="bottom" secondItem="PvG-7W-m7N" secondAttribute="bottom" id="CjC-ZC-KuY"/>
-                            <constraint firstItem="6eC-wc-ZA5" firstAttribute="trailing" secondItem="PvG-7W-m7N" secondAttribute="trailing" id="SLO-am-UfY"/>
-                            <constraint firstItem="PvG-7W-m7N" firstAttribute="leading" secondItem="6eC-wc-ZA5" secondAttribute="leading" id="WZ2-8d-nre"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6eC-wc-ZA5"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="W5e-6e-BMT">
@@ -290,9 +274,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="webView" destination="PvG-7W-m7N" id="dbx-7d-cEo"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ktf-rp-Yaq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
