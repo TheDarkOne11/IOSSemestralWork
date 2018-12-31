@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NxK-Ou-RbK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qWe-nO-bgt">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -265,20 +265,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4T0-4q-h7Z">
-                                <rect key="frame" x="16" y="72" width="304" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qh0-Dv-6RE">
-                                <rect key="frame" x="16" y="100.5" width="304" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PvG-7W-m7N">
-                                <rect key="frame" x="16" y="137" width="288" height="423"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -288,16 +276,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="qh0-Dv-6RE" firstAttribute="top" secondItem="4T0-4q-h7Z" secondAttribute="bottom" constant="8" id="26u-gv-DIL"/>
-                            <constraint firstItem="6eC-wc-ZA5" firstAttribute="trailing" secondItem="PvG-7W-m7N" secondAttribute="trailing" constant="16" id="5LB-bV-jlT"/>
-                            <constraint firstItem="qh0-Dv-6RE" firstAttribute="leading" secondItem="6eC-wc-ZA5" secondAttribute="leading" constant="16" id="7Lv-5l-Kb8"/>
-                            <constraint firstItem="PvG-7W-m7N" firstAttribute="top" secondItem="qh0-Dv-6RE" secondAttribute="bottom" constant="16" id="NSq-Ew-O0j"/>
-                            <constraint firstItem="PvG-7W-m7N" firstAttribute="leading" secondItem="6eC-wc-ZA5" secondAttribute="leading" constant="16" id="OBf-B3-lw5"/>
-                            <constraint firstItem="4T0-4q-h7Z" firstAttribute="top" secondItem="6eC-wc-ZA5" secondAttribute="top" constant="8" id="Phy-mX-OcA"/>
-                            <constraint firstItem="4T0-4q-h7Z" firstAttribute="leading" secondItem="6eC-wc-ZA5" secondAttribute="leading" constant="16" id="TSr-kG-qYB"/>
-                            <constraint firstItem="6eC-wc-ZA5" firstAttribute="trailing" secondItem="qh0-Dv-6RE" secondAttribute="trailing" id="jot-vg-ERP"/>
-                            <constraint firstItem="6eC-wc-ZA5" firstAttribute="bottom" secondItem="PvG-7W-m7N" secondAttribute="bottom" constant="8" id="oiD-Bl-IHL"/>
-                            <constraint firstItem="4T0-4q-h7Z" firstAttribute="trailing" secondItem="6eC-wc-ZA5" secondAttribute="trailing" id="tQU-D1-uE5"/>
+                            <constraint firstItem="PvG-7W-m7N" firstAttribute="top" secondItem="6eC-wc-ZA5" secondAttribute="top" id="1Aa-ho-R2J"/>
+                            <constraint firstItem="6eC-wc-ZA5" firstAttribute="bottom" secondItem="PvG-7W-m7N" secondAttribute="bottom" id="CjC-ZC-KuY"/>
+                            <constraint firstItem="6eC-wc-ZA5" firstAttribute="trailing" secondItem="PvG-7W-m7N" secondAttribute="trailing" id="SLO-am-UfY"/>
+                            <constraint firstItem="PvG-7W-m7N" firstAttribute="leading" secondItem="6eC-wc-ZA5" secondAttribute="leading" id="WZ2-8d-nre"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6eC-wc-ZA5"/>
                     </view>
@@ -309,8 +291,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="descriptionLabel" destination="qh0-Dv-6RE" id="SkM-DV-yLo"/>
-                        <outlet property="titleLabel" destination="4T0-4q-h7Z" id="3mf-gt-3lB"/>
                         <outlet property="webView" destination="PvG-7W-m7N" id="dbx-7d-cEo"/>
                     </connections>
                 </viewController>

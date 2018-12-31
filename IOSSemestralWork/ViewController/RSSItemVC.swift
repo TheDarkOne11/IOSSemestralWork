@@ -11,10 +11,9 @@ import WebKit
 
 class RSSItemVC: UIViewController {
     var selectedRssItem: MyRSSItem?
-
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var titleLabel: UILabel!
+    
     @IBOutlet weak var webView: WKWebView!
+
     
     func loadItem() {
         let testRssItem = MyRSSItem(with: nil)
@@ -33,25 +32,32 @@ class RSSItemVC: UIViewController {
         super.viewDidLoad()
         loadItem()
         
-        if let url = Bundle.main.url(forResource: "RSSItemFormat", withExtension: "html", subdirectory: ".") {
-            print("Loaded")
-            webView.loadFileURL(url, allowingReadAccessTo: url)
+//        if let url = Bundle.main.url(forResource: "RSSItemFormat", withExtension: "html", subdirectory: ".") {
+//            print("Loaded")
+//            webView.loadFileURL(url, allowingReadAccessTo: url)
+//            let request = URLRequest(url: url)
+//            webView.load(request)
+//        }
+        
+        if let url = URL(string: "https://www.apple.com") {
+            print("Loading")
             let request = URLRequest(url: url)
             webView.load(request)
         }
-
-        let description = selectedRssItem!.itemDescription
         
-        let testStr = "Lets go now or never. <p> <b>hello</b>, <i>world</i>"
+        let contentController = WKUserContentController()
+        let scriptSource = "document.body.innerHTML = \"Hello JavaScript!\";"
+        let script = WKUserScript(source: scriptSource, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        contentController.addUserScript(script)
         
-        titleLabel.text = selectedRssItem!.title
-        descriptionLabel.setHTMLFromString(htmlText: testStr)
-        descriptionLabel.sizeToFit()
+        webView.configuration.userContentController = contentController
+        webView.reload()
     }
     
     // MARK: Navigation
     
     @IBAction func goToWebButtonPressed(_ sender: UIBarButtonItem) {
+        // Open the URL in Safari
         guard let url = URL(string: "https://www.idnes.cz") else { return }
         UIApplication.shared.open(url)
     }
