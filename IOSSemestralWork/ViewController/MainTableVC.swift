@@ -71,30 +71,34 @@ class MainTableVC: ItemTableVC {
      Passes information to the destinationVC.
      */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let indexPath = tableView.indexPathForSelectedRow else {
-            print("IndexPath problem")
+        if segue.identifier == "ShowAddFeed" {
             return
         }
-        
+
+        guard let indexPath = tableView.indexPathForSelectedRow else {
+            print("Unreacheable tableViewCell selected.")
+            fatalError()
+        }
+
         let item = myItems[indexPath.row]
-        
+
         switch item.type {
         case .folder:
             let folder = item as! Folder
             let destinationVC = segue.destination as! FolderTableVC
-            
+
             destinationVC.selectedFolder = folder
         case .myRssFeed:
             let feed = item as! MyRSSFeed
             let destinationVC = segue.destination as! RSSFeedTableVC
-            
+
             destinationVC.selectedFeed = feed
         case .myRssItem:
             // MyRssItems won't be visible on the main screen
             break
         }
-        
-        
+
+
     }
     
     // MARK: Data manipulation

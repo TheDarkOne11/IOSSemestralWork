@@ -15,7 +15,7 @@ class FolderTableVC: ItemTableVC {
     
     var selectedFolder: Folder? {
         didSet {
-            title = selectedFolder?.title
+            title = selectedFolder!.title
         }
     }
 
