@@ -18,6 +18,7 @@
 		4BD68B6121D970FE00B3A14E /* RSSItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD68B6021D970FE00B3A14E /* RSSItemVC.swift */; };
 		4BDFB70421D8D31100361136 /* FolderTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDFB70321D8D31000361136 /* FolderTableVC.swift */; };
 		4BDFB70621D8D82200361136 /* RSSFeedTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDFB70521D8D82200361136 /* RSSFeedTableVC.swift */; };
+		4BE4C06121DA369A00505A0F /* RSSItemFormat.html in Resources */ = {isa = PBXBuildFile; fileRef = 4BE4C06021DA369A00505A0F /* RSSItemFormat.html */; };
 		4BE8A5FB21D6CB05009B66F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */; };
 		4BE8A60021D6CB05009B66F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BE8A5FE21D6CB05009B66F0 /* Main.storyboard */; };
 		4BE8A60221D6CB06009B66F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BE8A60121D6CB06009B66F0 /* Assets.xcassets */; };
@@ -37,6 +38,8 @@
 		4BD68B6021D970FE00B3A14E /* RSSItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSItemVC.swift; sourceTree = "<group>"; };
 		4BDFB70321D8D31000361136 /* FolderTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderTableVC.swift; sourceTree = "<group>"; };
 		4BDFB70521D8D82200361136 /* RSSFeedTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedTableVC.swift; sourceTree = "<group>"; };
+		4BE4C06021DA369A00505A0F /* RSSItemFormat.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = RSSItemFormat.html; sourceTree = "<group>"; };
+		4BE4C06D21DA3F5B00505A0F /* SystemStyle.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = SystemStyle.css; sourceTree = "<group>"; };
 		4BE8A5F721D6CB05009B66F0 /* IOSSemestralWork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOSSemestralWork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4BE8A5FF21D6CB05009B66F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -91,6 +94,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		4BE4C06321DA38DA00505A0F /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				4BE8A60121D6CB06009B66F0 /* Assets.xcassets */,
+			);
+			path = SupportFiles;
+			sourceTree = "<group>";
+		};
 		4BE8A5EE21D6CB05009B66F0 = {
 			isa = PBXGroup;
 			children = (
@@ -116,7 +127,9 @@
 				4BA1366021D794A5009D4EBB /* Model */,
 				4BA1365F21D7949B009D4EBB /* View */,
 				4BA1365E21D79490009D4EBB /* ViewController */,
-				4BE8A60121D6CB06009B66F0 /* Assets.xcassets */,
+				4BE4C06321DA38DA00505A0F /* SupportFiles */,
+				4BE4C06021DA369A00505A0F /* RSSItemFormat.html */,
+				4BE4C06D21DA3F5B00505A0F /* SystemStyle.css */,
 				4BE8A60621D6CB06009B66F0 /* Info.plist */,
 			);
 			path = IOSSemestralWork;
@@ -200,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BE8A60521D6CB06009B66F0 /* LaunchScreen.storyboard in Resources */,
+				4BE4C06121DA369A00505A0F /* RSSItemFormat.html in Resources */,
 				4BE8A60221D6CB06009B66F0 /* Assets.xcassets in Resources */,
 				4BE8A60021D6CB05009B66F0 /* Main.storyboard in Resources */,
 			);

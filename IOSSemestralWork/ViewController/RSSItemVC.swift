@@ -32,12 +32,20 @@ class RSSItemVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadItem()
+        
+        if let url = Bundle.main.url(forResource: "RSSItemFormat", withExtension: "html", subdirectory: ".") {
+            print("Loaded")
+            webView.loadFileURL(url, allowingReadAccessTo: url)
+            let request = URLRequest(url: url)
+            webView.load(request)
+        }
 
         let description = selectedRssItem!.itemDescription
         
         let testStr = "Lets go now or never. <p> <b>hello</b>, <i>world</i>"
+        
         titleLabel.text = selectedRssItem!.title
-        descriptionLabel.setHTMLFromString(htmlText: description)
+        descriptionLabel.setHTMLFromString(htmlText: testStr)
         descriptionLabel.sizeToFit()
     }
     
