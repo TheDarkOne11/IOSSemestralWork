@@ -7,13 +7,21 @@
 //
 
 import UIKit
+import WebKit
 
 class RSSItemVC: UIViewController {
     var selectedRssItem: MyRSSItem?
 
+    @IBOutlet weak var webView: WKWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        var string = selectedRssItem!.itemDescription
+        string += string
+        string += string
+        string += string
+        string += string
+        webView.loadHTMLString(string, baseURL: nil)
     }
 
     @IBAction func goToWebButtonPressed(_ sender: UIBarButtonItem) {
