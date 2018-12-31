@@ -18,7 +18,7 @@ class MainTableVC: ItemTableVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        fetchData()
+        fetchData()
     }
     
     // MARK: Data manipulation
@@ -31,12 +31,12 @@ class MainTableVC: ItemTableVC {
                 //do something with your new RSSFeed object!
                 for item in feed.items {
                     let myItem = MyRSSItem(with: item)
-                    self.myItems.append(myItem)
+//                    self.myItems.append(myItem)
                     
-                    print(myItem.title)
-                    print(myItem.link)
-                    print(myItem.author)
-                    print(myItem.itemDescription)
+                    print("TITLE:\n\(myItem.title)")
+                    print("LINK:\n\(myItem.link)")
+                    print("AUTHOR:\n\(myItem.author)")
+                    print("DESCRIPTION:\n\(myItem.itemDescription)")
                     print("\n###############################################\n")
                 }
             }
@@ -112,18 +112,16 @@ class MainTableVC: ItemTableVC {
         testFolder.myRssFeeds.append(testFeed)
         
         var testRssItem = MyRSSItem(with: nil)
-        testRssItem.title = "My quite long title"
-        testRssItem.author = "Petr B"
-        testRssItem.link = "www.google.com"
-        testRssItem.itemDescription = "This is the dummy RSS Item which will be displayed in a separate view."
+        testRssItem.title = "Prezident Zeman plánuje odpočinkový rok. Jen krátké cesty, ale znovu Čína"
+        testRssItem.author = "Unknown"
+        testRssItem.link = "https://zpravy.idnes.cz/zeman-hrad-odpocinek-zahranicni-cesty-dxg-/domaci.aspx?c=A181218_104225_domaci_jabe#utm_source=rss&utm_medium=feed&utm_campaign=zpravodaj&utm_content=main"
+        testRssItem.itemDescription = """
+        Od listopadové návštěvy v Izraeli odpočívá, na konec letošního roku si naordinoval i s hradním mluvčím Jiřím Ovčáčkem třítýdenní dovolenou. A odpočinkový režim bude mít prezident Miloš Zeman i příští rok. Zatím má v plánu pět zahraničních cest. Vyrazí opět na Slovensko a do Číny.
+
+        <ul><b>Další články k tématu:</b><li><a href=\"https://zpravy.idnes.cz/videa-tydne-zeman-parodie-orsava-teroristicky-utok-strasburk-d1-kolaps-pocasi-soukup-urazka-barrando-ibd-/domaci.aspx?c=A181216_154745_domaci_rejs#utm_source=rss&utm_medium=feed&utm_campaign=zpravodaj&utm_content=related\">VIDEA TÝDNE: Zeman v parodii, útok ve Štrasburku a kolaps na dálnici D1</a></li><li><a href=\"https://kultura.zpravy.idnes.cz/harry-potter-zeman-parodie-video-michal-orsava-fln-/filmvideo.aspx?c=A181214_170737_filmvideo_kiz#utm_source=rss&utm_medium=feed&utm_campaign=zpravodaj&utm_content=related\">VIDEO: Takto se točila parodie na Harryho Pottera se Zemanem a Babišem</a></li><li><a href=\"https://zpravy.idnes.cz/eu-rusko-sankce-diplomacie-d0k-/zahranicni.aspx?c=A181213_185215_zahranicni_luka#utm_source=rss&utm_medium=feed&utm_campaign=zpravodaj&utm_content=related\">Zemanovi navzdory. EU znovu prodloužila hospodářské sankce proti Rusku</a></li><li><a href=\"https://zpravy.idnes.cz/zeman-vecere-adventni-lany-zamek-vlada-premier-ministri-babis-pu7-/domaci.aspx?c=A181210_183953_domaci_pmk#utm_source=rss&utm_medium=feed&utm_campaign=zpravodaj&utm_content=related\">Ministři večeřeli u prezidenta Zemana, adventní setkání se má stát tradicí</a></li></ul>
+        """
         
         testFeed = MyRSSFeed(with: "Zpravodaj")
-        testFeed.myRssItems.append(testRssItem)
-        testRssItem.title = "MyTitle2"
-        testFeed.myRssItems.append(testRssItem)
-        testRssItem.title = "MyTitle4"
-        testFeed.myRssItems.append(testRssItem)
-        testRssItem.title = "MyTitle3"
         testFeed.myRssItems.append(testRssItem)
         
         myItems.append(testFolder)
