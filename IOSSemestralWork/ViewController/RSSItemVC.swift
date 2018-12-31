@@ -9,11 +9,19 @@
 import UIKit
 
 class RSSItemVC: UIViewController {
-    var selectedRssItem: MyRSSItem?
+    var selectedRssItem: MyRSSItem? {
+        didSet {
+            title = selectedRssItem!.title
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
 
+    @IBAction func goToWebButtonPressed(_ sender: UIBarButtonItem) {
+        guard let url = URL(string: "https://www.idnes.cz") else { return }
+        UIApplication.shared.open(url)
+    }
 }

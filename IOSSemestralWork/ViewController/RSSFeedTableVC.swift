@@ -14,7 +14,7 @@ import UIKit
 class RSSFeedTableVC: UITableViewController {
     var selectedFeed: MyRSSFeed? {
         didSet {
-            title = selectedFeed?.title
+            title = selectedFeed!.title
         }
     }
 
@@ -34,5 +34,27 @@ class RSSFeedTableVC: UITableViewController {
         cell.textLabel?.text = currRssItem?.title
         
         return cell
+    }
+    
+    // MARK: Table view delegate methods
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "ShowRssItem", sender: nil)
+        
+    }
+    
+    // MARK: Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let indexPath = tableView.indexPathForSelectedRow else {
+            print("Unreacheable tableViewCell selected.")
+            fatalError()
+        }
+        
+        if segue.identifier == "ShowRssItem" {
+            let destinationVC = segue.destination as! RSSItemVC
+            
+            destinationVC.selectedRssItem = selectedFeed?.myRssItems[indexPath.row]
+        }
     }
 }

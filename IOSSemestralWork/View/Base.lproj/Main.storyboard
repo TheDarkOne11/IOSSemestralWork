@@ -264,13 +264,46 @@
                     <view key="view" contentMode="scaleToFill" id="fRD-Yo-BJL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GeO-5R-xZN">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cBY-jo-6id" userLabel="ContentView">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.90438732079999995" green="0.96620899439999997" blue="0.2010596167" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="cBY-jo-6id" firstAttribute="leading" secondItem="GeO-5R-xZN" secondAttribute="leading" id="1Qh-HP-eSs"/>
+                                    <constraint firstAttribute="bottom" secondItem="cBY-jo-6id" secondAttribute="bottom" id="3o3-o5-2Ug"/>
+                                    <constraint firstItem="cBY-jo-6id" firstAttribute="height" secondItem="GeO-5R-xZN" secondAttribute="height" id="9AQ-qf-urT"/>
+                                    <constraint firstItem="cBY-jo-6id" firstAttribute="width" secondItem="GeO-5R-xZN" secondAttribute="width" id="NaW-kw-jg7"/>
+                                    <constraint firstItem="cBY-jo-6id" firstAttribute="top" secondItem="GeO-5R-xZN" secondAttribute="top" id="VtP-O5-BBc"/>
+                                    <constraint firstAttribute="trailing" secondItem="cBY-jo-6id" secondAttribute="trailing" id="nb7-08-TOd"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="GeO-5R-xZN" firstAttribute="leading" secondItem="6eC-wc-ZA5" secondAttribute="leading" id="7ab-35-DZT"/>
+                            <constraint firstItem="GeO-5R-xZN" firstAttribute="bottom" secondItem="6eC-wc-ZA5" secondAttribute="bottom" id="TdY-GO-9wX"/>
+                            <constraint firstItem="GeO-5R-xZN" firstAttribute="top" secondItem="6eC-wc-ZA5" secondAttribute="top" id="bpv-gy-evi"/>
+                            <constraint firstItem="GeO-5R-xZN" firstAttribute="trailing" secondItem="6eC-wc-ZA5" secondAttribute="trailing" id="uV5-cO-h3o"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6eC-wc-ZA5"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="W5e-6e-BMT">
+                        <barButtonItem key="rightBarButtonItem" title="GoToWeb" id="Vgt-9i-Bbx">
+                            <connections>
+                                <action selector="goToWebButtonPressed:" destination="NxK-Ou-RbK" id="IPO-Pg-z1a"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ktf-rp-Yaq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3154" y="994"/>
+            <point key="canvasLocation" x="3152.8000000000002" y="993.55322338830592"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Aep-Hd-P28">
