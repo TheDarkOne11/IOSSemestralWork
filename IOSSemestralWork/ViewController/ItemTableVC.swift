@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ItemTableVC: UITableViewController {
     var myItems = [Item]()
+    
+    let realm = try! Realm()
 
     override func viewDidLoad() {
         super.viewDidLoad()

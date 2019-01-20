@@ -19,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection id="0hf-FY-6a2">
+                            <tableViewSection headerTitle="Feed details" id="0hf-FY-6a2">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="OTf-M2-A0Z">
-                                        <rect key="frame" x="0.0" y="35" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OTf-M2-A0Z" id="Vgo-IB-tze">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -44,7 +44,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="PdA-dl-reg">
-                                        <rect key="frame" x="0.0" y="79" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="99.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PdA-dl-reg" id="yyT-5j-Iye">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -70,19 +70,44 @@
                             <tableViewSection headerTitle="Specify folder" id="56d-GW-Zhx">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="7LH-zd-3KO">
-                                        <rect key="frame" x="0.0" y="179" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="199.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7LH-zd-3KO" id="LOx-ZJ-eAT">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Folder: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2t5-yg-ri3">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Add a new Folder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2t5-yg-ri3" userLabel="Folder:">
+                                                    <rect key="frame" x="16" y="8" width="288" height="27.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="2t5-yg-ri3" firstAttribute="top" secondItem="LOx-ZJ-eAT" secondAttribute="top" constant="8" id="EU1-bH-EU9"/>
+                                                <constraint firstAttribute="trailing" secondItem="2t5-yg-ri3" secondAttribute="trailing" constant="16" id="KcF-Pb-UFX"/>
+                                                <constraint firstAttribute="bottom" secondItem="2t5-yg-ri3" secondAttribute="bottom" constant="8" id="rsw-OM-z5V"/>
+                                                <constraint firstItem="2t5-yg-ri3" firstAttribute="leading" secondItem="LOx-ZJ-eAT" secondAttribute="leading" constant="16" id="x53-2F-UNu"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="CmG-zd-zVx" kind="show" identifier="ShowCreateNewFolder" id="1h4-0U-zKN"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="GnF-0B-me4">
+                                        <rect key="frame" x="0.0" y="243.5" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GnF-0B-me4" id="27A-6q-aBK">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Folder: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GR0-gH-feX">
                                                     <rect key="frame" x="16" y="8" width="178.5" height="27.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FolderName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3HA-oz-nm8">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FolderName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N8x-qE-ghg">
                                                     <rect key="frame" x="210.5" y="8" width="93.5" height="27.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -90,18 +115,18 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="3HA-oz-nm8" secondAttribute="trailing" constant="16" id="I9C-4i-w4U"/>
-                                                <constraint firstItem="2t5-yg-ri3" firstAttribute="leading" secondItem="LOx-ZJ-eAT" secondAttribute="leading" constant="16" id="LtG-xm-anb"/>
-                                                <constraint firstAttribute="bottom" secondItem="3HA-oz-nm8" secondAttribute="bottom" constant="8" id="Lup-WA-JfW"/>
-                                                <constraint firstAttribute="bottom" secondItem="2t5-yg-ri3" secondAttribute="bottom" constant="8" id="iom-EP-sXU"/>
-                                                <constraint firstItem="2t5-yg-ri3" firstAttribute="top" secondItem="LOx-ZJ-eAT" secondAttribute="top" constant="8" id="kQQ-K6-Rlc"/>
-                                                <constraint firstItem="3HA-oz-nm8" firstAttribute="leading" secondItem="2t5-yg-ri3" secondAttribute="trailing" constant="16" id="lpT-sU-KwM"/>
-                                                <constraint firstItem="3HA-oz-nm8" firstAttribute="top" secondItem="LOx-ZJ-eAT" secondAttribute="top" constant="8" id="pmU-js-zL4"/>
+                                                <constraint firstAttribute="bottom" secondItem="GR0-gH-feX" secondAttribute="bottom" constant="8" id="41G-zL-W3d"/>
+                                                <constraint firstAttribute="bottom" secondItem="N8x-qE-ghg" secondAttribute="bottom" constant="8" id="AsA-A4-43v"/>
+                                                <constraint firstAttribute="trailing" secondItem="N8x-qE-ghg" secondAttribute="trailing" constant="16" id="REn-U3-k4y"/>
+                                                <constraint firstItem="GR0-gH-feX" firstAttribute="top" secondItem="27A-6q-aBK" secondAttribute="top" constant="8" id="WKJ-MR-Sle"/>
+                                                <constraint firstItem="N8x-qE-ghg" firstAttribute="top" secondItem="27A-6q-aBK" secondAttribute="top" constant="8" id="bDS-Gm-RSQ"/>
+                                                <constraint firstItem="N8x-qE-ghg" firstAttribute="leading" secondItem="GR0-gH-feX" secondAttribute="trailing" constant="16" id="ol7-gX-iWe"/>
+                                                <constraint firstItem="GR0-gH-feX" firstAttribute="leading" secondItem="27A-6q-aBK" secondAttribute="leading" constant="16" id="vUo-rK-NOl"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Bhn-vW-xBV">
-                                        <rect key="frame" x="0.0" y="223" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="287.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bhn-vW-xBV" id="i0r-2y-2Bf">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -140,7 +165,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="folderNameLabel" destination="3HA-oz-nm8" id="EuS-6L-waW"/>
+                        <outlet property="folderNameLabel" destination="N8x-qE-ghg" id="pOc-lL-f4i"/>
                         <outlet property="picker" destination="fXz-Vr-Qhc" id="wzJ-h8-dIs"/>
                         <outlet property="pickerTableViewCell" destination="Bhn-vW-xBV" id="t5U-lR-8Uq"/>
                     </connections>
@@ -148,6 +173,58 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HBS-mb-Psi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3287.1999999999998" y="-622.03898050974522"/>
+        </scene>
+        <!--New Folder View-->
+        <scene sceneID="Vmm-JR-hux">
+            <objects>
+                <tableViewController id="CmG-zd-zVx" userLabel="New Folder View" customClass="NewFolderVC" customModule="IOSSemestralWork" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="4o0-Lo-rW5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="rVx-Sz-gX2">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="CQc-fJ-a0o">
+                                        <rect key="frame" x="0.0" y="35" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CQc-fJ-a0o" id="7br-aa-aqb">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Folder title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gjW-dV-bFd">
+                                                    <rect key="frame" x="16" y="8" width="288" height="27.5"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <action selector="createFolder:" destination="CmG-zd-zVx" eventType="primaryActionTriggered" id="OcO-o3-F1J"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="gjW-dV-bFd" secondAttribute="trailing" constant="16" id="1J0-Lj-YIf"/>
+                                                <constraint firstItem="gjW-dV-bFd" firstAttribute="top" secondItem="7br-aa-aqb" secondAttribute="top" constant="8" id="MYC-h3-5mY"/>
+                                                <constraint firstAttribute="bottom" secondItem="gjW-dV-bFd" secondAttribute="bottom" constant="8" id="q4Y-CD-nha"/>
+                                                <constraint firstItem="gjW-dV-bFd" firstAttribute="leading" secondItem="7br-aa-aqb" secondAttribute="leading" constant="16" id="sNJ-jV-Di9"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="CmG-zd-zVx" id="NAn-22-K2E"/>
+                            <outlet property="delegate" destination="CmG-zd-zVx" id="EYu-Vq-pTI"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="folderName" destination="gjW-dV-bFd" id="5b8-E4-FIF"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hz4-Ak-g7b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4498" y="-622"/>
         </scene>
         <!--Main View-->
         <scene sceneID="Pnh-ZL-UKu">
