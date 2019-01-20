@@ -18,7 +18,7 @@ class MyRSSItem: Item {
         super.init(with: rssItem?.title ?? "Unknown", type: .myRssItem)
         
         self.link = rssItem?.link ?? "Unknown"
-        self.author = rssItem?.author ?? "Unknown"
+        self.author = rssItem?.author ?? "Unknown author"
         self.itemDescription = rssItem?.itemDescription ?? "Unknown"
     }
 }
