@@ -2,19 +2,29 @@ PODS:
   - Alamofire (4.8.0)
   - AlamofireRSSParser (2.2.0):
     - Alamofire
+  - Realm (3.13.0):
+    - Realm/Headers (= 3.13.0)
+  - Realm/Headers (3.13.0)
+  - RealmSwift (3.13.0):
+    - Realm (= 3.13.0)
 
 DEPENDENCIES:
   - AlamofireRSSParser
+  - RealmSwift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireRSSParser
+    - Realm
+    - RealmSwift
 
 SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   AlamofireRSSParser: 4feb3c8cedf1fba2759ba30cf37cdf6ba45efd38
+  Realm: 5edd2ee65406aef591a4f9895de5a3440e51b3d8
+  RealmSwift: be5ebc7930e37cd3376b41cec7f21984528aaa16
 
-PODFILE CHECKSUM: 02f0430163ef4403cd5d2d3fca2a208e9e21b3c2
+PODFILE CHECKSUM: 9490f865f1b1bcc08b8db1f19c733450d1cac0fa
 
 COCOAPODS: 1.5.3

@@ -7,4 +7,5 @@ target 'IOSSemestralWork' do
 
     # Pods for IOSSemestralWork
     pod 'AlamofireRSSParser'
+    pod 'RealmSwift'
 end
