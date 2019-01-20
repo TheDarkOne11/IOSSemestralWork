@@ -13,8 +13,11 @@ protocol NewFolderDelegate {
     func createFolder(with title: String)
 }
 
+/**
+ Displays the View used for creating new folders.
+ */
 class NewFolderVC: UITableViewController {
-    @IBOutlet weak var folderName: UITextField!
+    @IBOutlet weak var folderNameLabel: UITextField!
     
     var delegate: NewFolderDelegate!
     
@@ -23,7 +26,7 @@ class NewFolderVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        folderName.becomeFirstResponder()
+        folderNameLabel.becomeFirstResponder()
     }
     
     /**

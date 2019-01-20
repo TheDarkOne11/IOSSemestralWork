@@ -18,7 +18,7 @@ class MainTableVC: ItemTableVC {
     override func viewDidLoad() {
         super.viewDidLoad()
                 
-//        fetchData()
+        fetchData()
     }
     
     // MARK: Data manipulation
@@ -72,6 +72,9 @@ class MainTableVC: ItemTableVC {
      */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowAddFeed" {
+            let destinationVC = segue.destination as! NewFeedVC
+            destinationVC.delegate = self
+            
             return
         }
 
@@ -105,7 +108,7 @@ class MainTableVC: ItemTableVC {
     
     override func loadData() {
         super.loadData()
-        var testFeed = MyRSSFeed(with: "Technika")
+        var testFeed = MyRSSFeed(with: "Technika", link: "http://www.google.com")
         testFeed.myRssItems.append(MyRSSItem(with: nil))
         
         let testFolder = Folder(with: "TestFolder", isContentsViewable: true)
@@ -121,10 +124,24 @@ class MainTableVC: ItemTableVC {
         <ul><b>Další články k tématu:</b><li><a href=\"https://zpravy.idnes.cz/videa-tydne-zeman-parodie-orsava-teroristicky-utok-strasburk-d1-kolaps-pocasi-soukup-urazka-barrando-ibd-/domaci.aspx?c=A181216_154745_domaci_rejs#utm_source=rss&utm_medium=feed&utm_campaign=zpravodaj&utm_content=related\">VIDEA TÝDNE: Zeman v parodii, útok ve Štrasburku a kolaps na dálnici D1</a></li><li><a href=\"https://kultura.zpravy.idnes.cz/harry-potter-zeman-parodie-video-michal-orsava-fln-/filmvideo.aspx?c=A181214_170737_filmvideo_kiz#utm_source=rss&utm_medium=feed&utm_campaign=zpravodaj&utm_content=related\">VIDEO: Takto se točila parodie na Harryho Pottera se Zemanem a Babišem</a></li><li><a href=\"https://zpravy.idnes.cz/eu-rusko-sankce-diplomacie-d0k-/zahranicni.aspx?c=A181213_185215_zahranicni_luka#utm_source=rss&utm_medium=feed&utm_campaign=zpravodaj&utm_content=related\">Zemanovi navzdory. EU znovu prodloužila hospodářské sankce proti Rusku</a></li><li><a href=\"https://zpravy.idnes.cz/zeman-vecere-adventni-lany-zamek-vlada-premier-ministri-babis-pu7-/domaci.aspx?c=A181210_183953_domaci_pmk#utm_source=rss&utm_medium=feed&utm_campaign=zpravodaj&utm_content=related\">Ministři večeřeli u prezidenta Zemana, adventní setkání se má stát tradicí</a></li></ul>
         """
         
-        testFeed = MyRSSFeed(with: "Zpravodaj")
+        testFeed = MyRSSFeed(with: "Zpravodaj", link: "http://www.google.com")
         testFeed.myRssItems.append(testRssItem)
         
         myItems.append(testFolder)
         myItems.append(testFeed)
     }
+}
+
+
+extension MainTableVC: NewFeedDelegate {
+    func validateFeed(feed myRssFeed: MyRSSFeed) -> Bool {
+        // Validate the feeds link
+        
+        return true
+    }
+    
+    func feedCreated() {
+        // Get feed data & update table view controller
+    }
+    
 }

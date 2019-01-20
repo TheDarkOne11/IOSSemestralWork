@@ -18,10 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        // Initialize realm for the first time. That should be the only time an exception is thrown.
         do {
             let realm = try Realm()
         } catch {
-            print("Error initializing new Realm: \(error)")
+            print("Error initializing new Realm for the first time: \(error)")
         }
         
         return true

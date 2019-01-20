@@ -13,7 +13,8 @@ class MyRSSFeed: Item {
     @objc dynamic var link: String = ""
     let myRssItems = List<MyRSSItem>()
     
-    convenience init(with title: String) {
+    convenience init(with title: String, link: String) {
         self.init(with: title, type: .myRssFeed)
+        self.link = link
     }
 }

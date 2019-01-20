@@ -165,6 +165,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="feedLinkLabel" destination="PUq-Pj-bpq" id="OWr-QA-hJc"/>
+                        <outlet property="feedNameLabel" destination="xY9-3H-EbL" id="56f-fN-viJ"/>
                         <outlet property="folderNameLabel" destination="N8x-qE-ghg" id="pOc-lL-f4i"/>
                         <outlet property="picker" destination="fXz-Vr-Qhc" id="wzJ-h8-dIs"/>
                         <outlet property="pickerTableViewCell" destination="Bhn-vW-xBV" id="t5U-lR-8Uq"/>
@@ -219,7 +221,7 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="folderName" destination="gjW-dV-bFd" id="5b8-E4-FIF"/>
+                        <outlet property="folderNameLabel" destination="gjW-dV-bFd" id="5b8-E4-FIF"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hz4-Ak-g7b" userLabel="First Responder" sceneMemberID="firstResponder"/>

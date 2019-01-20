@@ -9,6 +9,19 @@
 import UIKit
 import RealmSwift
 
+protocol NewFeedDelegate {
+    /**
+     Runs before the feed is added to Realm.
+     Checks if the feed has a functional link.
+     */
+    func validateFeed(feed myRssFeed: MyRSSFeed) -> Bool
+    
+    /**
+     Runs after the feed is added to Realm.
+     */
+    func feedCreated()
+}
+
 /**
  Displays the View used for creating new feeds.
  */
@@ -16,8 +29,12 @@ class NewFeedVC: UITableViewController {
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var pickerTableViewCell: UITableViewCell!
     @IBOutlet weak var folderNameLabel: UILabel!
+    @IBOutlet weak var feedNameLabel: UITextField!
+    @IBOutlet weak var feedLinkLabel: UITextField!
     
     let realm = try! Realm()
+    
+    var delegate: NewFeedDelegate!
     
     var folders: Results<Folder>?
     
@@ -47,6 +64,28 @@ class NewFeedVC: UITableViewController {
     
     @IBAction func saveBtnPressed(_ sender: UIBarButtonItem) {
         // TODO: Save feed, fetch its items
+        
+        var title = feedNameLabel.text!
+        if title == "" {
+            title = feedLinkLabel.text!
+        }
+        let myRssFeed = MyRSSFeed(with: title, link: feedLinkLabel.text!)
+        
+        if !delegate.validateFeed(feed: myRssFeed) {
+            return
+        }
+        
+        // Save the new feed to the selected folder
+        do {
+            try realm.write {
+                let selectedFolder = folders![picker.selectedRow(inComponent: 0)]
+                selectedFolder.myRssFeeds.append(myRssFeed)
+                
+                delegate.feedCreated()
+            }
+        } catch {
+            print("Error occured when creating a new MyRSSFeed: \(error)")
+        }
         
         dismiss(animated: true, completion: nil)
     }
@@ -111,15 +150,10 @@ extension NewFeedVC: NewFolderDelegate {
             print("Could not add a new folder to Realm: \(error)")
         }
         
-        picker.reloadAllComponents()
+//        picker.reloadAllComponents()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let indexPath = tableView.indexPathForSelectedRow else {
-            print("Unreacheable tableViewCell selected.")
-            fatalError()
-        }
-        
         if segue.identifier == "ShowCreateNewFolder" {
             let destinationVC = segue.destination as! NewFolderVC
             destinationVC.delegate = self
