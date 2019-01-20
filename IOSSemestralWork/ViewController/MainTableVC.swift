@@ -34,7 +34,7 @@ class MainTableVC: ItemTableVC {
 //                    self.myItems.append(myItem)
                     
                     print("TITLE:\n\(myItem.title)")
-                    print("LINK:\n\(myItem.link)")
+                    print("LINK:\n\(myItem.articleLink)")
                     print("AUTHOR:\n\(myItem.author)")
                     print("DESCRIPTION:\n\(myItem.itemDescription)")
                     print("\n###############################################\n")
@@ -114,7 +114,7 @@ class MainTableVC: ItemTableVC {
         var testRssItem = MyRSSItem(with: nil)
         testRssItem.title = "Prezident Zeman plánuje odpočinkový rok. Jen krátké cesty, ale znovu Čína"
         testRssItem.author = "Unknown"
-        testRssItem.link = "https://zpravy.idnes.cz/zeman-hrad-odpocinek-zahranicni-cesty-dxg-/domaci.aspx?c=A181218_104225_domaci_jabe#utm_source=rss&utm_medium=feed&utm_campaign=zpravodaj&utm_content=main"
+        testRssItem.articleLink = "https://zpravy.idnes.cz/zeman-hrad-odpocinek-zahranicni-cesty-dxg-/domaci.aspx?c=A181218_104225_domaci_jabe#utm_source=rss&utm_medium=feed&utm_campaign=zpravodaj&utm_content=main"
         testRssItem.itemDescription = """
         Od listopadové návštěvy v Izraeli odpočívá, na konec letošního roku si naordinoval i s hradním mluvčím Jiřím Ovčáčkem třítýdenní dovolenou. A odpočinkový režim bude mít prezident Miloš Zeman i příští rok. Zatím má v plánu pět zahraničních cest. Vyrazí opět na Slovensko a do Číny.
 

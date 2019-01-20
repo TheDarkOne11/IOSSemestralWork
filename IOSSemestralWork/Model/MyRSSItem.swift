@@ -10,14 +10,14 @@ import Foundation
 import AlamofireRSSParser
 
 class MyRSSItem: Item {
-    var link: String = ""
-    var itemDescription: String = ""
-    var author: String = ""
+    @objc dynamic var articleLink: String = ""
+    @objc dynamic var itemDescription: String = ""
+    @objc dynamic var author: String = ""
     
-    init(with rssItem: RSSItem?) {
-        super.init(with: rssItem?.title ?? "Unknown", type: .myRssItem)
+    convenience init(with rssItem: RSSItem?) {
+        self.init(with: rssItem?.title ?? "Unknown", type: .myRssItem)
         
-        self.link = rssItem?.link ?? "Unknown"
+        self.articleLink = rssItem?.link ?? "Unknown"
         self.author = rssItem?.author ?? "Unknown author"
         self.itemDescription = rssItem?.itemDescription ?? "Unknown"
     }

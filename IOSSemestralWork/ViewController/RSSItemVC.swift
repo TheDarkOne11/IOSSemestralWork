@@ -98,7 +98,7 @@ class RSSItemVC: UIViewController {
     
     @IBAction func goToWebButtonPressed(_ sender: UIBarButtonItem) {
         // Open the URL in Safari
-        if let link = selectedRssItem?.link {
+        if let link = selectedRssItem?.articleLink {
             guard let url = URL(string: link) else { return }
             UIApplication.shared.open(url)
         }

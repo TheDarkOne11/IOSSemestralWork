@@ -7,15 +7,16 @@
 //
 
 import Foundation
+import RealmSwift
 
 class Folder: Item {
-    var myRssFeeds = [MyRSSFeed]()
+    let myRssFeeds = List<MyRSSFeed>()
     
     // Can we see MyRSSFeeds in a separate window?
-    var isContentsViewable = false
+    @objc dynamic var isContentsViewable = false
     
-    init(with title: String, isContentsViewable: Bool? = false) {
-        super.init(with: title, type: .folder)
+    convenience init(with title: String, isContentsViewable: Bool? = false) {
+        self.init(with: title, type: .folder)
         self.isContentsViewable = isContentsViewable!
     }
 }

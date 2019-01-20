@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import RealmSwift
 
 class MyRSSFeed: Item {
-    var link: String = ""
-    var myRssItems = [MyRSSItem]()
+    @objc dynamic var link: String = ""
+    let myRssItems = List<MyRSSItem>()
     
-    init(with title: String) {
-        super.init(with: title, type: .myRssFeed)
+    convenience init(with title: String) {
+        self.init(with: title, type: .myRssFeed)
     }
 }
