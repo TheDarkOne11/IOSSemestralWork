@@ -50,7 +50,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://servis.idnes.cz/rss.aspx?c=zpravodaj" placeholder="RSS Feed link" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PUq-Pj-bpq">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://feeds.foxnews.com/foxnews/latest" placeholder="RSS Feed link" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PUq-Pj-bpq">
                                                     <rect key="frame" x="16" y="8" width="288" height="27.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -252,7 +252,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="RSS Reader" id="7U8-7p-826" userLabel="Navigation Item">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="86R-iQ-XQy"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="86R-iQ-XQy">
+                            <connections>
+                                <action selector="editBtnPressed:" destination="BZ7-lg-lld" id="mK0-WF-5kV"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="TZR-6B-YPl">
                             <connections>
                                 <segue destination="lfg-gO-O5g" kind="presentation" identifier="ShowAddFeed" id="bkH-4O-uYg"/>
@@ -396,6 +400,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="nmV-WM-iEA"/>
+        <segue reference="g0Y-Kg-VgR"/>
     </inferredMetricsTieBreakers>
 </document>

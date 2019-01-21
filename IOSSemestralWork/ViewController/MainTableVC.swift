@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import AlamofireRSSParser
+import RealmSwift
 
 /**
  Displays the primary TableView for all possible items.
@@ -17,31 +18,95 @@ class MainTableVC: ItemTableVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        fetchData()
+                        
+//        fetchData()
+    }
+    
+    @IBAction func editBtnPressed(_ sender: UIBarButtonItem) {
+        // TODO: Temporary code, remove!
+        let realm = try! Realm()
+        let folders = realm.objects(Folder.self)
+        
+        for folder in folders {
+            for feed in folder.myRssFeeds {
+                update(feed: feed)
+            }
+        }
     }
     
     // MARK: Data manipulation
     
     func fetchData() {
-        let url = "http://servis.idnes.cz/rss.aspx?c=zpravodaj"
+//        let url = "http://servis.idnes.cz/rss.aspx?c=zpravodaj"
+//        let url = "http://google.com"
+//        let url = "http://budikpet.com"
+        let url = "http://feeds.foxnews.com/foxnews/latest"
         
-        Alamofire.request(url).responseRSS() { (response) -> Void in
-            if let feed: RSSFeed = response.result.value {
-                //do something with your new RSSFeed object!
-                for item in feed.items {
-                    let myItem = MyRSSItem(with: item)
-//                    self.myItems.append(myItem)
-                    
-                    print("TITLE:\n\(myItem.title)")
-                    print("LINK:\n\(myItem.articleLink)")
-                    print("AUTHOR:\n\(myItem.author)")
-                    print("DESCRIPTION:\n\(myItem.itemDescription)")
-                    print("\n###############################################\n")
+        Alamofire.request(url)
+            .responseRSS() { (response) -> Void in
+                
+                print("response.result.isFailure: \(response.result.isFailure)")
+                print("response.result.isSuccess: \(response.result.isSuccess)")
+                
+                if(response.result.isFailure) {
+                    // TODO: Return internet offline or website doesn't exist
+                    print(response.error)
+                    return
                 }
-            }
-            self.tableView.reloadData()
+                
+                if let feed: RSSFeed = response.result.value {
+                    
+                    //do something with your new RSSFeed object!
+                    for item in feed.items {
+                        let myItem = MyRSSItem(with: item)
+                        //                    self.myItems.append(myItem)
+                        
+                        print("TITLE:\n\(myItem.title)")
+                        print("LINK:\n\(myItem.articleLink)")
+                        print("AUTHOR:\n\(myItem.author)")
+                        print("DESCRIPTION:\n\(myItem.itemDescription)")
+                        print("\n###############################################\n")
+                    }
+                }
+                self.tableView.reloadData()
         }
+    }
+    
+    /**
+     Downloads items of the selected feed using AlamofireRSSParser.
+     */
+    func update(feed myRssFeed: MyRSSFeed) {
+        
+        Alamofire.request(myRssFeed.link).responseRSS() { (response) -> Void in
+            
+            if(response.result.isFailure) {
+                // TODO: Return internet offline or website doesn't exist
+                print(response.error!)
+                return
+            }
+            
+            if let feed: RSSFeed = response.result.value {
+                
+                if(feed.items.count == 0 && feed.link == nil && feed.title == nil) {
+                    // TODO: Return website is not an RSS feed
+                    return
+                }
+                
+                // Add all items to the MyRSSFeed
+                do {
+                    try self.realm.write {
+                        for item in feed.items {
+                            let myItem = MyRSSItem(with: item)
+                            myRssFeed.myRssItems.append(myItem)
+                        }
+                    }
+                } catch {
+                    print("Error when adding a MyRSSItem to MyRSSFeed: \(error)")
+                }
+                print("Items of \(myRssFeed.title) updated: \(myRssFeed.myRssItems.count)")
+            }
+        }
+        
     }
     
     // MARK: TableView methods
@@ -72,7 +137,7 @@ class MainTableVC: ItemTableVC {
      */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowAddFeed" {
-            let destinationVC = segue.destination as! NewFeedVC
+            let destinationVC = (segue.destination as! UINavigationController).topViewController as! NewFeedVC
             destinationVC.delegate = self
             
             return
@@ -132,16 +197,14 @@ class MainTableVC: ItemTableVC {
     }
 }
 
-
+// TODO: Asi budu muset do Realmu vždy vložit vytvořený feed a začít stahovat data. A pokud bude feed špatný, tak všechny položky feedu budou nastaveny na nil. Pak asi udělám u daného feedu v tableView nějaký vizuální indikátor (červený trojúhelník), že feed má špatnou adresu.
 extension MainTableVC: NewFeedDelegate {
-    func validateFeed(feed myRssFeed: MyRSSFeed) -> Bool {
-        // Validate the feeds link
+    func feedCreated(feed myRssFeed: MyRSSFeed) {
+        // Validate the address by running update of the feed
+        // TODO: Validation
+        update(feed: myRssFeed)
         
-        return true
-    }
-    
-    func feedCreated() {
-        // Get feed data & update table view controller
+        tableView.reloadData()
     }
     
 }

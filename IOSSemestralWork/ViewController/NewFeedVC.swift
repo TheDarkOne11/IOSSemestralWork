@@ -10,16 +10,11 @@ import UIKit
 import RealmSwift
 
 protocol NewFeedDelegate {
-    /**
-     Runs before the feed is added to Realm.
-     Checks if the feed has a functional link.
-     */
-    func validateFeed(feed myRssFeed: MyRSSFeed) -> Bool
     
     /**
-     Runs after the feed is added to Realm.
+     Validates the given RSS feed link address. The feed is then persisted in Realm.b
      */
-    func feedCreated()
+    func feedCreated(feed myRssFeed: MyRSSFeed)
 }
 
 /**
@@ -71,21 +66,20 @@ class NewFeedVC: UITableViewController {
         }
         let myRssFeed = MyRSSFeed(with: title, link: feedLinkLabel.text!)
         
-        if !delegate.validateFeed(feed: myRssFeed) {
-            return
-        }
-        
         // Save the new feed to the selected folder
+        
+        let selectedFolder = folders![picker.selectedRow(inComponent: 0)]
+        
+        // Save the new feed to the selected folder in Realm
         do {
             try realm.write {
-                let selectedFolder = folders![picker.selectedRow(inComponent: 0)]
                 selectedFolder.myRssFeeds.append(myRssFeed)
-                
-                delegate.feedCreated()
             }
         } catch {
             print("Error occured when creating a new MyRSSFeed: \(error)")
         }
+        
+        delegate.feedCreated(feed: myRssFeed)
         
         dismiss(animated: true, completion: nil)
     }
@@ -150,7 +144,7 @@ extension NewFeedVC: NewFolderDelegate {
             print("Could not add a new folder to Realm: \(error)")
         }
         
-//        picker.reloadAllComponents()
+        picker.reloadAllComponents()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
