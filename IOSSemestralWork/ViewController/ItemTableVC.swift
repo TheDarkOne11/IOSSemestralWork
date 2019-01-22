@@ -11,11 +11,23 @@ import RealmSwift
 
 class ItemTableVC: UITableViewController {
     var myItems = [Item]()
+    var folders: Results<Folder>?
     
     let realm = try! Realm()
+    
+    let dbHandler = DBHandler()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        folders = realm.objects(Folder.self)
+        
+        // If the app is run for the first time we need to create the special None folder
+        if let folders = self.folders {
+            if folders.isEmpty {
+                dbHandler.create(folder: Folder(with: "None", isContentsViewable: true))
+            }
+        }
 
         loadData()
     }

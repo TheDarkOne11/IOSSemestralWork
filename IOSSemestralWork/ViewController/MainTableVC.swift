@@ -29,7 +29,7 @@ class MainTableVC: ItemTableVC {
         
         for folder in folders {
             for feed in folder.myRssFeeds {
-                update(feed: feed)
+                dbHandler.update(feed: feed)
             }
         }
     }
@@ -70,43 +70,6 @@ class MainTableVC: ItemTableVC {
                 }
                 self.tableView.reloadData()
         }
-    }
-    
-    /**
-     Downloads items of the selected feed using AlamofireRSSParser.
-     */
-    func update(feed myRssFeed: MyRSSFeed) {
-        
-        Alamofire.request(myRssFeed.link).responseRSS() { (response) -> Void in
-            
-            if(response.result.isFailure) {
-                // TODO: Return internet offline or website doesn't exist
-                print(response.error!)
-                return
-            }
-            
-            if let feed: RSSFeed = response.result.value {
-                
-                if(feed.items.count == 0 && feed.link == nil && feed.title == nil) {
-                    // TODO: Return website is not an RSS feed
-                    return
-                }
-                
-                // Add all items to the MyRSSFeed
-                do {
-                    try self.realm.write {
-                        for item in feed.items {
-                            let myItem = MyRSSItem(with: item)
-                            myRssFeed.myRssItems.append(myItem)
-                        }
-                    }
-                } catch {
-                    print("Error when adding a MyRSSItem to MyRSSFeed: \(error)")
-                }
-                print("Items of \(myRssFeed.title) updated: \(myRssFeed.myRssItems.count)")
-            }
-        }
-        
     }
     
     // MARK: TableView methods
@@ -197,12 +160,12 @@ class MainTableVC: ItemTableVC {
     }
 }
 
-// TODO: Asi budu muset do Realmu vždy vložit vytvořený feed a začít stahovat data. A pokud bude feed špatný, tak všechny položky feedu budou nastaveny na nil. Pak asi udělám u daného feedu v tableView nějaký vizuální indikátor (červený trojúhelník), že feed má špatnou adresu.
+// TODO: Do Realmu vložím nový feed a začnu stahovat data. Pokud má feed špatnou adresu (adresa není RSS feed nebo neexistuje), udělám u něj v tableView nějaký vizuální indikátor (červený trojúhelník), možná i u jeho folderu. Tuto informaci musím uložit ve feedu, možná i ve folderu. Vizuální indikátor nezobrazíme, pokud se nemůžeme připojit k internetu. To uděláme v update liště.
 extension MainTableVC: NewFeedDelegate {
     func feedCreated(feed myRssFeed: MyRSSFeed) {
         // Validate the address by running update of the feed
         // TODO: Validation
-        update(feed: myRssFeed)
+        dbHandler.update(feed: myRssFeed)
         
         tableView.reloadData()
     }

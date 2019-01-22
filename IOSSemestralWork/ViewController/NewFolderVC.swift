@@ -7,10 +7,9 @@
 //
 
 import UIKit
-import RealmSwift
 
 protocol NewFolderDelegate {
-    func createFolder(with title: String)
+    func folderCreated()
 }
 
 /**
@@ -21,8 +20,8 @@ class NewFolderVC: UITableViewController {
     
     var delegate: NewFolderDelegate!
     
-    let realm = try! Realm()
-    
+    let dbHandler = DBHandler()
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,7 +33,8 @@ class NewFolderVC: UITableViewController {
      */
     @IBAction func createFolder(_ sender: UITextField) {
         let title = sender.text!
-        delegate.createFolder(with: title)
+        dbHandler.create(folder: Folder(with: title, isContentsViewable: true))
+        delegate.folderCreated()
         
         self.navigationController?.popViewController(animated: true)
     }

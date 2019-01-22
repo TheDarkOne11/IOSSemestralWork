@@ -29,6 +29,8 @@ class NewFeedVC: UITableViewController {
     
     let realm = try! Realm()
     
+    let dbHandler = DBHandler()
+    
     var delegate: NewFeedDelegate!
     
     var folders: Results<Folder>?
@@ -42,13 +44,8 @@ class NewFeedVC: UITableViewController {
         // Loads all folders from Realm, updates on changes.
         folders = realm.objects(Folder.self)
         
-        if let folders = self.folders {
-            if folders.isEmpty {
-                createFolder(with: "None")
-            }
-
-            folderNameLabel.text = folders.first?.title
-        }
+        // There is always at least 1 folder
+        folderNameLabel.text = folders!.first?.title
     }
     
     // MARK: NavBar items
@@ -71,13 +68,7 @@ class NewFeedVC: UITableViewController {
         let selectedFolder = folders![picker.selectedRow(inComponent: 0)]
         
         // Save the new feed to the selected folder in Realm
-        do {
-            try realm.write {
-                selectedFolder.myRssFeeds.append(myRssFeed)
-            }
-        } catch {
-            print("Error occured when creating a new MyRSSFeed: \(error)")
-        }
+        dbHandler.create(feed: myRssFeed, in: selectedFolder)
         
         delegate.feedCreated(feed: myRssFeed)
         
@@ -132,18 +123,7 @@ extension NewFeedVC: UIPickerViewDelegate, UIPickerViewDataSource {
 
 extension NewFeedVC: NewFolderDelegate {
     // TODO: Could this be done automatically when Realm updates the datasource?
-    func createFolder(with title: String) {
-        // Save the folder to Realm
-        do {
-            try realm.write {
-                let folder = Folder(with: title, isContentsViewable: true)
-                
-                realm.add(folder)
-            }
-        } catch {
-            print("Could not add a new folder to Realm: \(error)")
-        }
-        
+    func folderCreated() {
         picker.reloadAllComponents()
     }
     
