@@ -22,18 +22,53 @@ class FolderTableVC: ItemTableVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Get all feeds from "None" folder. They are supposed to be displayed in this screen
+        feeds = realm.objects(Folder.self)
+            .filter("title CONTAINS[cd] %@", selectedFolder?.title)[0]
+            .myRssFeeds
     }
-
-    // MARK: Data loading
     
-    override func loadData() {
-        super.loadData()
+    // MARK: TableView methods
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
         
-        if let currRssFeeds = selectedFolder?.myRssFeeds {
-            for item in currRssFeeds {
-                myItems.append(item)
+        
+        guard let feed = feeds?[indexPath.row] else {
+            print("Error when loading feeds to display in the tableView")
+            fatalError()
+        }
+        
+        cell.textLabel?.text = feed.title + " (MyRSSFeed)"
+        
+        
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "ShowRssItems", sender: nil)
+    }
+    
+    // MARK: Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let indexPath = tableView.indexPathForSelectedRow else {
+            print("Unreacheable tableViewCell selected.")
+            fatalError()
+        }
+        
+        switch segue.identifier {
+        case "ShowRssItems":
+            // Show RSSFeed
+            guard let feed = feeds?[indexPath.row] else {
+                print("Error when loading feeds to display in the tableView")
+                fatalError()
             }
+            
+            let destinationVC = segue.destination as! RSSFeedTableVC
+            destinationVC.selectedFeed = feed
+        default:
+            print("Unknown segue in MainTableVC.")
+            fatalError()
         }
     }
-
 }

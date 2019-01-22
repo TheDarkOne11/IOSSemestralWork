@@ -54,9 +54,7 @@ class NewFeedVC: UITableViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func saveBtnPressed(_ sender: UIBarButtonItem) {
-        // TODO: Save feed, fetch its items
-        
+    @IBAction func saveBtnPressed(_ sender: UIBarButtonItem) {        
         var title = feedNameLabel.text!
         if title == "" {
             title = feedLinkLabel.text!

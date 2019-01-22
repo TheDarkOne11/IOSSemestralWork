@@ -9,9 +9,10 @@
 import UIKit
 import RealmSwift
 
-class ItemTableVC: UITableViewController {
-    var myItems = [Item]()
-    var folders: Results<Folder>?
+// TODO: Pokud má feed špatnou adresu (adresa není RSS feed nebo neexistuje), udělám u něj v tableView nějaký vizuální indikátor (červený trojúhelník), možná i u jeho folderu. Tuto informaci musím uložit ve feedu, možná i ve folderu. Vizuální indikátor nezobrazíme, pokud se nemůžeme připojit k internetu. To uděláme v update liště.
+class ItemTableVC: UITableViewController {    
+    // All feeds that aren't inside a folder and are supposed to be shown
+    var feeds: List<MyRSSFeed>?
     
     let realm = try! Realm()
     
@@ -20,48 +21,13 @@ class ItemTableVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        folders = realm.objects(Folder.self)
-        
-        // If the app is run for the first time we need to create the special None folder
-        if let folders = self.folders {
-            if folders.isEmpty {
-                dbHandler.create(folder: Folder(with: "None", isContentsViewable: true))
-            }
-        }
-
-        loadData()
+        // Load static folders
+        // TODO: Create static folders
     }
     
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myItems.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
-        let item: Item = myItems[indexPath.row]
-        
-        switch item.type {
-        case .folder:
-            let currItem = item as! Folder
-            cell.textLabel?.text = currItem.title + " (Folder)"
-        case .myRssFeed:
-            let currItem = item as! MyRSSFeed
-            cell.textLabel?.text = currItem.title + " (MyRSSFeed)"
-        case .myRssItem:
-            let currItem = item as! MyRSSItem
-            cell.textLabel?.text = currItem.title + " (MyRSSItem)"
-        }
-        
-        return cell
-    }
-
-    // MARK: Data manipulation
-    
-    func loadData() {
-        myItems.removeAll()
-        myItems.append(Folder(with: "All Items"))
-        myItems.append(Folder(with: "Starred Items"))
+        return feeds!.count
     }
 }
