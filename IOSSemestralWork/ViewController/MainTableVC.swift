@@ -21,16 +21,16 @@ class MainTableVC: ItemTableVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Get all folders but "None" folder
+        // Get all folders
         folders = realm.objects(Folder.self)
-            .filter("NOT title CONTAINS[cd] %@", "None")
         
-        // If the app is run for the first time we need to create the special None folder
-        if let folders = self.folders {
-            if folders.isEmpty {
-                dbHandler.create(folder: Folder(with: "None", isContentsViewable: true))
-            }
+        // If the special "None" folder doesn't exist (app run for the first time) create it
+        if folders!.isEmpty {
+            dbHandler.create(folder: Folder(with: "None", isContentsViewable: true))
         }
+        
+        // Filter "None" folder out
+        folders = folders!.filter("NOT title CONTAINS[cd] %@", "None")
         
         // Get all feeds from "None" folder. They are supposed to be displayed in this screen
         feeds = realm.objects(Folder.self)
