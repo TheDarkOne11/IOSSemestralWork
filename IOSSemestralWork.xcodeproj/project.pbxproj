@@ -14,6 +14,7 @@
 		4B50A3E721D83E9400462B71 /* NewFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B50A3E621D83E9400462B71 /* NewFeedVC.swift */; };
 		4B70A86C21D7A12700289496 /* MyRSSItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B70A86B21D7A12700289496 /* MyRSSItem.swift */; };
 		4BA1365D21D7947F009D4EBB /* MainTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1365C21D7947F009D4EBB /* MainTableVC.swift */; };
+		4BA354C621F8DA3000BCE58E /* SeguePreparationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA354C521F8DA3000BCE58E /* SeguePreparationSender.swift */; };
 		4BA8868E21F4C9DB001816B9 /* NewFolderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA8868D21F4C9DB001816B9 /* NewFolderVC.swift */; };
 		4BA9C45B21F76A7C0021E143 /* DBHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9C45A21F76A7C0021E143 /* DBHandler.swift */; };
 		4BD68B5F21D95F0000B3A14E /* ItemTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD68B5E21D95F0000B3A14E /* ItemTableVC.swift */; };
@@ -36,6 +37,7 @@
 		4B50A3E621D83E9400462B71 /* NewFeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFeedVC.swift; sourceTree = "<group>"; };
 		4B70A86B21D7A12700289496 /* MyRSSItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRSSItem.swift; sourceTree = "<group>"; };
 		4BA1365C21D7947F009D4EBB /* MainTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableVC.swift; sourceTree = "<group>"; };
+		4BA354C521F8DA3000BCE58E /* SeguePreparationSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeguePreparationSender.swift; sourceTree = "<group>"; };
 		4BA8868D21F4C9DB001816B9 /* NewFolderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewFolderVC.swift; path = IOSSemestralWork/ViewController/NewFolderVC.swift; sourceTree = SOURCE_ROOT; };
 		4BA9C45A21F76A7C0021E143 /* DBHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBHandler.swift; sourceTree = "<group>"; };
 		4BD68B5E21D95F0000B3A14E /* ItemTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableVC.swift; sourceTree = "<group>"; };
@@ -68,7 +70,7 @@
 		4BA1365E21D79490009D4EBB /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4BA9C45A21F76A7C0021E143 /* DBHandler.swift */,
+				4BA354C421F8D9F600BCE58E /* Helper classes */,
 				4BD68B5E21D95F0000B3A14E /* ItemTableVC.swift */,
 				4BA1365C21D7947F009D4EBB /* MainTableVC.swift */,
 				4BDFB70321D8D31000361136 /* FolderTableVC.swift */,
@@ -98,6 +100,15 @@
 				4B70A86B21D7A12700289496 /* MyRSSItem.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		4BA354C421F8D9F600BCE58E /* Helper classes */ = {
+			isa = PBXGroup;
+			children = (
+				4BA9C45A21F76A7C0021E143 /* DBHandler.swift */,
+				4BA354C521F8DA3000BCE58E /* SeguePreparationSender.swift */,
+			);
+			path = "Helper classes";
 			sourceTree = "<group>";
 		};
 		4BE4C06321DA38DA00505A0F /* SupportFiles */ = {
@@ -295,6 +306,7 @@
 				4BD68B5F21D95F0000B3A14E /* ItemTableVC.swift in Sources */,
 				4B70A86C21D7A12700289496 /* MyRSSItem.swift in Sources */,
 				4BDFB70621D8D82200361136 /* RSSFeedTableVC.swift in Sources */,
+				4BA354C621F8DA3000BCE58E /* SeguePreparationSender.swift in Sources */,
 				4BDFB70421D8D31100361136 /* FolderTableVC.swift in Sources */,
 				4B50A3E721D83E9400462B71 /* NewFeedVC.swift in Sources */,
 				4BE8A5FB21D6CB05009B66F0 /* AppDelegate.swift in Sources */,

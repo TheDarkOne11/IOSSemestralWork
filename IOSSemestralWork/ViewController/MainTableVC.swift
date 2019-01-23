@@ -43,29 +43,22 @@ class MainTableVC: ItemTableVC {
     }
     
     @IBAction func editBtnPressed(_ sender: UIBarButtonItem) {
-        // TODO: Temporary code, remove!
-        let folders = realm.objects(Folder.self)
-        
-        for folder in folders {
-            for feed in folder.myRssFeeds {
-                dbHandler.update(feed: feed)
-            }
+        // TODO: Temporary update code, remove!
+        dbHandler.updateAll()
+        tableView.reloadData()
+    }
+    
+    // MARK: TableView helper methods
+    
+    override func fill(cell: UITableViewCell, at row: Int) -> UITableViewCell? {
+        if let cell = super.fill(cell: cell, at: row) {
+            return cell
         }
-    }
-    
-    // MARK: TableView methods
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return super.tableView(tableView, numberOfRowsInSection: section) + folders!.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
         
-        // First show folders then RSS feeds
-        if indexPath.row < folders!.count {
+        // First show custom folders then RSS feeds without folder
+        if row < folders!.count + specialFoldersCount {
             // Show folder
-            guard let folder = folders?[indexPath.row] else {
+            guard let folder = folders?[row - specialFoldersCount] else {
                 print("Error when loading folders to display in the tableView")
                 fatalError()
             }
@@ -73,7 +66,7 @@ class MainTableVC: ItemTableVC {
             cell.textLabel?.text = folder.title + " (Folder)"
         } else {
             // Show RSSFeed
-            guard let feed = feeds?[indexPath.row - folders!.count] else {
+            guard let feed = feeds?[row - folders!.count - specialFoldersCount] else {
                 print("Error when loading feeds to display in the tableView")
                 fatalError()
             }
@@ -84,7 +77,19 @@ class MainTableVC: ItemTableVC {
         return cell
     }
     
+    // MARK: - TableView methods
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return super.tableView(tableView, numberOfRowsInSection: section) + folders!.count
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        super.tableView(tableView, didSelectRowAt: indexPath)
+        
+        if indexPath.row < specialFoldersCount {
+            return
+        }
+        
         guard let folders = self.folders else {
             print("Error when selecting a folder")
             fatalError()
@@ -92,19 +97,26 @@ class MainTableVC: ItemTableVC {
         
         // TODO: Go to the folder's contents only when an edge of the cell is selected, otherwise show RSSItems of its feeds
         
-        if indexPath.row < folders.count {
+        if indexPath.row < folders.count + specialFoldersCount {
             // Go to FolderTableVC
+            // TODO: Maybe do the same for folder we did for RSSItems
             performSegue(withIdentifier: "ShowFolderContents", sender: nil)
-            
         } else {
             // Go to RSSFeedTableVC
-            performSegue(withIdentifier: "ShowRssItems", sender: nil)
+            let currFeed = feeds![indexPath.row - folders.count - specialFoldersCount]
+            
+            // Change rssItems from List to Results
+            let sender = SeguePreparationSender(rssItems: currFeed.myRssItems.filter("TRUEPREDICATE"), title: currFeed.title)
+            
+            performSegue(withIdentifier: "ShowRssItems", sender: sender)
         }
     }
     
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
         if segue.identifier == "ShowAddFeed" {
             // Add feed button pressed
             let destinationVC = (segue.destination as! UINavigationController).topViewController as! NewFeedVC
@@ -118,30 +130,15 @@ class MainTableVC: ItemTableVC {
             fatalError()
         }
         
-        switch segue.identifier {
-        case "ShowFolderContents":
+        if segue.identifier ==  "ShowFolderContents" {
             // Show folder
-            guard let folder = folders?[indexPath.row] else {
+            guard let folder = folders?[indexPath.row - specialFoldersCount] else {
                 print("Error when loading folders to display in the tableView")
                 fatalError()
             }
             
             let destinationVC = segue.destination as! FolderTableVC
             destinationVC.selectedFolder = folder
-            break
-        case "ShowRssItems":
-            // Show RSSFeed
-            guard let feed = feeds?[indexPath.row - folders!.count] else {
-                print("Error when loading feeds to display in the tableView")
-                fatalError()
-            }
-            
-            let destinationVC = segue.destination as! RSSFeedTableVC
-            destinationVC.selectedFeed = feed
-            break
-        default:
-            print("Unknown segue in MainTableVC.")
-            fatalError()
         }
     }
 }

@@ -24,51 +24,30 @@ class FolderTableVC: ItemTableVC {
         
         // Get all feeds from "None" folder. They are supposed to be displayed in this screen
         feeds = realm.objects(Folder.self)
-            .filter("title CONTAINS[cd] %@", selectedFolder?.title)[0]
+            .filter("title CONTAINS[cd] %@", selectedFolder!.title)[0]
             .myRssFeeds
     }
     
-    // MARK: TableView methods
+    // MARK: TableView helper methods
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
+    override func fill(cell: UITableViewCell, at row: Int) -> UITableViewCell? {
+        if let cell = super.fill(cell: cell, at: row) {
+            return cell
+        }
         
-        
-        guard let feed = feeds?[indexPath.row] else {
+        guard let feed = feeds?[row - specialFoldersCount] else {
             print("Error when loading feeds to display in the tableView")
             fatalError()
         }
         
         cell.textLabel?.text = feed.title + " (MyRSSFeed)"
         
-        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "ShowRssItems", sender: nil)
-    }
-    
-    // MARK: Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let indexPath = tableView.indexPathForSelectedRow else {
-            print("Unreacheable tableViewCell selected.")
-            fatalError()
-        }
-        
-        switch segue.identifier {
-        case "ShowRssItems":
-            // Show RSSFeed
-            guard let feed = feeds?[indexPath.row] else {
-                print("Error when loading feeds to display in the tableView")
-                fatalError()
-            }
-            
-            let destinationVC = segue.destination as! RSSFeedTableVC
-            destinationVC.selectedFeed = feed
-        default:
-            print("Unknown segue in MainTableVC.")
-            fatalError()
-        }
+        let currFeed = feeds![indexPath.row - specialFoldersCount]
+        let sender = SeguePreparationSender(rssItems: currFeed.myRssItems.filter("TRUEPREDICATE"), title: currFeed.title)
+        performSegue(withIdentifier: "ShowRssItems", sender: sender)
     }
 }

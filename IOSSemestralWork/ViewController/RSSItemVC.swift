@@ -87,7 +87,7 @@ class RSSItemVC: UIViewController {
         let timeString = "Published \( formatter.string(from: date as Date) ) by \(rssItem.author)"
         
         // Image
-        // TODO Add image
+        // TODO: Add image
         
         let code = String(format: inputDataScript, rssItem.title, timeString, rssItem.itemDescription);
         

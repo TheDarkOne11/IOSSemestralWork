@@ -42,6 +42,12 @@ class DBHandler {
         }
     }
     
+    func updateAll() {
+        for feed in realm.objects(MyRSSFeed.self) {
+            update(feed: feed)
+        }
+    }
+    
     /**
      Downloads items of the selected feed using AlamofireRSSParser.
      */

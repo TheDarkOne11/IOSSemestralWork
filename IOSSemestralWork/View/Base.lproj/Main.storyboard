@@ -50,7 +50,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://feeds.foxnews.com/foxnews/latest" placeholder="RSS Feed link" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PUq-Pj-bpq">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="https://servis.idnes.cz/rss.aspx?c=zpravodaj" placeholder="RSS Feed link" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PUq-Pj-bpq">
                                                     <rect key="frame" x="16" y="8" width="288" height="27.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -330,7 +330,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="n0E-Jd-9lk" userLabel="Navigation Item">
-                        <barButtonItem key="rightBarButtonItem" title="Simple settings" id="3nj-xG-cho"/>
+                        <barButtonItem key="rightBarButtonItem" title="Simple settings" id="3nj-xG-cho">
+                            <connections>
+                                <action selector="simpleSettingsPressed:" destination="abS-kR-Rcu" id="4uE-iC-zKx"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="NxK-Ou-RbK" kind="show" identifier="ShowRssItem" id="v9s-kR-BfZ"/>
@@ -338,7 +342,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mbf-OE-Gxv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1810" y="994"/>
+            <point key="canvasLocation" x="1808" y="1177"/>
         </scene>
         <!--RSSItem View-->
         <scene sceneID="cGP-rl-hzG">
@@ -360,7 +364,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ktf-rp-Yaq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3151.875" y="992.95774647887322"/>
+            <point key="canvasLocation" x="3165" y="1177"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Aep-Hd-P28">
