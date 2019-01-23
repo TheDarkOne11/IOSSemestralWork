@@ -66,8 +66,14 @@ class DBHandler {
                 do {
                     try self.realm.write {
                         for item in feed.items {
-                            let myItem = MyRSSItem(with: item)
-                            myRssFeed.myRssItems.append(myItem)
+                            let myRssItem = MyRSSItem(with: item)
+                            
+                            self.realm.add(myRssItem, update: true)
+                            
+                            // Add the item only if it doesn't exist already
+                            if myRssFeed.myRssItems.index(of: myRssItem) == nil {
+                                myRssFeed.myRssItems.append(myRssItem)
+                            }
                         }
                     }
                 } catch {

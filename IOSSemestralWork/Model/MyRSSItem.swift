@@ -10,7 +10,7 @@ import Foundation
 import AlamofireRSSParser
 
 class MyRSSItem: Item {
-    @objc dynamic var articleLink: String = ""
+    @objc dynamic var articleLink: String = UUID().uuidString
     @objc dynamic var itemDescription: String = ""
     @objc dynamic var author: String = ""
     
@@ -20,5 +20,9 @@ class MyRSSItem: Item {
         self.articleLink = rssItem?.link ?? "Unknown"
         self.author = rssItem?.author ?? "Unknown author"
         self.itemDescription = rssItem?.itemDescription ?? "Unknown"
+    }
+    
+    override static func primaryKey() -> String? {
+        return "articleLink"
     }
 }
