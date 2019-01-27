@@ -74,12 +74,24 @@ class RSSFeedTableVC: UITableViewController {
 }
 
 extension RSSFeedTableVC: RefreshControlDelegate {
+    /**
+     Checks beginning of the pull to refresh and updates its label.
+     */
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        var offset: CGFloat = 0
+        if let frame = self.navigationController?.navigationBar.frame {
+            offset = frame.minY + frame.size.height
+        }
+        
+        if (-scrollView.contentOffset.y  == offset) {
+            refresher.refreshView.updateLabelText()
+        }
+    }
+    
     func update() {
         print("requesting data")
         
         let refreshView: PullToRefreshView! = refresher.refreshView
-        
-        refreshView.updateLabelText()
         
         refreshView.startUpdating()
         dbHandler.updateAll() {
@@ -88,9 +100,10 @@ extension RSSFeedTableVC: RefreshControlDelegate {
             let deadline = DispatchTime.now() + .milliseconds(500)
             DispatchQueue.main.asyncAfter(deadline: deadline) {
                 print("End refreshing")
-                self.tableView.reloadData()
                 refreshView.stopUpdating()
                 self.refresher.endRefreshing()
+                
+                self.tableView.reloadData()
                 self.defaults.set(NSDate(), forKey: "LastUpdate")
             }
         }
