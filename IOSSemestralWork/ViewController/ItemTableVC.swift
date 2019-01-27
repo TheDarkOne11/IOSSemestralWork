@@ -32,14 +32,14 @@ class ItemTableVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Initialize PullToRefresh
         tableView.refreshControl = refresher
-        
         if let objOfRefreshView = Bundle.main.loadNibNamed("PullToRefreshView", owner: self, options: nil)?.first as? PullToRefreshView {
             // Initializing the 'refreshView'
             refreshView = objOfRefreshView
             refreshView.updateLabelText(dateOfLastUpdate: testDate)
-            // Giving the frame as per 'tableViewRefreshControl'
             refreshView.frame = refresher.frame
+            
             // Adding the 'refreshView' to 'tableViewRefreshControl'
             refresher.addSubview(refreshView)
         }
@@ -49,14 +49,17 @@ class ItemTableVC: UITableViewController {
     func requestData() {
         print("requesting data")
         
-        // TODO: Temporary update code, remove!
-//        dbHandler.updateAll()
-        tableView.reloadData()
+        refreshView.updateLabelText(dateOfLastUpdate: self.testDate)
         
-        let deadline = DispatchTime.now() + .milliseconds(500)
-        refreshView.updateLabelText(dateOfLastUpdate: testDate)
-        DispatchQueue.main.asyncAfter(deadline: deadline) {
-            self.refresher.endRefreshing()
+        refreshView.startUpdating()
+        dbHandler.updateAll() {
+            
+            let deadline = DispatchTime.now() + .milliseconds(500)
+            DispatchQueue.main.asyncAfter(deadline: deadline) {
+                print("End refreshing")
+                self.refreshView.stopUpdating()
+                self.refresher.endRefreshing()
+            }
         }
     }
     

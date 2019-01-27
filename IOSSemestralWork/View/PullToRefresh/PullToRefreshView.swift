@@ -11,11 +11,25 @@ import Foundation
 
 class PullToRefreshView: UIView {
     @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        activityIndicator.hidesWhenStopped = true
+    }
+    
+    func startUpdating() {
+        activityIndicator.startAnimating()
+    }
+    
+    func stopUpdating() {
+        activityIndicator.stopAnimating()
+    }
     
     /**
      Updates infoLabels text according to the date when the last update occured
      */
-    public func updateLabelText(dateOfLastUpdate date: NSDate) {
+    public func updateLabelText(dateOfLastUpdate date: NSDate) {        
         let minuteAgo = Date(timeIntervalSinceNow: -60)
         let hourAgo = Date(timeIntervalSinceNow: -3600)
         let yesterday = Date(timeIntervalSinceNow: -3600*24)
@@ -25,7 +39,7 @@ class PullToRefreshView: UIView {
         
         // Within 1 min
         if date.compare(minuteAgo) == .orderedDescending {
-            infoLabel.text = "Last update: less than a minute ago"
+            infoLabel.text = "Last update: < 1 minute ago"
             return
         }
         

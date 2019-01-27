@@ -22,16 +22,22 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="7G2-pA-8c9">
+                    <rect key="frame" x="79.5" y="56" width="20" height="20"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="cRo-cq-Bf6" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="630-lP-k9c"/>
+                <constraint firstItem="cRo-cq-Bf6" firstAttribute="leading" secondItem="7G2-pA-8c9" secondAttribute="trailing" constant="16" id="Bkr-gZ-hKc"/>
                 <constraint firstItem="cRo-cq-Bf6" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Lk9-Vw-ycj"/>
+                <constraint firstItem="7G2-pA-8c9" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="aJM-iA-7yn"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="activityIndicator" destination="7G2-pA-8c9" id="pLZ-J5-4sa"/>
                 <outlet property="infoLabel" destination="cRo-cq-Bf6" id="j9p-1E-tj1"/>
             </connections>
             <point key="canvasLocation" x="53.600000000000001" y="318.44077961019491"/>

@@ -42,16 +42,42 @@ class DBHandler {
         }
     }
     
-    func updateAll() {
+    /**
+     Downloads items of the all feeds.
+     - parameter completed: A function that is called when all feeds are updated.
+     */
+    func updateAll(completed: @escaping () -> Void) {
+        // DispatchGroup enables us to trigger some code when all async requests are done
+        let myGroup = DispatchGroup()
+        
+        var i = 1000
         for feed in realm.objects(MyRSSFeed.self) {
-            update(feed: feed)
+            myGroup.enter()
+            
+            let deadline = DispatchTime.now() + .milliseconds(2000 + i)
+            DispatchQueue.main.asyncAfter(deadline: deadline) {
+                self.update(feed: feed) { (success) -> Void in
+                    // Triggered when an update is done
+                    print("Items of \(feed.title) updated: \(feed.myRssItems.count)")
+                    myGroup.leave()
+                }
+            }
+            
+            i += 1000
+        }
+        
+        myGroup.notify(queue: .main) {
+            // Triggered when all updates are done
+            print("Finished all updates.")
+            completed()
         }
     }
     
     /**
      Downloads items of the selected feed using AlamofireRSSParser.
+     - parameter completed: A function that is called when an asynchronous Alamofire request ends.
      */
-    func update(feed myRssFeed: MyRSSFeed) {
+    func update(feed myRssFeed: MyRSSFeed, completed: @escaping (Bool) -> Void) {
         
         Alamofire.request(myRssFeed.link).responseRSS() { (response) -> Void in
             
@@ -84,8 +110,10 @@ class DBHandler {
                     }
                 } catch {
                     print("Error when adding a MyRSSItem to MyRSSFeed: \(error)")
+                    return
                 }
-                print("Items of \(myRssFeed.title) updated: \(myRssFeed.myRssItems.count)")
+                
+                completed(true)
             }
         }
         

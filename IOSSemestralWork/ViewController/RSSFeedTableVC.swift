@@ -45,9 +45,10 @@ class RSSFeedTableVC: UITableViewController {
     // MARK: Navigation
     @IBAction func simpleSettingsPressed(_ sender: UIBarButtonItem) {
         // TODO: Temporary update, remove
-        dbHandler.updateAll()
-        tableView.reloadData()
-        print("Num of rows: \(tableView.numberOfRows(inSection: 0))")
+        dbHandler.updateAll() {
+            self.tableView.reloadData()
+            print("Num of rows: \(self.tableView.numberOfRows(inSection: 0))")
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

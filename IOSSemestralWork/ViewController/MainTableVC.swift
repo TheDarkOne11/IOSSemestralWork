@@ -43,7 +43,7 @@ class MainTableVC: ItemTableVC {
     }
     
     @IBAction func editBtnPressed(_ sender: UIBarButtonItem) {
-       
+        // TODO: Implement
     }
     
     // MARK: TableView helper methods
@@ -147,9 +147,9 @@ extension MainTableVC: NewFeedDelegate {
     func feedCreated(feed myRssFeed: MyRSSFeed) {
         // Validate the address by running update of the feed
         // TODO: Validation
-        dbHandler.update(feed: myRssFeed)
-        
-        tableView.reloadData()
+        dbHandler.update(feed: myRssFeed) { (success) in
+            self.tableView.reloadData()
+        }
     }
     
 }
