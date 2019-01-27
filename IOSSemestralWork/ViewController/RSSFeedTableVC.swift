@@ -51,11 +51,7 @@ class RSSFeedTableVC: UITableViewController {
     
     // MARK: Navigation
     @IBAction func simpleSettingsPressed(_ sender: UIBarButtonItem) {
-        // TODO: Temporary update, remove
-        dbHandler.updateAll() {
-            self.tableView.reloadData()
-            print("Num of rows: \(self.tableView.numberOfRows(inSection: 0))")
-        }
+        // TODO: Implement
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -92,9 +88,8 @@ extension RSSFeedTableVC: RefreshControlDelegate {
         print("requesting data")
         
         let refreshView: PullToRefreshView! = refresher.refreshView
-        
         refreshView.startUpdating()
-        dbHandler.updateAll() {
+        dbHandler.updateAll() { success in
             
             // Hiding of the RefreshView is delayed to at least 0.5 s
             let deadline = DispatchTime.now() + .milliseconds(500)
@@ -103,8 +98,15 @@ extension RSSFeedTableVC: RefreshControlDelegate {
                 refreshView.stopUpdating()
                 self.refresher.endRefreshing()
                 
+                if !success {
+                    // Internet is unreachable
+                    // TODO: Implement
+                    print("Internet is unreachable")
+                } else {
+                    self.defaults.set(NSDate(), forKey: "LastUpdate")
+                }
+                
                 self.tableView.reloadData()
-                self.defaults.set(NSDate(), forKey: "LastUpdate")
             }
         }
     }

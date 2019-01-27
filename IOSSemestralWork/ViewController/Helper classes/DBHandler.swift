@@ -46,9 +46,15 @@ class DBHandler {
      Downloads items of the all feeds.
      - parameter completed: A function that is called when all feeds are updated.
      */
-    func updateAll(completed: @escaping () -> Void) {
+    func updateAll(completed: @escaping (Bool) -> Void) {
         // DispatchGroup enables us to trigger some code when all async requests are done
         let myGroup = DispatchGroup()
+        
+        // Check if internet is reachable
+        if !NetworkReachabilityManager()!.isReachable {
+            completed(false)
+            return
+        }
         
         for feed in realm.objects(MyRSSFeed.self) {
             
@@ -68,7 +74,7 @@ class DBHandler {
         myGroup.notify(queue: .main) {
             // Triggered when all updates are done
             print("Finished all updates.")
-            completed()
+            completed(true)
         }
     }
     
@@ -78,8 +84,11 @@ class DBHandler {
      */
     func update(feed myRssFeed: MyRSSFeed, completed: @escaping (Bool) -> Void) {
         
-        // TODO: Use this to check whether we can connect to the internet
-        print("Network reachable: \(NetworkReachabilityManager()!.isReachable)")
+        // Check if internet is reachable
+        if !NetworkReachabilityManager()!.isReachable {
+            completed(true)
+            return
+        }
         
         Alamofire.request(myRssFeed.link).responseRSS() { (response) -> Void in
             // Validate the response

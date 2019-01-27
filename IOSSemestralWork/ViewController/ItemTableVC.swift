@@ -147,9 +147,9 @@ extension ItemTableVC: RefreshControlDelegate {
         print("requesting data")
         
         let refreshView: PullToRefreshView! = refresher.refreshView
-                
+                        
         refreshView.startUpdating()
-        dbHandler.updateAll() {
+        dbHandler.updateAll() { success in
             
             // Hiding of the RefreshView is delayed to at least 0.5 s
             let deadline = DispatchTime.now() + .milliseconds(500)
@@ -158,8 +158,15 @@ extension ItemTableVC: RefreshControlDelegate {
                 refreshView.stopUpdating()
                 self.refresher.endRefreshing()
                 
+                if !success {
+                    // Internet is unreachable
+                    // TODO: Implement
+                    print("Internet is unreachable")
+                } else {
+                    self.defaults.set(NSDate(), forKey: "LastUpdate")
+                }
+                
                 self.tableView.reloadData()
-                self.defaults.set(NSDate(), forKey: "LastUpdate")
             }
         }
     }
