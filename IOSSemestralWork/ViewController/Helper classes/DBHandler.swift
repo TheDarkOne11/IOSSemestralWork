@@ -50,21 +50,13 @@ class DBHandler {
         // DispatchGroup enables us to trigger some code when all async requests are done
         let myGroup = DispatchGroup()
         
-        // TODO: Remove debugging code that is causing delays
-        var i = 1000
         for feed in realm.objects(MyRSSFeed.self) {
             myGroup.enter()
             
-            let deadline = DispatchTime.now() + .milliseconds(2000 + i)
-            DispatchQueue.main.asyncAfter(deadline: deadline) {
-                self.update(feed: feed) { (success) -> Void in
-                    // Triggered when an update is done
-                    print("Items of \(feed.title) updated: \(feed.myRssItems.count)")
-                    myGroup.leave()
-                }
+            self.update(feed: feed) { (success) -> Void in
+                // Triggered when an update is done
+                myGroup.leave()
             }
-            
-            i += 1000
         }
         
         myGroup.notify(queue: .main) {
