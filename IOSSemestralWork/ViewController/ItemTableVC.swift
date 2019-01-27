@@ -24,7 +24,7 @@ class ItemTableVC: UITableViewController {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .clear
         refreshControl.backgroundColor = .clear
-        refreshControl.addTarget(self, action: #selector(requestData), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(updateFeeds), for: .valueChanged)
         
         return refreshControl
     }()
@@ -46,7 +46,7 @@ class ItemTableVC: UITableViewController {
     }
     
     @objc
-    func requestData() {
+    func updateFeeds() {
         print("requesting data")
         
         refreshView.updateLabelText(dateOfLastUpdate: self.testDate)
@@ -54,9 +54,11 @@ class ItemTableVC: UITableViewController {
         refreshView.startUpdating()
         dbHandler.updateAll() {
             
+            // Hiding of the RefreshView is delayed to at least 0.5 s
             let deadline = DispatchTime.now() + .milliseconds(500)
             DispatchQueue.main.asyncAfter(deadline: deadline) {
                 print("End refreshing")
+                self.tableView.reloadData()
                 self.refreshView.stopUpdating()
                 self.refresher.endRefreshing()
             }
