@@ -146,9 +146,20 @@ class MainTableVC: ItemTableVC {
 extension MainTableVC: NewFeedDelegate {
     func feedCreated(feed myRssFeed: MyRSSFeed) {
         // Validate the address by running update of the feed
-        // TODO: Validation
         dbHandler.update(feed: myRssFeed) { (success) in
             self.tableView.reloadData()
+            
+            if !success {
+                print("Feed \(myRssFeed.title) probably has a wrong link")
+                
+                do {
+                    try self.realm.write {
+                        myRssFeed.isOk = false
+                    }
+                } catch {
+                    print("Error occured when setting rssFeed.isOk to false: \(error)")
+                }
+            }
         }
     }
     

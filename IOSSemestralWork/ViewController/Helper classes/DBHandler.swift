@@ -51,7 +51,13 @@ class DBHandler {
         let myGroup = DispatchGroup()
         
         for feed in realm.objects(MyRSSFeed.self) {
-            myGroup.enter()
+            
+            // Do not update bad feeds
+            if !feed.isOk {
+                continue
+            } else {
+                myGroup.enter()
+            }
             
             self.update(feed: feed) { (success) -> Void in
                 // Triggered when an update is done
@@ -72,20 +78,25 @@ class DBHandler {
      */
     func update(feed myRssFeed: MyRSSFeed, completed: @escaping (Bool) -> Void) {
         
+        // TODO: Use this to check whether we can connect to the internet
+        print("Network reachable: \(NetworkReachabilityManager()!.isReachable)")
+        
         Alamofire.request(myRssFeed.link).responseRSS() { (response) -> Void in
-            
-            if(response.result.isFailure) {
-                // TODO: Return internet offline or website doesn't exist
-                print(response.error!)
+            // Validate the response
+            if let mimeType =  response.response?.mimeType {
+                if mimeType != "application/rss+xml" {
+                    // Website exists but isn't a RSS feed
+                    completed(false)
+                    return
+                }
+            } else {
+                // Website doesn't exist
+                completed(false)
                 return
             }
             
+            // Website is RSS feed, we can store info
             if let feed: RSSFeed = response.result.value {
-                
-                if(feed.items.count == 0 && feed.link == nil && feed.title == nil) {
-                    // TODO: Return website is not an RSS feed
-                    return
-                }
                 
                 // Add all items to the MyRSSFeed
                 do {
@@ -103,6 +114,7 @@ class DBHandler {
                     }
                 } catch {
                     print("Error when adding a MyRSSItem to MyRSSFeed: \(error)")
+                    completed(false)
                     return
                 }
                 

@@ -46,6 +46,7 @@ class FolderTableVC: ItemTableVC {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // TODO: Bugfix - Special folders need to show items of the current folder only
         super.tableView(tableView, didSelectRowAt: indexPath)
         
         if indexPath.row < specialFoldersCount {
