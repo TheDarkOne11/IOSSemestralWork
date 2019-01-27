@@ -32,7 +32,7 @@ class RefreshControl: UIRefreshControl {
         commonInit()
     }
     
-    func commonInit() {
+    private func commonInit() {
         tintColor = .clear
         backgroundColor = .clear
         addTarget(self, action: #selector(updateFeeds), for: .valueChanged)
@@ -41,7 +41,7 @@ class RefreshControl: UIRefreshControl {
         if let objOfRefreshView = Bundle.main.loadNibNamed("PullToRefreshView", owner: self, options: nil)?.first as? PullToRefreshView {
             // Initializing the 'refreshView'
             refreshView = objOfRefreshView
-            refreshView.updateLabelText(dateOfLastUpdate: defaults.object(forKey: "LastUpdate") as! NSDate)
+            refreshView.updateLabelText()
             refreshView.frame = frame
             
             // Adding the 'refreshView' to 'tableViewRefreshControl'
@@ -50,10 +50,11 @@ class RefreshControl: UIRefreshControl {
     }
     
     /**
-     Update method used in pull to refresh.
+     Update method which calls the delegates update method.
+     This one is used by a selector.
      */
     @objc
-    func updateFeeds() {
+    private func updateFeeds() {
         delegate.update()
     }
 }
