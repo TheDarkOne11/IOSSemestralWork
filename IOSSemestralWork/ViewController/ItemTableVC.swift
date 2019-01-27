@@ -17,52 +17,21 @@ class ItemTableVC: UITableViewController {
     
     let realm = try! Realm()
     let dbHandler = DBHandler()
+    let defaults = UserDefaults.standard
     
-    var testDate = NSDate()
-    var refreshView: PullToRefreshView!
-    lazy var refresher: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .clear
-        refreshControl.backgroundColor = .clear
-        refreshControl.addTarget(self, action: #selector(updateFeeds), for: .valueChanged)
-        
-        return refreshControl
-    }()
+    lazy var refresher = RefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Check if LastUpdate Date exists
+        if defaults.object(forKey: "LastUpdate") == nil {
+            defaults.set(NSDate(), forKey: "LastUpdate")
+        }
+        
         // Initialize PullToRefresh
         tableView.refreshControl = refresher
-        if let objOfRefreshView = Bundle.main.loadNibNamed("PullToRefreshView", owner: self, options: nil)?.first as? PullToRefreshView {
-            // Initializing the 'refreshView'
-            refreshView = objOfRefreshView
-            refreshView.updateLabelText(dateOfLastUpdate: testDate)
-            refreshView.frame = refresher.frame
-            
-            // Adding the 'refreshView' to 'tableViewRefreshControl'
-            refresher.addSubview(refreshView)
-        }
-    }
-    
-    @objc
-    func updateFeeds() {
-        print("requesting data")
-        
-        refreshView.updateLabelText(dateOfLastUpdate: self.testDate)
-        
-        refreshView.startUpdating()
-        dbHandler.updateAll() {
-            
-            // Hiding of the RefreshView is delayed to at least 0.5 s
-            let deadline = DispatchTime.now() + .milliseconds(500)
-            DispatchQueue.main.asyncAfter(deadline: deadline) {
-                print("End refreshing")
-                self.tableView.reloadData()
-                self.refreshView.stopUpdating()
-                self.refresher.endRefreshing()
-            }
-        }
+        refresher.delegate = self
     }
     
     // MARK: - TableView helper methods
@@ -152,6 +121,30 @@ class ItemTableVC: UITableViewController {
             let destinationVC = segue.destination as! RSSFeedTableVC
             destinationVC.myRssItems = currSender.rssItems
             destinationVC.title = currSender.title
+        }
+    }
+}
+
+extension ItemTableVC: RefreshControlDelegate {
+    func update() {
+        print("requesting data")
+        
+        let refreshView: PullToRefreshView! = refresher.refreshView
+        
+        refreshView.updateLabelText(dateOfLastUpdate: defaults.object(forKey: "LastUpdate") as! NSDate)
+        
+        refreshView.startUpdating()
+        dbHandler.updateAll() {
+            
+            // Hiding of the RefreshView is delayed to at least 0.5 s
+            let deadline = DispatchTime.now() + .milliseconds(500)
+            DispatchQueue.main.asyncAfter(deadline: deadline) {
+                print("End refreshing")
+                self.tableView.reloadData()
+                refreshView.stopUpdating()
+                self.refresher.endRefreshing()
+                self.defaults.set(NSDate(), forKey: "LastUpdate")
+            }
         }
     }
 }

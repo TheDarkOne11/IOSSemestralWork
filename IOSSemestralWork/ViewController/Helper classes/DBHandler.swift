@@ -50,6 +50,7 @@ class DBHandler {
         // DispatchGroup enables us to trigger some code when all async requests are done
         let myGroup = DispatchGroup()
         
+        // TODO: Remove debugging code that is causing delays
         var i = 1000
         for feed in realm.objects(MyRSSFeed.self) {
             myGroup.enter()
