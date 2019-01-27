@@ -79,7 +79,7 @@ extension RSSFeedTableVC: RefreshControlDelegate {
         
         let refreshView: PullToRefreshView! = refresher.refreshView
         
-        refreshView.updateLabelText(dateOfLastUpdate: defaults.object(forKey: "LastUpdate") as! NSDate)
+        refreshView.updateLabelText()
         
         refreshView.startUpdating()
         dbHandler.updateAll() {
