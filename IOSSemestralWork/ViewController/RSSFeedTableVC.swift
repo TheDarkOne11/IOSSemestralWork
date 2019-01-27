@@ -16,9 +16,52 @@ class RSSFeedTableVC: UITableViewController {
     var myRssItems: Results<MyRSSItem>?
     
     let dbHandler = DBHandler()
+    
+    var testDate = NSDate()
+    var refreshView: PullToRefreshView!
+    lazy var refresher: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .clear
+        refreshControl.backgroundColor = .clear
+        refreshControl.addTarget(self, action: #selector(updateFeeds), for: .valueChanged)
+        
+        return refreshControl
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Initialize PullToRefresh
+        tableView.refreshControl = refresher
+        if let objOfRefreshView = Bundle.main.loadNibNamed("PullToRefreshView", owner: self, options: nil)?.first as? PullToRefreshView {
+            // Initializing the 'refreshView'
+            refreshView = objOfRefreshView
+            refreshView.updateLabelText(dateOfLastUpdate: testDate)
+            refreshView.frame = refresher.frame
+            
+            // Adding the 'refreshView' to 'tableViewRefreshControl'
+            refresher.addSubview(refreshView)
+        }
+    }
+    
+    @objc
+    func updateFeeds() {
+        print("requesting data")
+        
+        refreshView.updateLabelText(dateOfLastUpdate: self.testDate)
+        
+        refreshView.startUpdating()
+        dbHandler.updateAll() {
+            
+            // Hiding of the RefreshView is delayed to at least 0.5 s
+            let deadline = DispatchTime.now() + .milliseconds(500)
+            DispatchQueue.main.asyncAfter(deadline: deadline) {
+                print("End refreshing")
+                self.tableView.reloadData()
+                self.refreshView.stopUpdating()
+                self.refresher.endRefreshing()
+            }
+        }
     }
 
     // MARK: - Table view data source
