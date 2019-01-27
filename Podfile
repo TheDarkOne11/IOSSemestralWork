@@ -8,4 +8,5 @@ target 'IOSSemestralWork' do
     # Pods for IOSSemestralWork
     pod 'AlamofireRSSParser'
     pod 'RealmSwift'
+    pod 'Toast-Swift'
 end

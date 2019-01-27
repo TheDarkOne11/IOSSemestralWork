@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import Toast_Swift
 
 // TODO: Pokud má feed špatnou adresu (adresa není RSS feed nebo neexistuje), udělám u něj v tableView nějaký vizuální indikátor (červený trojúhelník), možná i u jeho folderu. Tuto informaci musím uložit ve feedu, možná i ve folderu. Vizuální indikátor nezobrazíme, pokud se nemůžeme připojit k internetu. To uděláme v update liště.
 class ItemTableVC: UITableViewController {    
@@ -162,6 +163,8 @@ extension ItemTableVC: RefreshControlDelegate {
                     // Internet is unreachable
                     // TODO: Implement
                     print("Internet is unreachable")
+                    self.view.makeToast("Internet is unreachable. Please try updating later.", duration: 3.0, position: .center)
+                    
                 } else {
                     self.defaults.set(NSDate(), forKey: "LastUpdate")
                 }

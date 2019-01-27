@@ -7,10 +7,12 @@ PODS:
   - Realm/Headers (3.13.1)
   - RealmSwift (3.13.1):
     - Realm (= 3.13.1)
+  - Toast-Swift (4.0.1)
 
 DEPENDENCIES:
   - AlamofireRSSParser
   - RealmSwift
+  - Toast-Swift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -18,13 +20,15 @@ SPEC REPOS:
     - AlamofireRSSParser
     - Realm
     - RealmSwift
+    - Toast-Swift
 
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   AlamofireRSSParser: 4feb3c8cedf1fba2759ba30cf37cdf6ba45efd38
   Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
   RealmSwift: 8a1e6a02b7a08cd17a31e3115143fb69fe5f3fb9
+  Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
 
-PODFILE CHECKSUM: 9490f865f1b1bcc08b8db1f19c733450d1cac0fa
+PODFILE CHECKSUM: 093545b794164aabeb1ccb24ca95fd6956d0c420
 
 COCOAPODS: 1.5.3

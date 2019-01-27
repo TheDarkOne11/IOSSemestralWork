@@ -102,6 +102,7 @@ extension RSSFeedTableVC: RefreshControlDelegate {
                     // Internet is unreachable
                     // TODO: Implement
                     print("Internet is unreachable")
+                    self.view.makeToast("Internet is unreachable. Please try updating later.", duration: 3.0, position: .center)
                 } else {
                     self.defaults.set(NSDate(), forKey: "LastUpdate")
                 }
