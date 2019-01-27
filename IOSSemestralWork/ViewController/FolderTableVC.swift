@@ -46,6 +46,12 @@ class FolderTableVC: ItemTableVC {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        super.tableView(tableView, didSelectRowAt: indexPath)
+        
+        if indexPath.row < specialFoldersCount {
+            return
+        }
+        
         let currFeed = feeds![indexPath.row - specialFoldersCount]
         let sender = SeguePreparationSender(rssItems: currFeed.myRssItems.filter("TRUEPREDICATE"), title: currFeed.title)
         performSegue(withIdentifier: "ShowRssItems", sender: sender)
