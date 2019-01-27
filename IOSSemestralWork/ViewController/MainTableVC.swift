@@ -43,9 +43,7 @@ class MainTableVC: ItemTableVC {
     }
     
     @IBAction func editBtnPressed(_ sender: UIBarButtonItem) {
-        // TODO: Temporary update code, remove!
-        dbHandler.updateAll()
-        tableView.reloadData()
+       
     }
     
     // MARK: TableView helper methods

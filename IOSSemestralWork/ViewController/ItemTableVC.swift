@@ -18,8 +18,46 @@ class ItemTableVC: UITableViewController {
     let realm = try! Realm()
     let dbHandler = DBHandler()
     
+    var testDate = NSDate()
+    var refreshView: PullToRefreshView!
+    lazy var refresher: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .clear
+        refreshControl.backgroundColor = .clear
+        refreshControl.addTarget(self, action: #selector(requestData), for: .valueChanged)
+        
+        return refreshControl
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.refreshControl = refresher
+        
+        if let objOfRefreshView = Bundle.main.loadNibNamed("PullToRefreshView", owner: self, options: nil)?.first as? PullToRefreshView {
+            // Initializing the 'refreshView'
+            refreshView = objOfRefreshView
+            refreshView.updateLabelText(dateOfLastUpdate: testDate)
+            // Giving the frame as per 'tableViewRefreshControl'
+            refreshView.frame = refresher.frame
+            // Adding the 'refreshView' to 'tableViewRefreshControl'
+            refresher.addSubview(refreshView)
+        }
+    }
+    
+    @objc
+    func requestData() {
+        print("requesting data")
+        
+        // TODO: Temporary update code, remove!
+//        dbHandler.updateAll()
+        tableView.reloadData()
+        
+        let deadline = DispatchTime.now() + .milliseconds(500)
+        refreshView.updateLabelText(dateOfLastUpdate: testDate)
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            self.refresher.endRefreshing()
+        }
     }
     
     // MARK: - TableView helper methods
