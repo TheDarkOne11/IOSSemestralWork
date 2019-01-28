@@ -33,6 +33,11 @@ class ItemTableVC: UITableViewController {
         // Initialize PullToRefresh
         tableView.refreshControl = refresher
         refresher.delegate = self
+        
+        // Set default Toast values
+        ToastManager.shared.duration = 4.0
+        ToastManager.shared.position = .center
+        ToastManager.shared.style.backgroundColor = UIColor.black.withAlphaComponent(0.71)
     }
     
     // MARK: - TableView helper methods
@@ -159,11 +164,11 @@ extension ItemTableVC: RefreshControlDelegate {
                 refreshView.stopUpdating()
                 self.refresher.endRefreshing()
                 
-                if !success {
+                if success == DownloadStatus.Unreachable {
                     // Internet is unreachable
                     // TODO: Implement
                     print("Internet is unreachable")
-                    self.view.makeToast("Internet is unreachable. Please try updating later.", duration: 3.0, position: .center)
+                    self.view.makeToast("Internet is unreachable. Please try updating later.")
                     
                 } else {
                     self.defaults.set(NSDate(), forKey: "LastUpdate")

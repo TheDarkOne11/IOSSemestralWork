@@ -98,11 +98,11 @@ extension RSSFeedTableVC: RefreshControlDelegate {
                 refreshView.stopUpdating()
                 self.refresher.endRefreshing()
                 
-                if !success {
+                if success == DownloadStatus.Unreachable {
                     // Internet is unreachable
                     // TODO: Implement
                     print("Internet is unreachable")
-                    self.view.makeToast("Internet is unreachable. Please try updating later.", duration: 3.0, position: .center)
+                    self.view.makeToast("Internet is unreachable. Please try updating later.")
                 } else {
                     self.defaults.set(NSDate(), forKey: "LastUpdate")
                 }

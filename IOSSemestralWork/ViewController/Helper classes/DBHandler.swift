@@ -11,6 +11,12 @@ import RealmSwift
 import Alamofire
 import AlamofireRSSParser
 
+enum DownloadStatus: String {
+    case OK
+    case NotOK
+    case Unreachable
+}
+
 /**
  This class has all methods for manipulation with Models in Realm database.
  */
@@ -46,13 +52,13 @@ class DBHandler {
      Downloads items of the all feeds.
      - parameter completed: A function that is called when all feeds are updated.
      */
-    func updateAll(completed: @escaping (Bool) -> Void) {
+    func updateAll(completed: @escaping (DownloadStatus) -> Void) {
         // DispatchGroup enables us to trigger some code when all async requests are done
         let myGroup = DispatchGroup()
         
         // Check if internet is reachable
         if !NetworkReachabilityManager()!.isReachable {
-            completed(false)
+            completed(.Unreachable)
             return
         }
         
@@ -74,7 +80,7 @@ class DBHandler {
         myGroup.notify(queue: .main) {
             // Triggered when all updates are done
             print("Finished all updates.")
-            completed(true)
+            completed(.OK)
         }
     }
     
@@ -82,11 +88,11 @@ class DBHandler {
      Downloads items of the selected feed using AlamofireRSSParser.
      - parameter completed: A function that is called when an asynchronous Alamofire request ends.
      */
-    func update(feed myRssFeed: MyRSSFeed, completed: @escaping (Bool) -> Void) {
+    func update(feed myRssFeed: MyRSSFeed, completed: @escaping (DownloadStatus) -> Void) {
         
         // Check if internet is reachable
         if !NetworkReachabilityManager()!.isReachable {
-            completed(true)
+            completed(.Unreachable)
             return
         }
         
@@ -95,12 +101,12 @@ class DBHandler {
             if let mimeType =  response.response?.mimeType {
                 if mimeType != "application/rss+xml" {
                     // Website exists but isn't a RSS feed
-                    completed(false)
+                    completed(.NotOK)
                     return
                 }
             } else {
                 // Website doesn't exist
-                completed(false)
+                completed(.NotOK)
                 return
             }
             
@@ -110,6 +116,11 @@ class DBHandler {
                 // Add all items to the MyRSSFeed
                 do {
                     try self.realm.write {
+                        
+                        if myRssFeed.title == myRssFeed.link, let title = feed.title {
+                            myRssFeed.title = title
+                        }
+                        
                         for item in feed.items {
                             let myRssItem = MyRSSItem(with: item)
                             
@@ -123,11 +134,11 @@ class DBHandler {
                     }
                 } catch {
                     print("Error when adding a MyRSSItem to MyRSSFeed: \(error)")
-                    completed(false)
+                    completed(.NotOK)
                     return
                 }
                 
-                completed(true)
+                completed(.OK)
             }
         }
         

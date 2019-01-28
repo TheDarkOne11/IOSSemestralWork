@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import AlamofireRSSParser
 import RealmSwift
+import Toast_Swift
 
 /**
  Displays the primary TableView for all possible items.
@@ -149,9 +150,14 @@ extension MainTableVC: NewFeedDelegate {
         dbHandler.update(feed: myRssFeed) { (success) in
             self.tableView.reloadData()
             
-            if !success {
+            switch success {
+                
+            case .OK:
+                break
+            case .NotOK:
                 print("Feed \(myRssFeed.title) probably has a wrong link")
                 
+                self.view.makeToast("Could not download any RSS items. \nPlease check the RSS feed link you provided.")
                 do {
                     try self.realm.write {
                         myRssFeed.isOk = false
@@ -159,6 +165,12 @@ extension MainTableVC: NewFeedDelegate {
                 } catch {
                     print("Error occured when setting rssFeed.isOk to false: \(error)")
                 }
+                break
+            case .Unreachable:
+                print("Internet is unreachable. Please try updating later.")
+                
+                self.view.makeToast("Internet is unreachable. Please try updating later.")
+                break
             }
         }
     }
