@@ -55,11 +55,17 @@ class NewFeedVC: UITableViewController {
     }
     
     @IBAction func saveBtnPressed(_ sender: UIBarButtonItem) {        
+        var link = feedLinkLabel.text!
+        
+        if !link.starts(with: "http://") || !link.starts(with: "https://") {
+            link = "http://" + link
+        }
+        
         var title = feedNameLabel.text!
         if title == "" {
-            title = feedLinkLabel.text!
+            title = link
         }
-        let myRssFeed = MyRSSFeed(with: title, link: feedLinkLabel.text!)
+        let myRssFeed = MyRSSFeed(with: title, link: link)
         
         // Save the new feed to the selected folder
         
@@ -76,8 +82,6 @@ class NewFeedVC: UITableViewController {
     // MARK: TableView methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO: Create expandable tableView instead of this?
-        
         if indexPath.row == 1 && indexPath.section == 1 {
             // Show/ Hide picker view
             pickerTableViewCell.isHidden = !pickerTableViewCell.isHidden
