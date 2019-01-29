@@ -300,6 +300,7 @@
                     </navigationItem>
                     <connections>
                         <segue destination="abS-kR-Rcu" kind="show" identifier="ShowRssItems" id="nmV-WM-iEA"/>
+                        <segue destination="lfg-gO-O5g" kind="presentation" identifier="ShowAddFeed" id="9me-mn-0nI"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Irj-jW-fkA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -404,6 +405,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="g0Y-Kg-VgR"/>
+        <segue reference="bkH-4O-uYg"/>
+        <segue reference="nmV-WM-iEA"/>
     </inferredMetricsTieBreakers>
 </document>

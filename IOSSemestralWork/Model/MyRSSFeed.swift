@@ -11,6 +11,7 @@ import RealmSwift
 
 class MyRSSFeed: Item {
     @objc dynamic var link: String = ""
+    @objc dynamic var folder: Folder?
     let myRssItems = List<MyRSSItem>()
     
     /**
@@ -18,8 +19,9 @@ class MyRSSFeed: Item {
      */
     @objc dynamic var isOk: Bool = true
     
-    convenience init(with title: String, link: String) {
+    convenience init(with title: String, link: String, folder: Folder) {
         self.init(with: title, type: .myRssFeed)
+        self.folder = folder
         self.link = link
     }
 }

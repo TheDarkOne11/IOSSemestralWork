@@ -155,6 +155,18 @@ class ItemTableVC: UITableViewController {
     // MARK: Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowAddFeed" {
+            // Add feed button pressed
+            let destinationVC = (segue.destination as! UINavigationController).topViewController as! NewFeedVC
+            destinationVC.delegate = self
+            
+            if let feed = sender as? MyRSSFeed {
+                destinationVC.feedForUpdate = feed
+            }
+            
+            return
+        }
+        
         if segue.identifier == "ShowRssItems" {
             // Show RSSFeed
             guard let currSender = sender as? SeguePreparationSender<MyRSSItem> else {
@@ -198,12 +210,32 @@ extension ItemTableVC {
         
         let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (action, indexPath) in
             print("Edit clicked at row \(indexPath.row)")
+            self.editItem(at: indexPath)
         }
         
         return [removeAction, editAction]
     }
     
-    
+    func editItem(at indexPath: IndexPath) {
+        let foldersCount = folders?.count ?? 0
+        
+        if indexPath.row < foldersCount + specialFoldersCount {
+            // Go to folder edit screen
+            guard let folder = folders?[indexPath.row - specialFoldersCount] else {
+                print("The folder which is to be removed should exist")
+                fatalError()
+            }
+            
+        } else {
+            // Go to feed edit screen
+            guard let feed = feeds?[indexPath.row - foldersCount - specialFoldersCount] else {
+                print("The feed which is to be removed should exist")
+                fatalError()
+            }
+            
+            performSegue(withIdentifier: "ShowAddFeed", sender: feed)
+        }
+    }
     
     func removeItem(at indexPath: IndexPath) {
         let foldersCount = folders?.count ?? 0
@@ -277,4 +309,39 @@ extension ItemTableVC: RefreshControlDelegate {
             }
         }
     }
+}
+
+// MARK: NewFeedDelegate
+
+extension ItemTableVC: NewFeedDelegate {
+    func feedCreated(feed myRssFeed: MyRSSFeed) {
+        // Validate the address by running update of the feed
+        dbHandler.update(myRssFeed) { (success) in
+            self.tableView.reloadData()
+            
+            switch success {
+                
+            case .OK:
+                break
+            case .NotOK:
+                print("Feed \(myRssFeed.title) probably has a wrong link")
+                
+                self.view.makeToast("Could not download any RSS items. \nPlease check the RSS feed link you provided.")
+                do {
+                    try self.realm.write {
+                        myRssFeed.isOk = false
+                    }
+                } catch {
+                    print("Error occured when setting rssFeed.isOk to false: \(error)")
+                }
+                break
+            case .Unreachable:
+                print("Internet is unreachable. Please try updating later.")
+                
+                self.view.makeToast("Internet is unreachable. Please try updating later.")
+                break
+            }
+        }
+    }
+    
 }

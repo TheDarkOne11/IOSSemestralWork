@@ -53,10 +53,10 @@ class DBHandler {
     
     // MARK: MyRSSFeed methods
     
-    func create(_ myRssFeed: MyRSSFeed, in folder: Folder) {
+    func create(_ myRssFeed: MyRSSFeed) {
         do {
             try realm.write {
-                folder.myRssFeeds.append(myRssFeed)
+                myRssFeed.folder!.myRssFeeds.append(myRssFeed)
             }
         } catch {
             print("Error occured when creating a new MyRSSFeed: \(error)")

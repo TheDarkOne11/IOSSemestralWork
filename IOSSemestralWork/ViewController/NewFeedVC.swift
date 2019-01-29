@@ -15,6 +15,8 @@ protocol NewFeedDelegate {
      Validates the given RSS feed link address. The feed is then persisted in Realm.b
      */
     func feedCreated(feed myRssFeed: MyRSSFeed)
+    
+//    func feedUpdated()
 }
 
 /**
@@ -28,11 +30,13 @@ class NewFeedVC: UITableViewController {
     @IBOutlet weak var feedLinkLabel: UITextField!
     
     let realm = try! Realm()
-    
     let dbHandler = DBHandler()
-    
     var delegate: NewFeedDelegate!
     
+    /**
+     If it's nil then new feed is created. If it isn't nil then this feed is updated.
+     */
+    var feedForUpdate: MyRSSFeed?
     var folders: Results<Folder>?
     
     override func viewDidLoad() {
@@ -44,8 +48,20 @@ class NewFeedVC: UITableViewController {
         // Loads all folders from Realm, updates on changes.
         folders = realm.objects(Folder.self)
         
-        // There is always at least 1 folder
-        folderNameLabel.text = folders!.first?.title
+        if let feed = feedForUpdate {
+            // Prepopulate all components of the screen
+            feedNameLabel.text = feed.title
+            feedLinkLabel.text = feed.link
+            selectPickerRow(at: feed.folder!)
+        } else {
+            // There is always at least 1 folder
+            folderNameLabel.text = folders!.first?.title
+        }
+    }
+    
+    func selectPickerRow(at folder: Folder) {
+        folderNameLabel.text = folder.title
+        picker.selectRow(folders!.index(of: folder) ?? 0, inComponent: 0, animated: false)
     }
     
     // MARK: NavBar items
@@ -65,14 +81,14 @@ class NewFeedVC: UITableViewController {
         if title == "" {
             title = link
         }
-        let myRssFeed = MyRSSFeed(with: title, link: link)
         
         // Save the new feed to the selected folder
         
         let selectedFolder = folders![picker.selectedRow(inComponent: 0)]
+        let myRssFeed = MyRSSFeed(with: title, link: link, folder: selectedFolder)
         
         // Save the new feed to the selected folder in Realm
-        dbHandler.create(myRssFeed, in: selectedFolder)
+        dbHandler.create(myRssFeed)
         
         delegate.feedCreated(feed: myRssFeed)
         
@@ -124,9 +140,9 @@ extension NewFeedVC: UIPickerViewDelegate, UIPickerViewDataSource {
 // MARK: NewFolderDelegate
 
 extension NewFeedVC: NewFolderDelegate {
-    // TODO: Could this be done automatically when Realm updates the datasource?
-    func folderCreated() {
+    func folderCreated(_ folder: Folder) {
         picker.reloadAllComponents()
+        selectPickerRow(at: folder)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

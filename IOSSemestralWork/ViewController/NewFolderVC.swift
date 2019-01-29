@@ -9,7 +9,7 @@
 import UIKit
 
 protocol NewFolderDelegate {
-    func folderCreated()
+    func folderCreated(_ folder: Folder)
 }
 
 /**
@@ -32,9 +32,9 @@ class NewFolderVC: UITableViewController {
      When a user confirms the name (clicks enter), a new folder is created and added to Realm database.
      */
     @IBAction func createFolder(_ sender: UITextField) {
-        let title = sender.text!
-        dbHandler.create(Folder(with: title, isContentsViewable: true))
-        delegate.folderCreated()
+        let folder = Folder(with: sender.text!, isContentsViewable: true)
+        dbHandler.create(folder)
+        delegate.folderCreated(folder)
         
         self.navigationController?.popViewController(animated: true)
     }
