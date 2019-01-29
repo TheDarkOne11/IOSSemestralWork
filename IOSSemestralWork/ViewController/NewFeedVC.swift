@@ -57,7 +57,7 @@ class NewFeedVC: UITableViewController {
     @IBAction func saveBtnPressed(_ sender: UIBarButtonItem) {        
         var link = feedLinkLabel.text!
         
-        if !link.starts(with: "http://") || !link.starts(with: "https://") {
+        if !link.starts(with: "http://") && !link.starts(with: "https://") {
             link = "http://" + link
         }
         
@@ -72,7 +72,7 @@ class NewFeedVC: UITableViewController {
         let selectedFolder = folders![picker.selectedRow(inComponent: 0)]
         
         // Save the new feed to the selected folder in Realm
-        dbHandler.create(feed: myRssFeed, in: selectedFolder)
+        dbHandler.create(myRssFeed, in: selectedFolder)
         
         delegate.feedCreated(feed: myRssFeed)
         

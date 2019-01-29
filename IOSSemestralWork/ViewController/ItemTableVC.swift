@@ -42,15 +42,6 @@ class ItemTableVC: UITableViewController {
         ToastManager.shared.style.backgroundColor = UIColor.black.withAlphaComponent(0.71)
     }
     
-    // MARK: - TableView methods
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let feedsCount = feeds?.count ?? 0
-        let foldersCount = folders?.count ?? 0
-        
-        return specialFoldersCount + feedsCount + foldersCount
-    }
-    
     // MARK: - TableView data source
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -102,6 +93,15 @@ class ItemTableVC: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let feedsCount = feeds?.count ?? 0
+        let foldersCount = folders?.count ?? 0
+        
+        return specialFoldersCount + feedsCount + foldersCount
+    }
+    
+    // MARK: - TableView methods
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.row < specialFoldersCount) {
             var items: Results<MyRSSItem>
@@ -152,24 +152,6 @@ class ItemTableVC: UITableViewController {
         }
     }
     
-    // MARK: TableView editing and removing
-    
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let removeAction = UITableViewRowAction(style: .destructive, title: "Remove") { (action, indexPath) in
-            print("Remove clicked at row \(indexPath.row)")
-        }
-        
-        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (action, indexPath) in
-            print("Edit clicked at row \(indexPath.row)")
-        }
-        
-        return [removeAction, editAction]
-    }
-    
     // MARK: Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -183,6 +165,7 @@ class ItemTableVC: UITableViewController {
             let destinationVC = segue.destination as! RSSFeedTableVC
             destinationVC.myRssItems = currSender.rssItems
             destinationVC.title = currSender.title
+            return
         }
         
         guard let indexPath = tableView.indexPathForSelectedRow else {
@@ -197,6 +180,53 @@ class ItemTableVC: UITableViewController {
                 destinationVC.selectedFolder = folder
             }
         }
+    }
+}
+
+// MARK: TableView cells editing and removing
+
+extension ItemTableVC {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return indexPath.row >= specialFoldersCount
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let removeAction = UITableViewRowAction(style: .destructive, title: "Remove") { (action, indexPath) in
+            print("Remove clicked at row \(indexPath.row)")
+            self.removeItem(at: indexPath)
+        }
+        
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (action, indexPath) in
+            print("Edit clicked at row \(indexPath.row)")
+        }
+        
+        return [removeAction, editAction]
+    }
+    
+    
+    
+    func removeItem(at indexPath: IndexPath) {
+        let foldersCount = folders?.count ?? 0
+        
+        if indexPath.row < foldersCount + specialFoldersCount {
+            // Remove folder and all its contents
+            guard let folder = folders?[indexPath.row - specialFoldersCount] else {
+                print("The folder which is to be removed should exist")
+                fatalError()
+            }
+            
+            dbHandler.remove(folder)
+        } else {
+            // Remove feed
+            guard let feed = feeds?[indexPath.row - foldersCount - specialFoldersCount] else {
+                print("The feed which is to be removed should exist")
+                fatalError()
+            }
+            
+            dbHandler.remove(feed)
+        }
+        
+        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 }
 

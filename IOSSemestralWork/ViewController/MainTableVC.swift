@@ -25,7 +25,7 @@ class MainTableVC: ItemTableVC {
         
         // If the special "None" folder doesn't exist (app run for the first time) create it
         if folders!.isEmpty {
-            dbHandler.create(folder: Folder(with: "None", isContentsViewable: true))
+            dbHandler.create(Folder(with: "None", isContentsViewable: true))
         }
         
         // Filter "None" folder out
@@ -48,8 +48,6 @@ class MainTableVC: ItemTableVC {
     // MARK: Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-        
         if segue.identifier == "ShowAddFeed" {
             // Add feed button pressed
             let destinationVC = (segue.destination as! UINavigationController).topViewController as! NewFeedVC
@@ -57,6 +55,8 @@ class MainTableVC: ItemTableVC {
             
             return
         }
+        
+        super.prepare(for: segue, sender: sender)
     }
 }
 
@@ -65,7 +65,7 @@ class MainTableVC: ItemTableVC {
 extension MainTableVC: NewFeedDelegate {
     func feedCreated(feed myRssFeed: MyRSSFeed) {
         // Validate the address by running update of the feed
-        dbHandler.update(feed: myRssFeed) { (success) in
+        dbHandler.update(myRssFeed) { (success) in
             self.tableView.reloadData()
             
             switch success {

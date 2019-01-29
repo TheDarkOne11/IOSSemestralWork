@@ -33,7 +33,7 @@ class NewFolderVC: UITableViewController {
      */
     @IBAction func createFolder(_ sender: UITextField) {
         let title = sender.text!
-        dbHandler.create(folder: Folder(with: title, isContentsViewable: true))
+        dbHandler.create(Folder(with: title, isContentsViewable: true))
         delegate.folderCreated()
         
         self.navigationController?.popViewController(animated: true)

@@ -25,7 +25,7 @@ class DBHandler {
     
     // MARK: Folder methods
     
-    func create(folder: Folder) {
+    func create(_ folder: Folder) {
         // Save the folder to Realm
         do {
             try realm.write {
@@ -36,15 +36,41 @@ class DBHandler {
         }
     }
     
+    func remove(_ folder: Folder) {
+        // Remove folders contents
+        for feed in folder.myRssFeeds {
+            remove(feed)
+        }
+        
+        do {
+            try realm.write {
+                realm.delete(folder)
+            }
+        } catch {
+            print("Error occured when removing a folder \(folder.title): \(error)")
+        }
+    }
+    
     // MARK: MyRSSFeed methods
     
-    func create(feed myRssFeed: MyRSSFeed, in folder: Folder) {
+    func create(_ myRssFeed: MyRSSFeed, in folder: Folder) {
         do {
             try realm.write {
                 folder.myRssFeeds.append(myRssFeed)
             }
         } catch {
             print("Error occured when creating a new MyRSSFeed: \(error)")
+        }
+    }
+    
+    func remove(_ myRssFeed: MyRSSFeed) {
+        do {
+            try realm.write {
+                realm.delete(myRssFeed.myRssItems)
+                realm.delete(myRssFeed)
+            }
+        } catch {
+            print("Error occured when removing a folder \(myRssFeed.title): \(error)")
         }
     }
     
@@ -71,7 +97,7 @@ class DBHandler {
                 myGroup.enter()
             }
             
-            self.update(feed: feed) { (success) -> Void in
+            self.update(feed) { (success) -> Void in
                 // Triggered when an update is done
                 myGroup.leave()
             }
@@ -88,7 +114,7 @@ class DBHandler {
      Downloads items of the selected feed using AlamofireRSSParser.
      - parameter completed: A function that is called when an asynchronous Alamofire request ends.
      */
-    func update(feed myRssFeed: MyRSSFeed, completed: @escaping (DownloadStatus) -> Void) {
+    func update(_ myRssFeed: MyRSSFeed, completed: @escaping (DownloadStatus) -> Void) {
         
         // Check if internet is reachable
         if !NetworkReachabilityManager()!.isReachable {
