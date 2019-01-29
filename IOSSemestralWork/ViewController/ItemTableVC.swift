@@ -42,34 +42,7 @@ class ItemTableVC: UITableViewController {
         ToastManager.shared.style.backgroundColor = UIColor.black.withAlphaComponent(0.71)
     }
     
-    // MARK: - TableView helper methods
-    
-    /**
-     This method is used to fill all cells of TableViews of ItemTableVC children in tableViewCellForRowAt methods.
-     */
-    func fill(cell: UITableViewCell, at row: Int) ->UITableViewCell? {
-        
-        // Check for special folders
-        switch(row) {
-        case 0:
-            // All items
-            cell.textLabel?.text = "All items" + " (Special)"
-            break
-        case 1:
-            // Unread items
-            cell.textLabel?.text = "Unread items" + " (Special)"
-            break
-        case 2:
-            // Starred items
-            cell.textLabel?.text = "Starred items" + " (Special)"
-            break
-        default:
-            // Not one of the special folders
-            return nil
-        }
-        
-        return cell
-    }
+    // MARK: - TableView methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let feedsCount = feeds?.count ?? 0
@@ -83,16 +56,54 @@ class ItemTableVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
         
-        guard let filledCell = fill(cell: cell, at: indexPath.row) else {
-            print("Error occured at cellForRowAt.")
-            fatalError()
+        // Check for special folders
+        if (indexPath.row < specialFoldersCount) {
+            switch(indexPath.row) {
+            case 0:
+                // All items
+                cell.textLabel?.text = "All items" + " (Special)"
+                break
+            case 1:
+                // Unread items
+                cell.textLabel?.text = "Unread items" + " (Special)"
+                break
+            case 2:
+                // Starred items
+                cell.textLabel?.text = "Starred items" + " (Special)"
+                break
+            default:
+                // Not one of the special folders
+                break
+            }
+            
+            return cell
         }
         
-        return filledCell
+        // First show custom folders then RSS feeds without folder
+        let foldersCount = folders?.count ?? 0
+        if indexPath.row < foldersCount + specialFoldersCount {
+            // Show folder
+            guard let folder = folders?[indexPath.row - specialFoldersCount] else {
+                print("Error when loading folders to display in the tableView")
+                fatalError()
+            }
+            
+            cell.textLabel?.text = folder.title + " (Folder)"
+        } else {
+            // Show RSSFeed
+            guard let feed = feeds?[indexPath.row - foldersCount - specialFoldersCount] else {
+                print("Error when loading feeds to display in the tableView")
+                fatalError()
+            }
+            
+            cell.textLabel?.text = feed.title + " (MyRSSFeed)"
+        }
+        
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.row >= 0 && indexPath.row < specialFoldersCount) {
+        if (indexPath.row < specialFoldersCount) {
             var items: Results<MyRSSItem>
             
             switch(indexPath.row) {

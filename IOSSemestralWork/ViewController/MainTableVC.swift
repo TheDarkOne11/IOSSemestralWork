@@ -44,35 +44,6 @@ class MainTableVC: ItemTableVC {
     @IBAction func editBtnPressed(_ sender: UIBarButtonItem) {
         // TODO: Implement
     }
-    
-    // MARK: TableView helper methods
-    
-    override func fill(cell: UITableViewCell, at row: Int) -> UITableViewCell? {
-        if let cell = super.fill(cell: cell, at: row) {
-            return cell
-        }
-        
-        // First show custom folders then RSS feeds without folder
-        if row < folders!.count + specialFoldersCount {
-            // Show folder
-            guard let folder = folders?[row - specialFoldersCount] else {
-                print("Error when loading folders to display in the tableView")
-                fatalError()
-            }
-            
-            cell.textLabel?.text = folder.title + " (Folder)"
-        } else {
-            // Show RSSFeed
-            guard let feed = feeds?[row - folders!.count - specialFoldersCount] else {
-                print("Error when loading feeds to display in the tableView")
-                fatalError()
-            }
-            
-            cell.textLabel?.text = feed.title + " (MyRSSFeed)"
-        }
-        
-        return cell
-    }
         
     // MARK: Navigation
     

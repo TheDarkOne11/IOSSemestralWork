@@ -29,21 +29,4 @@ class FolderTableVC: ItemTableVC {
             .filter("title CONTAINS[cd] %@", selectedFolder!.title)[0]
             .myRssFeeds
     }
-    
-    // MARK: TableView helper methods
-    
-    override func fill(cell: UITableViewCell, at row: Int) -> UITableViewCell? {
-        if let cell = super.fill(cell: cell, at: row) {
-            return cell
-        }
-        
-        guard let feed = feeds?[row - specialFoldersCount] else {
-            print("Error when loading feeds to display in the tableView")
-            fatalError()
-        }
-        
-        cell.textLabel?.text = feed.title + " (MyRSSFeed)"
-        
-        return cell
-    }
 }
