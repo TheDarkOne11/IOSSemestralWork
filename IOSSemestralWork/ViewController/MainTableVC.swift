@@ -16,8 +16,6 @@ import Toast_Swift
  Displays the primary TableView for all possible items.
  */
 class MainTableVC: ItemTableVC {
-    // Shown folders
-    var folders: Results<Folder>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,43 +73,8 @@ class MainTableVC: ItemTableVC {
         
         return cell
     }
-    
-    // MARK: - TableView methods
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return super.tableView(tableView, numberOfRowsInSection: section) + folders!.count
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        super.tableView(tableView, didSelectRowAt: indexPath)
         
-        if indexPath.row < specialFoldersCount {
-            return
-        }
-        
-        guard let folders = self.folders else {
-            print("Error when selecting a folder")
-            fatalError()
-        }
-        
-        // TODO: Go to the folder's contents only when an edge of the cell is selected, otherwise show RSSItems of its feeds
-        
-        if indexPath.row < folders.count + specialFoldersCount {
-            // Go to FolderTableVC
-            // TODO: Maybe do the same for folder we did for RSSItems
-            performSegue(withIdentifier: "ShowFolderContents", sender: nil)
-        } else {
-            // Go to RSSFeedTableVC
-            let currFeed = feeds![indexPath.row - folders.count - specialFoldersCount]
-            
-            // Change rssItems from List to Results
-            let sender = SeguePreparationSender(rssItems: currFeed.myRssItems.filter("TRUEPREDICATE"), title: currFeed.title)
-            
-            performSegue(withIdentifier: "ShowRssItems", sender: sender)
-        }
-    }
-    
-    // MARK: - Navigation
+    // MARK: Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
@@ -122,22 +85,6 @@ class MainTableVC: ItemTableVC {
             destinationVC.delegate = self
             
             return
-        }
-        
-        guard let indexPath = tableView.indexPathForSelectedRow else {
-            print("Unreacheable tableViewCell selected.")
-            fatalError()
-        }
-        
-        if segue.identifier ==  "ShowFolderContents" {
-            // Show folder
-            guard let folder = folders?[indexPath.row - specialFoldersCount] else {
-                print("Error when loading folders to display in the tableView")
-                fatalError()
-            }
-            
-            let destinationVC = segue.destination as! FolderTableVC
-            destinationVC.selectedFolder = folder
         }
     }
 }

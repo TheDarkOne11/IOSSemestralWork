@@ -11,7 +11,9 @@ import RealmSwift
 import Toast_Swift
 
 // TODO: Pokud má feed špatnou adresu (adresa není RSS feed nebo neexistuje), udělám u něj v tableView nějaký vizuální indikátor (červený trojúhelník), možná i u jeho folderu. Tuto informaci musím uložit ve feedu, možná i ve folderu. Vizuální indikátor nezobrazíme, pokud se nemůžeme připojit k internetu. To uděláme v update liště.
-class ItemTableVC: UITableViewController {    
+class ItemTableVC: UITableViewController {
+    /** All shown folders in the current tableView. */
+    var folders: Results<Folder>?
     // All feeds that aren't inside a folder and are supposed to be shown
     var feeds: List<MyRSSFeed>?
     let specialFoldersCount = 3
@@ -69,11 +71,14 @@ class ItemTableVC: UITableViewController {
         return cell
     }
     
-    // MARK: - TableView data source
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return feeds!.count + specialFoldersCount
+        let feedsCount = feeds?.count ?? 0
+        let foldersCount = folders?.count ?? 0
+        
+        return specialFoldersCount + feedsCount + foldersCount
     }
+    
+    // MARK: - TableView data source
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
@@ -111,6 +116,28 @@ class ItemTableVC: UITableViewController {
             default:
                 return
             }
+            
+            return
+        }
+        
+        // TODO: Go to the folder's contents only when an edge of the cell is selected, otherwise show RSSItems of its feeds
+        let foldersCount = folders?.count ?? 0
+        
+        if indexPath.row < foldersCount + specialFoldersCount {
+            // Go to FolderTableVC
+            // TODO: Maybe do the same for folder we did for RSSItems
+            performSegue(withIdentifier: "ShowFolderContents", sender: nil)
+            return
+        }
+        
+        if let feeds = self.feeds {
+            // Go to RSSFeedTableVC
+            let currFeed = feeds[indexPath.row - foldersCount - specialFoldersCount]
+            
+            // Change rssItems from List to Results
+            let sender = SeguePreparationSender(rssItems: currFeed.myRssItems.filter("TRUEPREDICATE"), title: currFeed.title)
+            
+            performSegue(withIdentifier: "ShowRssItems", sender: sender)
         }
     }
     
@@ -145,6 +172,19 @@ class ItemTableVC: UITableViewController {
             let destinationVC = segue.destination as! RSSFeedTableVC
             destinationVC.myRssItems = currSender.rssItems
             destinationVC.title = currSender.title
+        }
+        
+        guard let indexPath = tableView.indexPathForSelectedRow else {
+            print("Unreacheable tableViewCell selected.")
+            fatalError()
+        }
+        
+        if segue.identifier ==  "ShowFolderContents" {
+            // Show folder
+            if let folder = folders?[indexPath.row - specialFoldersCount] {
+                let destinationVC = segue.destination as! FolderTableVC
+                destinationVC.selectedFolder = folder
+            }
         }
     }
 }

@@ -22,6 +22,8 @@ class FolderTableVC: ItemTableVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        folders = nil
+        
         // Get all feeds from "None" folder. They are supposed to be displayed in this screen
         feeds = realm.objects(Folder.self)
             .filter("title CONTAINS[cd] %@", selectedFolder!.title)[0]
@@ -43,18 +45,5 @@ class FolderTableVC: ItemTableVC {
         cell.textLabel?.text = feed.title + " (MyRSSFeed)"
         
         return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO: Bugfix - Special folders need to show items of the current folder only
-        super.tableView(tableView, didSelectRowAt: indexPath)
-        
-        if indexPath.row < specialFoldersCount {
-            return
-        }
-        
-        let currFeed = feeds![indexPath.row - specialFoldersCount]
-        let sender = SeguePreparationSender(rssItems: currFeed.myRssItems.filter("TRUEPREDICATE"), title: currFeed.title)
-        performSegue(withIdentifier: "ShowRssItems", sender: sender)
     }
 }
