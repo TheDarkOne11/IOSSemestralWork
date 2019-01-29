@@ -114,6 +114,24 @@ class ItemTableVC: UITableViewController {
         }
     }
     
+    // MARK: TableView editing and removing
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let removeAction = UITableViewRowAction(style: .destructive, title: "Remove") { (action, indexPath) in
+            print("Remove clicked at row \(indexPath.row)")
+        }
+        
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (action, indexPath) in
+            print("Edit clicked at row \(indexPath.row)")
+        }
+        
+        return [removeAction, editAction]
+    }
+    
     // MARK: Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
