@@ -8,14 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		434AF0675DA05159F971DB51 /* Pods_IOSSemestralWork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41DAE754AFF5F4B367771429 /* Pods_IOSSemestralWork.framework */; };
+		4B10092A2200EF7000A259DC /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1009292200EF7000A259DC /* UserDefaultsKeys.swift */; };
 		4B50A3A121D8280500462B71 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B50A3A021D8280500462B71 /* Item.swift */; };
 		4B50A3A321D8290900462B71 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B50A3A221D8290900462B71 /* Folder.swift */; };
 		4B50A3A521D829E000462B71 /* MyRSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B50A3A421D829E000462B71 /* MyRSSFeed.swift */; };
-		4B50A3E721D83E9400462B71 /* NewFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B50A3E621D83E9400462B71 /* NewFeedVC.swift */; };
+		4B50A3E721D83E9400462B71 /* RSSFeedEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B50A3E621D83E9400462B71 /* RSSFeedEditVC.swift */; };
 		4B70A86C21D7A12700289496 /* MyRSSItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B70A86B21D7A12700289496 /* MyRSSItem.swift */; };
 		4BA1365D21D7947F009D4EBB /* MainTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1365C21D7947F009D4EBB /* MainTableVC.swift */; };
 		4BA354C621F8DA3000BCE58E /* SeguePreparationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA354C521F8DA3000BCE58E /* SeguePreparationSender.swift */; };
-		4BA8868E21F4C9DB001816B9 /* NewFolderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA8868D21F4C9DB001816B9 /* NewFolderVC.swift */; };
 		4BA9C45B21F76A7C0021E143 /* DBHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9C45A21F76A7C0021E143 /* DBHandler.swift */; };
 		4BD68B5F21D95F0000B3A14E /* ItemTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD68B5E21D95F0000B3A14E /* ItemTableVC.swift */; };
 		4BD68B6121D970FE00B3A14E /* RSSItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD68B6021D970FE00B3A14E /* RSSItemVC.swift */; };
@@ -34,14 +34,14 @@
 /* Begin PBXFileReference section */
 		1A26211D2B8C7051A78A3F05 /* Pods-IOSSemestralWork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSSemestralWork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IOSSemestralWork/Pods-IOSSemestralWork.debug.xcconfig"; sourceTree = "<group>"; };
 		41DAE754AFF5F4B367771429 /* Pods_IOSSemestralWork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IOSSemestralWork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B1009292200EF7000A259DC /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		4B50A3A021D8280500462B71 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		4B50A3A221D8290900462B71 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		4B50A3A421D829E000462B71 /* MyRSSFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRSSFeed.swift; sourceTree = "<group>"; };
-		4B50A3E621D83E9400462B71 /* NewFeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFeedVC.swift; sourceTree = "<group>"; };
+		4B50A3E621D83E9400462B71 /* RSSFeedEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedEditVC.swift; sourceTree = "<group>"; };
 		4B70A86B21D7A12700289496 /* MyRSSItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRSSItem.swift; sourceTree = "<group>"; };
 		4BA1365C21D7947F009D4EBB /* MainTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableVC.swift; sourceTree = "<group>"; };
 		4BA354C521F8DA3000BCE58E /* SeguePreparationSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeguePreparationSender.swift; sourceTree = "<group>"; };
-		4BA8868D21F4C9DB001816B9 /* NewFolderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewFolderVC.swift; path = IOSSemestralWork/ViewController/NewFolderVC.swift; sourceTree = SOURCE_ROOT; };
 		4BA9C45A21F76A7C0021E143 /* DBHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBHandler.swift; sourceTree = "<group>"; };
 		4BD68B5E21D95F0000B3A14E /* ItemTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableVC.swift; sourceTree = "<group>"; };
 		4BD68B6021D970FE00B3A14E /* RSSItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSItemVC.swift; sourceTree = "<group>"; };
@@ -82,8 +82,7 @@
 				4BDFB70321D8D31000361136 /* FolderTableVC.swift */,
 				4BDFB70521D8D82200361136 /* RSSFeedTableVC.swift */,
 				4BD68B6021D970FE00B3A14E /* RSSItemVC.swift */,
-				4B50A3E621D83E9400462B71 /* NewFeedVC.swift */,
-				4BA8868D21F4C9DB001816B9 /* NewFolderVC.swift */,
+				4B50A3E621D83E9400462B71 /* RSSFeedEditVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -112,6 +111,7 @@
 		4BA354C421F8D9F600BCE58E /* Helper classes */ = {
 			isa = PBXGroup;
 			children = (
+				4B1009292200EF7000A259DC /* UserDefaultsKeys.swift */,
 				4BA9C45A21F76A7C0021E143 /* DBHandler.swift */,
 				4BA354C521F8DA3000BCE58E /* SeguePreparationSender.swift */,
 				4BDDFCA621FE207B007F4F63 /* RefreshControl.swift */,
@@ -320,7 +320,7 @@
 				4BD68B6121D970FE00B3A14E /* RSSItemVC.swift in Sources */,
 				4B50A3A321D8290900462B71 /* Folder.swift in Sources */,
 				4BA9C45B21F76A7C0021E143 /* DBHandler.swift in Sources */,
-				4BA8868E21F4C9DB001816B9 /* NewFolderVC.swift in Sources */,
+				4B10092A2200EF7000A259DC /* UserDefaultsKeys.swift in Sources */,
 				4B50A3A521D829E000462B71 /* MyRSSFeed.swift in Sources */,
 				4BA1365D21D7947F009D4EBB /* MainTableVC.swift in Sources */,
 				4BD68B5F21D95F0000B3A14E /* ItemTableVC.swift in Sources */,
@@ -328,7 +328,7 @@
 				4BDFB70621D8D82200361136 /* RSSFeedTableVC.swift in Sources */,
 				4BA354C621F8DA3000BCE58E /* SeguePreparationSender.swift in Sources */,
 				4BDFB70421D8D31100361136 /* FolderTableVC.swift in Sources */,
-				4B50A3E721D83E9400462B71 /* NewFeedVC.swift in Sources */,
+				4B50A3E721D83E9400462B71 /* RSSFeedEditVC.swift in Sources */,
 				4BE8A5FB21D6CB05009B66F0 /* AppDelegate.swift in Sources */,
 				4BDDFCA221FDD28D007F4F63 /* PullToRefreshView.swift in Sources */,
 				4BDDFCA721FE207B007F4F63 /* RefreshControl.swift in Sources */,

@@ -10,7 +10,6 @@ import UIKit
 import RealmSwift
 import Toast_Swift
 
-// TODO: Pokud má feed špatnou adresu (adresa není RSS feed nebo neexistuje), udělám u něj v tableView nějaký vizuální indikátor (červený trojúhelník), možná i u jeho folderu. Tuto informaci musím uložit ve feedu, možná i ve folderu. Vizuální indikátor nezobrazíme, pokud se nemůžeme připojit k internetu. To uděláme v update liště.
 class ItemTableVC: UITableViewController {
     /** All shown folders in the current tableView. */
     var folders: Results<Folder>?
@@ -28,8 +27,8 @@ class ItemTableVC: UITableViewController {
         super.viewDidLoad()
         
         // Check if LastUpdate Date exists
-        if defaults.object(forKey: "LastUpdate") == nil {
-            defaults.set(NSDate(), forKey: "LastUpdate")
+        if defaults.object(forKey: UserDefaultsKeys.LastUpdate.rawValue) == nil {
+            defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
         }
         
         // Initialize PullToRefresh
@@ -157,7 +156,7 @@ class ItemTableVC: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowAddFeed" {
             // Add feed button pressed
-            let destinationVC = (segue.destination as! UINavigationController).topViewController as! NewFeedVC
+            let destinationVC = (segue.destination as! UINavigationController).topViewController as! RSSFeedEditVC
             destinationVC.delegate = self
             
             if let feed = sender as? MyRSSFeed {
@@ -226,6 +225,8 @@ extension ItemTableVC {
                 fatalError()
             }
             
+            presentEditAlert(folder)
+            
         } else {
             // Go to feed edit screen
             guard let feed = feeds?[indexPath.row - foldersCount - specialFoldersCount] else {
@@ -235,6 +236,45 @@ extension ItemTableVC {
             
             performSegue(withIdentifier: "ShowAddFeed", sender: feed)
         }
+    }
+    
+    /**
+     Creates and presents an alert used for editing the selected folder.
+     */
+    func presentEditAlert(_ folder: Folder) {
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Edit folder", message: "", preferredStyle: .alert)
+        let actionCancel = UIAlertAction(title: "Cancel", style: .cancel)
+        let actionDone = UIAlertAction(title: "Done", style: .default) { (action) in
+            do {
+                try self.realm.write {
+                    folder.title = textField.text!
+                }
+            } catch {
+                print("Error occured when editing a folder: \(error)")
+            }
+            self.tableView.reloadData()
+        }
+        
+        alert.addAction(actionDone)
+        alert.addAction(actionCancel)
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Folder name"
+            alertTextField.text = folder.title
+            alertTextField.enablesReturnKeyAutomatically = true
+            
+            textField = alertTextField
+        }
+        
+        // Check for textField changes. Done button is enabled only when the textField isn't empty
+        NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { _ in
+            // Enables and disables Done action. Triggered when value of textField changes
+            let textCount = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0
+            actionDone.isEnabled = textCount > 0
+        }
+        
+        present(alert, animated: true, completion: nil)
     }
     
     func removeItem(at indexPath: IndexPath) {
@@ -301,7 +341,7 @@ extension ItemTableVC: RefreshControlDelegate {
                     self.view.makeToast("Internet is unreachable. Please try updating later.")
                     
                 } else {
-                    self.defaults.set(NSDate(), forKey: "LastUpdate")
+                    self.defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
                 }
                 
                 self.tableView.reloadData()

@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--New FeedVC-->
+        <!--Feed EditVC-->
         <scene sceneID="30B-Ie-Z7H">
             <objects>
-                <tableViewController id="QE6-n0-ctg" customClass="NewFeedVC" customModule="IOSSemestralWork" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="QE6-n0-ctg" customClass="RSSFeedEditVC" customModule="IOSSemestralWork" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="19" sectionFooterHeight="18" id="jk2-z3-tYK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -76,7 +76,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Add a new Folder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2t5-yg-ri3" userLabel="Folder:">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Add a new Folder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2t5-yg-ri3">
                                                     <rect key="frame" x="16" y="8" width="288" height="27.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -90,9 +90,6 @@
                                                 <constraint firstItem="2t5-yg-ri3" firstAttribute="leading" secondItem="LOx-ZJ-eAT" secondAttribute="leading" constant="16" id="x53-2F-UNu"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="CmG-zd-zVx" kind="show" identifier="ShowCreateNewFolder" id="1h4-0U-zKN"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="GnF-0B-me4">
                                         <rect key="frame" x="0.0" y="243.5" width="320" height="44"/>
@@ -174,59 +171,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HBS-mb-Psi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3287.1999999999998" y="-622.03898050974522"/>
-        </scene>
-        <!--New Folder View-->
-        <scene sceneID="Vmm-JR-hux">
-            <objects>
-                <tableViewController id="CmG-zd-zVx" userLabel="New Folder View" customClass="NewFolderVC" customModule="IOSSemestralWork" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="4o0-Lo-rW5">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <sections>
-                            <tableViewSection id="rVx-Sz-gX2">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="CQc-fJ-a0o">
-                                        <rect key="frame" x="0.0" y="35" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CQc-fJ-a0o" id="7br-aa-aqb">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Folder title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gjW-dV-bFd">
-                                                    <rect key="frame" x="16" y="8" width="288" height="27.5"/>
-                                                    <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                                                    <connections>
-                                                        <action selector="createFolder:" destination="CmG-zd-zVx" eventType="primaryActionTriggered" id="OcO-o3-F1J"/>
-                                                    </connections>
-                                                </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="gjW-dV-bFd" secondAttribute="trailing" constant="16" id="1J0-Lj-YIf"/>
-                                                <constraint firstItem="gjW-dV-bFd" firstAttribute="top" secondItem="7br-aa-aqb" secondAttribute="top" constant="8" id="MYC-h3-5mY"/>
-                                                <constraint firstAttribute="bottom" secondItem="gjW-dV-bFd" secondAttribute="bottom" constant="8" id="q4Y-CD-nha"/>
-                                                <constraint firstItem="gjW-dV-bFd" firstAttribute="leading" secondItem="7br-aa-aqb" secondAttribute="leading" constant="16" id="sNJ-jV-Di9"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="CmG-zd-zVx" id="NAn-22-K2E"/>
-                            <outlet property="delegate" destination="CmG-zd-zVx" id="EYu-Vq-pTI"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <outlet property="folderNameLabel" destination="gjW-dV-bFd" id="5b8-E4-FIF"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Hz4-Ak-g7b" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4498" y="-622"/>
+            <point key="canvasLocation" x="4481" y="-723"/>
         </scene>
         <!--Main View-->
         <scene sceneID="Pnh-ZL-UKu">
@@ -401,11 +346,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="stB-Lf-7eH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2348" y="-622.03898050974522"/>
+            <point key="canvasLocation" x="3401" y="-724"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="bkH-4O-uYg"/>
-        <segue reference="nmV-WM-iEA"/>
+        <segue reference="g0Y-Kg-VgR"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -15,14 +15,12 @@ protocol NewFeedDelegate {
      Validates the given RSS feed link address. The feed is then persisted in Realm.
      */
     func feedCreated(feed myRssFeed: MyRSSFeed)
-    
-//    func feedUpdated()
 }
 
 /**
  Displays the View used for creating new feeds.
  */
-class NewFeedVC: UITableViewController {
+class RSSFeedEditVC: UITableViewController {
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var pickerTableViewCell: UITableViewCell!
     @IBOutlet weak var folderNameLabel: UILabel!
@@ -57,11 +55,6 @@ class NewFeedVC: UITableViewController {
             // There is always at least 1 folder
             folderNameLabel.text = folders!.first?.title
         }
-    }
-    
-    func selectPickerRow(at folder: Folder) {
-        folderNameLabel.text = folder.title
-        picker.selectRow(folders!.index(of: folder) ?? 0, inComponent: 0, animated: false)
     }
     
     // MARK: NavBar items
@@ -117,20 +110,61 @@ class NewFeedVC: UITableViewController {
     // MARK: TableView methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 1 && indexPath.section == 1 {
-            // Show/ Hide picker view
-            pickerTableViewCell.isHidden = !pickerTableViewCell.isHidden
-            folderNameLabel.textColor = pickerTableViewCell.isHidden == true ? UIColor.black : UIColor.red
+        if indexPath.section == 1 {
+            if indexPath.row == 0 {
+                // New folder alert
+                presentCreateAlert()
+            } else if indexPath.row == 1 {
+                // Show/ Hide picker view
+                pickerTableViewCell.isHidden = !pickerTableViewCell.isHidden
+                folderNameLabel.textColor = pickerTableViewCell.isHidden == true ? UIColor.black : UIColor.red
+            }
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    /**
+     Creates and presents an alert used for creating a new folder.
+     */
+    func presentCreateAlert() {
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Create folder", message: "", preferredStyle: .alert)
+        let actionCancel = UIAlertAction(title: "Cancel", style: .cancel)
+        let actionDone = UIAlertAction(title: "Done", style: .default) { (action) in
+            let folder = Folder(with: textField.text!, isContentsViewable: true)
+            self.dbHandler.create(folder)
+            
+            self.picker.reloadAllComponents()
+            self.selectPickerRow(at: folder)
+        }
+        actionDone.isEnabled = false
+        
+        alert.addAction(actionDone)
+        alert.addAction(actionCancel)
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Folder name"
+            alertTextField.enablesReturnKeyAutomatically = true
+            
+            textField = alertTextField
+        }
+        
+        // Check for textField changes. Done button is enabled only when the textField isn't empty
+        NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { _ in
+            // Enables and disables Done action. Triggered when value of textField changes
+            let textCount = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0
+            actionDone.isEnabled = textCount > 0
+        }
+        
+        present(alert, animated: true, completion: nil)
     }
     
 }
 
 // MARK: UIPickerView methods
 
-extension NewFeedVC: UIPickerViewDelegate, UIPickerViewDataSource {
+extension RSSFeedEditVC: UIPickerViewDelegate, UIPickerViewDataSource {
     /**
      Number of columns.
      */
@@ -154,20 +188,12 @@ extension NewFeedVC: UIPickerViewDelegate, UIPickerViewDataSource {
             folderNameLabel.text = selectedFolder.title
         }
     }
-}
-
-// MARK: NewFolderDelegate
-
-extension NewFeedVC: NewFolderDelegate {
-    func folderCreated(_ folder: Folder) {
-        picker.reloadAllComponents()
-        selectPickerRow(at: folder)
-    }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowCreateNewFolder" {
-            let destinationVC = segue.destination as! NewFolderVC
-            destinationVC.delegate = self
-        }
+    /**
+     Selects the folder in the pickerView.
+     */
+    func selectPickerRow(at folder: Folder) {
+        folderNameLabel.text = folder.title
+        picker.selectRow(folders!.index(of: folder) ?? 0, inComponent: 0, animated: false)
     }
 }

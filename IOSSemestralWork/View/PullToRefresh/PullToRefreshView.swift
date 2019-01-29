@@ -32,7 +32,7 @@ class PullToRefreshView: UIView {
      Updates infoLabels text according to the date when the last update occured
      */
     public func updateLabelText() {
-        let date = defaults.object(forKey: "LastUpdate") as! NSDate
+        let date = defaults.object(forKey: UserDefaultsKeys.LastUpdate.rawValue) as! NSDate
         let minuteAgo = Date(timeIntervalSinceNow: -60)
         let hourAgo = Date(timeIntervalSinceNow: -3600)
         let yesterday = Date(timeIntervalSinceNow: -3600*24)
