@@ -12,7 +12,7 @@ import RealmSwift
 protocol NewFeedDelegate {
     
     /**
-     Validates the given RSS feed link address. The feed is then persisted in Realm.b
+     Validates the given RSS feed link address. The feed is then persisted in Realm.
      */
     func feedCreated(feed myRssFeed: MyRSSFeed)
     
@@ -81,16 +81,35 @@ class NewFeedVC: UITableViewController {
         if title == "" {
             title = link
         }
-        
-        // Save the new feed to the selected folder
-        
         let selectedFolder = folders![picker.selectedRow(inComponent: 0)]
-        let myRssFeed = MyRSSFeed(with: title, link: link, folder: selectedFolder)
         
-        // Save the new feed to the selected folder in Realm
-        dbHandler.create(myRssFeed)
+        var myRssFeed = feedForUpdate
         
-        delegate.feedCreated(feed: myRssFeed)
+        if myRssFeed != nil {
+            // Update the feed
+            do {
+                let oldFolder: Folder = myRssFeed!.folder!
+                let index: Int = oldFolder.myRssFeeds.index(of: myRssFeed!)!
+                
+                try realm.write {
+                    myRssFeed?.title = title
+                    myRssFeed?.link = link
+                    
+                    // Change folders
+                    oldFolder.myRssFeeds.remove(at: index)
+                    myRssFeed?.folder = selectedFolder
+                    selectedFolder.myRssFeeds.append(myRssFeed!)
+                }
+            } catch {
+                print("Error occured when updating the RSSFeed: \(error)")
+            }
+        } else {
+            // Save the new feed
+            myRssFeed = MyRSSFeed(with: title, link: link, folder: selectedFolder)
+            dbHandler.create(myRssFeed!)
+        }
+        
+        delegate.feedCreated(feed: myRssFeed!)
         
         dismiss(animated: true, completion: nil)
     }

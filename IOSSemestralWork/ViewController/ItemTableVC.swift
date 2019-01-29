@@ -297,7 +297,6 @@ extension ItemTableVC: RefreshControlDelegate {
                 
                 if success == DownloadStatus.Unreachable {
                     // Internet is unreachable
-                    // TODO: Implement
                     print("Internet is unreachable")
                     self.view.makeToast("Internet is unreachable. Please try updating later.")
                     
