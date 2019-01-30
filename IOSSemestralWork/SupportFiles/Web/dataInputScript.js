@@ -7,6 +7,7 @@ function init(title, timeString, description) {
 
 function showImage(img) {
     document.getElementById(`image`).hidden = false;
+    
+    // Source can be either local image or a webpage
     document.getElementById(`image`).src = img;
-//    document.getElementById(`image`).src = "picture.gif"
 }
