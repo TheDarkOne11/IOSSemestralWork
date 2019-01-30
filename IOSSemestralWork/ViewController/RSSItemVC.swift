@@ -24,6 +24,10 @@ class RSSItemVC: UIViewController {
                                 document.getElementById(`image`).innerHTML = `%@`;
                             """
     
+    /**
+     The WKWebView used to display data of RSSItems.
+     It's created as singleton because creating its instance every time caused a significant delay.
+     */
     private static var webView: WKWebView = {
         let webView = WKWebView(frame: .zero)
         
@@ -46,41 +50,56 @@ class RSSItemVC: UIViewController {
         let layoutGuide = view.safeAreaLayoutGuide
         
         view.addSubview(RSSItemVC.webView)
+        RSSItemVC.webView.navigationDelegate = self
         RSSItemVC.webView.translatesAutoresizingMaskIntoConstraints = false
         RSSItemVC.webView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor).isActive = true
         RSSItemVC.webView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor).isActive = true
         RSSItemVC.webView.topAnchor.constraint(equalTo: layoutGuide.topAnchor).isActive = true
         RSSItemVC.webView.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor).isActive = true
         
-        reloadPage()
-    }
-    
-    // MARK: WebView methods
-    
-    /**
-     Loads new information in the HTML template using a Javascript script and RSSItem information.
-     */
-    func reloadPage() {
-        if let rssItem = selectedRssItem {
-            let controller = RSSItemVC.webView.configuration.userContentController
-            let scriptCode = getScriptCode(using: rssItem)
-            let script = WKUserScript(source: scriptCode, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
-
-            controller.removeAllUserScripts()
-            controller.addUserScript(script)
-        }
-        
+        // Load data into the webView
         RSSItemVC.webView.reload()
     }
     
+    // MARK: Navigation
+    
+    @IBAction func goToWebButtonPressed(_ sender: UIBarButtonItem) {
+        // Open the URL in Safari
+        if let link = selectedRssItem?.articleLink {
+            guard let url = URL(string: link) else { return }
+            UIApplication.shared.open(url)
+        }
+    }
+}
+
+// MARK: WKNavigationDelegate
+
+extension RSSItemVC: WKNavigationDelegate {
     /**
-     Put the Javascript script code together using a template string and information from a RSSItem.
+     Loads new RSSItem data in the HTML template using a Javascript script.
+     */
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        if let rssItem = selectedRssItem {
+            let scriptCode = getScriptCode(using: rssItem)
+            
+            RSSItemVC.webView.evaluateJavaScript(scriptCode) { (result, error) in
+                if let error = error {
+                    print("Error occured when passing data to WKWebView: \(error)")
+                }
+            }
+        }
+    }
+    
+    /**
+     Put the Javascript script code together using a template string and data from a RSSItem.
+     
+     - parameter rssItem: The RSSItem whose data we want to display.
      */
     func getScriptCode(using rssItem: MyRSSItem) -> String {
         // Time
         let date = NSDate()
         let formatter = DateFormatter()
-    
+        
         formatter.dateStyle = .medium
         formatter.timeStyle = .short
         formatter.locale = Locale(identifier: "en_GB")  // "cs_CZ"
@@ -92,15 +111,5 @@ class RSSItemVC: UIViewController {
         let code = String(format: inputDataScript, rssItem.title, timeString, rssItem.itemDescription);
         
         return code
-    }
-    
-    // MARK: Navigation
-    
-    @IBAction func goToWebButtonPressed(_ sender: UIBarButtonItem) {
-        // Open the URL in Safari
-        if let link = selectedRssItem?.articleLink {
-            guard let url = URL(string: link) else { return }
-            UIApplication.shared.open(url)
-        }
     }
 }
