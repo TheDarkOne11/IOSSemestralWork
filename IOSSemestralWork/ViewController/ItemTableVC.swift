@@ -203,12 +203,10 @@ extension ItemTableVC {
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let removeAction = UITableViewRowAction(style: .destructive, title: "Remove") { (action, indexPath) in
-            print("Remove clicked at row \(indexPath.row)")
             self.removeItem(at: indexPath)
         }
         
         let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (action, indexPath) in
-            print("Edit clicked at row \(indexPath.row)")
             self.editItem(at: indexPath)
         }
         
@@ -361,6 +359,7 @@ extension ItemTableVC: NewFeedDelegate {
             switch success {
                 
             case .OK:
+                myRssFeed.isOk = true
                 break
             case .NotOK:
                 print("Feed \(myRssFeed.title) probably has a wrong link")
