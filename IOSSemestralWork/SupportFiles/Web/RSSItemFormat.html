@@ -7,31 +7,12 @@
                 <meta name="Generator" content="Cocoa HTML Writer">
                     <meta name="CocoaVersion" content="1671.2">
         <meta name='viewport' content='initial-scale=1.0'/>
-<!--        <link rel='stylesheet' href='SystemStyle.css' type='text/css'>-->
-        <style>
-            body {
-                font-family: '-apple-system', 'HelveticaNeue'
-                font-size: 17
-            }
-        </style>
+        
+        <link href="SystemStyle.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        
-        <script>
-            function init(title, timeString, description) {
-                document.getElementById(`title`).innerHTML = title;
-                document.getElementById(`timeString`).innerHTML = timeString;
-                document.getElementById(`description`).innerHTML = description;
-                document.getElementById(`image`).hidden = true;
-            }
-        
-            function showImage(img) {
-                document.getElementById(`image`).hidden = false;
-                document.getElementById(`image`).src = img;
-<!--                document.getElementById(`image`).src = "picture.gif"-->
-            }
-        </script>
-        
+        <script src="dataInputScript.js"></script>
+
         <h3 id='title'>DUMMY Nadpis velmi dlouhý</h3>
         <div id='timeString'>12.1.2018 at 14:00 by Unknown Author</div>
         <p>

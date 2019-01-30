@@ -20,7 +20,7 @@ class RSSItemVC: UIViewController {
         let webView = WKWebView(frame: .zero)
         
         // Load HTML template
-        if let url = Bundle.main.url(forResource: "RSSItemFormat", withExtension: "html", subdirectory: ".") {
+        if let url = Bundle.main.url(forResource: "RSSItemFormat", withExtension: "html", subdirectory: "Web") {
             print("Loading webView")
             webView.loadFileURL(url, allowingReadAccessTo: url)
             let request = URLRequest(url: url)
