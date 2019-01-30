@@ -19,7 +19,7 @@ class MyRSSFeed: Item {
      */
     @objc dynamic var isOk: Bool = true
     
-    convenience init(with title: String, link: String, folder: Folder) {
+    convenience init(title: String, link: String, folder: Folder) {
         self.init(with: title, type: .myRssFeed)
         self.folder = folder
         self.link = link

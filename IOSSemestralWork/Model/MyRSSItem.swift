@@ -14,6 +14,7 @@ class MyRSSItem: Item {
     @objc dynamic var itemDescription: String = ""
     @objc dynamic var author: String = ""
     @objc dynamic var date: Date?
+    @objc dynamic var image: String?
     
     convenience init(with rssItem: RSSItem?) {
         self.init(with: rssItem?.title ?? "Unknown", type: .myRssItem)
@@ -22,6 +23,41 @@ class MyRSSItem: Item {
         self.author = rssItem?.author ?? "Unknown author"
         self.itemDescription = rssItem?.itemDescription ?? "Unknown"
         self.date = rssItem?.pubDate
+        
+        setImage(rssItem)
+    }
+    
+    /**
+     Finds any image inside the RSSItem and sets it in MyRSSItem.
+     
+     Images can be found in:
+     
+     1/ ItemDescription - this image has to be removed from here
+     
+     2/ Contents
+     
+     3/ MediaThumbnail
+     */
+    private func setImage(_ rssItem: RSSItem?) {
+        if let descImages = rssItem?.imagesFromDescription {
+            if descImages.count > 0 {
+                image = descImages.first!
+                // TODO: Remove image
+                return
+            }
+        }
+        
+        if let contentImages = rssItem?.imagesFromContent {
+            if contentImages.count > 0 {
+                image = contentImages.first!
+                return
+            }
+        }
+        
+        if let thumbnail = rssItem?.mediaThumbnail {
+            image = thumbnail
+            return
+        }
     }
     
     override static func primaryKey() -> String? {

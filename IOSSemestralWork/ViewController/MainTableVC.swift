@@ -26,6 +26,13 @@ class MainTableVC: ItemTableVC {
         // If the special "None" folder doesn't exist (app run for the first time) create it
         if folders!.isEmpty {
             dbHandler.create(Folder(with: "None", isContentsViewable: true))
+            
+            // TODO: Debugging images, remove
+            let none: Folder = realm.objects(Folder.self).filter("title CONTAINS[cd] %@", "None").first!
+            dbHandler.create(MyRSSFeed(title: "IdnesZpravodaj_None", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj", folder: none))
+            dbHandler.create(MyRSSFeed(title: "Wired_MedThumb", link: "http://wired.com/feed/rss", folder: none))
+            dbHandler.create(MyRSSFeed(title: "Lifehacker_DescImg", link: "https://lifehacker.com/rss", folder: none))
+            dbHandler.create(MyRSSFeed(title: "FOX_MedThumb_Bad", link: "http://feeds.foxnews.com/foxnews/latest", folder: none))
         }
         
         // Filter "None" folder out

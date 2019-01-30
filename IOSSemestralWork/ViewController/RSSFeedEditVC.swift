@@ -98,7 +98,7 @@ class RSSFeedEditVC: UITableViewController {
             }
         } else {
             // Save the new feed
-            myRssFeed = MyRSSFeed(with: title, link: link, folder: selectedFolder)
+            myRssFeed = MyRSSFeed(title: title, link: link, folder: selectedFolder)
             dbHandler.create(myRssFeed!)
         }
         
