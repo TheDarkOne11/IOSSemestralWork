@@ -1,4 +1,8 @@
 body {
     font-family: '-apple-system', 'HelveticaNeue';
-    font-size: 17;
+    font-size: 15px;
+}
+
+#timeString {
+    font-size: smaller
 }

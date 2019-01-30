@@ -85,13 +85,12 @@ extension RSSItemVC: WKNavigationDelegate {
      */
     func getScriptCode(using rssItem: MyRSSItem) -> String {
         // Time
-        let date = NSDate()
         let formatter = DateFormatter()
         
         formatter.dateStyle = .medium
         formatter.timeStyle = .short
         formatter.locale = Locale(identifier: "en_GB")  // "cs_CZ"
-        let timeString = "Published \( formatter.string(from: date as Date) ) by \(rssItem.author)"
+        let timeString = "Published \( formatter.string(from: rssItem.date!) ) by \(rssItem.author)"
         
         // Image
         // TODO: Add image

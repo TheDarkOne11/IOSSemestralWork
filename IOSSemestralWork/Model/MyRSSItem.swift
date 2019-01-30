@@ -13,6 +13,7 @@ class MyRSSItem: Item {
     @objc dynamic var articleLink: String = UUID().uuidString
     @objc dynamic var itemDescription: String = ""
     @objc dynamic var author: String = ""
+    @objc dynamic var date: Date?
     
     convenience init(with rssItem: RSSItem?) {
         self.init(with: rssItem?.title ?? "Unknown", type: .myRssItem)
@@ -20,6 +21,7 @@ class MyRSSItem: Item {
         self.articleLink = rssItem?.link ?? "Unknown"
         self.author = rssItem?.author ?? "Unknown author"
         self.itemDescription = rssItem?.itemDescription ?? "Unknown"
+        self.date = rssItem?.pubDate
     }
     
     override static func primaryKey() -> String? {
