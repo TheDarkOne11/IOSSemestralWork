@@ -12,8 +12,6 @@ import WebKit
 class RSSItemVC: UIViewController {
     var selectedRssItem: MyRSSItem?
     
-    var webView: WKWebView?
-    
     // TODO: Add image
     
     // Template string for javascript script thich loads data to the HTML template
@@ -26,20 +24,8 @@ class RSSItemVC: UIViewController {
                                 document.getElementById(`image`).innerHTML = `%@`;
                             """
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        
-        // Add WebKitView into the view programatically, statically didn't work.
-        let layoutGuide = view.safeAreaLayoutGuide
+    private static var webView: WKWebView = {
         let webView = WKWebView(frame: .zero)
-        
-        view.addSubview(webView)
-        webView.translatesAutoresizingMaskIntoConstraints = false
-        webView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor).isActive = true
-        webView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor).isActive = true
-        webView.topAnchor.constraint(equalTo: layoutGuide.topAnchor).isActive = true
-        webView.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor).isActive = true
         
         // Load HTML template
         if let url = Bundle.main.url(forResource: "RSSItemFormat", withExtension: "html", subdirectory: ".") {
@@ -49,7 +35,23 @@ class RSSItemVC: UIViewController {
             webView.load(request)
         }
         
-        self.webView = webView
+        return webView
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        
+        // Add WebKitView into the view programatically, statically didn't work.
+        let layoutGuide = view.safeAreaLayoutGuide
+        
+        view.addSubview(RSSItemVC.webView)
+        RSSItemVC.webView.translatesAutoresizingMaskIntoConstraints = false
+        RSSItemVC.webView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor).isActive = true
+        RSSItemVC.webView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor).isActive = true
+        RSSItemVC.webView.topAnchor.constraint(equalTo: layoutGuide.topAnchor).isActive = true
+        RSSItemVC.webView.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor).isActive = true
+        
         reloadPage()
     }
     
@@ -59,10 +61,8 @@ class RSSItemVC: UIViewController {
      Loads new information in the HTML template using a Javascript script and RSSItem information.
      */
     func reloadPage() {
-        guard let webView = self.webView else { fatalError() }
-        
         if let rssItem = selectedRssItem {
-            let controller = webView.configuration.userContentController
+            let controller = RSSItemVC.webView.configuration.userContentController
             let scriptCode = getScriptCode(using: rssItem)
             let script = WKUserScript(source: scriptCode, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
 
@@ -70,7 +70,7 @@ class RSSItemVC: UIViewController {
             controller.addUserScript(script)
         }
         
-        webView.reload()
+        RSSItemVC.webView.reload()
     }
     
     /**
