@@ -12,18 +12,6 @@ import WebKit
 class RSSItemVC: UIViewController {
     var selectedRssItem: MyRSSItem?
     
-    // TODO: Add image
-    
-    // Template string for javascript script thich loads data to the HTML template
-    var inputDataScript =   """
-                                document.getElementById(`title`).innerHTML = `%@`;
-                                document.getElementById(`timeString`).innerHTML = `%@`;
-                                document.getElementById(`description`).innerHTML = `%@`;
-
-                                document.getElementById(`image`).hidden = `%@`;
-                                document.getElementById(`image`).innerHTML = `%@`;
-                            """
-    
     /**
      The WKWebView used to display data of RSSItems.
      It's created as singleton because creating its instance every time caused a significant delay.
@@ -91,7 +79,7 @@ extension RSSItemVC: WKNavigationDelegate {
     }
     
     /**
-     Put the Javascript script code together using a template string and data from a RSSItem.
+     Create Javascript code which passes data to the webView.
      
      - parameter rssItem: The RSSItem whose data we want to display.
      */
@@ -107,8 +95,7 @@ extension RSSItemVC: WKNavigationDelegate {
         
         // Image
         // TODO: Add image
-        
-        let code = String(format: inputDataScript, rssItem.title, timeString, rssItem.itemDescription);
+        let code = String(format: "init(`%@`, `%@`, `%@`);", rssItem.title, timeString, rssItem.itemDescription)
         
         return code
     }
