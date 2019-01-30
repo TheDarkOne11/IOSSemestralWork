@@ -125,7 +125,7 @@ class DBHandler {
         Alamofire.request(myRssFeed.link).responseRSS() { (response) -> Void in
             // Validate the response
             if let mimeType =  response.response?.mimeType {
-                if mimeType != "application/rss+xml" {
+                if mimeType != "application/rss+xml" && mimeType != "text/xml" {
                     // Website exists but isn't a RSS feed
                     completed(.NotOK)
                     return
