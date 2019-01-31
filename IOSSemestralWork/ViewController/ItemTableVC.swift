@@ -353,32 +353,38 @@ extension ItemTableVC: RefreshControlDelegate {
 extension ItemTableVC: NewFeedDelegate {
     func feedCreated(feed myRssFeed: MyRSSFeed) {
         // Validate the address by running update of the feed
-        dbHandler.update(myRssFeed) { (success) in
+        dbHandler.update(myRssFeed) { (result) in
             self.tableView.reloadData()
             
-            switch success {
-                
-            case .OK:
-                myRssFeed.isOk = true
-                break
-            case .NotOK:
-                print("Feed \(myRssFeed.title) probably has a wrong link")
-                
-                self.view.makeToast("Could not download any RSS items. \nPlease check the RSS feed link you provided.")
-                do {
-                    try self.realm.write {
-                        myRssFeed.isOk = false
-                    }
-                } catch {
-                    print("Error occured when setting rssFeed.isOk to false: \(error)")
+            // Check the result
+            do {
+                try self.realm.write {
+                    self.checkResult(myRssFeed, result)
                 }
-                break
-            case .Unreachable:
-                print("Internet is unreachable. Please try updating later.")
                 
-                self.view.makeToast("Internet is unreachable. Please try updating later.")
-                break
+            } catch {
+                print("Error occured when setting rssFeed.isOk: \(error)")
             }
+        }
+    }
+    
+    private func checkResult(_ myRssFeed: MyRSSFeed, _ result: DownloadStatus) {
+        switch result {
+            
+        case .OK:
+            myRssFeed.isOk = true
+            break
+        case .NotOK:
+            print("Feed \(myRssFeed.title) probably has a wrong link")
+            
+            self.view.makeToast("Could not download any RSS items. \nPlease check the RSS feed link you provided.")
+            myRssFeed.isOk = false
+            break
+        case .Unreachable:
+            print("Internet is unreachable. Please try updating later.")
+            
+            self.view.makeToast("Internet is unreachable. Please try updating later.")
+            break
         }
     }
     
