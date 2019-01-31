@@ -42,7 +42,7 @@ class MyRSSItem: Item {
         if let descImages = rssItem?.imagesFromDescription {
             if descImages.count > 0 {
                 image = descImages.first!
-                // TODO: Remove image
+                removeImage()
                 return
             }
         }
@@ -58,6 +58,15 @@ class MyRSSItem: Item {
             image = thumbnail
             return
         }
+    }
+    
+    private func removeImage() {
+        let value: NSMutableString = NSMutableString(string: self.itemDescription)
+        let pattern = "\\<img.*?\\>"
+        let regex = try? NSRegularExpression(pattern: pattern)
+        regex?.replaceMatches(in: value, options: .reportProgress, range: NSRange(location: 0,length: value.length), withTemplate: "")
+        
+        self.itemDescription = value as String
     }
     
     override static func primaryKey() -> String? {
