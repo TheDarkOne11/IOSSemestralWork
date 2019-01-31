@@ -74,6 +74,8 @@ class DBHandler {
         }
     }
     
+    // MARK: MyRSSItem methods
+    
     /**
      Downloads items of the all feeds.
      - parameter completed: A function that is called when all feeds are updated.
@@ -140,33 +142,36 @@ class DBHandler {
             if let feed: RSSFeed = response.result.value {
                 
                 // Add all items to the MyRSSFeed
-                do {
-                    try self.realm.write {
-                        
-                        if myRssFeed.title == myRssFeed.link, let title = feed.title {
-                            myRssFeed.title = title
-                        }
-                        
-                        for item in feed.items {
-                            let myRssItem = MyRSSItem(with: item)
-                            
-                            self.realm.add(myRssItem, update: true)
-                            
-                            // Add the item only if it doesn't exist already
-                            if myRssFeed.myRssItems.index(of: myRssItem) == nil {
-                                myRssFeed.myRssItems.append(myRssItem)
-                            }
-                        }
-                    }
-                } catch {
-                    print("Error when adding a MyRSSItem to MyRSSFeed: \(error)")
-                    completed(.NotOK)
-                    return
-                }
+                self.persistRssItems(feed, myRssFeed)
                 
                 completed(.OK)
             }
         }
         
+    }
+    
+    private func persistRssItems(_ feed: RSSFeed, _ myRssFeed: MyRSSFeed) {
+        do {
+            try self.realm.write {
+                
+                if myRssFeed.title == myRssFeed.link, let title = feed.title {
+                    myRssFeed.title = title
+                }
+                
+                for item in feed.items {
+                    let myRssItem = MyRSSItem(with: item)
+                    
+                    realm.add(myRssItem, update: true)
+                    
+                    // Add the item only if it doesn't exist already
+                    if myRssFeed.myRssItems.index(of: myRssItem) == nil {
+                        myRssFeed.myRssItems.append(myRssItem)
+                    }
+                }
+            }
+        } catch {
+            print("Error when adding items to MyRSSFeed: \(error)")
+            return
+        }
     }
 }
