@@ -92,9 +92,12 @@ extension RSSItemVC: WKNavigationDelegate {
         formatter.locale = Locale(identifier: "en_GB")  // "cs_CZ"
         let timeString = "Published \( formatter.string(from: rssItem.date!) ) by \(rssItem.author)"
         
-        // Image
-        // TODO: Add image
-        let code = String(format: "init(`%@`, `%@`, `%@`);", rssItem.title, timeString, rssItem.itemDescription)
+        // Init RSSItem webView
+        var code = String(format: "init(`%@`, `%@`, `%@`);", rssItem.title, timeString, rssItem.itemDescription)
+        
+        if let imageLink = rssItem.image {
+            code += String(format: "showImage(`%@`);", imageLink)
+        }
         
         return code
     }
