@@ -83,7 +83,7 @@ extension RSSItemVC: WKNavigationDelegate {
      
      - parameter rssItem: The RSSItem whose data we want to display.
      */
-    func getScriptCode(using rssItem: MyRSSItem) -> String {
+    private func getScriptCode(using rssItem: MyRSSItem) -> String {
         // Time
         let formatter = DateFormatter()
         

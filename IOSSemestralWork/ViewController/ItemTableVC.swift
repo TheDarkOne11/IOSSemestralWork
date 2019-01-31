@@ -213,7 +213,7 @@ extension ItemTableVC {
         return [removeAction, editAction]
     }
     
-    func editItem(at indexPath: IndexPath) {
+    private func editItem(at indexPath: IndexPath) {
         let foldersCount = folders?.count ?? 0
         
         if indexPath.row < foldersCount + specialFoldersCount {
@@ -239,7 +239,7 @@ extension ItemTableVC {
     /**
      Creates and presents an alert used for editing the selected folder.
      */
-    func presentEditAlert(_ folder: Folder) {
+    private func presentEditAlert(_ folder: Folder) {
         var textField = UITextField()
         
         let alert = UIAlertController(title: "Edit folder", message: "", preferredStyle: .alert)
@@ -275,7 +275,7 @@ extension ItemTableVC {
         present(alert, animated: true, completion: nil)
     }
     
-    func removeItem(at indexPath: IndexPath) {
+    private func removeItem(at indexPath: IndexPath) {
         let foldersCount = folders?.count ?? 0
         
         if indexPath.row < foldersCount + specialFoldersCount {

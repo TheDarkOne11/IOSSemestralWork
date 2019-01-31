@@ -127,7 +127,7 @@ class RSSFeedEditVC: UITableViewController {
     /**
      Creates and presents an alert used for creating a new folder.
      */
-    func presentCreateAlert() {
+    private func presentCreateAlert() {
         var textField = UITextField()
         
         let alert = UIAlertController(title: "Create folder", message: "", preferredStyle: .alert)
