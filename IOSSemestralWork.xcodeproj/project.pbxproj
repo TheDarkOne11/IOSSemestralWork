@@ -25,6 +25,10 @@
 		4BDDFCA721FE207B007F4F63 /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDDFCA621FE207B007F4F63 /* RefreshControl.swift */; };
 		4BDFB70421D8D31100361136 /* FolderTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDFB70321D8D31000361136 /* FolderTableVC.swift */; };
 		4BDFB70621D8D82200361136 /* RSSFeedTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDFB70521D8D82200361136 /* RSSFeedTableVC.swift */; };
+		4BE3C5FA2204981700A38F0D /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE3C5F82204981700A38F0D /* ItemCell.swift */; };
+		4BE3C5FB2204981700A38F0D /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BE3C5F92204981700A38F0D /* ItemCell.xib */; };
+		4BE3C5FD22049BED00A38F0D /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE3C5FC22049BED00A38F0D /* TableViewController.swift */; };
+		4BE3C5FF2204B18C00A38F0D /* TableViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE3C5FE2204B18C00A38F0D /* TableViewController2.swift */; };
 		4BE8A5FB21D6CB05009B66F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */; };
 		4BE8A60021D6CB05009B66F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BE8A5FE21D6CB05009B66F0 /* Main.storyboard */; };
 		4BE8A60221D6CB06009B66F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BE8A60121D6CB06009B66F0 /* Assets.xcassets */; };
@@ -51,6 +55,10 @@
 		4BDDFCA621FE207B007F4F63 /* RefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControl.swift; sourceTree = "<group>"; };
 		4BDFB70321D8D31000361136 /* FolderTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderTableVC.swift; sourceTree = "<group>"; };
 		4BDFB70521D8D82200361136 /* RSSFeedTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedTableVC.swift; sourceTree = "<group>"; };
+		4BE3C5F82204981700A38F0D /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
+		4BE3C5F92204981700A38F0D /* ItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
+		4BE3C5FC22049BED00A38F0D /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		4BE3C5FE2204B18C00A38F0D /* TableViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController2.swift; sourceTree = "<group>"; };
 		4BE8A5F721D6CB05009B66F0 /* IOSSemestralWork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOSSemestralWork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4BE8A5FF21D6CB05009B66F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -76,6 +84,8 @@
 			isa = PBXGroup;
 			children = (
 				4BA354C421F8D9F600BCE58E /* Helper classes */,
+				4BE3C5FC22049BED00A38F0D /* TableViewController.swift */,
+				4BE3C5FE2204B18C00A38F0D /* TableViewController2.swift */,
 				4BD68B5E21D95F0000B3A14E /* ItemTableVC.swift */,
 				4BA1365C21D7947F009D4EBB /* MainTableVC.swift */,
 				4BDFB70321D8D31000361136 /* FolderTableVC.swift */,
@@ -89,6 +99,7 @@
 		4BA1365F21D7949B009D4EBB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4BE3C5F7220497E800A38F0D /* ItemCell */,
 				4BDDFCA321FDD2F2007F4F63 /* PullToRefresh */,
 				4BE8A60321D6CB06009B66F0 /* LaunchScreen.storyboard */,
 				4BE8A5FE21D6CB05009B66F0 /* Main.storyboard */,
@@ -125,6 +136,15 @@
 				4BDDFCA121FDD28D007F4F63 /* PullToRefreshView.swift */,
 			);
 			path = PullToRefresh;
+			sourceTree = "<group>";
+		};
+		4BE3C5F7220497E800A38F0D /* ItemCell */ = {
+			isa = PBXGroup;
+			children = (
+				4BE3C5F82204981700A38F0D /* ItemCell.swift */,
+				4BE3C5F92204981700A38F0D /* ItemCell.xib */,
+			);
+			path = ItemCell;
 			sourceTree = "<group>";
 		};
 		4BE4C06321DA38DA00505A0F /* SupportFiles */ = {
@@ -246,6 +266,7 @@
 			files = (
 				4BE8A60521D6CB06009B66F0 /* LaunchScreen.storyboard in Resources */,
 				4BE8A60221D6CB06009B66F0 /* Assets.xcassets in Resources */,
+				4BE3C5FB2204981700A38F0D /* ItemCell.xib in Resources */,
 				4BB407892202382300CD1D57 /* Web in Resources */,
 				4BDDFCA021FDD214007F4F63 /* PullToRefreshView.xib in Resources */,
 				4BE8A60021D6CB05009B66F0 /* Main.storyboard in Resources */,
@@ -319,7 +340,10 @@
 				4B50A3A321D8290900462B71 /* Folder.swift in Sources */,
 				4BA9C45B21F76A7C0021E143 /* DBHandler.swift in Sources */,
 				4B10092A2200EF7000A259DC /* UserDefaultsKeys.swift in Sources */,
+				4BE3C5FA2204981700A38F0D /* ItemCell.swift in Sources */,
 				4B50A3A521D829E000462B71 /* MyRSSFeed.swift in Sources */,
+				4BE3C5FD22049BED00A38F0D /* TableViewController.swift in Sources */,
+				4BE3C5FF2204B18C00A38F0D /* TableViewController2.swift in Sources */,
 				4BA1365D21D7947F009D4EBB /* MainTableVC.swift in Sources */,
 				4BD68B5F21D95F0000B3A14E /* ItemTableVC.swift in Sources */,
 				4B70A86C21D7A12700289496 /* MyRSSItem.swift in Sources */,
