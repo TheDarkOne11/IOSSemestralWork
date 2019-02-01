@@ -26,7 +26,7 @@
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="error" translatesAutoresizingMaskIntoConstraints="NO" id="ZAT-JD-JbJ">
-                        <rect key="frame" x="255" y="14.5" width="15" height="15"/>
+                        <rect key="frame" x="271" y="14.5" width="15" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="ZAT-JD-JbJ" secondAttribute="height" multiplier="1:1" id="t4R-gU-c6t"/>
                         </constraints>
@@ -46,7 +46,7 @@
                     <constraint firstItem="ZAT-JD-JbJ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ici-J1-g1P"/>
                     <constraint firstItem="cMz-uz-Vej" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="qcg-o4-qML"/>
                     <constraint firstItem="ZAT-JD-JbJ" firstAttribute="height" secondItem="TtZ-nd-CiR" secondAttribute="height" multiplier="1/2" id="sNW-De-bPY"/>
-                    <constraint firstAttribute="trailing" secondItem="ZAT-JD-JbJ" secondAttribute="trailing" constant="16" id="tes-zh-mGI"/>
+                    <constraint firstAttribute="trailing" secondItem="ZAT-JD-JbJ" secondAttribute="trailing" id="tes-zh-mGI"/>
                     <constraint firstItem="cMz-uz-Vej" firstAttribute="leading" secondItem="TtZ-nd-CiR" secondAttribute="trailing" constant="16" id="vC9-2u-zmR"/>
                 </constraints>
             </tableViewCellContentView>
