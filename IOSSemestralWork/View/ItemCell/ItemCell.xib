@@ -19,19 +19,20 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" image="folder" translatesAutoresizingMaskIntoConstraints="NO" id="TtZ-nd-CiR" userLabel="Type image">
-                        <rect key="frame" x="16" y="8" width="27.5" height="27.5"/>
+                        <rect key="frame" x="16" y="7" width="30" height="30"/>
                         <constraints>
+                            <constraint firstAttribute="height" constant="30" id="l9w-CT-qpe"/>
                             <constraint firstAttribute="width" secondItem="TtZ-nd-CiR" secondAttribute="height" multiplier="1:1" id="nSg-gA-xLk"/>
                         </constraints>
                     </imageView>
-                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="error" translatesAutoresizingMaskIntoConstraints="NO" id="ZAT-JD-JbJ">
-                        <rect key="frame" x="216.5" y="8" width="27.5" height="27.5"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="error" translatesAutoresizingMaskIntoConstraints="NO" id="ZAT-JD-JbJ">
+                        <rect key="frame" x="229" y="14.5" width="15" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="ZAT-JD-JbJ" secondAttribute="height" multiplier="1:1" id="t4R-gU-c6t"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Title label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cMz-uz-Vej">
-                        <rect key="frame" x="59.5" y="8" width="74" height="27.5"/>
+                        <rect key="frame" x="62" y="8" width="74" height="27.5"/>
                         <color key="backgroundColor" red="0.90438732079999995" green="0.96620899439999997" blue="0.2010596167" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
@@ -40,13 +41,12 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="TtZ-nd-CiR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="4lQ-jn-V6H"/>
-                    <constraint firstAttribute="bottom" secondItem="TtZ-nd-CiR" secondAttribute="bottom" constant="8" id="L3b-tY-yCz"/>
                     <constraint firstAttribute="bottom" secondItem="cMz-uz-Vej" secondAttribute="bottom" constant="8" id="OBZ-9w-tHa"/>
-                    <constraint firstItem="ZAT-JD-JbJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="OY2-Of-fyg"/>
-                    <constraint firstItem="cMz-uz-Vej" firstAttribute="height" secondItem="TtZ-nd-CiR" secondAttribute="height" id="T65-4W-hti"/>
-                    <constraint firstAttribute="bottom" secondItem="ZAT-JD-JbJ" secondAttribute="bottom" constant="8" id="hUf-H8-wUA"/>
-                    <constraint firstItem="TtZ-nd-CiR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="ifW-Hm-hfV"/>
+                    <constraint firstItem="ZAT-JD-JbJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cMz-uz-Vej" secondAttribute="trailing" constant="8" id="QPg-Rf-icI"/>
+                    <constraint firstItem="TtZ-nd-CiR" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="hOB-lB-BMf"/>
+                    <constraint firstItem="ZAT-JD-JbJ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ici-J1-g1P"/>
                     <constraint firstItem="cMz-uz-Vej" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="qcg-o4-qML"/>
+                    <constraint firstItem="ZAT-JD-JbJ" firstAttribute="height" secondItem="TtZ-nd-CiR" secondAttribute="height" multiplier="1/2" id="sNW-De-bPY"/>
                     <constraint firstAttribute="trailing" secondItem="ZAT-JD-JbJ" secondAttribute="trailing" constant="8" id="tes-zh-mGI"/>
                     <constraint firstItem="cMz-uz-Vej" firstAttribute="leading" secondItem="TtZ-nd-CiR" secondAttribute="trailing" constant="16" id="vC9-2u-zmR"/>
                 </constraints>

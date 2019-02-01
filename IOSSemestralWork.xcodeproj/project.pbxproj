@@ -28,7 +28,6 @@
 		4BE3C5FA2204981700A38F0D /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE3C5F82204981700A38F0D /* ItemCell.swift */; };
 		4BE3C5FB2204981700A38F0D /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BE3C5F92204981700A38F0D /* ItemCell.xib */; };
 		4BE3C5FD22049BED00A38F0D /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE3C5FC22049BED00A38F0D /* TableViewController.swift */; };
-		4BE3C5FF2204B18C00A38F0D /* TableViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE3C5FE2204B18C00A38F0D /* TableViewController2.swift */; };
 		4BE8A5FB21D6CB05009B66F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */; };
 		4BE8A60021D6CB05009B66F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BE8A5FE21D6CB05009B66F0 /* Main.storyboard */; };
 		4BE8A60221D6CB06009B66F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BE8A60121D6CB06009B66F0 /* Assets.xcassets */; };
@@ -58,7 +57,6 @@
 		4BE3C5F82204981700A38F0D /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		4BE3C5F92204981700A38F0D /* ItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
 		4BE3C5FC22049BED00A38F0D /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
-		4BE3C5FE2204B18C00A38F0D /* TableViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController2.swift; sourceTree = "<group>"; };
 		4BE8A5F721D6CB05009B66F0 /* IOSSemestralWork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOSSemestralWork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4BE8A5FF21D6CB05009B66F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -85,7 +83,6 @@
 			children = (
 				4BA354C421F8D9F600BCE58E /* Helper classes */,
 				4BE3C5FC22049BED00A38F0D /* TableViewController.swift */,
-				4BE3C5FE2204B18C00A38F0D /* TableViewController2.swift */,
 				4BD68B5E21D95F0000B3A14E /* ItemTableVC.swift */,
 				4BA1365C21D7947F009D4EBB /* MainTableVC.swift */,
 				4BDFB70321D8D31000361136 /* FolderTableVC.swift */,
@@ -343,7 +340,6 @@
 				4BE3C5FA2204981700A38F0D /* ItemCell.swift in Sources */,
 				4B50A3A521D829E000462B71 /* MyRSSFeed.swift in Sources */,
 				4BE3C5FD22049BED00A38F0D /* TableViewController.swift in Sources */,
-				4BE3C5FF2204B18C00A38F0D /* TableViewController2.swift in Sources */,
 				4BA1365D21D7947F009D4EBB /* MainTableVC.swift in Sources */,
 				4BD68B5F21D95F0000B3A14E /* ItemTableVC.swift in Sources */,
 				4B70A86C21D7A12700289496 /* MyRSSItem.swift in Sources */,
