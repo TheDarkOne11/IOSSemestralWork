@@ -31,6 +31,8 @@ class ItemTableVC: UITableViewController {
             defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
         }
         
+        tableView.register(UINib(nibName: "ItemCell", bundle: nil), forCellReuseIdentifier: "ItemCell")
+        
         // Initialize PullToRefresh
         tableView.refreshControl = refresher
         refresher.delegate = self
@@ -44,22 +46,22 @@ class ItemTableVC: UITableViewController {
     // MARK: - TableView data source
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
         
         // Check for special folders
         if (indexPath.row < specialFoldersCount) {
             switch(indexPath.row) {
             case 0:
                 // All items
-                cell.textLabel?.text = "All items" + " (Special)"
+                cell.setData(title: "All items", imgName: "all")
                 break
             case 1:
                 // Unread items
-                cell.textLabel?.text = "Unread items" + " (Special)"
+                cell.setData(title: "Unread items", imgName: "unread")
                 break
             case 2:
                 // Starred items
-                cell.textLabel?.text = "Starred items" + " (Special)"
+                cell.setData(title: "Starred items", imgName: "star")
                 break
             default:
                 // Not one of the special folders
@@ -78,7 +80,7 @@ class ItemTableVC: UITableViewController {
                 fatalError()
             }
             
-            cell.textLabel?.text = folder.title + " (Folder)"
+            cell.setData(using: folder)
         } else {
             // Show RSSFeed
             guard let feed = feeds?[indexPath.row - foldersCount - specialFoldersCount] else {
@@ -86,7 +88,7 @@ class ItemTableVC: UITableViewController {
                 fatalError()
             }
             
-            cell.textLabel?.text = feed.title + " (MyRSSFeed)"
+           cell.setData(using: feed)
         }
         
         return cell
