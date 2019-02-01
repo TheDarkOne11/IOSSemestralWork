@@ -77,17 +77,26 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Add a new Folder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2t5-yg-ri3">
-                                                    <rect key="frame" x="16" y="8" width="288" height="27.5"/>
+                                                    <rect key="frame" x="16" y="8" width="133" height="27.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" image="error" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="buI-PM-8HD">
+                                                    <rect key="frame" x="276.5" y="8" width="27.5" height="27.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="buI-PM-8HD" secondAttribute="height" multiplier="1:1" id="o4X-e7-4u8"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="2t5-yg-ri3" firstAttribute="top" secondItem="LOx-ZJ-eAT" secondAttribute="top" constant="8" id="EU1-bH-EU9"/>
-                                                <constraint firstAttribute="trailing" secondItem="2t5-yg-ri3" secondAttribute="trailing" constant="16" id="KcF-Pb-UFX"/>
-                                                <constraint firstAttribute="bottom" secondItem="2t5-yg-ri3" secondAttribute="bottom" constant="8" id="rsw-OM-z5V"/>
-                                                <constraint firstItem="2t5-yg-ri3" firstAttribute="leading" secondItem="LOx-ZJ-eAT" secondAttribute="leading" constant="16" id="x53-2F-UNu"/>
+                                                <constraint firstItem="2t5-yg-ri3" firstAttribute="leading" secondItem="LOx-ZJ-eAT" secondAttribute="leading" constant="16" id="Fpt-nh-tyL"/>
+                                                <constraint firstAttribute="bottom" secondItem="2t5-yg-ri3" secondAttribute="bottom" constant="8" id="M5Z-SM-cG9"/>
+                                                <constraint firstAttribute="bottom" secondItem="buI-PM-8HD" secondAttribute="bottom" constant="8" id="RYm-Kb-HtP"/>
+                                                <constraint firstItem="buI-PM-8HD" firstAttribute="height" secondItem="2t5-yg-ri3" secondAttribute="height" id="YUV-D8-ha3"/>
+                                                <constraint firstAttribute="trailing" secondItem="buI-PM-8HD" secondAttribute="trailing" constant="16" id="ahP-tb-qZA"/>
+                                                <constraint firstItem="2t5-yg-ri3" firstAttribute="top" secondItem="LOx-ZJ-eAT" secondAttribute="top" constant="8" id="oVD-jO-fqf"/>
+                                                <constraint firstItem="buI-PM-8HD" firstAttribute="top" secondItem="LOx-ZJ-eAT" secondAttribute="top" constant="8" id="yxS-uz-BNo"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -171,7 +180,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HBS-mb-Psi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4481" y="-723"/>
+            <point key="canvasLocation" x="4479.375" y="-723.59154929577471"/>
         </scene>
         <!--Main View-->
         <scene sceneID="Pnh-ZL-UKu">
@@ -349,6 +358,9 @@
             <point key="canvasLocation" x="3401" y="-724"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="error" width="48" height="48"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="bkH-4O-uYg"/>
         <segue reference="g0Y-Kg-VgR"/>
