@@ -57,6 +57,16 @@ class RSSFeedEditVC: UITableViewController {
         }
     }
     
+    // MARK: TestButton
+    
+    /**
+     For testing purposes only.
+     Tests whether its possible to press a Button without trigerring the TableViewCell.
+     */
+    @IBAction func testBtnPressed(_ sender: UIButton) {
+        print("Pressed the test button")
+    }
+    
     // MARK: NavBar items
 
     @IBAction func cancelBtnPressed(_ sender: UIBarButtonItem) {

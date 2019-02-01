@@ -82,21 +82,25 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" image="error" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="buI-PM-8HD">
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lyb-eC-QDU" userLabel="TestButton">
                                                     <rect key="frame" x="276.5" y="8" width="27.5" height="27.5"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="buI-PM-8HD" secondAttribute="height" multiplier="1:1" id="o4X-e7-4u8"/>
+                                                        <constraint firstAttribute="width" secondItem="lyb-eC-QDU" secondAttribute="height" multiplier="1:1" id="Idk-Wo-JPz"/>
                                                     </constraints>
-                                                </imageView>
+                                                    <state key="normal" title="Button" image="error"/>
+                                                    <connections>
+                                                        <action selector="testBtnPressed:" destination="QE6-n0-ctg" eventType="touchUpInside" id="YtZ-VN-GWl"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="lyb-eC-QDU" firstAttribute="top" secondItem="LOx-ZJ-eAT" secondAttribute="top" constant="8" id="AQN-ff-BWh"/>
+                                                <constraint firstItem="lyb-eC-QDU" firstAttribute="height" secondItem="2t5-yg-ri3" secondAttribute="height" id="F7Z-5E-Zvb"/>
                                                 <constraint firstItem="2t5-yg-ri3" firstAttribute="leading" secondItem="LOx-ZJ-eAT" secondAttribute="leading" constant="16" id="Fpt-nh-tyL"/>
                                                 <constraint firstAttribute="bottom" secondItem="2t5-yg-ri3" secondAttribute="bottom" constant="8" id="M5Z-SM-cG9"/>
-                                                <constraint firstAttribute="bottom" secondItem="buI-PM-8HD" secondAttribute="bottom" constant="8" id="RYm-Kb-HtP"/>
-                                                <constraint firstItem="buI-PM-8HD" firstAttribute="height" secondItem="2t5-yg-ri3" secondAttribute="height" id="YUV-D8-ha3"/>
-                                                <constraint firstAttribute="trailing" secondItem="buI-PM-8HD" secondAttribute="trailing" constant="16" id="ahP-tb-qZA"/>
+                                                <constraint firstAttribute="bottom" secondItem="lyb-eC-QDU" secondAttribute="bottom" constant="8" id="gmv-Tb-3xV"/>
                                                 <constraint firstItem="2t5-yg-ri3" firstAttribute="top" secondItem="LOx-ZJ-eAT" secondAttribute="top" constant="8" id="oVD-jO-fqf"/>
-                                                <constraint firstItem="buI-PM-8HD" firstAttribute="top" secondItem="LOx-ZJ-eAT" secondAttribute="top" constant="8" id="yxS-uz-BNo"/>
+                                                <constraint firstAttribute="trailing" secondItem="lyb-eC-QDU" secondAttribute="trailing" constant="16" id="vC2-ln-RIJ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
