@@ -11,11 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="ItemCell" id="KGk-i7-Jjw" customClass="ItemCell" customModule="IOSSemestralWork" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ItemCell" id="KGk-i7-Jjw" customClass="ItemCell" customModule="IOSSemestralWork" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="252" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" image="folder" translatesAutoresizingMaskIntoConstraints="NO" id="TtZ-nd-CiR" userLabel="Type image">
@@ -26,14 +26,13 @@
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="error" translatesAutoresizingMaskIntoConstraints="NO" id="ZAT-JD-JbJ">
-                        <rect key="frame" x="229" y="14.5" width="15" height="15"/>
+                        <rect key="frame" x="255" y="14.5" width="15" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="ZAT-JD-JbJ" secondAttribute="height" multiplier="1:1" id="t4R-gU-c6t"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Title label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cMz-uz-Vej">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Title label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cMz-uz-Vej">
                         <rect key="frame" x="62" y="8" width="74" height="27.5"/>
-                        <color key="backgroundColor" red="0.90438732079999995" green="0.96620899439999997" blue="0.2010596167" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -47,7 +46,7 @@
                     <constraint firstItem="ZAT-JD-JbJ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ici-J1-g1P"/>
                     <constraint firstItem="cMz-uz-Vej" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="qcg-o4-qML"/>
                     <constraint firstItem="ZAT-JD-JbJ" firstAttribute="height" secondItem="TtZ-nd-CiR" secondAttribute="height" multiplier="1/2" id="sNW-De-bPY"/>
-                    <constraint firstAttribute="trailing" secondItem="ZAT-JD-JbJ" secondAttribute="trailing" constant="8" id="tes-zh-mGI"/>
+                    <constraint firstAttribute="trailing" secondItem="ZAT-JD-JbJ" secondAttribute="trailing" constant="16" id="tes-zh-mGI"/>
                     <constraint firstItem="cMz-uz-Vej" firstAttribute="leading" secondItem="TtZ-nd-CiR" secondAttribute="trailing" constant="16" id="vC9-2u-zmR"/>
                 </constraints>
             </tableViewCellContentView>

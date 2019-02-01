@@ -17,8 +17,8 @@ class TableViewController: UITableViewController {
         
         tableView.register(UINib(nibName: "ItemCell", bundle: nil), forCellReuseIdentifier: "ItemCell")
         
-        for i in 0...10 {
-//            array.append("The longest title I could think of on such short notice when I need one: \(i)")
+        for i in 0...5 {
+            array.append("The longest title I could think of on such short notice when I need one: \(i)")
             array.append("Title \(i)")
         }
     }
