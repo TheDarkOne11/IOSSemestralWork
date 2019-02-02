@@ -15,14 +15,16 @@ class MyRSSItem: Item {
     @objc dynamic var author: String = ""
     @objc dynamic var date: Date?
     @objc dynamic var image: String?
+    @objc dynamic var rssFeed: MyRSSFeed?
     
-    convenience init(with rssItem: RSSItem?) {
+    convenience init(_ rssItem: RSSItem?, _ myRssFeed: MyRSSFeed) {
         self.init(with: rssItem?.title ?? "Unknown", type: .myRssItem)
         
         self.articleLink = rssItem?.link ?? "Unknown"
         self.author = rssItem?.author ?? "Unknown author"
         self.itemDescription = rssItem?.itemDescription ?? "Unknown"
         self.date = rssItem?.pubDate
+        self.rssFeed = myRssFeed
         
         setImage(rssItem)
     }

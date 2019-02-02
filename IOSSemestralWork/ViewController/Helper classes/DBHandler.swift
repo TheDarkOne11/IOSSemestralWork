@@ -159,7 +159,7 @@ class DBHandler {
                 }
                 
                 for item in feed.items {
-                    let myRssItem = MyRSSItem(with: item)
+                    let myRssItem = MyRSSItem(item, myRssFeed)
                     
                     realm.add(myRssItem, update: true)
                     
