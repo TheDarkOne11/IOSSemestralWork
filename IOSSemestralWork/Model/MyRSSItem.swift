@@ -17,6 +17,9 @@ class MyRSSItem: Item {
     @objc dynamic var image: String?
     @objc dynamic var rssFeed: MyRSSFeed?
     
+    @objc dynamic var isRead: Bool = false
+    @objc dynamic var isStarred: Bool = false
+    
     convenience init(_ rssItem: RSSItem?, _ myRssFeed: MyRSSFeed) {
         self.init(with: rssItem?.title ?? "Unknown", type: .myRssItem)
         
