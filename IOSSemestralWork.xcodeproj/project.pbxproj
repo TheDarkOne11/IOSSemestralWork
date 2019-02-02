@@ -31,6 +31,8 @@
 		4BE8A60021D6CB05009B66F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BE8A5FE21D6CB05009B66F0 /* Main.storyboard */; };
 		4BE8A60221D6CB06009B66F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BE8A60121D6CB06009B66F0 /* Assets.xcassets */; };
 		4BE8A60521D6CB06009B66F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BE8A60321D6CB06009B66F0 /* LaunchScreen.storyboard */; };
+		4BF2D4132205B9E6007636CD /* RssItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF2D4112205B9E6007636CD /* RssItemCell.swift */; };
+		4BF2D4142205B9E6007636CD /* RssItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BF2D4122205B9E6007636CD /* RssItemCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,8 @@
 		4BE8A60121D6CB06009B66F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4BE8A60421D6CB06009B66F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4BE8A60621D6CB06009B66F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4BF2D4112205B9E6007636CD /* RssItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RssItemCell.swift; sourceTree = "<group>"; };
+		4BF2D4122205B9E6007636CD /* RssItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RssItemCell.xib; sourceTree = "<group>"; };
 		70604E19792E7A209AD45857 /* Pods-IOSSemestralWork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSSemestralWork.release.xcconfig"; path = "Pods/Target Support Files/Pods-IOSSemestralWork/Pods-IOSSemestralWork.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				4BBEC7F72204DDA700E7D802 /* ItemCell */,
+				4BF2D4152205B9EF007636CD /* RssItemCell */,
 				4BDDFCA321FDD2F2007F4F63 /* PullToRefresh */,
 				4BE8A60321D6CB06009B66F0 /* LaunchScreen.storyboard */,
 				4BE8A5FE21D6CB05009B66F0 /* Main.storyboard */,
@@ -181,6 +186,15 @@
 			path = IOSSemestralWork;
 			sourceTree = "<group>";
 		};
+		4BF2D4152205B9EF007636CD /* RssItemCell */ = {
+			isa = PBXGroup;
+			children = (
+				4BF2D4122205B9E6007636CD /* RssItemCell.xib */,
+				4BF2D4112205B9E6007636CD /* RssItemCell.swift */,
+			);
+			path = RssItemCell;
+			sourceTree = "<group>";
+		};
 		5BF2A335EE5DD817F32A6E54 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -264,6 +278,7 @@
 				4BB407892202382300CD1D57 /* Web in Resources */,
 				4BDDFCA021FDD214007F4F63 /* PullToRefreshView.xib in Resources */,
 				4BE8A60021D6CB05009B66F0 /* Main.storyboard in Resources */,
+				4BF2D4142205B9E6007636CD /* RssItemCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +359,7 @@
 				4BDFB70421D8D31100361136 /* FolderTableVC.swift in Sources */,
 				4B50A3E721D83E9400462B71 /* RSSFeedEditVC.swift in Sources */,
 				4BE8A5FB21D6CB05009B66F0 /* AppDelegate.swift in Sources */,
+				4BF2D4132205B9E6007636CD /* RssItemCell.swift in Sources */,
 				4BDDFCA221FDD28D007F4F63 /* PullToRefreshView.swift in Sources */,
 				4BDDFCA721FE207B007F4F63 /* RefreshControl.swift in Sources */,
 			);

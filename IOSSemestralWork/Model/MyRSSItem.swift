@@ -16,9 +16,15 @@ class MyRSSItem: Item {
     @objc dynamic var date: Date?
     @objc dynamic var image: String?
     @objc dynamic var rssFeed: MyRSSFeed?
-    
     @objc dynamic var isRead: Bool = false
     @objc dynamic var isStarred: Bool = false
+    
+    var description_NoHtml: String {
+        get {
+            // Removes all HTML tags
+            return remove(from: itemDescription, pattern: "\\<.*?\\>")
+        }
+    }
     
     convenience init(_ rssItem: RSSItem?, _ myRssFeed: MyRSSFeed) {
         self.init(with: rssItem?.title ?? "Unknown", type: .myRssItem)
@@ -30,6 +36,10 @@ class MyRSSItem: Item {
         self.rssFeed = myRssFeed
         
         setImage(rssItem)
+    }
+    
+    override static func primaryKey() -> String? {
+        return "articleLink"
     }
     
     /**
@@ -47,7 +57,7 @@ class MyRSSItem: Item {
         if let descImages = rssItem?.imagesFromDescription {
             if descImages.count > 0 {
                 image = descImages.first!
-                removeImage()
+                itemDescription = remove(from: itemDescription, pattern: "\\<img.*?\\>")
                 return
             }
         }
@@ -65,16 +75,11 @@ class MyRSSItem: Item {
         }
     }
     
-    private func removeImage() {
+    private func remove(from value: String, pattern: String) -> String {
         let value: NSMutableString = NSMutableString(string: self.itemDescription)
-        let pattern = "\\<img.*?\\>"
         let regex = try? NSRegularExpression(pattern: pattern)
         regex?.replaceMatches(in: value, options: .reportProgress, range: NSRange(location: 0,length: value.length), withTemplate: "")
         
-        self.itemDescription = value as String
-    }
-    
-    override static func primaryKey() -> String? {
-        return "articleLink"
+        return value as String
     }
 }

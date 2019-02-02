@@ -23,6 +23,8 @@ class RSSFeedTableVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.register(UINib(nibName: "RssItemCell", bundle: nil), forCellReuseIdentifier: "RssItemCell")
+        
         // Initialize PullToRefresh
         tableView.refreshControl = refresher
         refresher.delegate = self
@@ -35,9 +37,11 @@ class RSSFeedTableVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RssItemCell", for: indexPath)
-        let currRssItem = myRssItems?[indexPath.row]
-        cell.textLabel?.text = currRssItem?.title
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RssItemCell", for: indexPath) as! RssItemCell
+        
+        if let myRssItem = myRssItems?[indexPath.row] {
+            cell.setData(using: myRssItem)
+        }
         
         return cell
     }
