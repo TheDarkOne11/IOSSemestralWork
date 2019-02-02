@@ -105,24 +105,23 @@ class ItemTableVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.row < specialFoldersCount) {
-            var items: Results<MyRSSItem>
+            var items: Results<MyRSSItem> = allRssItems()
             
             switch(indexPath.row) {
             case 0:
                 // All items
-                items = realm.objects(MyRSSItem.self)
                 performSegue(withIdentifier: "ShowRssItems", sender: SeguePreparationSender(rssItems: items, title: "All items"))
                 break
             case 1:
                 // Unread items
                 // TODO: Create
-                items = realm.objects(MyRSSItem.self)
+//                items = items.filter("", <#T##args: Any...##Any#>)
                 performSegue(withIdentifier: "ShowRssItems", sender: SeguePreparationSender(rssItems: items, title: "Unread items"))
                 break
             case 2:
                 // Starred items
                 // TODO: Create
-                items = realm.objects(MyRSSItem.self)
+//                items = items.filter("", <#T##args: Any...##Any#>)
                 performSegue(withIdentifier: "ShowRssItems", sender: SeguePreparationSender(rssItems: items, title: "Starred items"))
                 break
             default:
@@ -151,6 +150,10 @@ class ItemTableVC: UITableViewController {
             
             performSegue(withIdentifier: "ShowRssItems", sender: sender)
         }
+    }
+    
+    func allRssItems() -> Results<MyRSSItem> {
+        return realm.objects(MyRSSItem.self).sorted(byKeyPath: "date", ascending: false)
     }
     
     // MARK: Navigation

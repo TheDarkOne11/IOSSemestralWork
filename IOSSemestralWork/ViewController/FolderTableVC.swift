@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 /**
  Displays the TableView of the selected folders items.
@@ -28,5 +29,14 @@ class FolderTableVC: ItemTableVC {
         feeds = realm.objects(Folder.self)
             .filter("title CONTAINS[cd] %@", selectedFolder!.title)[0]
             .myRssFeeds
+    }
+    
+    override func allRssItems() -> Results<MyRSSItem> {
+        guard let selectedFolder = self.selectedFolder else {
+            print("Error occured, selectedFolder should already be initialized.")
+            fatalError()
+        }
+        
+        return super.allRssItems().filter("rssFeed.folder.title CONTAINS[cd] %@", selectedFolder.title)
     }
 }
