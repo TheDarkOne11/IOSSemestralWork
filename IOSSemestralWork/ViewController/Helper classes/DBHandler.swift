@@ -23,16 +23,22 @@ enum DownloadStatus: String {
 class DBHandler {
     let realm = try! Realm()
     
+    func realmEdit(errorMsg: String, editCode: () -> Void) {
+        do {
+            try realm.write {
+                editCode()
+            }
+        } catch {
+            print("\(errorMsg): \(error)")
+        }
+    }
+    
     // MARK: Folder methods
     
     func create(_ folder: Folder) {
         // Save the folder to Realm
-        do {
-            try realm.write {
-               realm.add(folder)
-            }
-        } catch {
-            print("Could not add a new folder to Realm: \(error)")
+        realmEdit(errorMsg: "Could not add a new folder to Realm") {
+            realm.add(folder)
         }
     }
     
@@ -42,35 +48,23 @@ class DBHandler {
             remove(feed)
         }
         
-        do {
-            try realm.write {
-                realm.delete(folder)
-            }
-        } catch {
-            print("Error occured when removing a folder \(folder.title): \(error)")
+        realmEdit(errorMsg: "Error occured when removing a folder \(folder.title)") {
+            realm.delete(folder)
         }
     }
     
     // MARK: MyRSSFeed methods
     
     func create(_ myRssFeed: MyRSSFeed) {
-        do {
-            try realm.write {
-                myRssFeed.folder!.myRssFeeds.append(myRssFeed)
-            }
-        } catch {
-            print("Error occured when creating a new MyRSSFeed: \(error)")
+        realmEdit(errorMsg: "Error occured when creating a new MyRSSFeed") {
+            myRssFeed.folder!.myRssFeeds.append(myRssFeed)
         }
     }
     
     func remove(_ myRssFeed: MyRSSFeed) {
-        do {
-            try realm.write {
-                realm.delete(myRssFeed.myRssItems)
-                realm.delete(myRssFeed)
-            }
-        } catch {
-            print("Error occured when removing a folder \(myRssFeed.title): \(error)")
+        realmEdit(errorMsg: "Error occured when removing a folder \(myRssFeed.title)") {
+            realm.delete(myRssFeed.myRssItems)
+            realm.delete(myRssFeed)
         }
     }
     
@@ -151,27 +145,21 @@ class DBHandler {
     }
     
     private func persistRssItems(_ feed: RSSFeed, _ myRssFeed: MyRSSFeed) {
-        do {
-            try self.realm.write {
+        realmEdit(errorMsg: "Error when adding items to MyRSSFeed") {
+            if myRssFeed.title == myRssFeed.link, let title = feed.title {
+                myRssFeed.title = title
+            }
+            
+            for item in feed.items {
+                let myRssItem = MyRSSItem(item, myRssFeed)
                 
-                if myRssFeed.title == myRssFeed.link, let title = feed.title {
-                    myRssFeed.title = title
-                }
+                realm.add(myRssItem, update: true)
                 
-                for item in feed.items {
-                    let myRssItem = MyRSSItem(item, myRssFeed)
-                    
-                    realm.add(myRssItem, update: true)
-                    
-                    // Add the item only if it doesn't exist already
-                    if myRssFeed.myRssItems.index(of: myRssItem) == nil {
-                        myRssFeed.myRssItems.append(myRssItem)
-                    }
+                // Add the item only if it doesn't exist already
+                if myRssFeed.myRssItems.index(of: myRssItem) == nil {
+                    myRssFeed.myRssItems.append(myRssItem)
                 }
             }
-        } catch {
-            print("Error when adding items to MyRSSFeed: \(error)")
-            return
         }
     }
 }

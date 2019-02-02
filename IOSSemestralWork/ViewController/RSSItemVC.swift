@@ -10,7 +10,15 @@ import UIKit
 import WebKit
 
 class RSSItemVC: UIViewController {
-    var selectedRssItem: MyRSSItem?
+    let dbHandler: DBHandler = DBHandler()
+    
+    var selectedRssItem: MyRSSItem? {
+        didSet {
+            dbHandler.realmEdit(errorMsg: "Error occured when setting MyRSSItem isRead to true") {
+                selectedRssItem!.isRead = true
+            }
+        }
+    }
     
     /**
      The WKWebView used to display data of RSSItems.

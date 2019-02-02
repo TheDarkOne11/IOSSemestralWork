@@ -248,13 +248,9 @@ extension ItemTableVC {
         let alert = UIAlertController(title: "Edit folder", message: "", preferredStyle: .alert)
         let actionCancel = UIAlertAction(title: "Cancel", style: .cancel)
         let actionDone = UIAlertAction(title: "Done", style: .default) { (action) in
-            do {
-                try self.realm.write {
-                    folder.title = textField.text!
-                }
-            } catch {
-                print("Error occured when editing a folder: \(error)")
-            }
+            self.dbHandler.realmEdit(errorMsg: "Error occured when editing a folder", editCode: {
+                folder.title = textField.text!
+            })
             self.tableView.reloadData()
         }
         
@@ -360,14 +356,9 @@ extension ItemTableVC: NewFeedDelegate {
             self.tableView.reloadData()
             
             // Check the result
-            do {
-                try self.realm.write {
-                    self.checkResult(myRssFeed, result)
-                }
-                
-            } catch {
-                print("Error occured when setting rssFeed.isOk: \(error)")
-            }
+            self.dbHandler.realmEdit(errorMsg: "Error occured when setting rssFeed.isOk", editCode: {
+                self.checkResult(myRssFeed, result)
+            })
         }
     }
     
