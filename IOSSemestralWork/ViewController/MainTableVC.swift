@@ -47,8 +47,4 @@ class MainTableVC: ItemTableVC {
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
     }
-    
-    @IBAction func editBtnPressed(_ sender: UIBarButtonItem) {
-        // TODO: Implement
-    }
 }

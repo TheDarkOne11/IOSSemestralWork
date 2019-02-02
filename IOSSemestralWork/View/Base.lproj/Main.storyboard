@@ -187,11 +187,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="RSS Reader" id="7U8-7p-826" userLabel="Navigation Item">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="86R-iQ-XQy">
-                            <connections>
-                                <action selector="editBtnPressed:" destination="BZ7-lg-lld" id="mK0-WF-5kV"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="TZR-6B-YPl">
                             <connections>
                                 <segue destination="lfg-gO-O5g" kind="presentation" identifier="ShowAddFeed" id="bkH-4O-uYg"/>
@@ -220,9 +215,7 @@
                             <outlet property="delegate" destination="Xga-xy-Za1" id="qHN-Nw-Wrt"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="hJy-mg-OVC" userLabel="Navigation Item">
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="OGq-On-kwr"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Title" id="hJy-mg-OVC" userLabel="Navigation Item"/>
                     <connections>
                         <segue destination="abS-kR-Rcu" kind="show" identifier="ShowRssItems" id="nmV-WM-iEA"/>
                         <segue destination="lfg-gO-O5g" kind="presentation" identifier="ShowAddFeed" id="9me-mn-0nI"/>
