@@ -114,14 +114,12 @@ class ItemTableVC: UITableViewController {
                 break
             case 1:
                 // Unread items
-                // TODO: Create
-//                items = items.filter("", <#T##args: Any...##Any#>)
+                items = items.filter("isRead == false")
                 performSegue(withIdentifier: "ShowRssItems", sender: SeguePreparationSender(rssItems: items, title: "Unread items"))
                 break
             case 2:
                 // Starred items
-                // TODO: Create
-//                items = items.filter("", <#T##args: Any...##Any#>)
+                items = items.filter("isStarred == true")
                 performSegue(withIdentifier: "ShowRssItems", sender: SeguePreparationSender(rssItems: items, title: "Starred items"))
                 break
             default:
