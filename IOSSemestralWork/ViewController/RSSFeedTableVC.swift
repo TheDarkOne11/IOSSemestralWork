@@ -29,6 +29,10 @@ class RSSFeedTableVC: UITableViewController {
         tableView.refreshControl = refresher
         refresher.delegate = self
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
 
     // MARK: - Table view data source
 

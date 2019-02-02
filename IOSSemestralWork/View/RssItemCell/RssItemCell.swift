@@ -27,10 +27,15 @@ class RssItemCell: UITableViewCell {
         
         let formatter = DateFormatter()
         formatter.dateStyle = .none
-        formatter.timeStyle = .medium
+        formatter.timeStyle = .short
         formatter.locale = Locale(identifier: "en_GB")  // "cs_CZ"
         
         let timeString = formatter.string(from: item.date!)
         timeFeedLabel.text = "\(timeString) | \(item.rssFeed!.title)"
+        
+        // Items that a user already read are greyed out (disabled)
+        titleLabel.isEnabled = !item.isRead
+        descLabel.isEnabled = !item.isRead
+        timeFeedLabel.isEnabled = !item.isRead
     }
 }
