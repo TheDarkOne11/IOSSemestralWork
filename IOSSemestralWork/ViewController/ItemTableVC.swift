@@ -43,25 +43,32 @@ class ItemTableVC: UITableViewController {
         ToastManager.shared.style.backgroundColor = UIColor.black.withAlphaComponent(0.71)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    
     // MARK: - TableView data source
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
+        var items = allRssItems()
         
         // Check for special folders
         if (indexPath.row < specialFoldersCount) {
             switch(indexPath.row) {
             case 0:
                 // All items
-                cell.setData(title: "All items", imgName: "all")
+                cell.setData(title: "All items", imgName: "all", itemCount: items.count)
                 break
             case 1:
                 // Unread items
-                cell.setData(title: "Unread items", imgName: "unread")
+                items = items.filter("isRead == false")
+                cell.setData(title: "Unread items", imgName: "unread", itemCount: items.count)
                 break
             case 2:
                 // Starred items
-                cell.setData(title: "Starred items", imgName: "star")
+                items = items.filter("isStarred == true")
+                cell.setData(title: "Starred items", imgName: "star", itemCount: items.count)
                 break
             default:
                 // Not one of the special folders

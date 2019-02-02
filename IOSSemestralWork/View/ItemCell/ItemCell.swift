@@ -10,6 +10,7 @@ import UIKit
 
 class ItemCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var numOfItemsLabel: UILabel!
     @IBOutlet weak var typeImage: UIImageView!
     @IBOutlet weak var errorImage: UIImageView!
     
@@ -24,19 +25,34 @@ class ItemCell: UITableViewCell {
     }
     
     func setData(using folder: Folder) {
-        setData(title: folder.title, imgName: "folder")
+        var count = 0
+        for feed in folder.myRssFeeds {
+            count += feed.unreadItemsCount()
+        }
+        
+        setData(title: folder.title, imgName: "folder", itemCount: count)
     }
     
     func setData(using feed: MyRSSFeed) {
-        setData(title: feed.title, imgName: "error")
+        if !feed.isOk {
+            errorImage.isHidden = false
+        }
+        
+        setData(title: feed.title, imgName: nil, itemCount: feed.unreadItemsCount())
     }
     
-    func setData(title: String?, imgName: String?) {
+    func setData(title: String?, imgName: String?, itemCount count: Int) {
         titleLabel.text = title
         
         if let imgName = imgName {
-            self.typeImage.image = UIImage(named: imgName)
+            typeImage.image = UIImage(named: imgName)
+        } else {
+            typeImage.isHidden = true
         }
+        
+        // Set errorImage/numOfItemsLabel
+        numOfItemsLabel.isHidden = !errorImage.isHidden
+        numOfItemsLabel.text = "\(count)"
     }
     
 }

@@ -24,4 +24,8 @@ class MyRSSFeed: Item {
         self.folder = folder
         self.link = link
     }
+    
+    func unreadItemsCount() -> Int {
+        return myRssItems.filter("isRead == false").count
+    }
 }
