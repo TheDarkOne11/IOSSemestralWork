@@ -18,6 +18,7 @@ class RSSItemVC: UIViewController {
     
     var selectedRssItem: MyRSSItem? {
         didSet {
+            // Set read status to true when user enters
             dbHandler.realmEdit(errorMsg: "Error occured when setting MyRSSItem isRead to true") {
                 selectedRssItem!.isRead = true
             }
@@ -45,7 +46,10 @@ class RSSItemVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Initialize TabBar
         tabBar.delegate = self
+        set(read: selectedRssItem!.isRead)
+        set(starred: selectedRssItem!.isStarred)
         
         // Add WebKitView into the view programatically, statically didn't work.
         let layoutGuide = view.safeAreaLayoutGuide
@@ -143,10 +147,12 @@ extension RSSItemVC: UITabBarDelegate {
         case 0:
             // Read & Unread item
             print("Change read")
+            set(read: !selectedRssItem!.isRead)
             break
         case 1:
             // Starred & Unstarred item
             print("Change starred")
+            set(starred: !selectedRssItem!.isStarred)
             break
         case 2:
             // Up item
@@ -162,16 +168,32 @@ extension RSSItemVC: UITabBarDelegate {
     }
     
     func set(starred: Bool) {
+        guard let rssItem = selectedRssItem else {
+            fatalError("The RSSItem should already be selected.")
+        }
+        
         if starred {
             starItem.title = "Starred"
-            starItem.image = UIImage(named: "tabStared")
+            starItem.image = UIImage(named: "tabStarred")
         } else {
             starItem.title = "Unstarred"
             starItem.image = UIImage(named: "tabUnstarred")
         }
+        
+        starItem.selectedImage = starItem.image
+        
+        if starred != rssItem.isStarred {
+            dbHandler.realmEdit(errorMsg: "Error occured when setting MyRSSItem isStarred to \(starred)") {
+                rssItem.isStarred = starred
+            }
+        }
     }
     
     func set(read: Bool) {
+        guard let rssItem = selectedRssItem else {
+            fatalError("The RSSItem should already be selected.")
+        }
+        
         if read {
             readItem.title = "Read"
             readItem.image = UIImage(named: "tabRead")
@@ -179,5 +201,16 @@ extension RSSItemVC: UITabBarDelegate {
             readItem.title = "Unread"
             readItem.image = UIImage(named: "tabUnread")
         }
+        
+        readItem.selectedImage = readItem.image
+        
+        if read != rssItem.isRead {
+            dbHandler.realmEdit(errorMsg: "Error occured when setting MyRSSItem isRead to \(read)") {
+                rssItem.isRead = read
+            }
+        }
+    }
+}
+
     }
 }

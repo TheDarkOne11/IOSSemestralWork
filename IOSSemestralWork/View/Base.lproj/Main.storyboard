@@ -292,8 +292,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="readItem" destination="hq5-jH-FOO" id="gNe-na-aQ6"/>
-                        <outlet property="starItem" destination="Qez-89-Scg" id="fso-JU-aAb"/>
+                        <outlet property="readItem" destination="Qez-89-Scg" id="UDi-Kw-tgo"/>
+                        <outlet property="starItem" destination="hq5-jH-FOO" id="cQh-68-Hcw"/>
                         <outlet property="tabBar" destination="h0n-Dl-Yf2" id="cSA-2I-THy"/>
                     </connections>
                 </viewController>
