@@ -26,11 +26,6 @@ class ItemTableVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Check if LastUpdate Date exists
-        if defaults.object(forKey: UserDefaultsKeys.LastUpdate.rawValue) == nil {
-            defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
-        }
-        
         tableView.register(UINib(nibName: "ItemCell", bundle: nil), forCellReuseIdentifier: "ItemCell")
         
         // Initialize PullToRefresh
