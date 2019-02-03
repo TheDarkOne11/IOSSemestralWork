@@ -65,10 +65,8 @@ class RSSItemVC: UIViewController {
     // MARK: Navigation
     
     @IBAction func goToWebButtonPressed(_ sender: UIBarButtonItem) {
-        // Open the URL in Safari
         if let link = selectedRssItem?.articleLink {
-            guard let url = URL(string: link) else { return }
-            UIApplication.shared.open(url)
+            goToWeb(url: URL(string: link))
         }
     }
 }
@@ -76,6 +74,27 @@ class RSSItemVC: UIViewController {
 // MARK: WKNavigationDelegate
 
 extension RSSItemVC: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if navigationAction.navigationType == WKNavigationType.linkActivated {
+            // A link inside the webView was clicked
+            goToWeb(url: navigationAction.request.url)
+            
+            decisionHandler(WKNavigationActionPolicy.cancel)
+            return
+        }
+        
+        decisionHandler(WKNavigationActionPolicy.allow)
+    }
+    
+    /**
+     Opens the URL in Safari app browser.
+     */
+    private func goToWeb(url: URL?) {
+        if let currUrl = url {
+            UIApplication.shared.open(currUrl)
+        }
+    }
+    
     /**
      Loads new RSSItem data in the HTML template using a Javascript script.
      */
