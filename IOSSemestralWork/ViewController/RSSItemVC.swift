@@ -11,6 +11,8 @@ import WebKit
 
 class RSSItemVC: UIViewController {
     @IBOutlet weak var tabBar: UITabBar!
+    @IBOutlet weak var starItem: UITabBarItem!
+    @IBOutlet weak var readItem: UITabBarItem!
     
     let dbHandler: DBHandler = DBHandler()
     
@@ -43,6 +45,7 @@ class RSSItemVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tabBar.delegate = self
         
         // Add WebKitView into the view programatically, statically didn't work.
         let layoutGuide = view.safeAreaLayoutGuide
@@ -110,5 +113,52 @@ extension RSSItemVC: WKNavigationDelegate {
         }
         
         return code
+    }
+}
+
+// MARK: UITabBarDelegate methods
+
+extension RSSItemVC: UITabBarDelegate {
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        switch item.tag {
+        case 0:
+            // Read & Unread item
+            print("Change read")
+            break
+        case 1:
+            // Starred & Unstarred item
+            print("Change starred")
+            break
+        case 2:
+            // Up item
+            print("Change item up")
+            break
+        case 3:
+            // Down item
+            print("Change item down")
+            break
+        default:
+            fatalError("Unknown tab bar item selected")
+        }
+    }
+    
+    func set(starred: Bool) {
+        if starred {
+            starItem.title = "Starred"
+            starItem.image = UIImage(named: "tabStared")
+        } else {
+            starItem.title = "Unstarred"
+            starItem.image = UIImage(named: "tabUnstarred")
+        }
+    }
+    
+    func set(read: Bool) {
+        if read {
+            readItem.title = "Read"
+            readItem.image = UIImage(named: "tabRead")
+        } else {
+            readItem.title = "Unread"
+            readItem.image = UIImage(named: "tabUnread")
+        }
     }
 }

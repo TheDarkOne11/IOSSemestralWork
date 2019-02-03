@@ -268,11 +268,11 @@
                                     <tabBarItem title="Read" image="tabRead" id="Qez-89-Scg" userLabel="Read">
                                         <color key="badgeColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tabBarItem>
-                                    <tabBarItem title="Unstarred" image="tabUnstarred" id="hq5-jH-FOO" userLabel="Star">
+                                    <tabBarItem tag="1" title="Unstarred" image="tabUnstarred" id="hq5-jH-FOO" userLabel="Star">
                                         <color key="badgeColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tabBarItem>
-                                    <tabBarItem title="" image="tabUp" id="ZZa-4K-a5u" userLabel="Up"/>
-                                    <tabBarItem title="" image="tabDown" id="TD1-ba-vex" userLabel="Down"/>
+                                    <tabBarItem tag="2" title="" image="tabUp" id="ZZa-4K-a5u" userLabel="Up"/>
+                                    <tabBarItem tag="3" title="" image="tabDown" id="TD1-ba-vex" userLabel="Down"/>
                                 </items>
                             </tabBar>
                         </subviews>
@@ -292,6 +292,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="readItem" destination="hq5-jH-FOO" id="gNe-na-aQ6"/>
+                        <outlet property="starItem" destination="Qez-89-Scg" id="fso-JU-aAb"/>
                         <outlet property="tabBar" destination="h0n-Dl-Yf2" id="cSA-2I-THy"/>
                     </connections>
                 </viewController>
