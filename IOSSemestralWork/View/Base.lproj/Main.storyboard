@@ -292,9 +292,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="downItem" destination="TD1-ba-vex" id="Bvy-AO-wZm"/>
                         <outlet property="readItem" destination="Qez-89-Scg" id="UDi-Kw-tgo"/>
                         <outlet property="starItem" destination="hq5-jH-FOO" id="cQh-68-Hcw"/>
                         <outlet property="tabBar" destination="h0n-Dl-Yf2" id="cSA-2I-THy"/>
+                        <outlet property="upItem" destination="ZZa-4K-a5u" id="wDD-Jw-FLl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ktf-rp-Yaq" userLabel="First Responder" sceneMemberID="firstResponder"/>

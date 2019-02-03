@@ -8,15 +8,20 @@
 
 import UIKit
 import WebKit
+import RealmSwift
 
 class RSSItemVC: UIViewController {
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var starItem: UITabBarItem!
     @IBOutlet weak var readItem: UITabBarItem!
+    @IBOutlet weak var upItem: UITabBarItem!
+    @IBOutlet weak var downItem: UITabBarItem!
     
     let dbHandler: DBHandler = DBHandler()
     
-    var selectedRssItem: MyRSSItem? {
+    var myRssItems: Results<MyRSSItem>?
+    var selectedItemIndex: Int?
+    private var selectedRssItem: MyRSSItem? {
         didSet {
             // Set read status to true when user enters
             dbHandler.realmEdit(errorMsg: "Error occured when setting MyRSSItem isRead to true") {
@@ -46,11 +51,6 @@ class RSSItemVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Initialize TabBar
-        tabBar.delegate = self
-        set(read: selectedRssItem!.isRead)
-        set(starred: selectedRssItem!.isStarred)
-        
         // Add WebKitView into the view programatically, statically didn't work.
         let layoutGuide = view.safeAreaLayoutGuide
         
@@ -62,8 +62,27 @@ class RSSItemVC: UIViewController {
         RSSItemVC.webView.topAnchor.constraint(equalTo: layoutGuide.topAnchor).isActive = true
         RSSItemVC.webView.bottomAnchor.constraint(equalTo: tabBar.topAnchor).isActive = true
         
-        // Load data into the webView
-        RSSItemVC.webView.reload()
+        // Select the RSSItem and load data into the webView
+        selectRssItem(at: selectedItemIndex)
+        
+        // Initialize TabBar
+        initTabBar()
+    }
+    
+    private func selectRssItem(at index: Int?) {
+        guard let items = myRssItems else {
+            fatalError("RSS items should already be initialized.")
+        }
+        
+        if let index = index {
+            if index >= 0 && index < items.count {
+                selectedItemIndex = index
+                selectedRssItem = myRssItems?[index]
+                RSSItemVC.webView.reload()
+            } else {
+                fatalError("Index out of bounds.")
+            }
+        }
     }
     
     // MARK: Navigation
@@ -139,35 +158,43 @@ extension RSSItemVC: WKNavigationDelegate {
     }
 }
 
-// MARK: UITabBarDelegate methods
+// MARK: TabBar and UITabBarDelegate methods
 
 extension RSSItemVC: UITabBarDelegate {
+    private func initTabBar() {
+        tabBar.delegate = self
+        set(read: selectedRssItem!.isRead)
+        set(starred: selectedRssItem!.isStarred)
+        
+        checkBounds()
+    }
+    
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         switch item.tag {
         case 0:
             // Read & Unread item
-            print("Change read")
             set(read: !selectedRssItem!.isRead)
             break
         case 1:
             // Starred & Unstarred item
-            print("Change starred")
             set(starred: !selectedRssItem!.isStarred)
             break
         case 2:
             // Up item
-            print("Change item up")
+            selectRssItem(at: selectedItemIndex! - 1)
+            checkBounds()
             break
         case 3:
             // Down item
-            print("Change item down")
+            selectRssItem(at: selectedItemIndex! + 1)
+            checkBounds()
             break
         default:
             fatalError("Unknown tab bar item selected")
         }
     }
     
-    func set(starred: Bool) {
+    private func set(starred: Bool) {
         guard let rssItem = selectedRssItem else {
             fatalError("The RSSItem should already be selected.")
         }
@@ -189,7 +216,7 @@ extension RSSItemVC: UITabBarDelegate {
         }
     }
     
-    func set(read: Bool) {
+    private func set(read: Bool) {
         guard let rssItem = selectedRssItem else {
             fatalError("The RSSItem should already be selected.")
         }
@@ -209,5 +236,13 @@ extension RSSItemVC: UITabBarDelegate {
                 rssItem.isRead = read
             }
         }
+    }
+    
+    /**
+     Disables Up/ Down bar items if a user is at the first/ last RSSItem of the RSSItems list.
+     */
+    private func checkBounds() {
+        upItem.isEnabled = selectedItemIndex! > 0
+        downItem.isEnabled = selectedItemIndex! < myRssItems!.count - 1
     }
 }

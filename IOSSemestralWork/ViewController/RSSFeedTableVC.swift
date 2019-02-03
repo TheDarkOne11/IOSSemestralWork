@@ -71,7 +71,8 @@ class RSSFeedTableVC: UITableViewController {
             let destinationVC = segue.destination as! RSSItemVC
             
             destinationVC.title = title
-            destinationVC.selectedRssItem = myRssItems?[indexPath.row]
+            destinationVC.myRssItems = myRssItems
+            destinationVC.selectedItemIndex = indexPath.row
         }
     }
 }
