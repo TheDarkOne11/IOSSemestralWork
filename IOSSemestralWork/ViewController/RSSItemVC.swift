@@ -211,6 +211,3 @@ extension RSSItemVC: UITabBarDelegate {
         }
     }
 }
-
-    }
-}
