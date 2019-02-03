@@ -285,7 +285,7 @@
                         <viewLayoutGuide key="safeArea" id="6eC-wc-ZA5"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="W5e-6e-BMT">
-                        <barButtonItem key="rightBarButtonItem" title="GoToWeb" id="Vgt-9i-Bbx">
+                        <barButtonItem key="rightBarButtonItem" image="toWebsite" id="Vgt-9i-Bbx">
                             <connections>
                                 <action selector="goToWebButtonPressed:" destination="NxK-Ou-RbK" id="IPO-Pg-z1a"/>
                             </connections>
@@ -341,6 +341,7 @@
         <image name="tabRead" width="37.5" height="37.5"/>
         <image name="tabUnstarred" width="37.5" height="37.5"/>
         <image name="tabUp" width="36" height="36"/>
+        <image name="toWebsite" width="37.5" height="37.5"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="9me-mn-0nI"/>

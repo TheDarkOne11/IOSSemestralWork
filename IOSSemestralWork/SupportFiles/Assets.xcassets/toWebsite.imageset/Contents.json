@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "webTab.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "toWebsite@2x.png",
       "scale" : "2x"
     },
     {
