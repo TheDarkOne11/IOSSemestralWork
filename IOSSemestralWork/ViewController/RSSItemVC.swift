@@ -10,6 +10,8 @@ import UIKit
 import WebKit
 
 class RSSItemVC: UIViewController {
+    @IBOutlet weak var tabBar: UITabBar!
+    
     let dbHandler: DBHandler = DBHandler()
     
     var selectedRssItem: MyRSSItem? {
@@ -51,7 +53,7 @@ class RSSItemVC: UIViewController {
         RSSItemVC.webView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor).isActive = true
         RSSItemVC.webView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor).isActive = true
         RSSItemVC.webView.topAnchor.constraint(equalTo: layoutGuide.topAnchor).isActive = true
-        RSSItemVC.webView.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor).isActive = true
+        RSSItemVC.webView.bottomAnchor.constraint(equalTo: tabBar.topAnchor).isActive = true
         
         // Load data into the webView
         RSSItemVC.webView.reload()
