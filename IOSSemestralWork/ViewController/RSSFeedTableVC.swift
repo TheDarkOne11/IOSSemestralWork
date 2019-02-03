@@ -64,8 +64,7 @@ class RSSFeedTableVC: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let indexPath = tableView.indexPathForSelectedRow else {
-            print("Unreacheable tableViewCell selected.")
-            fatalError()
+            fatalError("Unreacheable tableViewCell selected.")
         }
         
         if segue.identifier == "ShowRssItem" {
@@ -76,6 +75,8 @@ class RSSFeedTableVC: UITableViewController {
         }
     }
 }
+
+// MARK: RefreshControlDelegate methods
 
 extension RSSFeedTableVC: RefreshControlDelegate {
     /**
