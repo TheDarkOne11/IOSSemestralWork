@@ -265,14 +265,14 @@
                                 <rect key="frame" x="0.0" y="519" width="320" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
-                                    <tabBarItem title="Read" image="readTab" selectedImage="readTab" id="Qez-89-Scg" userLabel="Read">
+                                    <tabBarItem title="Read" image="tabRead" id="Qez-89-Scg" userLabel="Read">
                                         <color key="badgeColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tabBarItem>
-                                    <tabBarItem title="Unstarred" image="starTab" id="hq5-jH-FOO" userLabel="Star">
+                                    <tabBarItem title="Unstarred" image="tabUnstarred" id="hq5-jH-FOO" userLabel="Star">
                                         <color key="badgeColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tabBarItem>
-                                    <tabBarItem title="" image="upTab" selectedImage="upTab" id="ZZa-4K-a5u" userLabel="Up"/>
-                                    <tabBarItem title="" image="downTab" selectedImage="downTab" id="TD1-ba-vex" userLabel="Down"/>
+                                    <tabBarItem title="" image="tabUp" id="ZZa-4K-a5u" userLabel="Up"/>
+                                    <tabBarItem title="" image="tabDown" id="TD1-ba-vex" userLabel="Down"/>
                                 </items>
                             </tabBar>
                         </subviews>
@@ -337,10 +337,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="downTab" width="36" height="36"/>
-        <image name="readTab" width="37.5" height="37.5"/>
-        <image name="starTab" width="37.5" height="37.5"/>
-        <image name="upTab" width="36" height="36"/>
+        <image name="tabDown" width="36" height="36"/>
+        <image name="tabRead" width="37.5" height="37.5"/>
+        <image name="tabUnstarred" width="37.5" height="37.5"/>
+        <image name="tabUp" width="36" height="36"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="9me-mn-0nI"/>
