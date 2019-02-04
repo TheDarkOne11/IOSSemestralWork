@@ -356,6 +356,7 @@ extension ItemTableVC: NewFeedDelegate {
         switch result {
             
         case .OK:
+            self.view.makeToast("RSS feed \"\(myRssFeed.title)\" created.")
             myRssFeed.isOk = true
             break
         case .NotOK:
