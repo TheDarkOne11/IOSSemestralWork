@@ -153,10 +153,10 @@ class DBHandler {
             for item in feed.items {
                 let myRssItem = MyRSSItem(item, myRssFeed)
                 
-                realm.add(myRssItem, update: true)
-                
                 // Add the item only if it doesn't exist already
-                if myRssFeed.myRssItems.index(of: myRssItem) == nil {
+                if realm.object(ofType: MyRSSItem.self, forPrimaryKey: myRssItem.articleLink) == nil {
+                    realm.add(myRssItem, update: false)
+                    
                     myRssFeed.myRssItems.append(myRssItem)
                 }
             }

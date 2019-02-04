@@ -30,27 +30,25 @@ class ItemCell: UITableViewCell {
             count += feed.unreadItemsCount()
         }
         
-        setData(title: folder.title, imgName: "folder", itemCount: count)
+        setData(title: folder.title, imgName: "folder", itemCount: count, true)
     }
     
     func setData(using feed: MyRSSFeed) {
-        if !feed.isOk {
-            errorImage.isHidden = false
-        }
-        
-        setData(title: feed.title, imgName: nil, itemCount: feed.unreadItemsCount())
+        setData(title: feed.title, imgName: nil, itemCount: feed.unreadItemsCount(), feed.isOk)
     }
     
-    func setData(title: String?, imgName: String?, itemCount count: Int) {
+    func setData(title: String?, imgName: String?, itemCount count: Int, _ errorHidden: Bool? = true) {
         titleLabel.text = title
         
         if let imgName = imgName {
             typeImage.image = UIImage(named: imgName)
+            typeImage.isHidden = false
         } else {
             typeImage.isHidden = true
         }
         
         // Set errorImage/numOfItemsLabel
+        errorImage.isHidden = errorHidden!
         numOfItemsLabel.isHidden = !errorImage.isHidden
         numOfItemsLabel.text = "\(count)"
     }

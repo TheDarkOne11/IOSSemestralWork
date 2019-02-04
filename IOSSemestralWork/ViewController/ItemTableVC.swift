@@ -14,7 +14,7 @@ class ItemTableVC: UITableViewController {
     /** All shown folders in the current tableView. */
     var folders: Results<Folder>?
     // All feeds that aren't inside a folder and are supposed to be shown
-    var feeds: List<MyRSSFeed>?
+    var feeds: Results<MyRSSFeed>?
     let specialFoldersCount = 3
     
     let realm = try! Realm()
@@ -25,11 +25,6 @@ class ItemTableVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Check if LastUpdate Date exists
-        if defaults.object(forKey: UserDefaultsKeys.LastUpdate.rawValue) == nil {
-            defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
-        }
         
         tableView.register(UINib(nibName: "ItemCell", bundle: nil), forCellReuseIdentifier: "ItemCell")
         
@@ -42,11 +37,7 @@ class ItemTableVC: UITableViewController {
         ToastManager.shared.position = .center
         ToastManager.shared.style.backgroundColor = UIColor.black.withAlphaComponent(0.71)
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        tableView.reloadData()
-    }
-    
+        
     // MARK: - TableView data source
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -83,16 +74,14 @@ class ItemTableVC: UITableViewController {
         if indexPath.row < foldersCount + specialFoldersCount {
             // Show folder
             guard let folder = folders?[indexPath.row - specialFoldersCount] else {
-                print("Error when loading folders to display in the tableView")
-                fatalError()
+                fatalError("Error when loading folders to display in the tableView")
             }
             
             cell.setData(using: folder)
         } else {
             // Show RSSFeed
             guard let feed = feeds?[indexPath.row - foldersCount - specialFoldersCount] else {
-                print("Error when loading feeds to display in the tableView")
-                fatalError()
+                fatalError("Error when loading feeds to display in the tableView")
             }
             
            cell.setData(using: feed)
@@ -151,7 +140,7 @@ class ItemTableVC: UITableViewController {
             let currFeed = feeds[indexPath.row - foldersCount - specialFoldersCount]
             
             // Change rssItems from List to Results
-            let sender = SeguePreparationSender(rssItems: currFeed.myRssItems.filter("TRUEPREDICATE"), title: currFeed.title)
+            let sender = SeguePreparationSender(rssItems: currFeed.myRssItems.sorted(byKeyPath: "date", ascending: false), title: currFeed.title)
             
             performSegue(withIdentifier: "ShowRssItems", sender: sender)
         }
@@ -179,8 +168,7 @@ class ItemTableVC: UITableViewController {
         if segue.identifier == "ShowRssItems" {
             // Show RSSFeed
             guard let currSender = sender as? SeguePreparationSender<MyRSSItem> else {
-                print("Did not get data")
-                fatalError()
+                fatalError("Did not get data through the sender variable.")
             }
             
             let destinationVC = segue.destination as! RSSFeedTableVC
@@ -190,8 +178,7 @@ class ItemTableVC: UITableViewController {
         }
         
         guard let indexPath = tableView.indexPathForSelectedRow else {
-            print("Unreacheable tableViewCell selected.")
-            fatalError()
+            fatalError("Unreacheable tableViewCell selected.")
         }
         
         if segue.identifier ==  "ShowFolderContents" {
@@ -229,8 +216,7 @@ extension ItemTableVC {
         if indexPath.row < foldersCount + specialFoldersCount {
             // Go to folder edit screen
             guard let folder = folders?[indexPath.row - specialFoldersCount] else {
-                print("The folder which is to be removed should exist")
-                fatalError()
+                fatalError("The folder which is to be removed should exist")
             }
             
             presentEditAlert(folder)
@@ -238,8 +224,7 @@ extension ItemTableVC {
         } else {
             // Go to feed edit screen
             guard let feed = feeds?[indexPath.row - foldersCount - specialFoldersCount] else {
-                print("The feed which is to be removed should exist")
-                fatalError()
+                fatalError("The feed which is to be removed should exist")
             }
             
             performSegue(withIdentifier: "ShowAddFeed", sender: feed)
@@ -287,16 +272,14 @@ extension ItemTableVC {
         if indexPath.row < foldersCount + specialFoldersCount {
             // Remove folder and all its contents
             guard let folder = folders?[indexPath.row - specialFoldersCount] else {
-                print("The folder which is to be removed should exist")
-                fatalError()
+                fatalError("The folder which is to be removed should exist")
             }
             
             dbHandler.remove(folder)
         } else {
             // Remove feed
             guard let feed = feeds?[indexPath.row - foldersCount - specialFoldersCount] else {
-                print("The feed which is to be removed should exist")
-                fatalError()
+                fatalError("The feed which is to be removed should exist")
             }
             
             dbHandler.remove(feed)

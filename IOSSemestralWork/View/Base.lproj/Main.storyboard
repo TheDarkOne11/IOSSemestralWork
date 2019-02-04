@@ -260,16 +260,44 @@
                     <view key="view" contentMode="scaleToFill" id="fRD-Yo-BJL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h0n-Dl-Yf2">
+                                <rect key="frame" x="0.0" y="519" width="320" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <tabBarItem title="Read" image="tabRead" id="Qez-89-Scg" userLabel="Read">
+                                        <color key="badgeColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </tabBarItem>
+                                    <tabBarItem tag="1" title="Unstarred" image="tabUnstarred" id="hq5-jH-FOO" userLabel="Star">
+                                        <color key="badgeColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </tabBarItem>
+                                    <tabBarItem tag="2" title="" image="tabUp" id="ZZa-4K-a5u" userLabel="Up"/>
+                                    <tabBarItem tag="3" title="" image="tabDown" id="TD1-ba-vex" userLabel="Down"/>
+                                </items>
+                            </tabBar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="h0n-Dl-Yf2" firstAttribute="trailing" secondItem="6eC-wc-ZA5" secondAttribute="trailing" id="AKp-Gc-5qw"/>
+                            <constraint firstItem="h0n-Dl-Yf2" firstAttribute="bottom" secondItem="6eC-wc-ZA5" secondAttribute="bottom" id="Un3-tN-THn"/>
+                            <constraint firstItem="h0n-Dl-Yf2" firstAttribute="leading" secondItem="6eC-wc-ZA5" secondAttribute="leading" id="aBL-Ty-lDq"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6eC-wc-ZA5"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="W5e-6e-BMT">
-                        <barButtonItem key="rightBarButtonItem" title="GoToWeb" id="Vgt-9i-Bbx">
+                        <barButtonItem key="rightBarButtonItem" image="toWebsite" id="Vgt-9i-Bbx">
                             <connections>
                                 <action selector="goToWebButtonPressed:" destination="NxK-Ou-RbK" id="IPO-Pg-z1a"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="downItem" destination="TD1-ba-vex" id="Bvy-AO-wZm"/>
+                        <outlet property="readItem" destination="Qez-89-Scg" id="UDi-Kw-tgo"/>
+                        <outlet property="starItem" destination="hq5-jH-FOO" id="cQh-68-Hcw"/>
+                        <outlet property="tabBar" destination="h0n-Dl-Yf2" id="cSA-2I-THy"/>
+                        <outlet property="upItem" destination="ZZa-4K-a5u" id="wDD-Jw-FLl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ktf-rp-Yaq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -312,6 +340,13 @@
             <point key="canvasLocation" x="3401" y="-724"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="tabDown" width="36" height="36"/>
+        <image name="tabRead" width="37.5" height="37.5"/>
+        <image name="tabUnstarred" width="37.5" height="37.5"/>
+        <image name="tabUp" width="36" height="36"/>
+        <image name="toWebsite" width="37.5" height="37.5"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="9me-mn-0nI"/>
         <segue reference="nmV-WM-iEA"/>

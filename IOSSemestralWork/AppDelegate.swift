@@ -14,7 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -23,13 +22,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Initialize realm for the first time. That should be the only time an exception is thrown.
         do {
             let realm = try Realm()
+            
+            if realm.isEmpty {
+                firstTimeInit(realm)
+            }
         } catch {
             print("Error initializing new Realm for the first time: \(error)")
         }
         
         return true
     }
-
+    
+    /**
+     Operations which are done only when the app is launched for the first time.
+     */
+    private func firstTimeInit(_ realm: Realm) {
+        let dbHandler = DBHandler()
+        let defaults = UserDefaults.standard
+        
+        // Create special "None" folder
+        dbHandler.create(Folder(with: "None"))
+        
+        // Set important values in UserDefaults
+        defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
+        
+        // TODO: Debugging images, remove
+        let none: Folder = realm.objects(Folder.self).filter("title CONTAINS[cd] %@", "None").first!
+        dbHandler.create(MyRSSFeed(title: "IdnesZpravodaj_None", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj", folder: none))
+        dbHandler.create(MyRSSFeed(title: "Wired_MedThumb", link: "http://wired.com/feed/rss", folder: none))
+        dbHandler.create(MyRSSFeed(title: "Lifehacker_DescImg", link: "https://lifehacker.com/rss", folder: none))
+        dbHandler.create(MyRSSFeed(title: "FOX_MedThumb_Bad", link: "http://feeds.foxnews.com/foxnews/latest", folder: none))
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

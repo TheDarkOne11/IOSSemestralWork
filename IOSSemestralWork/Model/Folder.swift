@@ -12,11 +12,7 @@ import RealmSwift
 class Folder: Item {
     let myRssFeeds = List<MyRSSFeed>()
     
-    // Can we see MyRSSFeeds in a separate window?
-    @objc dynamic var isContentsViewable = false
-    
-    convenience init(with title: String, isContentsViewable: Bool? = false) {
+    convenience init(with title: String) {
         self.init(with: title, type: .folder)
-        self.isContentsViewable = isContentsViewable!
     }
 }
