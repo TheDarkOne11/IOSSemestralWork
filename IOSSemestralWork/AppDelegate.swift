@@ -13,6 +13,21 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    public static let isProduction : Bool = {
+        #if DEBUG
+        print("DEBUG")
+        let dic = ProcessInfo.processInfo.environment
+        if let forceProduction = dic["forceProduction"] , forceProduction == "true" {
+            return true
+        }
+        return false
+        
+        #else
+        print("PRODUCTION")
+        return true
+        #endif
+    }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -41,17 +56,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaults = UserDefaults.standard
         
         // Create special "None" folder
-        dbHandler.create(Folder(with: UserDefaultsKeys.NoneFolderTitle.rawValue))
+        let folderNone: Folder = Folder(with: UserDefaultsKeys.NoneFolderTitle.rawValue)
+        dbHandler.create(folderNone)
         
         // Set important values in UserDefaults
         defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
         
-        // TODO: Debugging images, remove
-        let none: Folder = realm.objects(Folder.self).filter("title CONTAINS[cd] %@", UserDefaultsKeys.NoneFolderTitle.rawValue).first!
-        dbHandler.create(MyRSSFeed(title: "IdnesZpravodaj_None", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj", folder: none))
-        dbHandler.create(MyRSSFeed(title: "Wired_MedThumb", link: "http://wired.com/feed/rss", folder: none))
-        dbHandler.create(MyRSSFeed(title: "Lifehacker_DescImg", link: "https://lifehacker.com/rss", folder: none))
-        dbHandler.create(MyRSSFeed(title: "FOX_MedThumb_Bad", link: "http://feeds.foxnews.com/foxnews/latest", folder: none))
+        if !AppDelegate.isProduction {
+            let folderIdnes = Folder(with: "Idnes")
+            let folderImages = Folder(with: "WithImages")
+            
+            dbHandler.create(folderIdnes)
+            dbHandler.create(folderImages)
+            
+            dbHandler.create(MyRSSFeed(title: "Zpravodaj", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj", folder: folderIdnes))
+            dbHandler.create(MyRSSFeed(title: "Sport", link: "https://servis.idnes.cz/rss.aspx?c=sport", folder: folderIdnes))
+            dbHandler.create(MyRSSFeed(title: "Wired", link: "http://wired.com/feed/rss", folder: folderImages))
+            dbHandler.create(MyRSSFeed(title: "Lifehacker", link: "https://lifehacker.com/rss", folder: folderImages))
+            dbHandler.create(MyRSSFeed(title: "FOX", link: "http://feeds.foxnews.com/foxnews/latest", folder: folderNone))
+        }
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
