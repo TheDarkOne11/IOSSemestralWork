@@ -92,6 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             switch status {
             case .OK:
                 self.updateUI()
+                UserDefaults.standard.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
                 completionHandler(.newData)
             case .NotOK:
                 completionHandler(.failed)
