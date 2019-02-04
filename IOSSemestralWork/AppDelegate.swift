@@ -41,13 +41,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaults = UserDefaults.standard
         
         // Create special "None" folder
-        dbHandler.create(Folder(with: "None"))
+        dbHandler.create(Folder(with: UserDefaultsKeys.NoneFolderTitle.rawValue))
         
         // Set important values in UserDefaults
         defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
         
         // TODO: Debugging images, remove
-        let none: Folder = realm.objects(Folder.self).filter("title CONTAINS[cd] %@", "None").first!
+        let none: Folder = realm.objects(Folder.self).filter("title CONTAINS[cd] %@", UserDefaultsKeys.NoneFolderTitle.rawValue).first!
         dbHandler.create(MyRSSFeed(title: "IdnesZpravodaj_None", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj", folder: none))
         dbHandler.create(MyRSSFeed(title: "Wired_MedThumb", link: "http://wired.com/feed/rss", folder: none))
         dbHandler.create(MyRSSFeed(title: "Lifehacker_DescImg", link: "https://lifehacker.com/rss", folder: none))

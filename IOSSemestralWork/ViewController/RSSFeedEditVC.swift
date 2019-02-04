@@ -37,8 +37,8 @@ class RSSFeedEditVC: UITableViewController {
     var feedForUpdate: MyRSSFeed?
     var folders: Results<Folder>?
     lazy var noneFolder: Folder = {
-        guard let folder = realm.objects(Folder.self).filter("title == %@", "None").first else {
-            fatalError("The special \("None") folder has to exist.")
+        guard let folder = realm.objects(Folder.self).filter("title == %@", UserDefaultsKeys.NoneFolderTitle.rawValue).first else {
+            fatalError("The special \(UserDefaultsKeys.NoneFolderTitle.rawValue) folder has to exist.")
         }
         
         return folder
@@ -51,7 +51,7 @@ class RSSFeedEditVC: UITableViewController {
         picker.dataSource = self
         
         // Loads all folders from Realm, updates on changes.
-        folders = realm.objects(Folder.self).filter("title != %@", noneFolder.title).sorted(byKeyPath: "title")
+        folders = realm.objects(Folder.self).filter("title != %@", UserDefaultsKeys.NoneFolderTitle.rawValue).sorted(byKeyPath: "title")
         
         if let feed = feedForUpdate {
             // Prepopulate all components of the screen
