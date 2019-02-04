@@ -302,7 +302,7 @@ extension ItemTableVC: RefreshControlDelegate {
             offset = frame.minY + frame.size.height
         }
         
-        if (-scrollView.contentOffset.y  == offset) {
+        if (-scrollView.contentOffset.y >= offset ) {
             refresher.refreshView.updateLabelText()
         }
     }
