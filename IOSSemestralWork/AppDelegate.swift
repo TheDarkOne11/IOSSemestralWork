@@ -30,8 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        
         print("Realm DB location: \(Realm.Configuration.defaultConfiguration.fileURL!)")
         
         // Initialize realm for the first time. That should be the only time an exception is thrown.
@@ -44,6 +42,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             print("Error initializing new Realm for the first time: \(error)")
         }
+        
+        // Set background fetch intervals
+        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
         
         return true
     }
@@ -76,6 +77,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dbHandler.create(MyRSSFeed(title: "FOX", link: "http://feeds.foxnews.com/foxnews/latest", folder: folderNone))
         }
     }
+    
+    // MARK: Background fetch
+    
+    /**
+     Background fetch.
+     */
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        print("Started Background fetch")
+        let dbHandler = DBHandler()
+        
+        // Updates RSS feeds, calls completionHandler approprietly
+        dbHandler.updateAll { (status) in
+            switch status {
+            case .OK:
+                self.updateUI()
+                completionHandler(.newData)
+            case .NotOK:
+                completionHandler(.failed)
+            case .Unreachable:
+                // No internet connection. Tells Ios that it should run backgroundFetch again sooner
+                completionHandler(.noData)
+            }
+        }
+    }
+    
+    /**
+     Update UI after Background fetch.
+     */
+    private func updateUI() {
+        if let navController = window?.rootViewController as? UINavigationController {
+            if let mainVc = navController.topViewController as? ItemTableVC {
+                mainVc.tableView.reloadData()
+            }
+        }
+    }
+    
+    // MARK: Other methods
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
