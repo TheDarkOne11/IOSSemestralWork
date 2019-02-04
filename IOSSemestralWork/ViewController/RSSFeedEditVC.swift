@@ -90,6 +90,13 @@ class RSSFeedEditVC: UITableViewController {
     @IBAction func saveBtnPressed(_ sender: UIBarButtonItem) {        
         var link = feedLinkLabel.text!
         
+        
+        if let duplicateFeed = realm.objects(MyRSSFeed.self).filter("link CONTAINS[cd] %@", link).first {
+            // Feed with the same link already exists in Realm
+            presentDuplicateFeedAlert(duplicateFeed.title)
+            return
+        }
+        
         if !link.starts(with: "http://") && !link.starts(with: "https://") {
             link = "http://" + link
         }
@@ -133,7 +140,7 @@ class RSSFeedEditVC: UITableViewController {
         if indexPath.section == 1 {
             if indexPath.row == 0 {
                 // New folder alert
-                presentCreateAlert()
+                presentCreateFolderAlert()
             } else if indexPath.row == 1 {
                 // Show/ Hide picker view
                 pickerTableViewCell.isHidden = !pickerTableViewCell.isHidden
@@ -144,10 +151,12 @@ class RSSFeedEditVC: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    // MARK: Alerts
+    
     /**
      Creates and presents an alert used for creating a new folder.
      */
-    private func presentCreateAlert() {
+    private func presentCreateFolderAlert() {
         var textField = UITextField()
         
         let alert = UIAlertController(title: "Create folder", message: "", preferredStyle: .alert)
@@ -178,6 +187,21 @@ class RSSFeedEditVC: UITableViewController {
         }
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    /**
+     Creates and presents an alert warning a user that a feed with the same link exists.
+     */
+    private func presentDuplicateFeedAlert(_ feedTitle: String) {
+        let msg = "Feed with this link already exists. \nIts title is \"\(feedTitle)\". \nPlease use a different link."
+        
+        let alert = UIAlertController(title: "Duplicate RSS feed detected", message: msg, preferredStyle: .alert)
+        let actionCancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            self.feedLinkLabel.becomeFirstResponder()
+        }
+        alert.addAction(actionCancel)
+        
+        present(alert, animated: true)
     }
     
 }
