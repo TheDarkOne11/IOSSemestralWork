@@ -31,8 +31,4 @@ class MainTableVC: ItemTableVC {
             .myRssFeeds
             .sorted(byKeyPath: "title")
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        tableView.reloadData()
-    }
 }

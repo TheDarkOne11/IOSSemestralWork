@@ -37,6 +37,10 @@ class ItemTableVC: UITableViewController {
         ToastManager.shared.position = .center
         ToastManager.shared.style.backgroundColor = UIColor.black.withAlphaComponent(0.71)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
         
     // MARK: - TableView data source
     

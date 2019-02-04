@@ -182,12 +182,12 @@ extension RSSItemVC: UITabBarDelegate {
         case 2:
             // Up item
             selectRssItem(at: selectedItemIndex! - 1)
-            checkBounds()
+            initTabBar()
             break
         case 3:
             // Down item
             selectRssItem(at: selectedItemIndex! + 1)
-            checkBounds()
+            initTabBar()
             break
         default:
             fatalError("Unknown tab bar item selected")
