@@ -24,8 +24,8 @@ class RSSFeedEditVC: UITableViewController {
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var pickerTableViewCell: UITableViewCell!
     @IBOutlet weak var folderNameLabel: UILabel!
-    @IBOutlet weak var feedNameLabel: UITextField!
-    @IBOutlet weak var feedLinkLabel: UITextField!
+    @IBOutlet weak var feedNameField: UITextField!
+    @IBOutlet weak var feedLinkField: UITextField!
     
     let realm = try! Realm()
     let dbHandler = DBHandler()
@@ -55,8 +55,8 @@ class RSSFeedEditVC: UITableViewController {
         
         if let feed = feedForUpdate {
             // Prepopulate all components of the screen
-            feedNameLabel.text = feed.title
-            feedLinkLabel.text = feed.link
+            feedNameField.text = feed.title
+            feedLinkField.text = feed.link
             selectPickerRow(for: feed.folder!)
         } else {
             // There is always at least 1 folder
@@ -88,7 +88,7 @@ class RSSFeedEditVC: UITableViewController {
     }
     
     @IBAction func saveBtnPressed(_ sender: UIBarButtonItem) {        
-        var link = feedLinkLabel.text!
+        var link = feedLinkField.text!
         
         
         if let duplicateFeed = realm.objects(MyRSSFeed.self).filter("link CONTAINS[cd] %@", link).first {
@@ -101,7 +101,7 @@ class RSSFeedEditVC: UITableViewController {
             link = "http://" + link
         }
         
-        var title = feedNameLabel.text!
+        var title = feedNameField.text!
         if title == "" {
             title = link
         }
@@ -197,7 +197,7 @@ class RSSFeedEditVC: UITableViewController {
         
         let alert = UIAlertController(title: "Duplicate RSS feed detected", message: msg, preferredStyle: .alert)
         let actionCancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-            self.feedLinkLabel.becomeFirstResponder()
+            self.feedLinkField.becomeFirstResponder()
         }
         alert.addAction(actionCancel)
         
