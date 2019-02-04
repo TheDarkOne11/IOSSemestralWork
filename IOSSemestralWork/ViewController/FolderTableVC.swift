@@ -29,6 +29,7 @@ class FolderTableVC: ItemTableVC {
         feeds = realm.objects(Folder.self)
             .filter("title CONTAINS[cd] %@", selectedFolder!.title)[0]
             .myRssFeeds
+            .sorted(byKeyPath: "title")
     }
     
     override func allRssItems() -> Results<MyRSSItem> {

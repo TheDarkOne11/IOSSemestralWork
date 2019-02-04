@@ -36,6 +36,13 @@ class RSSFeedEditVC: UITableViewController {
      */
     var feedForUpdate: MyRSSFeed?
     var folders: Results<Folder>?
+    lazy var noneFolder: Folder = {
+        guard let folder = realm.objects(Folder.self).filter("title == %@", "None").first else {
+            fatalError("The special \("None") folder has to exist.")
+        }
+        
+        return folder
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,17 +51,34 @@ class RSSFeedEditVC: UITableViewController {
         picker.dataSource = self
         
         // Loads all folders from Realm, updates on changes.
-        folders = realm.objects(Folder.self)
+        folders = realm.objects(Folder.self).filter("title != %@", noneFolder.title).sorted(byKeyPath: "title")
         
         if let feed = feedForUpdate {
             // Prepopulate all components of the screen
             feedNameLabel.text = feed.title
             feedLinkLabel.text = feed.link
-            selectPickerRow(at: feed.folder!)
+            selectPickerRow(for: feed.folder!)
         } else {
             // There is always at least 1 folder
-            folderNameLabel.text = folders!.first?.title
+            selectPickerRow(for: noneFolder)
         }
+    }
+    
+    /**
+     Returns folder at the selected index.
+     */
+    private func getFolder(at index: Int) -> Folder {
+        var folder = noneFolder
+        
+        if index == 0 {
+            folder = noneFolder
+        } else if index >= 1 && index <= folders!.count + 1 {
+            folder = folders![index - 1]
+        } else {
+            fatalError("Index \(index) out of bounds.")
+        }
+        
+        return folder
     }
     
     // MARK: NavBar items
@@ -74,7 +98,7 @@ class RSSFeedEditVC: UITableViewController {
         if title == "" {
             title = link
         }
-        let selectedFolder = folders![picker.selectedRow(inComponent: 0)]
+        let selectedFolder = getFolder(at: picker.selectedRow(inComponent: 0))
         
         var myRssFeed = feedForUpdate
         
@@ -129,11 +153,11 @@ class RSSFeedEditVC: UITableViewController {
         let alert = UIAlertController(title: "Create folder", message: "", preferredStyle: .alert)
         let actionCancel = UIAlertAction(title: "Cancel", style: .cancel)
         let actionDone = UIAlertAction(title: "Done", style: .default) { (action) in
-            let folder = Folder(with: textField.text!, isContentsViewable: true)
+            let folder = Folder(with: textField.text!)
             self.dbHandler.create(folder)
             
             self.picker.reloadAllComponents()
-            self.selectPickerRow(at: folder)
+            self.selectPickerRow(for: folder)
         }
         actionDone.isEnabled = false
         
@@ -172,24 +196,35 @@ extension RSSFeedEditVC: UIPickerViewDelegate, UIPickerViewDataSource {
      Number of rows.
      */
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return folders?.count ?? 0
+        if let folders = self.folders {
+            return folders.count + 1
+        }
+        
+        return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return folders?[row].title
+        return getFolder(at: row).title
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if let selectedFolder = folders?[row] {
-            folderNameLabel.text = selectedFolder.title
-        }
+        folderNameLabel.text = getFolder(at: row).title
     }
     
     /**
      Selects the folder in the pickerView.
      */
-    func selectPickerRow(at folder: Folder) {
+    func selectPickerRow(for folder: Folder) {
         folderNameLabel.text = folder.title
-        picker.selectRow(folders!.index(of: folder) ?? 0, inComponent: 0, animated: false)
+        
+        if folder.title == noneFolder.title {
+            picker.selectRow(0, inComponent: 0, animated: false)
+        } else {
+            guard let index = folders?.index(of: folder) else {
+                fatalError("The selected folder has to exist in Realm.")
+            }
+            
+            picker.selectRow(index + 1, inComponent: 0, animated: false)
+        }
     }
 }

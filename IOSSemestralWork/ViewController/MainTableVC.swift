@@ -23,11 +23,13 @@ class MainTableVC: ItemTableVC {
         // Get all folders
         folders = realm.objects(Folder.self)
             .filter("NOT title CONTAINS[cd] %@", "None")
+            .sorted(byKeyPath: "title")
         
         // Get all feeds from "None" folder. They are supposed to be displayed in this screen
         feeds = realm.objects(Folder.self)
             .filter("title CONTAINS[cd] %@", "None")[0]
             .myRssFeeds
+            .sorted(byKeyPath: "title")
     }
     
     override func viewWillAppear(_ animated: Bool) {

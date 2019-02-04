@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaults = UserDefaults.standard
         
         // Create special "None" folder
-        dbHandler.create(Folder(with: "None", isContentsViewable: true))
+        dbHandler.create(Folder(with: "None"))
         
         // Set important values in UserDefaults
         defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)

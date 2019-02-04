@@ -14,7 +14,7 @@ class ItemTableVC: UITableViewController {
     /** All shown folders in the current tableView. */
     var folders: Results<Folder>?
     // All feeds that aren't inside a folder and are supposed to be shown
-    var feeds: List<MyRSSFeed>?
+    var feeds: Results<MyRSSFeed>?
     let specialFoldersCount = 3
     
     let realm = try! Realm()
@@ -144,7 +144,7 @@ class ItemTableVC: UITableViewController {
             let currFeed = feeds[indexPath.row - foldersCount - specialFoldersCount]
             
             // Change rssItems from List to Results
-            let sender = SeguePreparationSender(rssItems: currFeed.myRssItems.filter("TRUEPREDICATE"), title: currFeed.title)
+            let sender = SeguePreparationSender(rssItems: currFeed.myRssItems.sorted(byKeyPath: "date", ascending: false), title: currFeed.title)
             
             performSegue(withIdentifier: "ShowRssItems", sender: sender)
         }
