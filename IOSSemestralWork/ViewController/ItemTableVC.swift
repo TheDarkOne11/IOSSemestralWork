@@ -206,10 +206,12 @@ extension ItemTableVC {
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let removeAction = UITableViewRowAction(style: .destructive, title: "Remove") { (action, indexPath) in
             self.removeItem(at: indexPath)
+            self.tableView.reloadData()
         }
         
         let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (action, indexPath) in
             self.editItem(at: indexPath)
+            self.tableView.reloadData()
         }
         
         return [removeAction, editAction]
