@@ -57,11 +57,6 @@ class RSSFeedTableVC: UITableViewController {
         
     }
     
-    // MARK: Navigation
-    @IBAction func simpleSettingsPressed(_ sender: UIBarButtonItem) {
-        // TODO: Implement
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let indexPath = tableView.indexPathForSelectedRow else {
             fatalError("Unreacheable tableViewCell selected.")
@@ -110,7 +105,6 @@ extension RSSFeedTableVC: RefreshControlDelegate {
                 
                 if success == DownloadStatus.Unreachable {
                     // Internet is unreachable
-                    // TODO: Implement
                     print("Internet is unreachable")
                     self.view.makeToast("Internet is unreachable. Please try updating later.")
                 } else {

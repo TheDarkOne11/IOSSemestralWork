@@ -129,12 +129,10 @@ class ItemTableVC: UITableViewController {
             return
         }
         
-        // TODO: Go to the folder's contents only when an edge of the cell is selected, otherwise show RSSItems of its feeds
         let foldersCount = folders?.count ?? 0
         
         if indexPath.row < foldersCount + specialFoldersCount {
             // Go to FolderTableVC
-            // TODO: Maybe do the same for folder we did for RSSItems
             performSegue(withIdentifier: "ShowFolderContents", sender: nil)
             return
         }
