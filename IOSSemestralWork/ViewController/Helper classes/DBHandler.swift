@@ -124,30 +124,40 @@ class DBHandler {
             return
         }
         
-        Alamofire.request(myRssFeed.link).responseRSS() { (response) -> Void in
-            // Validate the response
-            if let mimeType =  response.response?.mimeType {
-                if mimeType != "application/rss+xml" && mimeType != "text/xml" {
-                    // Website exists but isn't a RSS feed
-                    completed(.NotOK)
-                    return
-                }
-            } else {
-                // Website doesn't exist
+        var request = URLRequest(url: NSURL.init(string: myRssFeed.link)! as URL)
+        request.httpMethod = "GET"
+        request.timeoutInterval = 2 // 2 secs
+        
+        Alamofire
+            .request(request)
+            .responseRSS() { (response) -> Void in
+                self.checkResponse(myRssFeed, response, completed: completed)
+        }
+        
+    }
+    
+    private func checkResponse(_ myRssFeed: MyRSSFeed, _ response: DataResponse<RSSFeed>, completed: @escaping (DownloadStatus) -> Void) {
+        // Validate the response
+        if let mimeType =  response.response?.mimeType {
+            if mimeType != "application/rss+xml" && mimeType != "text/xml" {
+                // Website exists but isn't a RSS feed
                 completed(.NotOK)
                 return
             }
-            
-            // Website is RSS feed, we can store info
-            if let feed: RSSFeed = response.result.value {
-                
-                // Add all items to the MyRSSFeed
-                self.persistRssItems(feed, myRssFeed)
-                
-                completed(.OK)
-            }
+        } else {
+            // Website doesn't exist
+            completed(.NotOK)
+            return
         }
         
+        // Website is RSS feed, we can store info
+        if let feed: RSSFeed = response.result.value {
+            
+            // Add all items to the MyRSSFeed
+            self.persistRssItems(feed, myRssFeed)
+            
+            completed(.OK)
+        }
     }
     
     /**
