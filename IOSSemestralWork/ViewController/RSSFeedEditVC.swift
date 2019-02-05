@@ -90,11 +90,13 @@ class RSSFeedEditVC: UITableViewController {
     @IBAction func saveBtnPressed(_ sender: UIBarButtonItem) {        
         var link = feedLinkField.text!
         
-        
-        if let duplicateFeed = realm.objects(MyRSSFeed.self).filter("link CONTAINS[cd] %@", link).first {
-            // Feed with the same link already exists in Realm
-            presentDuplicateFeedAlert(duplicateFeed.title)
-            return
+        if feedForUpdate == nil {
+            // We are creating a new feed, check for duplicates
+            if let duplicateFeed = realm.objects(MyRSSFeed.self).filter("link CONTAINS[cd] %@", link).first {
+                // Feed with the same link already exists in Realm
+                presentDuplicateFeedAlert(duplicateFeed.title)
+                return
+            }
         }
         
         if !link.starts(with: "http://") && !link.starts(with: "https://") {
