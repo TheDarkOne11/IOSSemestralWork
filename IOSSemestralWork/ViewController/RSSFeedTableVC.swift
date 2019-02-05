@@ -75,8 +75,9 @@ class RSSFeedTableVC: UITableViewController {
 // MARK: RefreshControlDelegate methods
 
 extension RSSFeedTableVC: RefreshControlDelegate {
+    
     /**
-     Checks beginning of the pull to refresh and updates its label.
+     Checks beginning of the PullToRefresh and updates its label.
      */
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         var offset: CGFloat = 0
@@ -84,7 +85,7 @@ extension RSSFeedTableVC: RefreshControlDelegate {
             offset = frame.minY + frame.size.height
         }
         
-        if (-scrollView.contentOffset.y  == offset) {
+        if (-scrollView.contentOffset.y >= offset ) {
             refresher.refreshView.updateLabelText()
         }
     }
@@ -93,26 +94,35 @@ extension RSSFeedTableVC: RefreshControlDelegate {
         print("requesting data")
         
         let refreshView: PullToRefreshView! = refresher.refreshView
+        
         refreshView.startUpdating()
-        dbHandler.updateAll() { success in
+        dbHandler.updateAll() { status in
             
-            // Hiding of the RefreshView is delayed to at least 0.5 s
+            // Hiding of the RefreshView is delayed to at least 0.5 s so that the updateLabel is visible.
             let deadline = DispatchTime.now() + .milliseconds(500)
             DispatchQueue.main.asyncAfter(deadline: deadline) {
                 print("End refreshing")
                 refreshView.stopUpdating()
                 self.refresher.endRefreshing()
                 
-                if success == DownloadStatus.Unreachable {
-                    // Internet is unreachable
-                    print("Internet is unreachable")
-                    self.view.makeToast("Internet is unreachable. Please try updating later.")
-                } else {
-                    self.defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
-                }
+                self.checkStatus(status)
                 
                 self.tableView.reloadData()
             }
+        }
+    }
+    
+    /**
+     Checks status of the update.
+     */
+    private func checkStatus(_ status: DownloadStatus) {
+        if status == DownloadStatus.Unreachable {
+            // Internet is unreachable
+            print("Internet is unreachable")
+            self.view.makeToast("Internet is unreachable. Please try updating later.")
+            
+        } else {
+            self.defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
         }
     }
 }

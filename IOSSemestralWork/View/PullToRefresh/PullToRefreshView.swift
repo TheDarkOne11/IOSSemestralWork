@@ -29,7 +29,7 @@ class PullToRefreshView: UIView {
     }
     
     /**
-     Updates infoLabels text according to the date when the last update occured
+     Updates infoLabels text according to the date when the last update occured.
      */
     public func updateLabelText() {
         let date = defaults.object(forKey: UserDefaultsKeys.LastUpdate.rawValue) as! NSDate

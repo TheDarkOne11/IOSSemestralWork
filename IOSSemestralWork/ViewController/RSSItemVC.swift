@@ -69,6 +69,9 @@ class RSSItemVC: UIViewController {
         initTabBar()
     }
     
+    /**
+     Sets selectedRssItem to the RSSItem at the given index.
+     */
     private func selectRssItem(at index: Int?) {
         guard let items = myRssItems else {
             fatalError("RSS items should already be initialized.")
@@ -110,7 +113,7 @@ extension RSSItemVC: WKNavigationDelegate {
     }
     
     /**
-     Opens the URL in Safari app browser.
+     Opens the URL of the current RSSItem in the Safari app browser.
      */
     private func goToWeb(url: URL?) {
         if let currUrl = url {
@@ -137,6 +140,8 @@ extension RSSItemVC: WKNavigationDelegate {
      Create Javascript code which passes data to the webView.
      
      - parameter rssItem: The RSSItem whose data we want to display.
+     
+     - returns: The String value of the Javascript code used to pass data into the WKWebView.
      */
     private func getScriptCode(using rssItem: MyRSSItem) -> String {
         // Time
@@ -194,6 +199,9 @@ extension RSSItemVC: UITabBarDelegate {
         }
     }
     
+    /**
+     Changes the starred value of the current RSS item and persists it.
+     */
     private func set(starred: Bool) {
         guard let rssItem = selectedRssItem else {
             fatalError("The RSSItem should already be selected.")
@@ -216,6 +224,9 @@ extension RSSItemVC: UITabBarDelegate {
         }
     }
     
+    /**
+     Changes the read value of the current RSS item and persists it.
+     */
     private func set(read: Bool) {
         guard let rssItem = selectedRssItem else {
             fatalError("The RSSItem should already be selected.")

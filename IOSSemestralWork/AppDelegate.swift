@@ -14,6 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
+    /**
+     Returns true when the scheme is set to production. Otherwise false.
+     */
     public static let isProduction : Bool = {
         #if DEBUG
         print("DEBUG")

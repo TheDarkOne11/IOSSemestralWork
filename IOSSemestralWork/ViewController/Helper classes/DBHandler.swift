@@ -23,6 +23,11 @@ enum DownloadStatus: String {
 class DBHandler {
     let realm = try! Realm()
     
+    /**
+     
+     - parameter errorMsg: An error string which displays when an exception is thrown.
+     - parameter editCode: A function where we create, edit or delete any Realm objects.
+     */
     func realmEdit(errorMsg: String, editCode: () -> Void) {
         do {
             try realm.write {
@@ -109,6 +114,7 @@ class DBHandler {
     /**
      Downloads items of the selected feed using AlamofireRSSParser.
      - parameter completed: A function that is called when an asynchronous Alamofire request ends.
+     - parameter myRssFeed: The RSS feed whose RSS items we are downloading.
      */
     func update(_ myRssFeed: MyRSSFeed, completed: @escaping (DownloadStatus) -> Void) {
         
@@ -144,6 +150,9 @@ class DBHandler {
         
     }
     
+    /**
+     Persists the new or updated RSS items.
+     */
     private func persistRssItems(_ feed: RSSFeed, _ myRssFeed: MyRSSFeed) {
         realmEdit(errorMsg: "Error when adding items to MyRSSFeed") {
             if myRssFeed.title == myRssFeed.link, let title = feed.title {

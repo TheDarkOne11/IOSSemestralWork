@@ -148,6 +148,9 @@ class ItemTableVC: UITableViewController {
         }
     }
     
+    /**
+     Returns a collection of all RSSItems. Used when displaying RSSItems of a selected RSS feed or all items of a particular folder.
+     */
     func allRssItems() -> Results<MyRSSItem> {
         return realm.objects(MyRSSItem.self).sorted(byKeyPath: "date", ascending: false)
     }
@@ -212,6 +215,10 @@ extension ItemTableVC {
         return [removeAction, editAction]
     }
     
+    /**
+     According to the selected cell we move a user to the screens where he can edit Folders or RSS feeds.
+     - parameter indexPath: The location of the cell (Folder or RSS feed) we want to edit.
+     */
     private func editItem(at indexPath: IndexPath) {
         let foldersCount = folders?.count ?? 0
         
@@ -235,6 +242,8 @@ extension ItemTableVC {
     
     /**
      Creates and presents an alert used for editing the selected folder.
+     
+     - parameter folder: The selected folder.
      */
     private func presentEditAlert(_ folder: Folder) {
         var textField = UITextField()
@@ -268,6 +277,10 @@ extension ItemTableVC {
         present(alert, animated: true, completion: nil)
     }
     
+    /**
+     We remove the selected cell.
+     - parameter indexPath: The location of the cell (Folder or RSS feed) we want to remove.
+     */
     private func removeItem(at indexPath: IndexPath) {
         let foldersCount = folders?.count ?? 0
         
@@ -296,7 +309,7 @@ extension ItemTableVC {
 extension ItemTableVC: RefreshControlDelegate {
     
     /**
-     Checks beginning of the pull to refresh and updates its label.
+     Checks beginning of the PullToRefresh and updates its label.
      */
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         var offset: CGFloat = 0
@@ -315,26 +328,33 @@ extension ItemTableVC: RefreshControlDelegate {
         let refreshView: PullToRefreshView! = refresher.refreshView
                         
         refreshView.startUpdating()
-        dbHandler.updateAll() { success in
+        dbHandler.updateAll() { status in
             
-            // Hiding of the RefreshView is delayed to at least 0.5 s
+            // Hiding of the RefreshView is delayed to at least 0.5 s so that the updateLabel is visible.
             let deadline = DispatchTime.now() + .milliseconds(500)
             DispatchQueue.main.asyncAfter(deadline: deadline) {
                 print("End refreshing")
                 refreshView.stopUpdating()
                 self.refresher.endRefreshing()
                 
-                if success == DownloadStatus.Unreachable {
-                    // Internet is unreachable
-                    print("Internet is unreachable")
-                    self.view.makeToast("Internet is unreachable. Please try updating later.")
-                    
-                } else {
-                    self.defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
-                }
+                self.checkStatus(status)
                 
                 self.tableView.reloadData()
             }
+        }
+    }
+    
+    /**
+     Checks status of the update.
+     */
+    private func checkStatus(_ status: DownloadStatus) {
+        if status == DownloadStatus.Unreachable {
+            // Internet is unreachable
+            print("Internet is unreachable")
+            self.view.makeToast("Internet is unreachable. Please try updating later.")
+            
+        } else {
+            self.defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
         }
     }
 }
@@ -354,6 +374,12 @@ extension ItemTableVC: NewFeedDelegate {
         }
     }
     
+    /**
+     Checks result of the download of RSS items and shows it on screen.
+     
+     - parameter myRssFeed: The RSS feed we downloaded RSS items for.
+     - parameter result: The end result of downloading RSS items.
+     */
     private func checkResult(_ myRssFeed: MyRSSFeed, _ result: DownloadStatus) {
         switch result {
             

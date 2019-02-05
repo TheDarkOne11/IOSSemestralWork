@@ -32,6 +32,9 @@ class RefreshControl: UIRefreshControl {
         commonInit()
     }
     
+    /**
+     Initializer of RefreshControl.
+     */
     private func commonInit() {
         tintColor = .clear
         backgroundColor = .clear

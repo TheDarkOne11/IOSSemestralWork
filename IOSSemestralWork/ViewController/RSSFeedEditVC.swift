@@ -12,7 +12,7 @@ import RealmSwift
 protocol NewFeedDelegate {
     
     /**
-     Validates the given RSS feed link address. The feed is then persisted in Realm.
+     Persists and validates the RSS feed which a user created.
      */
     func feedCreated(feed myRssFeed: MyRSSFeed)
 }
@@ -32,7 +32,7 @@ class RSSFeedEditVC: UITableViewController {
     var delegate: NewFeedDelegate!
     
     /**
-     If it's nil then new feed is created. If it isn't nil then this feed is updated.
+     If it's nil then new feed is created. If it isn't nil then this is the feed that is to be updated.
      */
     var feedForUpdate: MyRSSFeed?
     var folders: Results<Folder>?

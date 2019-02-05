@@ -75,6 +75,12 @@ class MyRSSItem: Item {
         }
     }
     
+    /**
+     Removes all things matching the pattern from the HTML string.
+     
+     - parameter value: The String we search for matches at.
+     - parameter pattern: The Regex pattern to find matches with.
+     */
     private func remove(from value: String, pattern: String) -> String {
         let value: NSMutableString = NSMutableString(string: self.itemDescription)
         let regex = try? NSRegularExpression(pattern: pattern)
