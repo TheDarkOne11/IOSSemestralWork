@@ -56,29 +56,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      Operations which are done only when the app is launched for the first time.
      */
     private func firstTimeInit(_ realm: Realm) {
-        let dbHandler = DBHandler()
-        let defaults = UserDefaults.standard
-        
-        // Create special "None" folder
-        let folderNone: Folder = Folder(with: UserDefaultsKeys.NoneFolderTitle.rawValue)
-        dbHandler.create(folderNone)
-        
-        // Set important values in UserDefaults
-        defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
-        
-        if !AppDelegate.isProduction {
-            let folderIdnes = Folder(with: "Idnes")
-            let folderImages = Folder(with: "WithImages")
-            
-            dbHandler.create(folderIdnes)
-            dbHandler.create(folderImages)
-            
-            dbHandler.create(MyRSSFeed(title: "Zpravodaj", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj", folder: folderIdnes))
-            dbHandler.create(MyRSSFeed(title: "Sport", link: "https://servis.idnes.cz/rss.aspx?c=sport", folder: folderIdnes))
-            dbHandler.create(MyRSSFeed(title: "Wired", link: "http://wired.com/feed/rss", folder: folderImages))
-            dbHandler.create(MyRSSFeed(title: "Lifehacker", link: "https://lifehacker.com/rss", folder: folderImages))
-            dbHandler.create(MyRSSFeed(title: "FOX", link: "http://feeds.foxnews.com/foxnews/latest", folder: folderNone))
-        }
+//        let dbHandler = DBHandler()
+//        let defaults = UserDefaults.standard
+//
+//        // Create special "None" folder
+//        let folderNone: Folder = Folder(with: UserDefaultsKeys.NoneFolderTitle.rawValue)
+//        dbHandler.create(folderNone)
+//
+//        // Set important values in UserDefaults
+//        defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
+//
+//        if !AppDelegate.isProduction {
+//            let folderIdnes = Folder(with: "Idnes")
+//            let folderImages = Folder(with: "WithImages")
+//
+//            dbHandler.create(folderIdnes)
+//            dbHandler.create(folderImages)
+//
+//            dbHandler.create(MyRSSFeed(title: "Zpravodaj", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj", folder: folderIdnes))
+//            dbHandler.create(MyRSSFeed(title: "Sport", link: "https://servis.idnes.cz/rss.aspx?c=sport", folder: folderIdnes))
+//            dbHandler.create(MyRSSFeed(title: "Wired", link: "http://wired.com/feed/rss", folder: folderImages))
+//            dbHandler.create(MyRSSFeed(title: "Lifehacker", link: "https://lifehacker.com/rss", folder: folderImages))
+//            dbHandler.create(MyRSSFeed(title: "FOX", link: "http://feeds.foxnews.com/foxnews/latest", folder: folderNone))
+//        }
     }
     
     // MARK: Background fetch
@@ -88,33 +88,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      */
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         print("Started Background fetch")
-        let dbHandler = DBHandler()
-        
-        // Updates RSS feeds, calls completionHandler approprietly
-        dbHandler.updateAll { (status) in
-            switch status {
-            case .OK:
-                self.updateUI()
-                UserDefaults.standard.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
-                completionHandler(.newData)
-            case .NotOK:
-                completionHandler(.failed)
-            case .Unreachable:
-                // No internet connection. Tells Ios that it should run backgroundFetch again sooner
-                completionHandler(.noData)
-            }
-        }
+//        let dbHandler = DBHandler()
+//
+//        // Updates RSS feeds, calls completionHandler approprietly
+//        dbHandler.updateAll { (status) in
+//            switch status {
+//            case .OK:
+//                self.updateUI()
+//                UserDefaults.standard.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
+//                completionHandler(.newData)
+//            case .NotOK:
+//                completionHandler(.failed)
+//            case .Unreachable:
+//                // No internet connection. Tells Ios that it should run backgroundFetch again sooner
+//                completionHandler(.noData)
+//            }
+//        }
     }
     
     /**
      Update UI after Background fetch.
      */
     private func updateUI() {
-        if let navController = window?.rootViewController as? UINavigationController {
-            if let mainVc = navController.topViewController as? ItemTableVC {
-                mainVc.tableView.reloadData()
-            }
-        }
+//        if let navController = window?.rootViewController as? UINavigationController {
+//            if let mainVc = navController.topViewController as? ItemTableVC {
+//                mainVc.tableView.reloadData()
+//            }
+//        }
     }
     
     // MARK: Other methods

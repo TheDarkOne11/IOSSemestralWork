@@ -1,103 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qWe-nO-bgt">
-    <device id="retina4_0" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main View-->
-        <scene sceneID="Pnh-ZL-UKu">
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
             <objects>
-                <tableViewController id="BZ7-lg-lld" userLabel="Main View" customClass="MainTableVC" customModule="IOSSemestralWork" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="BmC-uv-pKA" userLabel="Items Table View">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="mi_ios_2019" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <connections>
-                            <outlet property="dataSource" destination="BZ7-lg-lld" id="CdC-Rp-NAb"/>
-                            <outlet property="delegate" destination="BZ7-lg-lld" id="fBM-8e-Kky"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="RSS Reader" id="7U8-7p-826" userLabel="Navigation Item">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="TZR-6B-YPl">
-                            <connections>
-                                <segue destination="Kwt-P3-GOk" kind="presentation" identifier="ShowAddFeed" id="0la-ot-EPm"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="qdI-uj-THN">
+                                <rect key="frame" x="134.5" y="323" width="106.5" height="41"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQs-BF-Ncd">
+                                        <rect key="frame" x="0.0" y="0.0" width="106.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Build number:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqR-ba-hEQ">
+                                        <rect key="frame" x="0.0" y="20.5" width="106.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="qdI-uj-THN" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="ndS-MK-PLq"/>
+                            <constraint firstItem="qdI-uj-THN" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="vSb-Cw-FOb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
                     <connections>
-                        <segue destination="Xga-xy-Za1" kind="show" identifier="ShowFolderContents" id="Hdz-1f-Z7t"/>
-                        <segue destination="Eeg-yL-bV5" kind="show" identifier="ShowRssItems" id="NQt-5Y-NlR"/>
+                        <outlet property="buildNumberLabel" destination="uqR-ba-hEQ" id="APh-fE-laP"/>
+                        <outlet property="versionLabel" destination="IQs-BF-Ncd" id="nfo-j8-lih"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bBa-Ee-MKG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1308" y="134"/>
-        </scene>
-        <!--AddFeedVC-->
-        <scene sceneID="uCL-o8-CHX">
-            <objects>
-                <viewControllerPlaceholder storyboardName="AddFeed" referencedIdentifier="AddFeedVC" id="Kwt-P3-GOk" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zFJ-xh-YJi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1808" y="602"/>
-        </scene>
-        <!--ShowRSSItems-->
-        <scene sceneID="Ufj-N3-rSW">
-            <objects>
-                <viewControllerPlaceholder storyboardName="ShowRSSItems" id="Eeg-yL-bV5" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YiJ-mZ-RkU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1809" y="808"/>
-        </scene>
-        <!--Folder View-->
-        <scene sceneID="8yf-1L-oKX">
-            <objects>
-                <tableViewController id="Xga-xy-Za1" userLabel="Folder View" customClass="FolderTableVC" customModule="IOSSemestralWork" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="q7N-Ux-QbZ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <connections>
-                            <outlet property="dataSource" destination="Xga-xy-Za1" id="t7M-jT-mRb"/>
-                            <outlet property="delegate" destination="Xga-xy-Za1" id="qHN-Nw-Wrt"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="hJy-mg-OVC" userLabel="Navigation Item"/>
-                    <connections>
-                        <segue destination="Kwt-P3-GOk" kind="presentation" identifier="ShowAddFeed" id="NLJ-Gd-zbM"/>
-                        <segue destination="Eeg-yL-bV5" kind="show" identifier="ShowRssItems" id="dRT-m7-3vs"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Irj-jW-fkA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2348" y="134"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Aep-Hd-P28">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qWe-nO-bgt" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="u2K-FV-RM0">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BZ7-lg-lld" kind="relationship" relationship="rootViewController" id="1Bd-zv-KYF"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CxP-8C-DAx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="264.80000000000001" y="133.5832083958021"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="dRT-m7-3vs"/>
-        <segue reference="NLJ-Gd-zbM"/>
-    </inferredMetricsTieBreakers>
 </document>

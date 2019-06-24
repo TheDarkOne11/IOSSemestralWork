@@ -6,7 +6,7 @@ target 'IOSSemestralWork' do
     use_frameworks!
 
     # Pods for IOSSemestralWork
-    pod 'AlamofireRSSParser'
-    pod 'RealmSwift'
-    pod 'Toast-Swift'
+    pod 'AlamofireRSSParser', '~> 2.2.0'
+    pod 'RealmSwift', '~> 3.16.2'
+    pod 'Toast-Swift', '~> 5.0.0'
 end
