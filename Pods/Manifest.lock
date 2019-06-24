@@ -8,12 +8,14 @@ PODS:
   - Realm/Headers (3.16.2)
   - RealmSwift (3.16.2):
     - Realm (= 3.16.2)
+  - SwiftGen (6.1.0)
   - Toast-Swift (5.0.0)
 
 DEPENDENCIES:
   - ACKLocalization (~> 0.3.3)
   - AlamofireRSSParser (~> 2.2.0)
   - RealmSwift (~> 3.16.2)
+  - SwiftGen (~> 6.1)
   - Toast-Swift (~> 5.0.0)
 
 SPEC REPOS:
@@ -23,6 +25,7 @@ SPEC REPOS:
     - AlamofireRSSParser
     - Realm
     - RealmSwift
+    - SwiftGen
     - Toast-Swift
 
 SPEC CHECKSUMS:
@@ -31,8 +34,9 @@ SPEC CHECKSUMS:
   AlamofireRSSParser: 4feb3c8cedf1fba2759ba30cf37cdf6ba45efd38
   Realm: 0e73b4edeb5b6a90da3d83206883b2e34e00eb38
   RealmSwift: a81e650171ef0a5f999df1ed8d39ba8d6fce88a4
+  SwiftGen: f872ca75cbd17bf7103c17f13dcfa0d9a15667b0
   Toast-Swift: 36f4720243c8582c2be243a60a51e193c761f541
 
-PODFILE CHECKSUM: b24a672a91884b9195113db80a3d75010c593564
+PODFILE CHECKSUM: 69e322fc8c9bbc68fafb0a1833263ccfd412eb17
 
 COCOAPODS: 1.5.3

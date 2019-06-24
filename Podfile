@@ -10,4 +10,5 @@ target 'IOSSemestralWork' do
     pod 'RealmSwift', '~> 3.16.2'
     pod 'Toast-Swift', '~> 5.0.0'
     pod 'ACKLocalization', '~> 0.3.3'
+    pod 'SwiftGen', '~> 6.1'
 end
