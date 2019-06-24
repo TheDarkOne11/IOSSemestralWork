@@ -1,4 +1,5 @@
 PODS:
+  - ACKLocalization (0.3.3)
   - Alamofire (4.8.2)
   - AlamofireRSSParser (2.2.0):
     - Alamofire
@@ -10,12 +11,14 @@ PODS:
   - Toast-Swift (5.0.0)
 
 DEPENDENCIES:
+  - ACKLocalization (~> 0.3.3)
   - AlamofireRSSParser (~> 2.2.0)
   - RealmSwift (~> 3.16.2)
   - Toast-Swift (~> 5.0.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - ACKLocalization
     - Alamofire
     - AlamofireRSSParser
     - Realm
@@ -23,12 +26,13 @@ SPEC REPOS:
     - Toast-Swift
 
 SPEC CHECKSUMS:
+  ACKLocalization: d24a1ba1a31ec153ba9ab2dca5a38d653863214e
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   AlamofireRSSParser: 4feb3c8cedf1fba2759ba30cf37cdf6ba45efd38
   Realm: 0e73b4edeb5b6a90da3d83206883b2e34e00eb38
   RealmSwift: a81e650171ef0a5f999df1ed8d39ba8d6fce88a4
   Toast-Swift: 36f4720243c8582c2be243a60a51e193c761f541
 
-PODFILE CHECKSUM: f49ea6c0f9e0dcfd039230f5835ad5c8bc2f3e31
+PODFILE CHECKSUM: b24a672a91884b9195113db80a3d75010c593564
 
 COCOAPODS: 1.5.3

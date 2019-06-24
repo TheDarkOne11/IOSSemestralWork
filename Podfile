@@ -9,4 +9,5 @@ target 'IOSSemestralWork' do
     pod 'AlamofireRSSParser', '~> 2.2.0'
     pod 'RealmSwift', '~> 3.16.2'
     pod 'Toast-Swift', '~> 5.0.0'
+    pod 'ACKLocalization', '~> 0.3.3'
 end

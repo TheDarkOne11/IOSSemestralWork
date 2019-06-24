@@ -6,6 +6,20 @@
 	objectVersion = 50;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		4BFF774E22C0FD2B008047CB /* Localization */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4BFF775122C0FD2B008047CB /* Build configuration list for PBXAggregateTarget "Localization" */;
+			buildPhases = (
+				4BFF775222C0FD33008047CB /* Download localized strings from online spreadsheet */,
+			);
+			dependencies = (
+			);
+			name = Localization;
+			productName = Localization;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		434AF0675DA05159F971DB51 /* Pods_IOSSemestralWork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41DAE754AFF5F4B367771429 /* Pods_IOSSemestralWork.framework */; };
 		4B0EA17622C0D6F8004411BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B0EA17222C0D6F8004411BD /* LaunchScreen.storyboard */; };
@@ -13,7 +27,6 @@
 		4B0EA17922C0D712004411BD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0EA17822C0D712004411BD /* ViewController.swift */; };
 		4B0EA17C22C0DB05004411BD /* phase_generatePreprocessHeaders.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4B0EA17B22C0DB05004411BD /* phase_generatePreprocessHeaders.sh */; };
 		4B0EA48122C0DF6A004411BD /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 4B0EA48022C0DF6A004411BD /* .gitignore */; };
-		4B0EA49622C0ED14004411BD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4B0EA49422C0ED14004411BD /* Localizable.strings */; };
 		4B50A3A121D8280500462B71 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B50A3A021D8280500462B71 /* Item.swift */; };
 		4B50A3A321D8290900462B71 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B50A3A221D8290900462B71 /* Folder.swift */; };
 		4B50A3A521D829E000462B71 /* MyRSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B50A3A421D829E000462B71 /* MyRSSFeed.swift */; };
@@ -21,6 +34,7 @@
 		4BB407892202382300CD1D57 /* Web in Resources */ = {isa = PBXBuildFile; fileRef = 4BB407882202382300CD1D57 /* Web */; };
 		4BE8A5FB21D6CB05009B66F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */; };
 		4BE8A60221D6CB06009B66F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BE8A60121D6CB06009B66F0 /* Assets.xcassets */; };
+		4BFF775522C0FFAC008047CB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4BFF775322C0FFAC008047CB /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,10 +47,8 @@
 		4B0EA48022C0DF6A004411BD /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 		4B0EA49222C0EBFC004411BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4B0EA49322C0EBFC004411BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		4B0EA49522C0ED14004411BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = IOSSemestralWork/View/en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4B0EA49722C0ED35004411BD /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4B0EA49822C0ED35004411BD /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Main.strings; sourceTree = "<group>"; };
-		4B0EA49922C0ED35004411BD /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = IOSSemestralWork/View/cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4B50A3A021D8280500462B71 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		4B50A3A221D8290900462B71 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		4B50A3A421D829E000462B71 /* MyRSSFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRSSFeed.swift; sourceTree = "<group>"; };
@@ -46,6 +58,8 @@
 		4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4BE8A60121D6CB06009B66F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4BE8A60621D6CB06009B66F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4BFF775422C0FFAC008047CB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = IOSSemestralWork/View/cs.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		4BFF775622C0FFBC008047CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = IOSSemestralWork/View/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		70604E19792E7A209AD45857 /* Pods-IOSSemestralWork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSSemestralWork.release.xcconfig"; path = "Pods/Target Support Files/Pods-IOSSemestralWork/Pods-IOSSemestralWork.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,9 +98,9 @@
 		4BE4C06321DA38DA00505A0F /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
+				4BFF775322C0FFAC008047CB /* Localizable.strings */,
 				4BB407882202382300CD1D57 /* Web */,
 				4BE8A60121D6CB06009B66F0 /* Assets.xcassets */,
-				4B0EA49422C0ED14004411BD /* Localizable.strings */,
 				4B0EA17B22C0DB05004411BD /* phase_generatePreprocessHeaders.sh */,
 				4B0EA48022C0DF6A004411BD /* .gitignore */,
 			);
@@ -183,6 +197,9 @@
 							};
 						};
 					};
+					4BFF774E22C0FD2B008047CB = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
 				};
 			};
 			buildConfigurationList = 4BE8A5F221D6CB05009B66F0 /* Build configuration list for PBXProject "IOSSemestralWork" */;
@@ -200,6 +217,7 @@
 			projectRoot = "";
 			targets = (
 				4BE8A5F621D6CB05009B66F0 /* IOSSemestralWork */,
+				4BFF774E22C0FD2B008047CB /* Localization */,
 			);
 		};
 /* End PBXProject section */
@@ -212,7 +230,7 @@
 				4B0EA17C22C0DB05004411BD /* phase_generatePreprocessHeaders.sh in Resources */,
 				4B0EA17622C0D6F8004411BD /* LaunchScreen.storyboard in Resources */,
 				4BE8A60221D6CB06009B66F0 /* Assets.xcassets in Resources */,
-				4B0EA49622C0ED14004411BD /* Localizable.strings in Resources */,
+				4BFF775522C0FFAC008047CB /* Localizable.strings in Resources */,
 				4BB407892202382300CD1D57 /* Web in Resources */,
 				4B0EA48122C0DF6A004411BD /* .gitignore in Resources */,
 				4B0EA17722C0D6F8004411BD /* Main.storyboard in Resources */,
@@ -239,6 +257,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nsh \"$PROJECT_DIR/phase_generatePreprocessHeaders.sh\"\n";
+		};
+		4BFF775222C0FD33008047CB /* Download localized strings from online spreadsheet */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Download localized strings from online spreadsheet";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Download from spreadsheet\n# https://docs.google.com/spreadsheets/d/e/2PACX-1vQYmseYrhYp3c_wifBEJV40FPyZG4ugMOm0ZwsbmH59R3P9WS6HIY_sdr72Wf76gfPI2-c6KM45Wvn3/pubhtml\n\n\"$PROJECT_DIR/Pods/ACKLocalization/Localization\" \"1vQYmseYrhYp3c_wifBEJV40FPyZG4ugMOm0ZwsbmH59R3P9WS6HIY_sdr72Wf76gfPI2-c6KM45Wvn3\" \"key_ios\" '{\"EN\": \"en\", \"CS\": \"cs\"}' \"$PROJECT_DIR/IOSSemestralWork/View\" \"Localizable.strings\"\n";
+			showEnvVarsInLog = 0;
 		};
 		9AF1698B361D0D3221F77CD3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -331,11 +368,11 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		4B0EA49422C0ED14004411BD /* Localizable.strings */ = {
+		4BFF775322C0FFAC008047CB /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4B0EA49522C0ED14004411BD /* en */,
-				4B0EA49922C0ED35004411BD /* cs */,
+				4BFF775422C0FFAC008047CB /* cs */,
+				4BFF775622C0FFBC008047CB /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -481,6 +518,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Realm/core",
 				);
+				MODULEMAP_FILE = "\"$PROJECT_DIR/IOSSemestralWork/View\"";
 				"OTHER_SWIFT_FLAGS[arch=*]" = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = cz.budikpet.IOSSemestralWork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -507,10 +545,29 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Realm/core",
 				);
+				MODULEMAP_FILE = "\"$PROJECT_DIR/IOSSemestralWork/View\"";
 				PRODUCT_BUNDLE_IDENTIFIER = cz.budikpet.IOSSemestralWork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4BFF774F22C0FD2B008047CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 634A34CZA9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4BFF775022C0FD2B008047CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 634A34CZA9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -531,6 +588,15 @@
 			buildConfigurations = (
 				4BE8A60A21D6CB06009B66F0 /* Debug */,
 				4BE8A60B21D6CB06009B66F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4BFF775122C0FD2B008047CB /* Build configuration list for PBXAggregateTarget "Localization" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4BFF774F22C0FD2B008047CB /* Debug */,
+				4BFF775022C0FD2B008047CB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
