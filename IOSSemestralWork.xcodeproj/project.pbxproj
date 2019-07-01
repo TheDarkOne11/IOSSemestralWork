@@ -23,7 +23,6 @@
 /* Begin PBXBuildFile section */
 		434AF0675DA05159F971DB51 /* Pods_IOSSemestralWork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41DAE754AFF5F4B367771429 /* Pods_IOSSemestralWork.framework */; };
 		4B0EA17622C0D6F8004411BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B0EA17222C0D6F8004411BD /* LaunchScreen.storyboard */; };
-		4B0EA17722C0D6F8004411BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B0EA17422C0D6F8004411BD /* Main.storyboard */; };
 		4B0EA17922C0D712004411BD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0EA17822C0D712004411BD /* ViewController.swift */; };
 		4B0EA48122C0DF6A004411BD /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 4B0EA48022C0DF6A004411BD /* .gitignore */; };
 		4B50A3A121D8280500462B71 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B50A3A021D8280500462B71 /* Item.swift */; };
@@ -43,7 +42,6 @@
 		1A26211D2B8C7051A78A3F05 /* Pods-IOSSemestralWork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSSemestralWork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IOSSemestralWork/Pods-IOSSemestralWork.debug.xcconfig"; sourceTree = "<group>"; };
 		41DAE754AFF5F4B367771429 /* Pods_IOSSemestralWork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IOSSemestralWork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B0EA17322C0D6F8004411BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		4B0EA17522C0D6F8004411BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4B0EA17822C0D712004411BD /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4B0EA48022C0DF6A004411BD /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 		4B50A3A021D8280500462B71 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -75,15 +73,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4B0EA17122C0D6F8004411BD /* View */ = {
-			isa = PBXGroup;
-			children = (
-				4B0EA17222C0D6F8004411BD /* LaunchScreen.storyboard */,
-				4B0EA17422C0D6F8004411BD /* Main.storyboard */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		4BA1366021D794A5009D4EBB /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,9 +120,9 @@
 				4BFF776C22C10B8E008047CB /* Generated */,
 				4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */,
 				4B0EA17822C0D712004411BD /* ViewController.swift */,
-				4B0EA17122C0D6F8004411BD /* View */,
 				4BA1366021D794A5009D4EBB /* Model */,
 				4BE4C06321DA38DA00505A0F /* SupportFiles */,
+				4B0EA17222C0D6F8004411BD /* LaunchScreen.storyboard */,
 				4BE8A60621D6CB06009B66F0 /* Info.plist */,
 			);
 			path = IOSSemestralWork;
@@ -253,7 +242,6 @@
 				4BFF775E22C1078F008047CB /* phase_generatePreprocessHeaders.sh in Resources */,
 				4BFF776B22C10B5A008047CB /* Localizable.strings in Resources */,
 				4B0EA48122C0DF6A004411BD /* .gitignore in Resources */,
-				4B0EA17722C0D6F8004411BD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,14 +391,6 @@
 				4B0EA17322C0D6F8004411BD /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		4B0EA17422C0D6F8004411BD /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4B0EA17522C0D6F8004411BD /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		4BFF776822C10B5A008047CB /* Localizable.strings */ = {
