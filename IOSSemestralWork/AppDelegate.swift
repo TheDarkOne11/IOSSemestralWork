@@ -13,6 +13,7 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    weak var navigationController: UINavigationController!
     
     /**
      Returns true when the scheme is set to production. Otherwise false.
@@ -35,19 +36,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         print("Realm DB location: \(Realm.Configuration.defaultConfiguration.fileURL!)")
         
-        // Initialize realm for the first time. That should be the only time an exception is thrown.
-        do {
-            let realm = try Realm()
-            
-            if realm.isEmpty {
-                firstTimeInit(realm)
-            }
-        } catch {
-            print("Error initializing new Realm for the first time: \(error)")
-        }
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
         
-        // Set background fetch intervals
-        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
+        let navigationController = UINavigationController()
+        window?.rootViewController = navigationController
+        self.navigationController = navigationController
+        
+        let vc = ViewController()
+        navigationController.setViewControllers([vc], animated: true)
+        
+//        // Initialize realm for the first time. That should be the only time an exception is thrown.
+//        do {
+//            let realm = try Realm()
+//
+//            if realm.isEmpty {
+//                firstTimeInit(realm)
+//            }
+//        } catch {
+//            print("Error initializing new Realm for the first time: \(error)")
+//        }
+//
+//        // Set background fetch intervals
+//        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
         
         return true
     }
