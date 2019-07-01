@@ -14,4 +14,5 @@ target 'IOSSemestralWork' do
     pod 'ReactiveSwift', '~> 6.0.0'
     pod 'ReactiveCocoa', '~> 10.0.0'    # Enables reactive usage of IOS components (UITextField...)
     pod 'Overture', '~> 0.5.0'          # Better functional programming
+    pod 'SnapKit', '~> 4.2'             # Easier programmatic creation of UI
 end
