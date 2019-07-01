@@ -11,4 +11,7 @@ target 'IOSSemestralWork' do
     pod 'Toast-Swift', '~> 5.0.0'
     pod 'ACKLocalization', '~> 0.3.3'
     pod 'SwiftGen', '~> 6.1'
+    pod 'ReactiveSwift', '~> 6.0.0'
+    pod 'ReactiveCocoa', '~> 10.0.0'    # Enables reactive usage of IOS components (UITextField...)
+    pod 'Overture', '~> 0.5.0'          # Better functional programming
 end
