@@ -25,6 +25,9 @@
 		4B0EA17622C0D6F8004411BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B0EA17222C0D6F8004411BD /* LaunchScreen.storyboard */; };
 		4B0EA17922C0D712004411BD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0EA17822C0D712004411BD /* ViewController.swift */; };
 		4B0EA48122C0DF6A004411BD /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 4B0EA48022C0DF6A004411BD /* .gitignore */; };
+		4B27865F22CB4A6F002FD614 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27865E22CB4A6F002FD614 /* Repository.swift */; };
+		4B27866F22CB545F002FD614 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27866B22CB545F002FD614 /* UserDefaultsKeys.swift */; };
+		4B27867022CB545F002FD614 /* DBHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27866C22CB545F002FD614 /* DBHandler.swift */; };
 		4B50A3A121D8280500462B71 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B50A3A021D8280500462B71 /* Item.swift */; };
 		4B50A3A321D8290900462B71 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B50A3A221D8290900462B71 /* Folder.swift */; };
 		4B50A3A521D829E000462B71 /* MyRSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B50A3A421D829E000462B71 /* MyRSSFeed.swift */; };
@@ -44,6 +47,9 @@
 		4B0EA17322C0D6F8004411BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B0EA17822C0D712004411BD /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4B0EA48022C0DF6A004411BD /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
+		4B27865E22CB4A6F002FD614 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		4B27866B22CB545F002FD614 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
+		4B27866C22CB545F002FD614 /* DBHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBHandler.swift; sourceTree = "<group>"; };
 		4B50A3A021D8280500462B71 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		4B50A3A221D8290900462B71 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		4B50A3A421D829E000462B71 /* MyRSSFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRSSFeed.swift; sourceTree = "<group>"; };
@@ -73,6 +79,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B27866A22CB5443002FD614 /* Helper classes */ = {
+			isa = PBXGroup;
+			children = (
+				4B27866B22CB545F002FD614 /* UserDefaultsKeys.swift */,
+				4B27866C22CB545F002FD614 /* DBHandler.swift */,
+			);
+			path = "Helper classes";
+			sourceTree = "<group>";
+		};
 		4BA1366021D794A5009D4EBB /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,8 +134,10 @@
 			children = (
 				4BFF776C22C10B8E008047CB /* Generated */,
 				4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */,
+				4B27865E22CB4A6F002FD614 /* Repository.swift */,
 				4B0EA17822C0D712004411BD /* ViewController.swift */,
 				4BA1366021D794A5009D4EBB /* Model */,
+				4B27866A22CB5443002FD614 /* Helper classes */,
 				4BE4C06321DA38DA00505A0F /* SupportFiles */,
 				4B0EA17222C0D6F8004411BD /* LaunchScreen.storyboard */,
 				4BE8A60621D6CB06009B66F0 /* Info.plist */,
@@ -375,7 +392,10 @@
 				4B0EA17922C0D712004411BD /* ViewController.swift in Sources */,
 				4B50A3A121D8280500462B71 /* Item.swift in Sources */,
 				4B50A3A321D8290900462B71 /* Folder.swift in Sources */,
+				4B27865F22CB4A6F002FD614 /* Repository.swift in Sources */,
+				4B27866F22CB545F002FD614 /* UserDefaultsKeys.swift in Sources */,
 				4B50A3A521D829E000462B71 /* MyRSSFeed.swift in Sources */,
+				4B27867022CB545F002FD614 /* DBHandler.swift in Sources */,
 				4B70A86C21D7A12700289496 /* MyRSSItem.swift in Sources */,
 				4BE8A5FB21D6CB05009B66F0 /* AppDelegate.swift in Sources */,
 				4BFF777022C10BBC008047CB /* Strings.swift in Sources */,
