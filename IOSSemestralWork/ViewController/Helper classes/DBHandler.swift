@@ -54,6 +54,10 @@ class DBHandler {
         // Save the folder to Realm
         realmEdit(errorMsg: "Could not add a new folder to Realm") {
             realm.add(folder)
+           
+            let polyItem = PolyItem()
+            polyItem.folder = folder
+            realm.add(polyItem)
         }
     }
     

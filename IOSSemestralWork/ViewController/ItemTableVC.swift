@@ -12,9 +12,9 @@ import Toast_Swift
 
 class ItemTableVC: UITableViewController {
     /** All shown folders in the current tableView. */
-    var folders: Results<Folder>?
+    var folders: Results<PolyItem>?
     // All feeds that aren't inside a folder and are supposed to be shown
-    var feeds: Results<MyRSSFeed>?
+    var feeds: Results<PolyItem>?
     let specialFoldersCount = 3
     
     let realm = try! Realm()
@@ -81,14 +81,14 @@ class ItemTableVC: UITableViewController {
                 fatalError("Error when loading folders to display in the tableView")
             }
             
-            cell.setData(using: folder)
+            cell.setData(using: folder.folder!)
         } else {
             // Show RSSFeed
             guard let feed = feeds?[indexPath.row - foldersCount - specialFoldersCount] else {
                 fatalError("Error when loading feeds to display in the tableView")
             }
             
-           cell.setData(using: feed)
+           cell.setData(using: feed.myRssFeed!)
         }
         
         return cell
@@ -142,7 +142,7 @@ class ItemTableVC: UITableViewController {
             let currFeed = feeds[indexPath.row - foldersCount - specialFoldersCount]
             
             // Change rssItems from List to Results
-            let sender = SeguePreparationSender(rssItems: currFeed.myRssItems.sorted(byKeyPath: "date", ascending: false), title: currFeed.title)
+            let sender = SeguePreparationSender(rssItems: currFeed.myRssFeed!.myRssItems.sorted(byKeyPath: "date", ascending: false), title: currFeed.myRssFeed!.title)
             
             performSegue(withIdentifier: "ShowRssItems", sender: sender)
         }
@@ -190,7 +190,7 @@ class ItemTableVC: UITableViewController {
             // Show folder
             if let folder = folders?[indexPath.row - specialFoldersCount] {
                 let destinationVC = segue.destination as! FolderTableVC
-                destinationVC.selectedFolder = folder
+                destinationVC.selectedFolder = folder.folder!
             }
         }
     }
@@ -230,7 +230,7 @@ extension ItemTableVC {
                 fatalError("The folder which is to be removed should exist")
             }
             
-            presentEditAlert(folder)
+            presentEditAlert(folder.folder!)
             
         } else {
             // Go to feed edit screen

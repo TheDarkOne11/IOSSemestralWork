@@ -21,14 +21,18 @@ class MainTableVC: ItemTableVC {
         super.viewDidLoad()
         
         // Get all folders
-        folders = realm.objects(Folder.self)
-            .filter("NOT title CONTAINS[cd] %@", UserDefaultsKeys.NoneFolderTitle.rawValue)
-            .sorted(byKeyPath: "title")
+        folders = realm.objects(PolyItem.self)
+            .filter("folder != nil")
+            .filter("NOT folder.title CONTAINS[cd] %@", UserDefaultsKeys.NoneFolderTitle.rawValue)
+            .sorted(byKeyPath: "folder.title")
         
         // Get all feeds from "None" folder. They are supposed to be displayed in this screen
-        feeds = realm.objects(Folder.self)
-            .filter("title CONTAINS[cd] %@", UserDefaultsKeys.NoneFolderTitle.rawValue)[0]
-            .myRssFeeds
-            .sorted(byKeyPath: "title")
+        feeds = realm.objects(PolyItem.self)
+            .filter("folder != nil")
+            .filter("folder.title CONTAINS[cd] %@", UserDefaultsKeys.NoneFolderTitle.rawValue)
+            .first?
+            .folder?.myRssFeeds
+            .filter("myRssFeed != nil")
+            .sorted(byKeyPath: "myRssFeed.title")
     }
 }
