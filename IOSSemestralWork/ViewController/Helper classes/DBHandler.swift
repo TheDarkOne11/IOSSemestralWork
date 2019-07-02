@@ -38,6 +38,16 @@ class DBHandler {
         }
     }
     
+    // MARK: PolyItem methods
+    
+    func remove(_ polyItem: PolyItem) {
+        if let folder = polyItem.folder {
+            self.remove(folder)
+        } else if let feed = polyItem.myRssFeed {
+            self.remove(feed)
+        }
+    }
+    
     // MARK: Folder methods
     
     func create(_ folder: Folder) {
