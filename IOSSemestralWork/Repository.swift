@@ -8,29 +8,38 @@
 
 import Foundation
 import RealmSwift
+import ReactiveSwift
 
 final class Repository {
     let realm = try! Realm()
     let dbHandler = DBHandler()
     
-    func save(title: String, link: String, folder: Folder) {
+    func create(title: String, link: String, folder: Folder) -> SignalProducer<MyRSSFeed, MyRSSFeedError> {
+        // Check for duplicates
+        if let duplicateFeed = realm.objects(MyRSSFeed.self).filter("link CONTAINS[cd] %@", link).first {
+            return SignalProducer(error: .exists(duplicateFeed))
+        }
+        
         // Save the new feed
         let myRssFeed = MyRSSFeed(title: title, link: link, folder: folder)
         dbHandler.create(myRssFeed)
+        return SignalProducer(value: myRssFeed)
     }
     
-    func update(oldFeed: MyRSSFeed, title: String, link: String, folder: Folder) {
+    func update(selectedFeed feed: MyRSSFeed, title: String, link: String, folder: Folder) -> SignalProducer<MyRSSFeed, MyRSSFeedError> {
+        // TODO: Error handling – change errorMsg to a closure
         dbHandler.realmEdit(errorMsg: "Error occured when updating the RSSFeed") {
-            let oldFolder: Folder = oldFeed.folder!
-            let index: Int = oldFolder.myRssFeeds.index(of: oldFeed)!
+            let oldFolder: Folder = feed.folder!
+            let oldIndex: Int = oldFolder.myRssFeeds.index(of: feed)!
             
-            oldFeed.title = title
-            oldFeed.link = link
+            feed.title = title
+            feed.link = link
             
             // Change folders
-            oldFolder.myRssFeeds.remove(at: index)
-            oldFeed.folder = folder
-            folder.myRssFeeds.append(oldFeed)
+            oldFolder.myRssFeeds.remove(at: oldIndex)
+            feed.folder = folder
+            folder.myRssFeeds.append(feed)
         }
+        return SignalProducer(value: feed)
     }
 }

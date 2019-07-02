@@ -11,6 +11,7 @@ import RealmSwift
 
 class Folder: Item {
     let myRssFeeds = List<MyRSSFeed>()
+    let folders = List<Folder>()
     
     convenience init(with title: String) {
         self.init(with: title, type: .folder)

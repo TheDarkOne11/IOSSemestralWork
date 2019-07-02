@@ -43,22 +43,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = navigationController
         self.navigationController = navigationController
         
-        let vc = ViewController()
+        let vm = RSSFeedEditVM()
+        let vc = ViewController(vm)
         navigationController.setViewControllers([vc], animated: true)
         
-//        // Initialize realm for the first time. That should be the only time an exception is thrown.
-//        do {
-//            let realm = try Realm()
-//
-//            if realm.isEmpty {
-//                firstTimeInit(realm)
-//            }
-//        } catch {
-//            print("Error initializing new Realm for the first time: \(error)")
-//        }
-//
-//        // Set background fetch intervals
-//        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
+        // Initialize realm for the first time. That should be the only time an exception is thrown.
+        do {
+            let realm = try Realm()
+
+            if realm.isEmpty {
+                firstTimeInit(realm)
+            }
+        } catch {
+            print("Error initializing new Realm for the first time: \(error)")
+        }
+
+        // Set background fetch intervals
+        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
         
         return true
     }
@@ -67,29 +68,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      Operations which are done only when the app is launched for the first time.
      */
     private func firstTimeInit(_ realm: Realm) {
-//        let dbHandler = DBHandler()
-//        let defaults = UserDefaults.standard
-//
-//        // Create special "None" folder
-//        let folderNone: Folder = Folder(with: UserDefaultsKeys.NoneFolderTitle.rawValue)
-//        dbHandler.create(folderNone)
-//
-//        // Set important values in UserDefaults
-//        defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
-//
-//        if !AppDelegate.isProduction {
-//            let folderIdnes = Folder(with: "Idnes")
-//            let folderImages = Folder(with: "WithImages")
-//
-//            dbHandler.create(folderIdnes)
-//            dbHandler.create(folderImages)
-//
-//            dbHandler.create(MyRSSFeed(title: "Zpravodaj", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj", folder: folderIdnes))
-//            dbHandler.create(MyRSSFeed(title: "Sport", link: "https://servis.idnes.cz/rss.aspx?c=sport", folder: folderIdnes))
-//            dbHandler.create(MyRSSFeed(title: "Wired", link: "http://wired.com/feed/rss", folder: folderImages))
-//            dbHandler.create(MyRSSFeed(title: "Lifehacker", link: "https://lifehacker.com/rss", folder: folderImages))
-//            dbHandler.create(MyRSSFeed(title: "FOX", link: "http://feeds.foxnews.com/foxnews/latest", folder: folderNone))
-//        }
+        let dbHandler = DBHandler()
+        let defaults = UserDefaults.standard
+
+        // Create the special root "None" folder
+        let folderNone: Folder = Folder(with: UserDefaultsKeys.NoneFolderTitle.rawValue)
+        dbHandler.create(folderNone)
+
+        // Set important values in UserDefaults
+        defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
+
+        if !AppDelegate.isProduction {
+            let folderIdnes = Folder(with: "Idnes")
+            let folderImages = Folder(with: "WithImages")
+
+            dbHandler.create(folderIdnes)
+            dbHandler.create(folderImages)
+
+            dbHandler.create(MyRSSFeed(title: "Zpravodaj", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj", folder: folderIdnes))
+            dbHandler.create(MyRSSFeed(title: "Sport", link: "https://servis.idnes.cz/rss.aspx?c=sport", folder: folderIdnes))
+            dbHandler.create(MyRSSFeed(title: "Wired", link: "http://wired.com/feed/rss", folder: folderImages))
+            dbHandler.create(MyRSSFeed(title: "Lifehacker", link: "https://lifehacker.com/rss", folder: folderImages))
+            dbHandler.create(MyRSSFeed(title: "FOX", link: "http://feeds.foxnews.com/foxnews/latest", folder: folderNone))
+        }
     }
     
     // MARK: Background fetch
