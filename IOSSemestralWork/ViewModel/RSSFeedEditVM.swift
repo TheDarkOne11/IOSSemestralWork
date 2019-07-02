@@ -10,7 +10,16 @@ import Foundation
 import ReactiveSwift
 import RealmSwift
 
-final class RSSFeedEditVM: BaseViewModel {
+protocol RSSFeedEditProtocol {
+    var title: MutableProperty<String> { get }
+    var link: MutableProperty<String> { get }
+    var feedForUpdate: MutableProperty<MyRSSFeed?> { get }
+    var folder: MutableProperty<Folder?> { get }
+    
+    var saveBtnAction: Action<Void, MyRSSFeed, MyRSSFeedError> { get }
+}
+
+final class RSSFeedEditVM: BaseViewModel, RSSFeedEditProtocol {
     private let repository: Repository = Repository()
     private let realm = try! Realm()
     

@@ -4,12 +4,12 @@ import ReactiveSwift
 import RealmSwift
 
 class ViewController: BaseViewController {
-    private let viewModel: RSSFeedEditVM
+    private let viewModel: RSSFeedEditProtocol
     
     private weak var versionLabel: UILabel!
     private weak var buildNumberLabel: UILabel!
     
-    init(_ viewModel: RSSFeedEditVM) {
+    init(_ viewModel: RSSFeedEditProtocol) {
         self.viewModel = viewModel
         
         super.init()
@@ -60,9 +60,9 @@ class ViewController: BaseViewController {
     private func setupBindings() {
         let realm = try! Realm()
         let folder: Folder = realm.objects(Folder.self).filter("title == %@", "Idnes").first!
-        let feedForUpdate = realm.objects(MyRSSFeed.self).filter("title == %@", "Custom title").first
+        let feedForUpdate = realm.objects(MyRSSFeed.self).filter("title == %@", "Custom title2").first
         
-        viewModel.title.value = "Custom title2"
+        viewModel.title.value = "Custom title3"
         viewModel.link.value = "Custom link"
         viewModel.folder.value = folder
         viewModel.feedForUpdate.value = feedForUpdate
