@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 class RealmProvider {
+    /** Automatically creates in-memory Realm DB when testing. */
     class func realm() -> Realm {
         if let _ = NSClassFromString("XCTest") {
             return try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: "test", encryptionKey: nil, readOnly: false, schemaVersion: 0, migrationBlock: nil, objectTypes: nil))

@@ -21,7 +21,11 @@ enum DownloadStatus: String {
  This class has all methods for manipulation with Models in Realm database.
  */
 class DBHandler {
-    let realm = try! Realm()
+    let realm: Realm!
+    
+    init(realm: Realm) {
+        self.realm = realm
+    }
     
     /**
      

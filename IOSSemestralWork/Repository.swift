@@ -12,7 +12,7 @@ import ReactiveSwift
 
 final class Repository {
     let realm = try! Realm()
-    let dbHandler = DBHandler()
+    let dbHandler = DBHandler(realm: try! Realm())
     
     func create(title: String, link: String, folder: Folder) -> SignalProducer<MyRSSFeed, MyRSSFeedError> {
         // Check for duplicates

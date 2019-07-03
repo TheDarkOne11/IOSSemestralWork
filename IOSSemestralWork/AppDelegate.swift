@@ -68,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      Operations which are done only when the app is launched for the first time.
      */
     private func firstTimeInit(_ realm: Realm) {
-        let dbHandler = DBHandler()
+        let dbHandler = DBHandler(realm: try! Realm())
         let defaults = UserDefaults.standard
         
         // Create special "None" folder
