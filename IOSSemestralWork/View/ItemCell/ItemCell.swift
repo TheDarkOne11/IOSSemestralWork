@@ -26,7 +26,7 @@ class ItemCell: UITableViewCell {
     
     func setData(using folder: Folder) {
         var count = 0
-        for feed in folder.myRssFeeds {
+        for feed in folder.polyItems {
             if let feed = feed.myRssFeed {
                 count += feed.unreadItemsCount()
             }

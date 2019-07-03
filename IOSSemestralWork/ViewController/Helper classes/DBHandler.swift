@@ -53,7 +53,11 @@ class DBHandler {
     func create(_ folder: Folder) {
         // Save the folder to Realm
         realmEdit(errorMsg: "Could not add a new folder to Realm") {
-            realm.add(folder)
+            if let parentFolder = folder.parentFolder {
+                parentFolder.polyItems.append(folder)
+            } else {
+                realm.add(folder)
+            }
            
             let polyItem = PolyItem()
             polyItem.folder = folder
@@ -63,7 +67,7 @@ class DBHandler {
     
     func remove(_ folder: Folder) {
         // Remove folders contents
-        for feed in folder.myRssFeeds {
+        for feed in folder.polyItems {
             remove(feed)
         }
         
@@ -76,7 +80,7 @@ class DBHandler {
     
     func create(_ myRssFeed: MyRSSFeed) {
         realmEdit(errorMsg: "Error occured when creating a new MyRSSFeed") {
-            myRssFeed.folder!.myRssFeeds.append(myRssFeed)
+            myRssFeed.folder!.polyItems.append(myRssFeed)
         }
     }
     

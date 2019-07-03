@@ -122,13 +122,13 @@ class RSSFeedEditVC: UITableViewController {
                 myRssFeed.link = link
                 
                 // Change folders
-                oldFolder.myRssFeeds.remove(at: index)
+                oldFolder.polyItems.remove(at: index)
                 myRssFeed.folder = selectedFolder
-                selectedFolder.myRssFeeds.append(myRssFeed)
+                selectedFolder.polyItems.append(myRssFeed)
             }
         } else {
             // Save the new feed
-            myRssFeed = MyRSSFeed(title: title, link: link, folder: selectedFolder)
+            myRssFeed = MyRSSFeed(title: title, link: link, in: selectedFolder)
             dbHandler.create(myRssFeed!)
         }
         

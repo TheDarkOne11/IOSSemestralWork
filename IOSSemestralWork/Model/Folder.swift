@@ -10,10 +10,12 @@ import Foundation
 import RealmSwift
 
 class Folder: Item {
-    let myRssFeeds = List<PolyItem>()
+    @objc dynamic var parentFolder: Folder?
+    let polyItems = List<PolyItem>()
     
-    convenience init(with title: String) {
+    convenience init(with title: String, in folder: Folder? = nil) {
         self.init(with: title, type: .folder)
+        self.parentFolder = folder
     }
 }
 

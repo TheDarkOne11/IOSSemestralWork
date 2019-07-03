@@ -20,19 +20,12 @@ class MainTableVC: ItemTableVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Get all folders
-        folders = realm.objects(PolyItem.self)
-            .filter("folder != nil")
-            .filter("NOT folder.title CONTAINS[cd] %@", UserDefaultsKeys.NoneFolderTitle.rawValue)
-            .sorted(byKeyPath: "folder.title")
-        
         // Get all feeds from "None" folder. They are supposed to be displayed in this screen
-        feeds = realm.objects(PolyItem.self)
+        polyItems = realm.objects(PolyItem.self)
             .filter("folder != nil")
             .filter("folder.title CONTAINS[cd] %@", UserDefaultsKeys.NoneFolderTitle.rawValue)
             .first?
-            .folder?.myRssFeeds
-            .filter("myRssFeed != nil")
-            .sorted(byKeyPath: "myRssFeed.title")
+            .folder?.polyItems
+            .filter(NSPredicate(value: true))
     }
 }

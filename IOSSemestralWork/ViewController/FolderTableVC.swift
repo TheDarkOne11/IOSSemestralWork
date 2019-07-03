@@ -23,12 +23,10 @@ class FolderTableVC: ItemTableVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        folders = nil
-        
         // Get all feeds from "None" folder. They are supposed to be displayed in this screen
-        feeds = realm.objects(Folder.self)
+        polyItems = realm.objects(Folder.self)
             .filter("title CONTAINS[cd] %@", selectedFolder!.title)[0]
-            .myRssFeeds
+            .polyItems
             .sorted(byKeyPath: "title")
     }
     
