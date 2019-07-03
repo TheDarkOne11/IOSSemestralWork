@@ -45,3 +45,19 @@ class PolyItem: Object {
     @objc dynamic var myRssFeed: MyRSSFeed? = nil
     @objc dynamic var myRssItem: MyRSSItem? = nil
 }
+
+extension List where Element == PolyItem {
+    func append(_ item: Item) {
+        let polyItem = PolyItem()
+        switch item.type {
+        case .folder:
+            polyItem.folder = item as? Folder
+        case .myRssFeed:
+            polyItem.myRssFeed = item as? MyRSSFeed
+        case .myRssItem:
+            polyItem.myRssItem = item as? MyRSSItem
+        }
+        
+        self.append(polyItem)
+    }
+}

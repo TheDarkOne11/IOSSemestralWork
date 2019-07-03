@@ -133,7 +133,7 @@ class ItemTableVC: UITableViewController {
             fatalError("Error when loading a PolyItem from PolyItems collection.")
         }
         
-        if let folder = polyItem.folder {
+        if polyItem.folder != nil {
             // Go to FolderTableVC
             performSegue(withIdentifier: "ShowFolderContents", sender: nil)
         } else if let feed = polyItem.myRssFeed {
@@ -153,7 +153,7 @@ class ItemTableVC: UITableViewController {
         }
         
         return realm.objects(MyRSSItem.self)
-            .filter("rssFeed.folder.title CONTAINS[cd] %@", selectedFolder.title)
+            .filter("rssFeed.folder.title CONTAINS[cd] %@ OR rssFeed.folder.parentFolder.title CONTAINS[cd] %@", selectedFolder.title, selectedFolder.title)
             .sorted(byKeyPath: "date", ascending: false)
     }
     
