@@ -57,11 +57,11 @@ class DBHandler {
                 parentFolder.polyItems.append(folder)
             } else {
                 realm.add(folder)
+                
+                let polyItem = PolyItem()
+                polyItem.folder = folder
+                realm.add(polyItem)
             }
-           
-            let polyItem = PolyItem()
-            polyItem.folder = folder
-            realm.add(polyItem)
         }
     }
     
