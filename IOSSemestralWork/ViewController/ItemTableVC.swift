@@ -15,6 +15,12 @@ class ItemTableVC: UITableViewController {
     var polyItems: Results<PolyItem>?
     let specialFoldersCount = 3
     
+    var selectedFolder: Folder! {
+        didSet {
+            title = selectedFolder!.title
+        }
+    }
+    
     let realm = try! Realm()
     let dbHandler = DBHandler()
     let defaults = UserDefaults.standard
@@ -30,10 +36,13 @@ class ItemTableVC: UITableViewController {
         tableView.refreshControl = refresher
         refresher.delegate = self
         
-        // Set default Toast values
-        ToastManager.shared.duration = 4.0
-        ToastManager.shared.position = .center
-        ToastManager.shared.style.backgroundColor = UIColor.black.withAlphaComponent(0.71)
+        if(selectedFolder == nil) {
+            selectedFolder = realm.objects(Folder.self)
+                .filter("title CONTAINS[cd] %@", UserDefaultsKeys.NoneFolderTitle.rawValue)
+                .first
+        }
+        
+        polyItems = selectedFolder.polyItems.filter(NSPredicate(value: true))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -139,7 +148,13 @@ class ItemTableVC: UITableViewController {
      Returns a collection of all RSSItems. Used when displaying RSSItems of a selected RSS feed or all items of a particular folder.
      */
     func allRssItems() -> Results<MyRSSItem> {
-        return realm.objects(MyRSSItem.self).sorted(byKeyPath: "date", ascending: false)
+        guard let selectedFolder = self.selectedFolder else {
+            fatalError("Error occured, selectedFolder should already be initialized.")
+        }
+        
+        return realm.objects(MyRSSItem.self)
+            .filter("rssFeed.folder.title CONTAINS[cd] %@", selectedFolder.title)
+            .sorted(byKeyPath: "date", ascending: false)
     }
     
     // MARK: Navigation
@@ -176,7 +191,7 @@ class ItemTableVC: UITableViewController {
         if segue.identifier ==  "ShowFolderContents" {
             // Show folder
             if let folder = polyItems?[indexPath.row - specialFoldersCount].folder {
-                let destinationVC = segue.destination as! FolderTableVC
+                let destinationVC = segue.destination as! ItemTableVC
                 destinationVC.selectedFolder = folder
             }
         }
