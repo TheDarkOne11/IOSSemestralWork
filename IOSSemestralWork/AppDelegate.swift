@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import Toast_Swift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -60,6 +61,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Set background fetch intervals
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
+        
+        // Set default Toast values
+        ToastManager.shared.duration = 4.0
+        ToastManager.shared.position = .center
+        ToastManager.shared.style.backgroundColor = UIColor.black.withAlphaComponent(0.71)
         
         return true
     }
