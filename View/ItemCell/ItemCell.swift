@@ -26,8 +26,10 @@ class ItemCell: UITableViewCell {
     
     func setData(using folder: Folder) {
         var count = 0
-        for feed in folder.myRssFeeds {
-            count += feed.unreadItemsCount()
+        for feed in folder.polyItems {
+            if let feed = feed.myRssFeed {
+                count += feed.unreadItemsCount()
+            }
         }
         
         setData(title: folder.title, imgName: "folder", itemCount: count, true)

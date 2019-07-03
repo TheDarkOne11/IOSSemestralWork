@@ -28,10 +28,10 @@
 		4B27865F22CB4A6F002FD614 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27865E22CB4A6F002FD614 /* Repository.swift */; };
 		4B27866F22CB545F002FD614 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27866B22CB545F002FD614 /* UserDefaultsKeys.swift */; };
 		4B27867022CB545F002FD614 /* DBHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27866C22CB545F002FD614 /* DBHandler.swift */; };
-		4B50A3A121D8280500462B71 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B50A3A021D8280500462B71 /* Item.swift */; };
-		4B50A3A321D8290900462B71 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B50A3A221D8290900462B71 /* Folder.swift */; };
-		4B50A3A521D829E000462B71 /* MyRSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B50A3A421D829E000462B71 /* MyRSSFeed.swift */; };
-		4B70A86C21D7A12700289496 /* MyRSSItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B70A86B21D7A12700289496 /* MyRSSItem.swift */; };
+		4B4A74CE22CCC3F6000D63B2 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A74CA22CCC3F6000D63B2 /* Folder.swift */; };
+		4B4A74CF22CCC3F6000D63B2 /* MyRSSItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A74CB22CCC3F6000D63B2 /* MyRSSItem.swift */; };
+		4B4A74D022CCC3F6000D63B2 /* MyRSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A74CC22CCC3F6000D63B2 /* MyRSSFeed.swift */; };
+		4B4A74D122CCC3F6000D63B2 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A74CD22CCC3F6000D63B2 /* Item.swift */; };
 		4BB407892202382300CD1D57 /* Web in Resources */ = {isa = PBXBuildFile; fileRef = 4BB407882202382300CD1D57 /* Web */; };
 		4BCD96A322CB953400F214E2 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD96A222CB953400F214E2 /* Errors.swift */; };
 		4BCD96A622CB99BC00F214E2 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD96A522CB99BC00F214E2 /* Base.swift */; };
@@ -53,10 +53,10 @@
 		4B27865E22CB4A6F002FD614 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		4B27866B22CB545F002FD614 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		4B27866C22CB545F002FD614 /* DBHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBHandler.swift; sourceTree = "<group>"; };
-		4B50A3A021D8280500462B71 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		4B50A3A221D8290900462B71 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
-		4B50A3A421D829E000462B71 /* MyRSSFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRSSFeed.swift; sourceTree = "<group>"; };
-		4B70A86B21D7A12700289496 /* MyRSSItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRSSItem.swift; sourceTree = "<group>"; };
+		4B4A74CA22CCC3F6000D63B2 /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
+		4B4A74CB22CCC3F6000D63B2 /* MyRSSItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyRSSItem.swift; sourceTree = "<group>"; };
+		4B4A74CC22CCC3F6000D63B2 /* MyRSSFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyRSSFeed.swift; sourceTree = "<group>"; };
+		4B4A74CD22CCC3F6000D63B2 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		4BB407882202382300CD1D57 /* Web */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Web; sourceTree = "<group>"; };
 		4BCD96A222CB953400F214E2 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		4BCD96A522CB99BC00F214E2 /* Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = "<group>"; };
@@ -97,11 +97,11 @@
 		4BA1366021D794A5009D4EBB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4B4A74CD22CCC3F6000D63B2 /* Item.swift */,
+				4B4A74CA22CCC3F6000D63B2 /* Folder.swift */,
+				4B4A74CC22CCC3F6000D63B2 /* MyRSSFeed.swift */,
+				4B4A74CB22CCC3F6000D63B2 /* MyRSSItem.swift */,
 				4BFF776C22C10B8E008047CB /* Generated */,
-				4B50A3A021D8280500462B71 /* Item.swift */,
-				4B50A3A221D8290900462B71 /* Folder.swift */,
-				4B50A3A421D829E000462B71 /* MyRSSFeed.swift */,
-				4B70A86B21D7A12700289496 /* MyRSSItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -415,15 +415,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BCD96A622CB99BC00F214E2 /* Base.swift in Sources */,
+				4B4A74CE22CCC3F6000D63B2 /* Folder.swift in Sources */,
 				4B0EA17922C0D712004411BD /* ViewController.swift in Sources */,
-				4B50A3A121D8280500462B71 /* Item.swift in Sources */,
-				4B50A3A321D8290900462B71 /* Folder.swift in Sources */,
 				4B27865F22CB4A6F002FD614 /* Repository.swift in Sources */,
+				4B4A74CF22CCC3F6000D63B2 /* MyRSSItem.swift in Sources */,
 				4B27866F22CB545F002FD614 /* UserDefaultsKeys.swift in Sources */,
-				4B50A3A521D829E000462B71 /* MyRSSFeed.swift in Sources */,
 				4B27867022CB545F002FD614 /* DBHandler.swift in Sources */,
+				4B4A74D122CCC3F6000D63B2 /* Item.swift in Sources */,
 				4BCD96A322CB953400F214E2 /* Errors.swift in Sources */,
-				4B70A86C21D7A12700289496 /* MyRSSItem.swift in Sources */,
+				4B4A74D022CCC3F6000D63B2 /* MyRSSFeed.swift in Sources */,
 				4BE8A5FB21D6CB05009B66F0 /* AppDelegate.swift in Sources */,
 				4BCD96A922CB9BD000F214E2 /* RSSFeedEditVM.swift in Sources */,
 				4BFF777022C10BBC008047CB /* Strings.swift in Sources */,

@@ -115,19 +115,20 @@ class RSSFeedEditVC: UITableViewController {
             // Update the feed
             dbHandler.realmEdit(errorMsg: "Error occured when updating the RSSFeed") {
                 let oldFolder: Folder = myRssFeed.folder!
-                let index: Int = oldFolder.myRssFeeds.index(of: myRssFeed)!
+//                let index: Int = oldFolder.myRssFeeds.index(of: myRssFeed)!
+                let index: Int = 0  // TODO: Change
                 
                 myRssFeed.title = title
                 myRssFeed.link = link
                 
                 // Change folders
-                oldFolder.myRssFeeds.remove(at: index)
+                oldFolder.polyItems.remove(at: index)
                 myRssFeed.folder = selectedFolder
-                selectedFolder.myRssFeeds.append(myRssFeed)
+                selectedFolder.polyItems.append(myRssFeed)
             }
         } else {
             // Save the new feed
-            myRssFeed = MyRSSFeed(title: title, link: link, folder: selectedFolder)
+            myRssFeed = MyRSSFeed(title: title, link: link, in: selectedFolder)
             dbHandler.create(myRssFeed!)
         }
         

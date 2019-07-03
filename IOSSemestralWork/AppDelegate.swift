@@ -70,26 +70,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func firstTimeInit(_ realm: Realm) {
         let dbHandler = DBHandler()
         let defaults = UserDefaults.standard
-
-        // Create the special root "None" folder
+        
+        // Create special "None" folder
         let folderNone: Folder = Folder(with: UserDefaultsKeys.NoneFolderTitle.rawValue)
         dbHandler.create(folderNone)
-
+        
         // Set important values in UserDefaults
         defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
-
+        
         if !AppDelegate.isProduction {
-            let folderIdnes = Folder(with: "Idnes")
-            let folderImages = Folder(with: "WithImages")
-
+            let folderIdnes = Folder(with: "Idnes", in: folderNone)
+            let folderImages = Folder(with: "WithImages", in: folderNone)
+            
             dbHandler.create(folderIdnes)
             dbHandler.create(folderImages)
-
-            dbHandler.create(MyRSSFeed(title: "Zpravodaj", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj", folder: folderIdnes))
-            dbHandler.create(MyRSSFeed(title: "Sport", link: "https://servis.idnes.cz/rss.aspx?c=sport", folder: folderIdnes))
-            dbHandler.create(MyRSSFeed(title: "Wired", link: "http://wired.com/feed/rss", folder: folderImages))
-            dbHandler.create(MyRSSFeed(title: "Lifehacker", link: "https://lifehacker.com/rss", folder: folderImages))
-            dbHandler.create(MyRSSFeed(title: "FOX", link: "http://feeds.foxnews.com/foxnews/latest", folder: folderNone))
+            
+            dbHandler.create(MyRSSFeed(title: "Zpravodaj", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj", in: folderIdnes))
+            dbHandler.create(MyRSSFeed(title: "Sport", link: "https://servis.idnes.cz/rss.aspx?c=sport", in: folderIdnes))
+            dbHandler.create(MyRSSFeed(title: "Wired", link: "http://wired.com/feed/rss", in: folderImages))
+            dbHandler.create(MyRSSFeed(title: "Lifehacker", link: "https://lifehacker.com/rss", in: folderImages))
+            dbHandler.create(MyRSSFeed(title: "FOX", link: "http://feeds.foxnews.com/foxnews/latest", in: folderNone))
         }
     }
     

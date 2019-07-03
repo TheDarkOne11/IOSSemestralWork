@@ -11,11 +11,15 @@ import RealmSwift
 import Toast_Swift
 
 class ItemTableVC: UITableViewController {
-    /** All shown folders in the current tableView. */
-    var folders: Results<Folder>?
-    // All feeds that aren't inside a folder and are supposed to be shown
-    var feeds: Results<MyRSSFeed>?
+    /** All folders and feeds of the currently selected folder. */
+    var polyItems: Results<PolyItem>?
     let specialFoldersCount = 3
+    
+    var selectedFolder: Folder! {
+        didSet {
+            title = selectedFolder!.title
+        }
+    }
     
     let realm = try! Realm()
     let dbHandler = DBHandler()
@@ -32,10 +36,13 @@ class ItemTableVC: UITableViewController {
         tableView.refreshControl = refresher
         refresher.delegate = self
         
-        // Set default Toast values
-        ToastManager.shared.duration = 4.0
-        ToastManager.shared.position = .center
-        ToastManager.shared.style.backgroundColor = UIColor.black.withAlphaComponent(0.71)
+        if(selectedFolder == nil) {
+            selectedFolder = realm.objects(Folder.self)
+                .filter("title CONTAINS[cd] %@", UserDefaultsKeys.NoneFolderTitle.rawValue)
+                .first
+        }
+        
+        polyItems = selectedFolder.polyItems.filter(NSPredicate(value: true))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,32 +80,24 @@ class ItemTableVC: UITableViewController {
             return cell
         }
         
-        // First show custom folders then RSS feeds without folder
-        let foldersCount = folders?.count ?? 0
-        if indexPath.row < foldersCount + specialFoldersCount {
-            // Show folder
-            guard let folder = folders?[indexPath.row - specialFoldersCount] else {
-                fatalError("Error when loading folders to display in the tableView")
-            }
-            
+        // Show feeds and folders
+        guard let polyItem = polyItems?[indexPath.row - specialFoldersCount] else {
+            fatalError("Error when loading a PolyItem from PolyItems collection.")
+        }
+        
+        if let folder = polyItem.folder {
             cell.setData(using: folder)
-        } else {
-            // Show RSSFeed
-            guard let feed = feeds?[indexPath.row - foldersCount - specialFoldersCount] else {
-                fatalError("Error when loading feeds to display in the tableView")
-            }
-            
-           cell.setData(using: feed)
+        } else if let feed = polyItem.myRssFeed {
+            cell.setData(using: feed)
         }
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let feedsCount = feeds?.count ?? 0
-        let foldersCount = folders?.count ?? 0
+        let feedsCount = polyItems?.count ?? 0
         
-        return specialFoldersCount + feedsCount + foldersCount
+        return specialFoldersCount + feedsCount
     }
     
     // MARK: - TableView methods
@@ -129,20 +128,17 @@ class ItemTableVC: UITableViewController {
             return
         }
         
-        let foldersCount = folders?.count ?? 0
-        
-        if indexPath.row < foldersCount + specialFoldersCount {
-            // Go to FolderTableVC
-            performSegue(withIdentifier: "ShowFolderContents", sender: nil)
-            return
+        // Perform click action on PolyItems
+        guard let polyItem = polyItems?[indexPath.row - specialFoldersCount] else {
+            fatalError("Error when loading a PolyItem from PolyItems collection.")
         }
         
-        if let feeds = self.feeds {
-            // Go to RSSFeedTableVC
-            let currFeed = feeds[indexPath.row - foldersCount - specialFoldersCount]
-            
+        if polyItem.folder != nil {
+            // Go to FolderTableVC
+            performSegue(withIdentifier: "ShowFolderContents", sender: nil)
+        } else if let feed = polyItem.myRssFeed {
             // Change rssItems from List to Results
-            let sender = SeguePreparationSender(rssItems: currFeed.myRssItems.sorted(byKeyPath: "date", ascending: false), title: currFeed.title)
+            let sender = SeguePreparationSender(rssItems: feed.myRssItems.sorted(byKeyPath: "date", ascending: false), title: feed.title)
             
             performSegue(withIdentifier: "ShowRssItems", sender: sender)
         }
@@ -152,7 +148,13 @@ class ItemTableVC: UITableViewController {
      Returns a collection of all RSSItems. Used when displaying RSSItems of a selected RSS feed or all items of a particular folder.
      */
     func allRssItems() -> Results<MyRSSItem> {
-        return realm.objects(MyRSSItem.self).sorted(byKeyPath: "date", ascending: false)
+        guard let selectedFolder = self.selectedFolder else {
+            fatalError("Error occured, selectedFolder should already be initialized.")
+        }
+        
+        return realm.objects(MyRSSItem.self)
+            .filter("rssFeed.folder.title CONTAINS[cd] %@ OR rssFeed.folder.parentFolder.title CONTAINS[cd] %@", selectedFolder.title, selectedFolder.title)
+            .sorted(byKeyPath: "date", ascending: false)
     }
     
     // MARK: Navigation
@@ -188,8 +190,8 @@ class ItemTableVC: UITableViewController {
         
         if segue.identifier ==  "ShowFolderContents" {
             // Show folder
-            if let folder = folders?[indexPath.row - specialFoldersCount] {
-                let destinationVC = segue.destination as! FolderTableVC
+            if let folder = polyItems?[indexPath.row - specialFoldersCount].folder {
+                let destinationVC = segue.destination as! ItemTableVC
                 destinationVC.selectedFolder = folder
             }
         }
@@ -222,22 +224,13 @@ extension ItemTableVC {
      - parameter indexPath: The location of the cell (Folder or RSS feed) we want to edit.
      */
     private func editItem(at indexPath: IndexPath) {
-        let foldersCount = folders?.count ?? 0
+        guard let polyItem = polyItems?[indexPath.row - specialFoldersCount] else {
+            fatalError("Error when loading a PolyItem from PolyItems collection.")
+        }
         
-        if indexPath.row < foldersCount + specialFoldersCount {
-            // Go to folder edit screen
-            guard let folder = folders?[indexPath.row - specialFoldersCount] else {
-                fatalError("The folder which is to be removed should exist")
-            }
-            
+        if let folder = polyItem.folder {
             presentEditAlert(folder)
-            
-        } else {
-            // Go to feed edit screen
-            guard let feed = feeds?[indexPath.row - foldersCount - specialFoldersCount] else {
-                fatalError("The feed which is to be removed should exist")
-            }
-            
+        } else if let feed = polyItem.myRssFeed {
             performSegue(withIdentifier: "ShowAddFeed", sender: feed)
         }
     }
@@ -284,21 +277,13 @@ extension ItemTableVC {
      - parameter indexPath: The location of the cell (Folder or RSS feed) we want to remove.
      */
     private func removeItem(at indexPath: IndexPath) {
-        let foldersCount = folders?.count ?? 0
+        guard let polyItem = polyItems?[indexPath.row - specialFoldersCount] else {
+            fatalError("Error when loading a PolyItem from PolyItems collection.")
+        }
         
-        if indexPath.row < foldersCount + specialFoldersCount {
-            // Remove folder and all its contents
-            guard let folder = folders?[indexPath.row - specialFoldersCount] else {
-                fatalError("The folder which is to be removed should exist")
-            }
-            
+        if let folder = polyItem.folder {
             dbHandler.remove(folder)
-        } else {
-            // Remove feed
-            guard let feed = feeds?[indexPath.row - foldersCount - specialFoldersCount] else {
-                fatalError("The feed which is to be removed should exist")
-            }
-            
+        } else if let feed = polyItem.myRssFeed {
             dbHandler.remove(feed)
         }
         

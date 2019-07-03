@@ -14,9 +14,17 @@
             location = "group:RssItemCell.xib">
          </FileRef>
       </Group>
+      <Group
+         location = "group:en.lproj"
+         name = "en.lproj">
+      </Group>
       <FileRef
          location = "group:AddFeed.storyboard">
       </FileRef>
+      <Group
+         location = "group:cs.lproj"
+         name = "cs.lproj">
+      </Group>
       <Group
          location = "group:ItemCell"
          name = "ItemCell">
@@ -56,12 +64,6 @@
       name = "ViewController">
       <FileRef
          location = "group:ItemTableVC.swift">
-      </FileRef>
-      <FileRef
-         location = "group:FolderTableVC.swift">
-      </FileRef>
-      <FileRef
-         location = "group:MainTableVC.swift">
       </FileRef>
       <FileRef
          location = "group:RSSItemVC.swift">
