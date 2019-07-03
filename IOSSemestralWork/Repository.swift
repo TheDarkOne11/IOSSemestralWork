@@ -29,16 +29,18 @@ final class Repository {
     func update(selectedFeed feed: MyRSSFeed, title: String, link: String, folder: Folder) -> SignalProducer<MyRSSFeed, MyRSSFeedError> {
         // TODO: Error handling – change errorMsg to a closure
         dbHandler.realmEdit(errorMsg: "Error occured when updating the RSSFeed") {
-//            let oldFolder: Folder = feed.folder!
-//            let oldIndex: Int = oldFolder.myRssFeeds.index(of: feed)!
-//            
-//            feed.title = title
-//            feed.link = link
-//            
-//            // Change folders
-//            oldFolder.polyItems.remove(at: oldIndex)
-//            feed.folder = folder
-//            folder.polyItems.append(feed)
+            let oldFolder = feed.folder
+            let oldIndex = oldFolder?.polyItems.index(matching: "myRssFeed.link == %@", feed.link)
+            let oldItem = oldFolder?.polyItems[oldIndex!]
+
+            // Update properties
+            feed.title = title
+            feed.link = link
+            feed.folder = folder
+
+            // Change folders
+            oldFolder?.polyItems.remove(at: oldIndex!)
+            folder.polyItems.append(oldItem!)
         }
         return SignalProducer(value: feed)
     }
