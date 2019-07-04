@@ -124,6 +124,8 @@ class RSSFeedEditVC: BaseViewController {
         
         let pickerView = UIPickerView()
         specifyFolder.rows[2] = UIView().addSubViews(pickerView)
+        pickerView.delegate = self
+        pickerView.dataSource = self
         pickerView.snp.makeConstraints { make in
             make.leading.trailing.bottom.top.equalToSuperview()
         }
@@ -150,7 +152,7 @@ class RSSFeedEditVC: BaseViewController {
         
         viewModel.title.value = "Custom title"
         viewModel.link.value = "Custom link"
-        viewModel.folder.value = folder
+        viewModel.selectedFolder.value = folder
         viewModel.feedForUpdate.value = feedForUpdate
         
         viewModel.saveBtnAction.errors.producer.startWithValues { (errors) in
@@ -208,47 +210,43 @@ extension RSSFeedEditVC: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-//extension RSSFeedEditVC: UIPickerViewDelegate, UIPickerViewDataSource {
-//    /**
-//     Number of columns.
-//     */
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        return 1
-//    }
-//
-//    /**
-//     Number of rows.
-//     */
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        if let folders = self.folders {
-//            return folders.count + 1
-//        }
-//
-//        return 1
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        return getFolder(at: row).title
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        folderNameLabel.text = getFolder(at: row).title
-//    }
-//
-//    /**
-//     Selects the folder in the pickerView.
-//     */
-//    func selectPickerRow(for folder: Folder) {
-//        folderNameLabel.text = folder.title
-//
-//        if folder.title == noneFolder.title {
-//            picker.selectRow(0, inComponent: 0, animated: false)
-//        } else {
-//            guard let index = folders?.index(of: folder) else {
-//                fatalError("The selected folder has to exist in Realm.")
-//            }
-//
-//            picker.selectRow(index + 1, inComponent: 0, animated: false)
-//        }
-//    }
-//}
+extension RSSFeedEditVC: UIPickerViewDelegate, UIPickerViewDataSource {
+    /**
+     Number of columns.
+     */
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    /**
+     Number of rows.
+     */
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return viewModel.folders.count + 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return viewModel.getFolder(at: row).title
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        folderNameLabel.text = viewModel.getFolder(at: row).title
+    }
+
+    /**
+     Selects the folder in the pickerView.
+     */
+    func selectPickerRow(for folder: Folder) {
+        folderNameLabel.text = folder.title
+
+        if folder.title == viewModel.noneFolder.title {
+            pickerView.selectRow(0, inComponent: 0, animated: false)
+        } else {
+            guard let index = viewModel.folders.index(of: folder) else {
+                fatalError("The selected folder has to exist in Realm.")
+            }
+
+            pickerView.selectRow(index + 1, inComponent: 0, animated: false)
+        }
+    }
+}

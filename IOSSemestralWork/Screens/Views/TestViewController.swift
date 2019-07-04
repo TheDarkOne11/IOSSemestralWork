@@ -64,7 +64,7 @@ class ViewController: BaseViewController {
         
         viewModel.title.value = "Custom title"
         viewModel.link.value = "Custom link"
-        viewModel.folder.value = folder
+        viewModel.selectedFolder.value = folder
         viewModel.feedForUpdate.value = feedForUpdate
         
         viewModel.saveBtnAction.errors.producer.startWithValues { (errors) in

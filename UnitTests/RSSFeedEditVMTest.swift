@@ -29,7 +29,7 @@ class UnitTests: XCTestCase {
         
         viewModel.title.value = "Custom title"
         viewModel.link.value = "google.com"
-        viewModel.folder.value = folder
+        viewModel.selectedFolder.value = folder
     }
     
     /**
@@ -97,7 +97,7 @@ class UnitTests: XCTestCase {
     func testCreateError() {
         let expectation = XCTestExpectation(description: "Valid viewModel data returns error")
         
-        dependencies.dbHandler.create(MyRSSFeed(title: viewModel.title.value, link: viewModel.link.value, in: viewModel.folder.value))
+        dependencies.dbHandler.create(MyRSSFeed(title: viewModel.title.value, link: viewModel.link.value, in: viewModel.selectedFolder.value))
         
         let polyItemsCount = self.dependencies.realm.objects(PolyItem.self).count
         let rssFeedsCount = self.dependencies.realm.objects(MyRSSFeed.self).count
@@ -143,12 +143,12 @@ class UnitTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Valid viewModel data returns no error")
         
         let folder: Folder = dependencies.realm.objects(Folder.self).filter("title == %@", "None").first!
-        let feedForUpdate = MyRSSFeed(title: viewModel.title.value, link: viewModel.link.value, in: viewModel.folder.value)
+        let feedForUpdate = MyRSSFeed(title: viewModel.title.value, link: viewModel.link.value, in: viewModel.selectedFolder.value)
         
         // Data of the newly updated feed
         viewModel.title.value = "Updated title"
         viewModel.link.value = "seznam.cz"
-        viewModel.folder.value = folder
+        viewModel.selectedFolder.value = folder
         viewModel.feedForUpdate.value = feedForUpdate
         
         dependencies.dbHandler.create(feedForUpdate)
