@@ -29,7 +29,8 @@ final class Repository: IRepository {
     
     func create(rssFeed feed: MyRSSFeed) -> SignalProducer<MyRSSFeed, MyRSSFeedError> {
         // Check for duplicates
-        if let duplicateFeed = dependencies.realm.objects(MyRSSFeed.self).filter("link CONTAINS[cd] %@", feed.link).first {
+        let cleanLink = feed.link.replacingOccurrences(of: "http://", with: "")
+        if let duplicateFeed = dependencies.realm.objects(MyRSSFeed.self).filter("link CONTAINS[cd] %@", cleanLink).first {
             return SignalProducer(error: .exists(duplicateFeed))
         }
         
