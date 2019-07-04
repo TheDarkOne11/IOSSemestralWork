@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.navigationController = navigationController
         
         let vm = RSSFeedEditVM(dependencies: AppDependency.shared)
-        let vc = ViewController(vm)
+        let vc = RSSFeedEditVC(vm)
         navigationController.setViewControllers([vc], animated: true)
         
         // Initialize realm for the first time. That should be the only time an exception is thrown.
