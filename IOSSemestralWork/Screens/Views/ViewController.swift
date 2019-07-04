@@ -59,10 +59,10 @@ class ViewController: BaseViewController {
     
     private func setupBindings() {
         let realm = try! Realm()
-        let folder: Folder = realm.objects(Folder.self).filter("title == %@", "Idnes").first!
-        let feedForUpdate = realm.objects(MyRSSFeed.self).filter("title == %@", "Custom title2").first
+        let folder: Folder = realm.objects(Folder.self).filter("title == %@", "None").first!
+        let feedForUpdate = realm.objects(MyRSSFeed.self).filter("title == %@", "Custom title").first
         
-        viewModel.title.value = "Custom title3"
+        viewModel.title.value = "Custom title"
         viewModel.link.value = "Custom link"
         viewModel.folder.value = folder
         viewModel.feedForUpdate.value = feedForUpdate

@@ -10,38 +10,50 @@ import Foundation
 import RealmSwift
 import ReactiveSwift
 
-final class Repository {
-    let realm = try! Realm()
-    let dbHandler = DBHandler(realm: try! Realm())
+protocol HasRepository {
+    var repository: IRepository { get }
+}
+
+protocol IRepository {
+    func create(rssFeed feed: MyRSSFeed) -> SignalProducer<MyRSSFeed, MyRSSFeedError>
+    func update(selectedFeed oldFeed: MyRSSFeed, with newFeed: MyRSSFeed) -> SignalProducer<MyRSSFeed, MyRSSFeedError>
+}
+
+final class Repository: IRepository {
+    typealias Dependencies = HasDBHandler
+    private let dependencies: Dependencies
     
-    func create(title: String, link: String, folder: Folder) -> SignalProducer<MyRSSFeed, MyRSSFeedError> {
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
+    }
+    
+    func create(rssFeed feed: MyRSSFeed) -> SignalProducer<MyRSSFeed, MyRSSFeedError> {
         // Check for duplicates
-        if let duplicateFeed = realm.objects(MyRSSFeed.self).filter("link CONTAINS[cd] %@", link).first {
+        if let duplicateFeed = dependencies.realm.objects(MyRSSFeed.self).filter("link CONTAINS[cd] %@", feed.link).first {
             return SignalProducer(error: .exists(duplicateFeed))
         }
         
         // Save the new feed
-        let myRssFeed = MyRSSFeed(title: title, link: link, in: folder)
-        dbHandler.create(myRssFeed)
-        return SignalProducer(value: myRssFeed)
+        dependencies.dbHandler.create(feed)
+        return SignalProducer(value: feed)
     }
     
-    func update(selectedFeed feed: MyRSSFeed, title: String, link: String, folder: Folder) -> SignalProducer<MyRSSFeed, MyRSSFeedError> {
+    func update(selectedFeed oldFeed: MyRSSFeed, with newFeed: MyRSSFeed) -> SignalProducer<MyRSSFeed, MyRSSFeedError> {
         // TODO: Error handling – change errorMsg to a closure
-        dbHandler.realmEdit(errorMsg: "Error occured when updating the RSSFeed") {
-            let oldFolder = feed.folder
-            let oldIndex = oldFolder?.polyItems.index(matching: "myRssFeed.link == %@", feed.link)
+        dependencies.dbHandler.realmEdit(errorMsg: "Error occured when updating the RSSFeed") {
+            let oldFolder = oldFeed.folder
+            let oldIndex = oldFolder?.polyItems.index(matching: "myRssFeed.link == %@", oldFeed.link)
             let oldItem = oldFolder?.polyItems[oldIndex!]
 
             // Update properties
-            feed.title = title
-            feed.link = link
-            feed.folder = folder
+            oldFeed.title = newFeed.title
+            oldFeed.link = newFeed.link
+            oldFeed.folder = newFeed.folder
 
             // Change folders
             oldFolder?.polyItems.remove(at: oldIndex!)
-            folder.polyItems.append(oldItem!)
+            newFeed.folder?.polyItems.append(oldItem!)
         }
-        return SignalProducer(value: feed)
+        return SignalProducer(value: oldFeed)
     }
 }

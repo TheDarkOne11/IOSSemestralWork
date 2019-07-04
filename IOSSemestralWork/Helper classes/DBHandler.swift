@@ -11,6 +11,11 @@ import RealmSwift
 import Alamofire
 import AlamofireRSSParser
 
+protocol HasDBHandler {
+    var realm: Realm { get }
+    var dbHandler: DBHandler { get }
+}
+
 enum DownloadStatus: String {
     case OK
     case NotOK
@@ -196,7 +201,7 @@ class DBHandler {
                 
                 // Add the item only if it doesn't exist already
                 if realm.object(ofType: MyRSSItem.self, forPrimaryKey: myRssItem.articleLink) == nil {
-                    realm.add(myRssItem, update: false)
+                    realm.add(myRssItem, update: .error)
                     
                     myRssFeed.myRssItems.append(myRssItem)
                 }

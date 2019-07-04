@@ -20,13 +20,17 @@ protocol RSSFeedEditProtocol {
 }
 
 final class RSSFeedEditVM: BaseViewModel, RSSFeedEditProtocol {
-    private let repository: Repository = Repository()
-    private let realm = try! Realm()
+    typealias Dependencies = HasRepository
+    private let dependencies: Dependencies
     
     let title = MutableProperty<String>("")
     let link = MutableProperty<String>("")
     let feedForUpdate = MutableProperty<MyRSSFeed?>(nil)
     let folder = MutableProperty<Folder?>(nil)
+    
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
+    }
     
     /*
      Action that starts when the Save button is clicked.
@@ -44,10 +48,11 @@ final class RSSFeedEditVM: BaseViewModel, RSSFeedEditProtocol {
             title = link
         }
         
+        let newFeed = MyRSSFeed(title: title, link: link, in: folder)
         if let feed = self.feedForUpdate.value {
-            return self.repository.update(selectedFeed: feed, title: title, link: link, folder: folder)
+            return self.dependencies.repository.update(selectedFeed: feed, with: newFeed)
         } else {
-            return self.repository.create(title: title, link: link, folder: folder)
+            return self.dependencies.repository.create(rssFeed: newFeed)
         }
     }
 }

@@ -21,16 +21,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      */
     public static let isProduction : Bool = {
         #if DEBUG
-        print("DEBUG")
-        let dic = ProcessInfo.processInfo.environment
-        if let forceProduction = dic["forceProduction"] , forceProduction == "true" {
-            return true
-        }
-        return false
+            print("DEBUG")
+            let dic = ProcessInfo.processInfo.environment
+            if let forceProduction = dic["forceProduction"] , forceProduction == "true" {
+                return true
+            }
+            return false
         
         #else
-        print("PRODUCTION")
-        return true
+            print("PRODUCTION")
+            return true
         #endif
     }()
 
@@ -44,19 +44,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = navigationController
         self.navigationController = navigationController
         
-        let vm = RSSFeedEditVM()
+        let vm = RSSFeedEditVM(dependencies: AppDependency.shared)
         let vc = ViewController(vm)
         navigationController.setViewControllers([vc], animated: true)
         
         // Initialize realm for the first time. That should be the only time an exception is thrown.
-        do {
-            let realm = try Realm()
-
-            if realm.isEmpty {
-                firstTimeInit(realm)
-            }
-        } catch {
-            print("Error initializing new Realm for the first time: \(error)")
+        let realm = AppDependency.shared.realm
+        
+        if realm.isEmpty {
+            firstTimeInit(realm)
         }
 
         // Set background fetch intervals
