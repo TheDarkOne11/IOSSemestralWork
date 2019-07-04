@@ -25,7 +25,6 @@
 		4B0EA17622C0D6F8004411BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B0EA17222C0D6F8004411BD /* LaunchScreen.storyboard */; };
 		4B0EA17922C0D712004411BD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0EA17822C0D712004411BD /* ViewController.swift */; };
 		4B0EA48122C0DF6A004411BD /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 4B0EA48022C0DF6A004411BD /* .gitignore */; };
-		4B26972B22CCEFE300AEE247 /* RealmProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B26972A22CCEFE300AEE247 /* RealmProvider.swift */; };
 		4B27865F22CB4A6F002FD614 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27865E22CB4A6F002FD614 /* Repository.swift */; };
 		4B27866F22CB545F002FD614 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27866B22CB545F002FD614 /* UserDefaultsKeys.swift */; };
 		4B27867022CB545F002FD614 /* DBHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27866C22CB545F002FD614 /* DBHandler.swift */; };
@@ -37,7 +36,8 @@
 		4BCD96A322CB953400F214E2 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD96A222CB953400F214E2 /* Errors.swift */; };
 		4BCD96A622CB99BC00F214E2 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD96A522CB99BC00F214E2 /* Base.swift */; };
 		4BCD96A922CB9BD000F214E2 /* RSSFeedEditVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD96A822CB9BD000F214E2 /* RSSFeedEditVM.swift */; };
-		4BD2DD0222CDFDDA00F445F4 /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD2DD0122CDFDDA00F445F4 /* AppDependency.swift */; };
+		4BD2DD0622CE0C8800F445F4 /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD2DD0122CDFDDA00F445F4 /* AppDependency.swift */; };
+		4BD2DD0822CE0C9C00F445F4 /* TestDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD2DD0722CE0C9C00F445F4 /* TestDependency.swift */; };
 		4BE8021222CCED500014DED4 /* RSSFeedEditVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8021122CCED500014DED4 /* RSSFeedEditVMTest.swift */; };
 		4BE8A5FB21D6CB05009B66F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */; };
 		4BE8A60221D6CB06009B66F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BE8A60121D6CB06009B66F0 /* Assets.xcassets */; };
@@ -64,7 +64,6 @@
 		4B0EA17322C0D6F8004411BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B0EA17822C0D712004411BD /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4B0EA48022C0DF6A004411BD /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
-		4B26972A22CCEFE300AEE247 /* RealmProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmProvider.swift; sourceTree = "<group>"; };
 		4B27865E22CB4A6F002FD614 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		4B27866B22CB545F002FD614 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		4B27866C22CB545F002FD614 /* DBHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBHandler.swift; sourceTree = "<group>"; };
@@ -78,6 +77,7 @@
 		4BCD96A522CB99BC00F214E2 /* Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = "<group>"; };
 		4BCD96A822CB9BD000F214E2 /* RSSFeedEditVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedEditVM.swift; sourceTree = "<group>"; };
 		4BD2DD0122CDFDDA00F445F4 /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
+		4BD2DD0722CE0C9C00F445F4 /* TestDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDependency.swift; sourceTree = "<group>"; };
 		4BE8020F22CCED500014DED4 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BE8021122CCED500014DED4 /* RSSFeedEditVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedEditVMTest.swift; sourceTree = "<group>"; };
 		4BE8021322CCED500014DED4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -178,8 +178,8 @@
 			isa = PBXGroup;
 			children = (
 				4BE8021122CCED500014DED4 /* RSSFeedEditVMTest.swift */,
+				4BD2DD0722CE0C9C00F445F4 /* TestDependency.swift */,
 				4BE8021322CCED500014DED4 /* Info.plist */,
-				4B26972A22CCEFE300AEE247 /* RealmProvider.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -554,8 +554,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BD2DD0822CE0C9C00F445F4 /* TestDependency.swift in Sources */,
 				4BE8021222CCED500014DED4 /* RSSFeedEditVMTest.swift in Sources */,
-				4B26972B22CCEFE300AEE247 /* RealmProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,7 +569,7 @@
 				4B27865F22CB4A6F002FD614 /* Repository.swift in Sources */,
 				4B4A74CF22CCC3F6000D63B2 /* MyRSSItem.swift in Sources */,
 				4B27866F22CB545F002FD614 /* UserDefaultsKeys.swift in Sources */,
-				4BD2DD0222CDFDDA00F445F4 /* AppDependency.swift in Sources */,
+				4BD2DD0622CE0C8800F445F4 /* AppDependency.swift in Sources */,
 				4B27867022CB545F002FD614 /* DBHandler.swift in Sources */,
 				4B4A74D122CCC3F6000D63B2 /* Item.swift in Sources */,
 				4BCD96A322CB953400F214E2 /* Errors.swift in Sources */,

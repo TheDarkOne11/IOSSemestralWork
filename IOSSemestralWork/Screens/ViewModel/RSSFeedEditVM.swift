@@ -10,7 +10,7 @@ import Foundation
 import ReactiveSwift
 import RealmSwift
 
-protocol RSSFeedEditProtocol {
+protocol IRSSFeedEditVM {
     var title: MutableProperty<String> { get }
     var link: MutableProperty<String> { get }
     var feedForUpdate: MutableProperty<MyRSSFeed?> { get }
@@ -19,7 +19,7 @@ protocol RSSFeedEditProtocol {
     var saveBtnAction: Action<Void, MyRSSFeed, MyRSSFeedError> { get }
 }
 
-final class RSSFeedEditVM: BaseViewModel, RSSFeedEditProtocol {
+final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
     typealias Dependencies = HasRepository
     private let dependencies: Dependencies
     

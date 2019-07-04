@@ -4,12 +4,12 @@ import ReactiveSwift
 import RealmSwift
 
 class ViewController: BaseViewController {
-    private let viewModel: RSSFeedEditProtocol
+    private let viewModel: IRSSFeedEditVM
     
     private weak var versionLabel: UILabel!
     private weak var buildNumberLabel: UILabel!
     
-    init(_ viewModel: RSSFeedEditProtocol) {
+    init(_ viewModel: IRSSFeedEditVM) {
         self.viewModel = viewModel
         
         super.init()

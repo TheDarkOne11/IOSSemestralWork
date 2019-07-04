@@ -26,12 +26,7 @@ extension AppDependency: HasDBHandler {
      */
     private static func realm() -> Realm {
         do {
-            if let _ = NSClassFromString("XCTest") {
-                return try Realm(configuration: Realm.Configuration(inMemoryIdentifier: "test", encryptionKey: nil, readOnly: false, schemaVersion: 0, migrationBlock: nil, objectTypes: nil))
-            } else {
-                return try Realm();
-                
-            }
+            return try Realm();
         } catch {
             fatalError("Error initializing new Realm for the first time: \(error)")
         }
