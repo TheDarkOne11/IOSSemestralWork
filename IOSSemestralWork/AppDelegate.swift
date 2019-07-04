@@ -74,15 +74,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaults = UserDefaults.standard
         
         // Create special "None" folder
-        let folderNone: Folder = Folder(with: UserDefaultsKeys.NoneFolderTitle.rawValue)
+        let folderNone: Folder = Folder(withTitle: UserDefaultsKeys.NoneFolderTitle.rawValue)
         dbHandler.create(folderNone)
         
         // Set important values in UserDefaults
         defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
         
         if !AppDelegate.isProduction {
-            let folderIdnes = Folder(with: "Idnes", in: folderNone)
-            let folderImages = Folder(with: "WithImages", in: folderNone)
+            let folderIdnes = Folder(withTitle: "Idnes", in: folderNone)
+            let folderImages = Folder(withTitle: "WithImages", in: folderNone)
             
             dbHandler.create(folderIdnes)
             dbHandler.create(folderImages)

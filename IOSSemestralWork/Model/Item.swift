@@ -16,6 +16,7 @@ enum ItemType: String {
 }
 
 class Item: Object {
+    @objc dynamic var itemId = UUID().uuidString
     @objc dynamic var title: String = "SomeItem"
     
     /**
@@ -36,6 +37,10 @@ class Item: Object {
         self.init()
         self.title = title
         self.type = type
+    }
+    
+    override static func primaryKey() -> String? {
+        return "itemId"
     }
 }
 

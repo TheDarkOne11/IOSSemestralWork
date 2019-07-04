@@ -28,7 +28,7 @@ class UnitTests: XCTestCase {
         let folder: Folder = dependencies.realm.objects(Folder.self).filter("title == %@", "None").first!
         
         viewModel.title.value = "Custom title"
-        viewModel.link.value = "Custom link"
+        viewModel.link.value = "google.com"
         viewModel.folder.value = folder
     }
     
@@ -39,25 +39,15 @@ class UnitTests: XCTestCase {
         let defaults = UserDefaults.standard
         
         // Create special "None" folder
-        let folderNone: Folder = Folder(with: UserDefaultsKeys.NoneFolderTitle.rawValue)
+        let folderNone: Folder = Folder(withTitle: UserDefaultsKeys.NoneFolderTitle.rawValue)
         dependencies.dbHandler.create(folderNone)
         
         // Set important values in UserDefaults
         defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
         
-        if !AppDelegate.isProduction {
-            let folderIdnes = Folder(with: "Idnes", in: folderNone)
-            let folderImages = Folder(with: "WithImages", in: folderNone)
-            
-            dependencies.dbHandler.create(folderIdnes)
-            dependencies.dbHandler.create(folderImages)
-            
-            dependencies.dbHandler.create(MyRSSFeed(title: "Zpravodaj", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj", in: folderIdnes))
-            dependencies.dbHandler.create(MyRSSFeed(title: "Sport", link: "https://servis.idnes.cz/rss.aspx?c=sport", in: folderIdnes))
-            dependencies.dbHandler.create(MyRSSFeed(title: "Wired", link: "http://wired.com/feed/rss", in: folderImages))
-            dependencies.dbHandler.create(MyRSSFeed(title: "Lifehacker", link: "https://lifehacker.com/rss", in: folderImages))
-            dependencies.dbHandler.create(MyRSSFeed(title: "FOX", link: "http://feeds.foxnews.com/foxnews/latest", in: folderNone))
-        }
+        let folderIdnes = Folder(withTitle: "Idnes", in: folderNone)
+        dependencies.dbHandler.create(folderIdnes)
+        dependencies.dbHandler.create(MyRSSFeed(title: "Zpravodaj", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj", in: folderIdnes))
     }
 
     override func tearDown() {
@@ -68,6 +58,22 @@ class UnitTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Valid viewModel data returns no error")
         
         viewModel.saveBtnAction.completed.observeValues {
+            let rssFeedRes = self.dependencies.realm.objects(MyRSSFeed.self).filter("title CONTAINS[cd] %@", self.viewModel.title.value)
+            let polyItemRes = self.dependencies.realm.objects(PolyItem.self).filter("myRssFeed.title CONTAINS[cd] %@", self.viewModel.title.value)
+            
+            XCTAssertTrue(polyItemRes.count == 1)
+            XCTAssertTrue(rssFeedRes.count == 1)
+            
+            let rssFeed: MyRSSFeed = rssFeedRes.first!
+            let polyItem: PolyItem = polyItemRes.first!
+            
+            XCTAssertNotNil(polyItem.myRssFeed)
+            XCTAssertTrue(polyItem.myRssFeed!.itemId == rssFeed.itemId)
+            
+            XCTAssertNotNil(rssFeed.folder)
+            XCTAssertTrue(rssFeed.link.contains(self.viewModel.link.value))
+            XCTAssertTrue(rssFeed.link.starts(with: "http://"))
+            
             expectation.fulfill()
         }
         

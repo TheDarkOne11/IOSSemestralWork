@@ -10,7 +10,7 @@ import Foundation
 import AlamofireRSSParser
 
 class MyRSSItem: Item {
-    @objc dynamic var articleLink: String = UUID().uuidString
+    @objc dynamic var articleLink: String = ""
     @objc dynamic var itemDescription: String = ""
     @objc dynamic var author: String = ""
     @objc dynamic var date: Date?
@@ -36,10 +36,6 @@ class MyRSSItem: Item {
         self.rssFeed = myRssFeed
         
         setImage(rssItem)
-    }
-    
-    override static func primaryKey() -> String? {
-        return "articleLink"
     }
     
     /**
