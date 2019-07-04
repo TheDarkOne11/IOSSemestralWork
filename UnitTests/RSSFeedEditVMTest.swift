@@ -10,7 +10,7 @@ import XCTest
 @testable import IOSSemestralWork
 
 class UnitTests: XCTestCase {
-    typealias Dependencies = HasRepository & HasDBHandler
+    typealias Dependencies = HasRepository & HasDBHandler & HasRealm
     private let dependencies: Dependencies = TestDependency.shared
     
     private lazy var viewModel: IRSSFeedEditVM = {
@@ -83,7 +83,36 @@ class UnitTests: XCTestCase {
     }
     
     func testCreateError() {
+        let expectation = XCTestExpectation(description: "Valid viewModel data returns error")
         
+        let feed = MyRSSFeed(title: viewModel.title.value, link: viewModel.link.value, in: viewModel.folder.value)
+        dependencies.dbHandler.create(feed)
+        
+        viewModel.saveBtnAction.errors.observeValues { error in
+            let rssFeedRes = self.dependencies.realm.objects(MyRSSFeed.self).filter("title CONTAINS[cd] %@", self.viewModel.title.value)
+            let polyItemRes = self.dependencies.realm.objects(PolyItem.self).filter("myRssFeed.title CONTAINS[cd] %@", self.viewModel.title.value)
+            
+            XCTAssertTrue(polyItemRes.count == 1)
+            XCTAssertTrue(rssFeedRes.count == 1)
+            
+            let rssFeed: MyRSSFeed = rssFeedRes.first!
+            let polyItem: PolyItem = polyItemRes.first!
+            
+            XCTAssertNotNil(polyItem.myRssFeed)
+            XCTAssertTrue(polyItem.myRssFeed!.itemId == rssFeed.itemId)
+            
+            XCTAssertNotNil(rssFeed.folder)
+            XCTAssertTrue(rssFeed.link.contains(self.viewModel.link.value))
+            XCTAssertTrue(rssFeed.link.starts(with: "http://"))
+            
+            
+            
+            expectation.fulfill()
+        }
+        
+        viewModel.saveBtnAction.apply().start()
+        
+        wait(for: [expectation], timeout: 10)
     }
     
     func testUpdateOk() {

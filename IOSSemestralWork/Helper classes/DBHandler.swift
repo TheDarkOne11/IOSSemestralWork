@@ -11,8 +11,11 @@ import RealmSwift
 import Alamofire
 import AlamofireRSSParser
 
-protocol HasDBHandler {
+protocol HasRealm {
     var realm: Realm { get }
+}
+
+protocol HasDBHandler {
     var dbHandler: DBHandler { get }
 }
 
@@ -26,10 +29,11 @@ enum DownloadStatus: String {
  This class has all methods for manipulation with Models in Realm database.
  */
 class DBHandler {
-    let realm: Realm!
+    typealias Dependencies = HasRealm
+    private let dependencies: Dependencies
     
-    init(realm: Realm) {
-        self.realm = realm
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
     }
     
     /**
@@ -39,7 +43,7 @@ class DBHandler {
      */
     func realmEdit(errorMsg: String, editCode: () -> Void) {
         do {
-            try realm.write {
+            try dependencies.realm.write {
                 editCode()
             }
         } catch {
@@ -65,11 +69,11 @@ class DBHandler {
             if let parentFolder = folder.parentFolder {
                 parentFolder.polyItems.append(folder)
             } else {
-                realm.add(folder)
+                dependencies.realm.add(folder)
                 
                 let polyItem = PolyItem()
                 polyItem.folder = folder
-                realm.add(polyItem)
+                dependencies.realm.add(polyItem)
             }
         }
     }
@@ -81,7 +85,7 @@ class DBHandler {
         }
         
         realmEdit(errorMsg: "Error occured when removing a folder \(folder.title)") {
-            realm.delete(folder)
+            dependencies.realm.delete(folder)
         }
     }
     
@@ -95,8 +99,8 @@ class DBHandler {
     
     func remove(_ myRssFeed: MyRSSFeed) {
         realmEdit(errorMsg: "Error occured when removing a folder \(myRssFeed.title)") {
-            realm.delete(myRssFeed.myRssItems)
-            realm.delete(myRssFeed)
+            dependencies.realm.delete(myRssFeed.myRssItems)
+            dependencies.realm.delete(myRssFeed)
         }
     }
     
@@ -116,7 +120,7 @@ class DBHandler {
             return
         }
         
-        for feed in realm.objects(MyRSSFeed.self) {
+        for feed in dependencies.realm.objects(MyRSSFeed.self) {
             
             // Do not update bad feeds
             if !feed.isOk {
@@ -200,8 +204,8 @@ class DBHandler {
                 let myRssItem = MyRSSItem(item, myRssFeed)
                 
                 // Add the item only if it doesn't exist already
-                if realm.object(ofType: MyRSSItem.self, forPrimaryKey: myRssItem.itemId) == nil {
-                    realm.add(myRssItem, update: .error)
+                if dependencies.realm.object(ofType: MyRSSItem.self, forPrimaryKey: myRssItem.itemId) == nil {
+                    dependencies.realm.add(myRssItem, update: .error)
                     
                     myRssFeed.myRssItems.append(myRssItem)
                 }

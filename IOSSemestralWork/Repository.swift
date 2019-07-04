@@ -20,7 +20,7 @@ protocol IRepository {
 }
 
 final class Repository: IRepository {
-    typealias Dependencies = HasDBHandler
+    typealias Dependencies = HasDBHandler & HasRealm
     private let dependencies: Dependencies
     
     init(dependencies: Dependencies) {

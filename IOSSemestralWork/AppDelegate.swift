@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let realm = AppDependency.shared.realm
         
         if realm.isEmpty {
-            firstTimeInit(realm)
+            firstTimeInit(AppDependency.shared.dbHandler)
         }
 
         // Set background fetch intervals
@@ -69,8 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /**
      Operations which are done only when the app is launched for the first time.
      */
-    private func firstTimeInit(_ realm: Realm) {
-        let dbHandler = DBHandler(realm: try! Realm())
+    private func firstTimeInit(_ dbHandler: DBHandler) {
         let defaults = UserDefaults.standard
         
         // Create special "None" folder

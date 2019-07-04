@@ -14,12 +14,13 @@ final class AppDependency{
     static let shared = AppDependency()
     
     lazy var realm: Realm = AppDependency.realm()
-    lazy var dbHandler: DBHandler = DBHandler(realm: AppDependency.realm())
+    lazy var dbHandler: DBHandler = DBHandler(dependencies: AppDependency.shared)
     
     lazy var repository: IRepository = Repository(dependencies: AppDependency.shared)
 }
 
 extension AppDependency: HasRepository { }
+extension AppDependency: HasRealm { }
 extension AppDependency: HasDBHandler {
     /**
      Provides Realm DB object. Automatically creates in-memory Realm DB object when testing.

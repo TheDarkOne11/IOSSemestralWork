@@ -14,22 +14,24 @@ protocol IRSSFeedEditVM {
     var title: MutableProperty<String> { get }
     var link: MutableProperty<String> { get }
     var feedForUpdate: MutableProperty<MyRSSFeed?> { get }
-    var folder: MutableProperty<Folder?> { get }
+    var folder: MutableProperty<Folder> { get }
     
     var saveBtnAction: Action<Void, MyRSSFeed, MyRSSFeedError> { get }
 }
 
 final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
-    typealias Dependencies = HasRepository
+    typealias Dependencies = HasRepository & HasRealm
     private let dependencies: Dependencies
     
     let title = MutableProperty<String>("")
     let link = MutableProperty<String>("")
     let feedForUpdate = MutableProperty<MyRSSFeed?>(nil)
-    let folder = MutableProperty<Folder?>(nil)
+    let folder: MutableProperty<Folder>
     
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
+        let noneFolder = dependencies.realm.objects(Folder.self).filter("title == %@", UserDefaultsKeys.NoneFolderTitle.rawValue).first!
+        folder = MutableProperty<Folder>(noneFolder)
     }
     
     /*
@@ -38,7 +40,7 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
     lazy var saveBtnAction = Action<Void, MyRSSFeed, MyRSSFeedError> { [unowned self] in
         var link = self.link.value
         var title = self.title.value
-        var folder: Folder = self.folder.value!
+        var folder: Folder = self.folder.value
         
         if !link.starts(with: "http://") && !link.starts(with: "https://") {
             link = "http://" + link
