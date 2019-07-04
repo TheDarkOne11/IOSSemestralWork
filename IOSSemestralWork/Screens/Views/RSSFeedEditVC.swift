@@ -3,14 +3,32 @@ import SnapKit
 import ReactiveSwift
 import RealmSwift
 
+struct Section {
+    var rows: Int
+    var header: String?
+    var footer: String?
+    
+    init(rows: Int, header: String? = nil, footer: String? = nil) {
+        self.rows = rows
+        self.header = header
+        self.footer = footer
+    }
+}
+
 class RSSFeedEditVC: BaseViewController {
     private let viewModel: IRSSFeedEditVM
+    //    private weak var versionLabel: UILabel!
+    private var tableView: UITableView!
     
-    private weak var versionLabel: UILabel!
-    private weak var buildNumberLabel: UILabel!
+    private let sections: [Section]
     
     init(_ viewModel: IRSSFeedEditVM) {
         self.viewModel = viewModel
+        
+        sections = [
+            Section(rows: 2, header: "Feed Details"),
+            Section(rows: 3, header: "Specify Folder")
+        ]
         
         super.init()
     }
@@ -23,7 +41,14 @@ class RSSFeedEditVC: BaseViewController {
         super.loadView()
         view.backgroundColor = .white
         
+        tableView = UITableView(frame: self.view.bounds, style: UITableView.Style.grouped)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.backgroundColor = UIColor.white
         
+        //FIXME: Change to ItemCell
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "my")
+        view.addSubview(tableView)
     }
     
     override func viewDidLoad() {
@@ -64,3 +89,34 @@ class RSSFeedEditVC: BaseViewController {
     
 }
 
+extension RSSFeedEditVC: UITableViewDelegate {
+    
+}
+
+extension RSSFeedEditVC: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section].header
+    }
+    
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return sections[section].footer
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //FIXME: Use Sections enum
+        return sections[section].rows
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "my", for: indexPath)
+        cell.textLabel?.text = "This is row \(indexPath.row)"
+        
+        return cell
+    }
+    
+    
+}

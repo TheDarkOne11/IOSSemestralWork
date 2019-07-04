@@ -80,6 +80,10 @@
 		4BD2DD0122CDFDDA00F445F4 /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
 		4BD2DD0722CE0C9C00F445F4 /* TestDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDependency.swift; sourceTree = "<group>"; };
 		4BE44F8422CE43560042925A /* RSSFeedEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedEditVC.swift; sourceTree = "<group>"; };
+		4BE44F8622CE4BBE0042925A /* RssItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RssItemCell.swift; sourceTree = "<group>"; };
+		4BE44F8722CE4BBE0042925A /* RssItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RssItemCell.xib; sourceTree = "<group>"; };
+		4BE44F8922CE4BBF0042925A /* ItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
+		4BE44F8A22CE4BBF0042925A /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		4BE8020F22CCED500014DED4 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BE8021122CCED500014DED4 /* RSSFeedEditVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedEditVMTest.swift; sourceTree = "<group>"; };
 		4BE8021322CCED500014DED4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -160,11 +164,33 @@
 			isa = PBXGroup;
 			children = (
 				4BCD96A522CB99BC00F214E2 /* Base.swift */,
+				4BE44F8822CE4BBE0042925A /* RssItemCell */,
+				4BE44F8B22CE4BBF0042925A /* ItemCell */,
 				4BCD96A722CB9A0100F214E2 /* Views */,
 				4BCD96A422CB98B000F214E2 /* ViewModel */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
+		};
+		4BE44F8822CE4BBE0042925A /* RssItemCell */ = {
+			isa = PBXGroup;
+			children = (
+				4BE44F8622CE4BBE0042925A /* RssItemCell.swift */,
+				4BE44F8722CE4BBE0042925A /* RssItemCell.xib */,
+			);
+			name = RssItemCell;
+			path = /Users/petr/Documents/Projects/IOS_Projects/School/IOSSemestralWork/IOSSemestralWork/Screens/RssItemCell;
+			sourceTree = "<absolute>";
+		};
+		4BE44F8B22CE4BBF0042925A /* ItemCell */ = {
+			isa = PBXGroup;
+			children = (
+				4BE44F8922CE4BBF0042925A /* ItemCell.xib */,
+				4BE44F8A22CE4BBF0042925A /* ItemCell.swift */,
+			);
+			name = ItemCell;
+			path = /Users/petr/Documents/Projects/IOS_Projects/School/IOSSemestralWork/IOSSemestralWork/Screens/ItemCell;
+			sourceTree = "<absolute>";
 		};
 		4BE4C06321DA38DA00505A0F /* SupportFiles */ = {
 			isa = PBXGroup;

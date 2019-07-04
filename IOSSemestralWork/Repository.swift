@@ -40,7 +40,7 @@ final class Repository: IRepository {
     }
     
     func update(selectedFeed oldFeed: MyRSSFeed, with newFeed: MyRSSFeed) -> SignalProducer<MyRSSFeed, MyRSSFeedError> {
-        // TODO: Error handling – change errorMsg to a closure
+        //TODO: Error handling – change errorMsg to a closure
         dependencies.dbHandler.realmEdit(errorMsg: "Error occured when updating the RSSFeed") {
             let oldFolder = oldFeed.folder
             let oldIndex = oldFolder?.polyItems.index(matching: "myRssFeed.link == %@", oldFeed.link)

@@ -5,7 +5,7 @@
       location = "group:View"
       name = "View">
       <Group
-         location = "group:RssItemCell"
+         location = "group:/Users/petr/Documents/Projects/IOS_Projects/School/IOSSemestralWork/IOSSemestralWork/Screens/RssItemCell"
          name = "RssItemCell">
          <FileRef
             location = "group:RssItemCell.swift">
@@ -18,7 +18,7 @@
          location = "group:AddFeed.storyboard">
       </FileRef>
       <Group
-         location = "group:ItemCell"
+         location = "group:/Users/petr/Documents/Projects/IOS_Projects/School/IOSSemestralWork/IOSSemestralWork/Screens/ItemCell"
          name = "ItemCell">
          <FileRef
             location = "group:ItemCell.xib">
