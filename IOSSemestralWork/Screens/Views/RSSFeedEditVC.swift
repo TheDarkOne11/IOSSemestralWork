@@ -1,6 +1,7 @@
 import UIKit
 import SnapKit
 import ReactiveSwift
+import ReactiveCocoa
 import RealmSwift
 
 extension UIView {
@@ -13,15 +14,31 @@ extension UIView {
     }
 }
 
-struct Section {
-    var rows: [UIView?]
+class Section {
+    var rows: [Row] = []
     var header: String?
     var footer: String?
     
     init(rows: Int, header: String? = nil, footer: String? = nil) {
-        self.rows = Array(repeating: nil, count: rows)
         self.header = header
         self.footer = footer
+        
+        for _ in 0..<rows {
+            self.rows.append(Row())
+        }
+    }
+}
+
+class Row {
+    typealias SelectedAction = () -> ()
+    var contentView: UIView?
+    var isHidden: Bool
+    var onSelected: SelectedAction?
+    
+    init(contentView: UIView? = nil, isHidden: Bool = false, isSelected: SelectedAction? = nil) {
+        self.contentView = contentView
+        self.onSelected = isSelected
+        self.isHidden = isHidden
     }
 }
 
@@ -56,7 +73,6 @@ class RSSFeedEditVC: BaseViewController {
         tableView.delegate = self
         tableView.backgroundColor = UIColor.white
         
-        //FIXME: Change to ItemCell
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "my")
         view.addSubview(tableView)
         self.tableView = tableView
@@ -65,13 +81,13 @@ class RSSFeedEditVC: BaseViewController {
     }
     
     private func prepareRows() {
-        var feedDetails = Section(rows: 2, header: "Feed Details")
-        var specifyFolder = Section(rows: 3, header: "Specify Folder")
+        let feedDetails = Section(rows: 2, header: "Feed Details")
+        let specifyFolder = Section(rows: 3, header: "Specify Folder")
         
         // Create rows
         // Feed details rows
         let feedNameField = UITextField()
-        feedDetails.rows[0] = UIView().addSubViews(feedNameField)
+        feedDetails.rows[0].contentView = UIView().addSubViews(feedNameField)
         feedNameField.placeholder = "Name"
         feedNameField.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
@@ -79,8 +95,9 @@ class RSSFeedEditVC: BaseViewController {
         }
         self.feedNameField = feedNameField
         
+        
         let linkField = UITextField()
-        feedDetails.rows[1] = UIView().addSubViews(linkField)
+        feedDetails.rows[1].contentView = UIView().addSubViews(linkField)
         linkField.placeholder = "http://..."
         linkField.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
@@ -94,7 +111,7 @@ class RSSFeedEditVC: BaseViewController {
         
         // Specify folder rows
         let addFolderLabel = UILabel()
-        specifyFolder.rows[0] = UIView().addSubViews(addFolderLabel)
+        specifyFolder.rows[0].contentView = UIView().addSubViews(addFolderLabel)
         addFolderLabel.text = "Add a new Folder"
         addFolderLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
@@ -102,9 +119,10 @@ class RSSFeedEditVC: BaseViewController {
         }
         self.addFolderLabel = addFolderLabel
         
+        
         let folderLabel = UILabel()
         let folderNameLabel = UILabel()
-        specifyFolder.rows[1] = UIView().addSubViews(folderLabel, folderNameLabel)
+        specifyFolder.rows[1].contentView = UIView().addSubViews(folderLabel, folderNameLabel)
         folderLabel.text = "Folder:"
         folderNameLabel.text = "TEMP"   //FIXME: Add folder name
         folderLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -122,14 +140,22 @@ class RSSFeedEditVC: BaseViewController {
         self.folderLabel = folderLabel
         self.folderNameLabel = folderNameLabel
         
+        
         let pickerView = UIPickerView()
-        specifyFolder.rows[2] = UIView().addSubViews(pickerView)
+        specifyFolder.rows[2].contentView = UIView().addSubViews(pickerView)
+        specifyFolder.rows[2].isHidden = true
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.snp.makeConstraints { make in
             make.leading.trailing.bottom.top.equalToSuperview()
         }
         self.pickerView = pickerView
+        
+        specifyFolder.rows[1].onSelected = {
+            let row = specifyFolder.rows[2]
+            row.isHidden = !row.isHidden
+            folderNameLabel.textColor = row.isHidden ? UIColor.black : UIColor.red
+        }
         
         // Add sections to the array
         sections.append(feedDetails)
@@ -146,15 +172,6 @@ class RSSFeedEditVC: BaseViewController {
     }
     
     private func setupBindings() {
-        let realm = try! Realm()
-        let folder: Folder = realm.objects(Folder.self).filter("title == %@", "None").first!
-        let feedForUpdate = realm.objects(MyRSSFeed.self).filter("title == %@", "Custom title").first
-        
-        viewModel.title.value = "Custom title"
-        viewModel.link.value = "Custom link"
-        viewModel.selectedFolder.value = folder
-        viewModel.feedForUpdate.value = feedForUpdate
-        
         viewModel.saveBtnAction.errors.producer.startWithValues { (errors) in
             print("Error occured: \(errors)")
         }
@@ -174,6 +191,8 @@ class RSSFeedEditVC: BaseViewController {
     
 }
 
+//MARK: UITableView Delegate and DataSource methods
+
 extension RSSFeedEditVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
@@ -188,14 +207,14 @@ extension RSSFeedEditVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //FIXME: Use Sections enum
-        return sections[section].rows.count
+        return sections[section].rows.filter { !$0.isHidden }.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "my", for: indexPath)
+        var rows = sections[indexPath.section].rows.filter { !$0.isHidden }
         
-        if let view = sections[indexPath.section].rows[indexPath.row] {
+        if let view = rows[indexPath.row].contentView {
             cell.contentView.addSubview(view)
             view.snp.makeConstraints { make in
                 make.top.bottom.leading.trailing.equalToSuperview()
@@ -207,8 +226,19 @@ extension RSSFeedEditVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let action = sections[indexPath.section].rows[indexPath.row].onSelected {
+            action()
+            tableView.reloadData()
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     
 }
+
+//MARK: UIPickerView Delegate and DataSource methods
 
 extension RSSFeedEditVC: UIPickerViewDelegate, UIPickerViewDataSource {
     /**
