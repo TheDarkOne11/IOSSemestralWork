@@ -333,7 +333,7 @@
 			buildPhases = (
 				9AF1698B361D0D3221F77CD3 /* [CP] Check Pods Manifest.lock */,
 				4B0EA17A22C0DA1D004411BD /* Generate preprocess header */,
-				4BFF775722C102CE008047CB /* Swiftgen */,
+				4BD03E8122CFB1020012AE62 /* Swiftgen */,
 				4BE8A5F321D6CB05009B66F0 /* Sources */,
 				4BE8A5F421D6CB05009B66F0 /* Frameworks */,
 				4BE8A5F521D6CB05009B66F0 /* Resources */,
@@ -441,6 +441,24 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nsh \"$PROJECT_DIR/Configs/phase_generatePreprocessHeaders.sh\"\n";
 		};
+		4BD03E8122CFB1020012AE62 /* Swiftgen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftgen;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "sh \"$PROJECT_DIR/Configs/phase_swiftgen.sh\"\n";
+		};
 		4BFF775222C0FD33008047CB /* Download localized strings from online spreadsheet */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -458,26 +476,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Download from spreadsheet\n# https://docs.google.com/spreadsheets/d/e/2PACX-1vQYmseYrhYp3c_wifBEJV40FPyZG4ugMOm0ZwsbmH59R3P9WS6HIY_sdr72Wf76gfPI2-c6KM45Wvn3/pubhtml\n\n\"$PROJECT_DIR/Pods/ACKLocalization/Localization\" \"1vQYmseYrhYp3c_wifBEJV40FPyZG4ugMOm0ZwsbmH59R3P9WS6HIY_sdr72Wf76gfPI2-c6KM45Wvn3\" \"key_ios\" '{\"EN\": \"en\", \"CS\": \"cs\"}' \"$PROJECT_DIR/IOSSemestralWork/View\" \"Localizable.strings\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4BFF775722C102CE008047CB /* Swiftgen */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = Swiftgen;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(PROJECT_DIR)/IOSSemestralWork/Generated/Strings.swift",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "sh \"$PROJECT_DIR/Configs/phase_swiftgen.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9AF1698B361D0D3221F77CD3 /* [CP] Check Pods Manifest.lock */ = {
@@ -758,6 +756,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -815,6 +814,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

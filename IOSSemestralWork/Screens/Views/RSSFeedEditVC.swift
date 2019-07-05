@@ -84,7 +84,6 @@ class RSSFeedEditVC: BaseViewController {
         let folderNameLabel = UILabel()
         specifyFolder.rows[1].contentView = UIView().addSubViews(folderLabel, folderNameLabel)
         folderLabel.text = "Folder:"
-        folderNameLabel.text = "TEMP"   //FIXME: Add folder name
         folderLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         folderLabel.setContentHuggingPriority(.init(250), for: .horizontal)
         folderLabel.snp.makeConstraints { make in
@@ -174,6 +173,7 @@ class RSSFeedEditVC: BaseViewController {
     }
     
     private func addFolderTapped() {
+        //TODO: Add folder
         fatalError("Not implemented")
     }
     

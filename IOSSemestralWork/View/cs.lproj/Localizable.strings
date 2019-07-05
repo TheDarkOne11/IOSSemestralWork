@@ -1,3 +1,11 @@
-"start.app_version" = "Verze aplikace";
-"start.build_number" = "Číslo buildu";
-"rootFolder" = "Žádný";
+"base.app_version" = "Verze aplikace";
+"base.build_number" = "Číslo buildu";
+"base.rootFolder" = "Žádný";
+"rssEditView.feedDetails" = "Informace o Feedu";
+"rssEditView.specifyFolder" = "Specifikace složky";
+"rssEditView.namePlaceholder" = "Jméno";
+"rssEditView.linkPlaceholder" = "";
+"rssEditView.addFolder" = "Přidat složku";
+"rssEditView.folderLabel" = "Složka:";
+"rssEditView.titleUpdate" = "Upravit RSS Feed";
+"rssEditView.titleCreate" = "Přidat RSS Feed";

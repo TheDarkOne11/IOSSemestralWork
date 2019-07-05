@@ -26,12 +26,12 @@ class ViewController: BaseViewController {
         let buildNumberText = (Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String) ?? ""
         
         let versionLabel = UILabel()
-        versionLabel.text = "\(L10n.Start.appVersion): \(versionText)"
+        versionLabel.text = "\(L10n.Base.appVersion): \(versionText)"
         versionLabel.accessibilityIdentifier = "versionLabel"
         self.versionLabel = versionLabel
         
         let buildNumberLabel = UILabel()
-        buildNumberLabel.text = "\(L10n.Start.buildNumber): \(buildNumberText)"
+        buildNumberLabel.text = "\(L10n.Base.buildNumber): \(buildNumberText)"
         buildNumberLabel.accessibilityIdentifier = "buildNumberLabel"
         self.buildNumberLabel = buildNumberLabel
         

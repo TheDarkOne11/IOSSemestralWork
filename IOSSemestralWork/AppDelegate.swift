@@ -74,8 +74,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func firstTimeInit(_ dbHandler: DBHandler) {
         let defaults = UserDefaults.standard
         
-        // Create special "None" folder
-        let folderNone: Folder = Folder(withTitle: L10n.rootFolder)
+        // Create root folder
+        let folderNone: Folder = Folder(withTitle: L10n.Base.rootFolder)
         dbHandler.create(folderNone)
         
         // Set important values in UserDefaults

@@ -58,10 +58,10 @@
          location = "group:ItemTableVC.swift">
       </FileRef>
       <FileRef
-         location = "group:RSSItemVC.swift">
+         location = "group:RSSFeedTableVC.swift">
       </FileRef>
       <FileRef
-         location = "group:RSSFeedTableVC.swift">
+         location = "group:RSSItemVC.swift">
       </FileRef>
       <FileRef
          location = "group:RSSFeedEditVC.swift">
