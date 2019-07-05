@@ -56,8 +56,7 @@ class RSSFeedEditVC: BaseViewController {
             make.bottom.top.equalToSuperview().inset(8)
         }
         self.feedNameField = feedNameField
-        
-        
+    
         let linkField = UITextField()
         feedDetails.rows[1].contentView = UIView().addSubViews(linkField)
         linkField.placeholder = "http://..."
@@ -80,7 +79,6 @@ class RSSFeedEditVC: BaseViewController {
             make.bottom.top.equalToSuperview().inset(8)
         }
         self.addFolderLabel = addFolderLabel
-        
         
         let folderLabel = UILabel()
         let folderNameLabel = UILabel()
@@ -113,12 +111,6 @@ class RSSFeedEditVC: BaseViewController {
         }
         self.pickerView = pickerView
         
-        specifyFolder.rows[1].onSelected = {
-            let row = specifyFolder.rows[2]
-            row.isHidden = !row.isHidden
-            folderNameLabel.textColor = row.isHidden ? UIColor.black : UIColor.red
-        }
-        
         // Add sections to the array
         sections.append(feedDetails)
         sections.append(specifyFolder)
@@ -134,6 +126,21 @@ class RSSFeedEditVC: BaseViewController {
     }
     
     private func setupBindings() {
+        let specifyFolder = sections[1]
+        specifyFolder.rows[0].onSelected = { [weak self] in
+            self?.addFolderTapped()
+        }
+        
+        specifyFolder.rows[1].onSelected = { [weak self] in
+            let row = specifyFolder.rows[2]
+            row.isHidden = !row.isHidden
+            self?.folderNameLabel.textColor = row.isHidden ? UIColor.black : UIColor.red
+        }
+        
+        self.folderNameLabel.reactive.text <~ viewModel.selectedFolder.map({ (folder: Folder) -> String in
+            return folder.title
+        })
+        
         viewModel.saveBtnAction.errors.producer.startWithValues { (errors) in
             print("Error occured: \(errors)")
         }
@@ -149,6 +156,10 @@ class RSSFeedEditVC: BaseViewController {
     private func actionBarButtonTapped(_ sender: UIBarButtonItem) {
         print("Done bar button tapped.")
         viewModel.saveBtnAction.apply().start()
+    }
+    
+    private func addFolderTapped() {
+        fatalError("Not implemented")
     }
     
 }
