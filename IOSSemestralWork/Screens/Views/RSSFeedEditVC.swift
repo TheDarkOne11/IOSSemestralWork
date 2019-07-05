@@ -4,44 +4,6 @@ import ReactiveSwift
 import ReactiveCocoa
 import RealmSwift
 
-extension UIView {
-    func addSubViews(_ subViews: UIView...) -> UIView {
-        for subView in subViews {
-            self.addSubview(subView)
-        }
-        
-        return self
-    }
-}
-
-class Section {
-    var rows: [Row] = []
-    var header: String?
-    var footer: String?
-    
-    init(rows: Int, header: String? = nil, footer: String? = nil) {
-        self.header = header
-        self.footer = footer
-        
-        for _ in 0..<rows {
-            self.rows.append(Row())
-        }
-    }
-}
-
-class Row {
-    typealias SelectedAction = () -> ()
-    var contentView: UIView?
-    var isHidden: Bool
-    var onSelected: SelectedAction?
-    
-    init(contentView: UIView? = nil, isHidden: Bool = false, isSelected: SelectedAction? = nil) {
-        self.contentView = contentView
-        self.onSelected = isSelected
-        self.isHidden = isHidden
-    }
-}
-
 class RSSFeedEditVC: BaseViewController {
     private let viewModel: IRSSFeedEditVM
     private weak var tableView: UITableView!
@@ -52,7 +14,7 @@ class RSSFeedEditVC: BaseViewController {
     private weak var folderNameLabel: UILabel!
     private weak var pickerView: UIPickerView!
     
-    private var sections: [Section] = []
+    private var sections: [UITableView.Section] = []
     
     init(_ viewModel: IRSSFeedEditVM) {
         self.viewModel = viewModel
@@ -81,8 +43,8 @@ class RSSFeedEditVC: BaseViewController {
     }
     
     private func prepareRows() {
-        let feedDetails = Section(rows: 2, header: "Feed Details")
-        let specifyFolder = Section(rows: 3, header: "Specify Folder")
+        let feedDetails = UITableView.Section(rows: 2, header: "Feed Details")
+        let specifyFolder = UITableView.Section(rows: 3, header: "Specify Folder")
         
         // Create rows
         // Feed details rows
