@@ -27,7 +27,7 @@ class UnitTests: XCTestCase {
         
         let folder: Folder = dependencies.realm.objects(Folder.self).filter("title == %@", "None").first!
         
-        viewModel.title.value = "Custom title"
+        viewModel.feedName.value = "Custom title"
         viewModel.link.value = "google.com"
         viewModel.selectedFolder.value = folder
     }
@@ -61,8 +61,8 @@ class UnitTests: XCTestCase {
         let rssFeedsCount = self.dependencies.realm.objects(MyRSSFeed.self).count
         
         viewModel.saveBtnAction.completed.observeValues {
-            let rssFeedRes = self.dependencies.realm.objects(MyRSSFeed.self).filter("title CONTAINS[cd] %@", self.viewModel.title.value)
-            let polyItemRes = self.dependencies.realm.objects(PolyItem.self).filter("myRssFeed.title CONTAINS[cd] %@", self.viewModel.title.value)
+            let rssFeedRes = self.dependencies.realm.objects(MyRSSFeed.self).filter("title CONTAINS[cd] %@", self.viewModel.feedName.value)
+            let polyItemRes = self.dependencies.realm.objects(PolyItem.self).filter("myRssFeed.title CONTAINS[cd] %@", self.viewModel.feedName.value)
             
             XCTAssertTrue(polyItemRes.count == 1)
             XCTAssertTrue(rssFeedRes.count == 1)
@@ -97,14 +97,14 @@ class UnitTests: XCTestCase {
     func testCreateError() {
         let expectation = XCTestExpectation(description: "Valid viewModel data returns error")
         
-        dependencies.dbHandler.create(MyRSSFeed(title: viewModel.title.value, link: viewModel.link.value, in: viewModel.selectedFolder.value))
+        dependencies.dbHandler.create(MyRSSFeed(title: viewModel.feedName.value, link: viewModel.link.value, in: viewModel.selectedFolder.value))
         
         let polyItemsCount = self.dependencies.realm.objects(PolyItem.self).count
         let rssFeedsCount = self.dependencies.realm.objects(MyRSSFeed.self).count
         
         viewModel.saveBtnAction.errors.observeValues { error in
-            let rssFeedRes = self.dependencies.realm.objects(MyRSSFeed.self).filter("title CONTAINS[cd] %@", self.viewModel.title.value)
-            let polyItemRes = self.dependencies.realm.objects(PolyItem.self).filter("myRssFeed.title CONTAINS[cd] %@", self.viewModel.title.value)
+            let rssFeedRes = self.dependencies.realm.objects(MyRSSFeed.self).filter("title CONTAINS[cd] %@", self.viewModel.feedName.value)
+            let polyItemRes = self.dependencies.realm.objects(PolyItem.self).filter("myRssFeed.title CONTAINS[cd] %@", self.viewModel.feedName.value)
             
             XCTAssertEqual(polyItemRes.count, 1)
             XCTAssertEqual(rssFeedRes.count, 1)
@@ -143,10 +143,10 @@ class UnitTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Valid viewModel data returns no error")
         
         let folder: Folder = dependencies.realm.objects(Folder.self).filter("title == %@", "None").first!
-        let feedForUpdate = MyRSSFeed(title: viewModel.title.value, link: viewModel.link.value, in: viewModel.selectedFolder.value)
+        let feedForUpdate = MyRSSFeed(title: viewModel.feedName.value, link: viewModel.link.value, in: viewModel.selectedFolder.value)
         
         // Data of the newly updated feed
-        viewModel.title.value = "Updated title"
+        viewModel.feedName.value = "Updated title"
         viewModel.link.value = "seznam.cz"
         viewModel.selectedFolder.value = folder
         viewModel.feedForUpdate.value = feedForUpdate
@@ -157,8 +157,8 @@ class UnitTests: XCTestCase {
         let rssFeedsCount = dependencies.realm.objects(MyRSSFeed.self).count
         
         viewModel.saveBtnAction.completed.observeValues {
-            let rssFeedRes = self.dependencies.realm.objects(MyRSSFeed.self).filter("title CONTAINS[cd] %@", self.viewModel.title.value)
-            let polyItemRes = self.dependencies.realm.objects(PolyItem.self).filter("myRssFeed.title CONTAINS[cd] %@", self.viewModel.title.value)
+            let rssFeedRes = self.dependencies.realm.objects(MyRSSFeed.self).filter("title CONTAINS[cd] %@", self.viewModel.feedName.value)
+            let polyItemRes = self.dependencies.realm.objects(PolyItem.self).filter("myRssFeed.title CONTAINS[cd] %@", self.viewModel.feedName.value)
             
             XCTAssertTrue(polyItemRes.count == 1)
             XCTAssertTrue(rssFeedRes.count == 1)

@@ -119,13 +119,14 @@ class RSSFeedEditVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupOnSelectActions()
         setupBindings()
         
         navigationItem.title = "Edit RSS feed"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(actionBarButtonTapped(_:)))
     }
     
-    private func setupBindings() {
+    private func setupOnSelectActions() {
         let specifyFolder = sections[1]
         specifyFolder.rows[0].onSelected = { [weak self] in
             self?.addFolderTapped()
@@ -136,8 +137,13 @@ class RSSFeedEditVC: BaseViewController {
             row.isHidden = !row.isHidden
             self?.folderNameLabel.textColor = row.isHidden ? UIColor.black : UIColor.red
         }
+    }
+    
+    private func setupBindings() {
+        feedNameField <~> viewModel.feedName
+        linkField <~> viewModel.link
         
-        self.folderNameLabel.reactive.text <~ viewModel.selectedFolder.map({ (folder: Folder) -> String in
+        folderNameLabel.reactive.text <~ viewModel.selectedFolder.map({ (folder: Folder) -> String in
             return folder.title
         })
         

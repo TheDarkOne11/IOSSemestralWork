@@ -11,7 +11,7 @@ import ReactiveSwift
 import RealmSwift
 
 protocol IRSSFeedEditVM {
-    var title: MutableProperty<String> { get }
+    var feedName: MutableProperty<String> { get }
     var link: MutableProperty<String> { get }
     var feedForUpdate: MutableProperty<MyRSSFeed?> { get }
     
@@ -31,7 +31,7 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
     typealias Dependencies = HasRepository & HasRealm
     private let dependencies: Dependencies
     
-    let title = MutableProperty<String>("")
+    let feedName = MutableProperty<String>("")
     let link = MutableProperty<String>("")
     let feedForUpdate = MutableProperty<MyRSSFeed?>(nil)
     
@@ -51,7 +51,7 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
      */
     lazy var saveBtnAction = Action<Void, MyRSSFeed, MyRSSFeedError> { [unowned self] in
         var link = self.link.value
-        var title = self.title.value
+        var title = self.feedName.value
         var folder: Folder = self.selectedFolder.value
         
         if !link.starts(with: "http://") && !link.starts(with: "https://") {

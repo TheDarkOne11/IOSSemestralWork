@@ -62,7 +62,7 @@ class ViewController: BaseViewController {
         let folder: Folder = realm.objects(Folder.self).filter("title == %@", "None").first!
         let feedForUpdate = realm.objects(MyRSSFeed.self).filter("title == %@", "Custom title").first
         
-        viewModel.title.value = "Custom title"
+        viewModel.feedName.value = "Custom title"
         viewModel.link.value = "Custom link"
         viewModel.selectedFolder.value = folder
         viewModel.feedForUpdate.value = feedForUpdate
