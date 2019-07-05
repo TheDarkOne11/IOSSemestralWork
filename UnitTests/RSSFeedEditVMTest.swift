@@ -140,17 +140,24 @@ class UnitTests: XCTestCase {
         testCreateError()
     }
     
-    func testUpdateOk() {
+    func testUpdateOK() {
         let expectation = XCTestExpectation(description: "Valid viewModel data returns no error")
         
-        let folder: Folder = dependencies.rootFolder
-        let feedForUpdate = MyRSSFeed(title: viewModel.feedName.value, link: viewModel.link.value, in: viewModel.selectedFolder.value)
+        let folder = Folder(withTitle: "TestFolder")
+        dependencies.dbHandler.create(folder)
+        let feedForUpdate = MyRSSFeed(title: viewModel.feedName.value, link: viewModel.link.value, in: folder)
+        
+        viewModel = RSSFeedEditVM(dependencies: dependencies, feedForUpdate: feedForUpdate)
+        
+        XCTAssertNotNil(viewModel.feedForUpdate.value)
+        XCTAssertEqual(viewModel.feedForUpdate.value, feedForUpdate)
+        XCTAssertEqual(viewModel.feedName.value, feedForUpdate.title)
+        XCTAssertEqual(viewModel.link.value, feedForUpdate.link)
         
         // Data of the newly updated feed
         viewModel.feedName.value = "Updated title"
         viewModel.link.value = "seznam.cz"
-        viewModel.selectedFolder.value = folder
-        viewModel.feedForUpdate.value = feedForUpdate
+        viewModel.selectedFolder.value = dependencies.rootFolder
         
         dependencies.dbHandler.create(feedForUpdate)
         
@@ -183,12 +190,4 @@ class UnitTests: XCTestCase {
         
         wait(for: [expectation], timeout: 10)
     }
-    
-    //    func testPerformanceExample() {
-    //        // This is an example of a performance test case.
-    //        self.measure {
-    //            // Put the code you want to measure the time of here.
-    //        }
-    //    }
-    
 }

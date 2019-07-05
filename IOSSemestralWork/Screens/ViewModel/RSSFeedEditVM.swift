@@ -15,7 +15,6 @@ protocol IRSSFeedEditVM {
     var link: MutableProperty<String> { get }
     var feedForUpdate: MutableProperty<MyRSSFeed?> { get }
     
-    var noneFolder: Folder { get }
     var selectedFolder: MutableProperty<Folder> { get }
     var folders: Results<Folder> { get }
     
@@ -35,14 +34,21 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
     let link = MutableProperty<String>("")
     let feedForUpdate = MutableProperty<MyRSSFeed?>(nil)
     
-    let noneFolder: Folder
     let selectedFolder: MutableProperty<Folder>
     let folders: Results<Folder>
     
-    init(dependencies: Dependencies) {
+    init(dependencies: Dependencies, feedForUpdate: MyRSSFeed? = nil) {
         self.dependencies = dependencies
-        self.noneFolder = dependencies.rootFolder
-        selectedFolder = MutableProperty<Folder>(noneFolder)
+        
+        if let feedForUpdate = feedForUpdate {
+            feedName.value = feedForUpdate.title
+            link.value = feedForUpdate.link
+            selectedFolder = MutableProperty<Folder>(feedForUpdate.folder!)
+            self.feedForUpdate.value = feedForUpdate
+        } else {
+            selectedFolder = MutableProperty<Folder>(dependencies.rootFolder)
+        }
+        
         folders = dependencies.realm.objects(Folder.self).filter("title != %@", dependencies.rootFolder.title)
     }
     
@@ -74,10 +80,10 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
      Returns folder at the selected index.
      */
     func getFolder(at index: Int) -> Folder {
-        var folder = noneFolder
+        var folder: Folder!
         
         if index == 0 {
-            folder = noneFolder
+            folder = dependencies.rootFolder
         } else if index >= 1 && index <= folders.count + 1 {
             folder = folders[index - 1]
         } else {
