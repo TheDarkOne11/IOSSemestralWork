@@ -14,13 +14,23 @@ final class AppDependency{
     static let shared = AppDependency()
     
     lazy var realm: Realm = AppDependency.realm()
-    lazy var dbHandler: DBHandler = DBHandler(dependencies: AppDependency.shared)
+    lazy var rootFolder: Folder = AppDependency.getRootFolder()
     
+    lazy var dbHandler: DBHandler = DBHandler(dependencies: AppDependency.shared)
     lazy var repository: IRepository = Repository(dependencies: AppDependency.shared)
 }
 
 extension AppDependency: HasRepository { }
 extension AppDependency: HasRealm { }
+extension AppDependency: HasRootFolder {
+    private static func getRootFolder() -> Folder {
+        guard let rootFolder = shared.realm.objects(Folder.self).filter("title == %@", UserDefaultsKeys.NoneFolderTitle.rawValue).first else {
+            fatalError("The root folder must already exist in Realm")
+        }
+        
+        return rootFolder
+    }
+}
 extension AppDependency: HasDBHandler {
     /**
      Provides Realm DB object. Automatically creates in-memory Realm DB object when testing.

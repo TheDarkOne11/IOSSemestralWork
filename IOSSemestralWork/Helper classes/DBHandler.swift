@@ -15,6 +15,10 @@ protocol HasRealm {
     var realm: Realm { get }
 }
 
+protocol HasRootFolder {
+    var rootFolder: Folder { get }
+}
+
 protocol HasDBHandler {
     var dbHandler: DBHandler { get }
 }

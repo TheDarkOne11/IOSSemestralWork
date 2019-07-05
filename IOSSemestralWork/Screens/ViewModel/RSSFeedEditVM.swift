@@ -28,7 +28,7 @@ protocol IRSSFeedEditVM {
 }
 
 final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
-    typealias Dependencies = HasRepository & HasRealm
+    typealias Dependencies = HasRepository & HasRealm & HasRootFolder
     private let dependencies: Dependencies
     
     let feedName = MutableProperty<String>("")
@@ -41,9 +41,9 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
     
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
-        self.noneFolder = dependencies.realm.objects(Folder.self).filter("title == %@", UserDefaultsKeys.NoneFolderTitle.rawValue).first!
+        self.noneFolder = dependencies.rootFolder
         selectedFolder = MutableProperty<Folder>(noneFolder)
-        folders = dependencies.realm.objects(Folder.self).filter("title != %@", UserDefaultsKeys.NoneFolderTitle.rawValue)
+        folders = dependencies.realm.objects(Folder.self).filter("title != %@", dependencies.rootFolder.title)
     }
     
     /*
