@@ -11,8 +11,8 @@ import RealmSwift
 @testable import IOSSemestralWork
 
 final class TestDependency{
-    private init() { }
     static let shared = TestDependency()
+    private lazy var realmConfig: Realm.Configuration = Realm.Configuration(inMemoryIdentifier: UUID().uuidString, encryptionKey: nil, readOnly: false, schemaVersion: 0, migrationBlock: nil, objectTypes: nil)
     
     lazy var realm: Realm = TestDependency.realm()
     lazy var rootFolder: Folder = TestDependency.getRootFolder()
@@ -25,7 +25,7 @@ extension TestDependency: HasRepository { }
 extension TestDependency: HasRealm { }
 extension TestDependency: HasRootFolder {
     private static func getRootFolder() -> Folder {
-        guard let rootFolder = shared.realm.objects(Folder.self).filter("title == %@", UserDefaultsKeys.NoneFolderTitle.rawValue).first else {
+        guard let rootFolder = shared.realm.objects(Folder.self).filter("title == %@", L10n.rootFolder).first else {
             fatalError("The root folder must already exist in Realm")
         }
         
@@ -38,7 +38,7 @@ extension TestDependency: HasDBHandler {
      */
     private static func realm() -> Realm {
         do {
-            return try Realm(configuration: Realm.Configuration(inMemoryIdentifier: "test", encryptionKey: nil, readOnly: false, schemaVersion: 0, migrationBlock: nil, objectTypes: nil))
+            return try Realm(configuration: shared.realmConfig)
         } catch {
             fatalError("Error initializing new Realm for the first time: \(error)")
         }

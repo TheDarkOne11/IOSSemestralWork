@@ -24,7 +24,7 @@ extension AppDependency: HasRepository { }
 extension AppDependency: HasRealm { }
 extension AppDependency: HasRootFolder {
     private static func getRootFolder() -> Folder {
-        guard let rootFolder = shared.realm.objects(Folder.self).filter("title == %@", UserDefaultsKeys.NoneFolderTitle.rawValue).first else {
+        guard let rootFolder = shared.realm.objects(Folder.self).filter("title == %@", L10n.rootFolder).first else {
             fatalError("The root folder must already exist in Realm")
         }
         

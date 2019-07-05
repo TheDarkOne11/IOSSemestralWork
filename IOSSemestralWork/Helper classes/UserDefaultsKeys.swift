@@ -13,5 +13,4 @@ import Foundation
  */
 enum UserDefaultsKeys: String {
     case LastUpdate
-    case NoneFolderTitle = "None"
 }
