@@ -37,17 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         print("Realm DB location: \(Realm.Configuration.defaultConfiguration.fileURL!)")
         
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
-        
-        let navigationController = UINavigationController()
-        window?.rootViewController = navigationController
-        self.navigationController = navigationController
-        
-        let vm = RSSFeedEditVM(dependencies: AppDependency.shared)
-        let vc = RSSFeedEditVC(vm)
-        navigationController.setViewControllers([vc], animated: true)
-        
         // Initialize realm for the first time. That should be the only time an exception is thrown.
         let realm = AppDependency.shared.realm
         
@@ -62,6 +51,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ToastManager.shared.duration = 4.0
         ToastManager.shared.position = .center
         ToastManager.shared.style.backgroundColor = UIColor.black.withAlphaComponent(0.71)
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        
+        //TODO: Create Flow Coordinators
+        // Set up Flow Coordinator
+        let navigationController = UINavigationController()
+        window?.rootViewController = navigationController
+        self.navigationController = navigationController
+        
+        let vm = RSSFeedEditVM(dependencies: AppDependency.shared)
+        let vc = RSSFeedEditVC(vm)
+        navigationController.setViewControllers([vc], animated: true)
         
         return true
     }
