@@ -38,6 +38,7 @@
 		4BCD96A922CB9BD000F214E2 /* RSSFeedEditVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD96A822CB9BD000F214E2 /* RSSFeedEditVM.swift */; };
 		4BCE7C4422CF54F500876225 /* Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCE7C4322CF54F500876225 /* Other.swift */; };
 		4BCE7C4622CF707100876225 /* Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCE7C4522CF707100876225 /* Reactive.swift */; };
+		4BCE7C4922CF7F4C00876225 /* phase_swiftgen.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4BCE7C4822CF7F4B00876225 /* phase_swiftgen.sh */; };
 		4BD2DD0622CE0C8800F445F4 /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD2DD0122CDFDDA00F445F4 /* AppDependency.swift */; };
 		4BD2DD0822CE0C9C00F445F4 /* TestDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD2DD0722CE0C9C00F445F4 /* TestDependency.swift */; };
 		4BE44F8522CE43560042925A /* RSSFeedEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE44F8422CE43560042925A /* RSSFeedEditVC.swift */; };
@@ -81,6 +82,7 @@
 		4BCD96A822CB9BD000F214E2 /* RSSFeedEditVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedEditVM.swift; sourceTree = "<group>"; };
 		4BCE7C4322CF54F500876225 /* Other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Other.swift; sourceTree = "<group>"; };
 		4BCE7C4522CF707100876225 /* Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reactive.swift; sourceTree = "<group>"; };
+		4BCE7C4822CF7F4B00876225 /* phase_swiftgen.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = phase_swiftgen.sh; sourceTree = "<group>"; };
 		4BD2DD0122CDFDDA00F445F4 /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
 		4BD2DD0722CE0C9C00F445F4 /* TestDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDependency.swift; sourceTree = "<group>"; };
 		4BE44F8422CE43560042925A /* RSSFeedEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedEditVC.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 		4BFF775B22C1078F008047CB /* Configs */ = {
 			isa = PBXGroup;
 			children = (
+				4BCE7C4822CF7F4B00876225 /* phase_swiftgen.sh */,
 				4BFF775C22C1078F008047CB /* phase_generatePreprocessHeaders.sh */,
 				4BFF775D22C1078F008047CB /* swiftgen.yml */,
 			);
@@ -407,6 +410,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B0EA17622C0D6F8004411BD /* LaunchScreen.storyboard in Resources */,
+				4BCE7C4922CF7F4C00876225 /* phase_swiftgen.sh in Resources */,
 				4BE8A60221D6CB06009B66F0 /* Assets.xcassets in Resources */,
 				4BFF775F22C1078F008047CB /* swiftgen.yml in Resources */,
 				4BB407892202382300CD1D57 /* Web in Resources */,
@@ -473,7 +477,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "$PROJECT_DIR/Pods/SwiftGen/bin/swiftgen config run --config \"$PROJECT_DIR/Configs/swiftgen.yml\"\n";
+			shellScript = "sh \"$PROJECT_DIR/Configs/phase_swiftgen.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9AF1698B361D0D3221F77CD3 /* [CP] Check Pods Manifest.lock */ = {

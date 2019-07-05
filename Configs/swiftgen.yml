@@ -3,4 +3,4 @@ strings:
   filter: .+\.strings$
   outputs:
     - templateName: structured-swift4
-      output: ../IOSSemestralWork/Generated/Strings.swift
+      output: ../IOSSemestralWork/Model/Generated/Strings.swift
