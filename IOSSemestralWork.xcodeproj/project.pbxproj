@@ -45,6 +45,7 @@
 		4BE8021222CCED500014DED4 /* RSSFeedEditVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8021122CCED500014DED4 /* RSSFeedEditVMTest.swift */; };
 		4BE8A5FB21D6CB05009B66F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */; };
 		4BE8A60221D6CB06009B66F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BE8A60121D6CB06009B66F0 /* Assets.xcassets */; };
+		4BEB54CE22D10B6B00872896 /* AppFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB54CD22D10B6B00872896 /* AppFlowCoordinator.swift */; };
 		4BFF775E22C1078F008047CB /* phase_generatePreprocessHeaders.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4BFF775C22C1078F008047CB /* phase_generatePreprocessHeaders.sh */; };
 		4BFF775F22C1078F008047CB /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4BFF775D22C1078F008047CB /* swiftgen.yml */; };
 		4BFF776B22C10B5A008047CB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4BFF776822C10B5A008047CB /* Localizable.strings */; };
@@ -97,6 +98,7 @@
 		4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4BE8A60121D6CB06009B66F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4BE8A60621D6CB06009B66F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4BEB54CD22D10B6B00872896 /* AppFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowCoordinator.swift; sourceTree = "<group>"; };
 		4BFF775C22C1078F008047CB /* phase_generatePreprocessHeaders.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = phase_generatePreprocessHeaders.sh; sourceTree = "<group>"; };
 		4BFF775D22C1078F008047CB /* swiftgen.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = swiftgen.yml; sourceTree = "<group>"; };
 		4BFF776922C10B5A008047CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = IOSSemestralWork/View/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
@@ -256,6 +258,7 @@
 				4BD2DD0122CDFDDA00F445F4 /* AppDependency.swift */,
 				4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */,
 				4B27865E22CB4A6F002FD614 /* Repository.swift */,
+				4BEB54CC22D10B3C00872896 /* FlowCoordinators */,
 				4BD2DD0422CE099900F445F4 /* Screens */,
 				4BA1366021D794A5009D4EBB /* Model */,
 				4B27866A22CB5443002FD614 /* Services */,
@@ -264,6 +267,14 @@
 				4BE8A60621D6CB06009B66F0 /* Info.plist */,
 			);
 			path = IOSSemestralWork;
+			sourceTree = "<group>";
+		};
+		4BEB54CC22D10B3C00872896 /* FlowCoordinators */ = {
+			isa = PBXGroup;
+			children = (
+				4BEB54CD22D10B6B00872896 /* AppFlowCoordinator.swift */,
+			);
+			path = FlowCoordinators;
 			sourceTree = "<group>";
 		};
 		4BFF775B22C1078F008047CB /* Configs */ = {
@@ -615,6 +626,7 @@
 				4B4A74CF22CCC3F6000D63B2 /* MyRSSItem.swift in Sources */,
 				4BD2DD0622CE0C8800F445F4 /* AppDependency.swift in Sources */,
 				4B27867022CB545F002FD614 /* DBHandler.swift in Sources */,
+				4BEB54CE22D10B6B00872896 /* AppFlowCoordinator.swift in Sources */,
 				4B4A74D122CCC3F6000D63B2 /* Item.swift in Sources */,
 				4BE44F8522CE43560042925A /* RSSFeedEditVC.swift in Sources */,
 				4BCD96A322CB953400F214E2 /* Errors.swift in Sources */,

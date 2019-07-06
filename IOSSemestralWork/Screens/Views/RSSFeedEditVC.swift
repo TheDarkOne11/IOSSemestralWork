@@ -4,6 +4,10 @@ import ReactiveSwift
 import ReactiveCocoa
 import RealmSwift
 
+protocol RSSFeedEditFlowDelegate {
+    func editSuccessful(in viewController: RSSFeedEditVC)
+}
+
 class RSSFeedEditVC: BaseViewController {
     private let viewModel: IRSSFeedEditVM
     private weak var tableView: UITableView!
@@ -15,6 +19,8 @@ class RSSFeedEditVC: BaseViewController {
     private weak var pickerView: UIPickerView!
     
     private var sections: [UITableView.Section] = []
+    
+    var flowDelegate: RSSFeedEditFlowDelegate?
     
     init(_ viewModel: IRSSFeedEditVM) {
         self.viewModel = viewModel
@@ -128,7 +134,7 @@ class RSSFeedEditVC: BaseViewController {
     private func setupOnSelectActions() {
         let specifyFolder = sections[1]
         specifyFolder.rows[0].onSelected = { [weak self] in
-            self?.addFolderTapped()
+            self?.presentCreateFolderAlert()
         }
         
         specifyFolder.rows[1].onSelected = { [weak self] in
@@ -142,7 +148,8 @@ class RSSFeedEditVC: BaseViewController {
         feedNameField <~> viewModel.feedName
         linkField <~> viewModel.link
         
-        self.pickerView.reactive.selectedRow(inComponent: 0) <~ viewModel.selectedFolder.map({ [weak self] selectedFolder -> Int in
+        pickerView.reactive.selectedRow(inComponent: 0) <~ viewModel.selectedFolder.map({ [weak self] selectedFolder -> Int in
+            self?.pickerView.reloadAllComponents()
             if let index = self?.viewModel.folders.index(of: selectedFolder) {
                 return index + 1
             } else {
@@ -161,10 +168,8 @@ class RSSFeedEditVC: BaseViewController {
         }
         
         viewModel.saveBtnAction.completed
-            .observe(on: UIScheduler())
-            .observeValues { [weak self] in
-                //FIXME: Go back
-                print("SaveBtnCompleted")
+            .observe(on: UIScheduler()).observeValues { [weak self] _ in
+                self?.flowDelegate?.editSuccessful(in: self!)
         }
     }
     
@@ -173,9 +178,34 @@ class RSSFeedEditVC: BaseViewController {
         viewModel.saveBtnAction.apply().start()
     }
     
-    private func addFolderTapped() {
-        //FIXME: Add folder
-        fatalError("Not implemented")
+    private func presentCreateFolderAlert() {
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Create folder", message: "", preferredStyle: .alert)
+        let actionCancel = UIAlertAction(title: "Cancel", style: .cancel)
+        let actionDone = UIAlertAction(title: "Done", style: .default) { [weak self] (action) in
+            self?.viewModel.createFolder(title: textField.text!)
+            self?.pickerView.reloadAllComponents()
+        }
+        actionDone.isEnabled = false
+        
+        alert.addAction(actionDone)
+        alert.addAction(actionCancel)
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Folder name"
+            alertTextField.enablesReturnKeyAutomatically = true
+            
+            textField = alertTextField
+        }
+        
+        // Check for textField changes. Done button is enabled only when the textField isn't empty
+        NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { _ in
+            // Enables and disables Done action. Triggered when value of textField changes
+            let textCount = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0
+            actionDone.isEnabled = textCount > 0
+        }
+        
+        present(alert, animated: true, completion: nil)
     }
     
 }

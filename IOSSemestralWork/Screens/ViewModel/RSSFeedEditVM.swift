@@ -20,14 +20,14 @@ protocol IRSSFeedEditVM {
     
     var saveBtnAction: Action<Void, MyRSSFeed, MyRSSFeedError> { get }
     
-    /**
-     Returns folder at the selected index.
-     */
+    /** Returns a folder at the selected index.*/
     func getFolder(at index: Int) -> Folder
+    
+    func createFolder(title: String)
 }
 
 final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
-    typealias Dependencies = HasRepository & HasRealm & HasRootFolder
+    typealias Dependencies = HasRepository & HasRealm & HasRootFolder & HasDBHandler
     private let dependencies: Dependencies
     
     let feedName = MutableProperty<String>("")
@@ -91,5 +91,12 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
         }
         
         return folder
+    }
+    
+    func createFolder(title: String) {
+        let folder = Folder(withTitle: title)
+        dependencies.dbHandler.create(folder)
+        
+        selectedFolder.value = folder
     }
 }

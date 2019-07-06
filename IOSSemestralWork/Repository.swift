@@ -15,16 +15,22 @@ protocol HasRepository {
 }
 
 protocol IRepository {
+    /** Currently selected folder, RSS feed or RSS item */
+    var selectedItem: MutableProperty<Item> { get }
+    
     func create(rssFeed feed: MyRSSFeed) -> SignalProducer<MyRSSFeed, MyRSSFeedError>
     func update(selectedFeed oldFeed: MyRSSFeed, with newFeed: MyRSSFeed) -> SignalProducer<MyRSSFeed, MyRSSFeedError>
 }
 
 final class Repository: IRepository {
-    typealias Dependencies = HasDBHandler & HasRealm
+    typealias Dependencies = HasDBHandler & HasRealm & HasRootFolder
     private let dependencies: Dependencies
+    
+    let selectedItem: MutableProperty<Item>
     
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
+        self.selectedItem = MutableProperty<Item>(dependencies.rootFolder)
     }
     
     func create(rssFeed feed: MyRSSFeed) -> SignalProducer<MyRSSFeed, MyRSSFeedError> {

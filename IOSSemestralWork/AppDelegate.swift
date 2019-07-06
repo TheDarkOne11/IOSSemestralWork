@@ -14,7 +14,7 @@ import Toast_Swift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    weak var navigationController: UINavigationController!
+    var appFlowCoordinator: AppFlowCoordinator!
     
     /**
      Returns true when the scheme is set to production. Otherwise false.
@@ -37,9 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         print("Realm DB location: \(Realm.Configuration.defaultConfiguration.fileURL!)")
         
-        // Initialize realm for the first time. That should be the only time an exception is thrown.
         let realm = AppDependency.shared.realm
-        
         if realm.isEmpty {
             firstTimeInit(AppDependency.shared.dbHandler)
         }
@@ -55,15 +53,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        //TODO: Create Flow Coordinators
-        // Set up Flow Coordinator
-        let navigationController = UINavigationController()
-        window?.rootViewController = navigationController
-        self.navigationController = navigationController
-        
-        let vm = RSSFeedEditVM(dependencies: AppDependency.shared)
-        let vc = RSSFeedEditVC(vm)
-        navigationController.setViewControllers([vc], animated: true)
+        appFlowCoordinator = AppFlowCoordinator()
+        appFlowCoordinator.start(in: window!)
         
         return true
     }
