@@ -72,18 +72,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      Operations which are done only when the app is launched for the first time.
      */
     private func firstTimeInit(_ dbHandler: DBHandler) {
-        let defaults = UserDefaults.standard
-        
-        // Create root folder
-        let folderNone: Folder = Folder(withTitle: L10n.Base.rootFolder)
-        dbHandler.create(folderNone)
-        
-        // Set important values in UserDefaults
-        defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
+        AppDependency.shared.userDefaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
         
         if !AppDelegate.isProduction {
-            let folderIdnes = Folder(withTitle: "Idnes", in: folderNone)
-            let folderImages = Folder(withTitle: "WithImages", in: folderNone)
+            let rootFolder = AppDependency.shared.rootFolder
+            let folderIdnes = Folder(withTitle: "Idnes", in: rootFolder)
+            let folderImages = Folder(withTitle: "WithImages", in: rootFolder)
             
             dbHandler.create(folderIdnes)
             dbHandler.create(folderImages)
@@ -92,7 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dbHandler.create(MyRSSFeed(title: "Sport", link: "https://servis.idnes.cz/rss.aspx?c=sport", in: folderIdnes))
             dbHandler.create(MyRSSFeed(title: "Wired", link: "http://wired.com/feed/rss", in: folderImages))
             dbHandler.create(MyRSSFeed(title: "Lifehacker", link: "https://lifehacker.com/rss", in: folderImages))
-            dbHandler.create(MyRSSFeed(title: "FOX", link: "http://feeds.foxnews.com/foxnews/latest", in: folderNone))
+            dbHandler.create(MyRSSFeed(title: "FOX", link: "http://feeds.foxnews.com/foxnews/latest", in: rootFolder))
         }
     }
     
@@ -110,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            switch status {
 //            case .OK:
 //                self.updateUI()
-//                UserDefaults.standard.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
+//                AppDependency.shared.userDefaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
 //                completionHandler(.newData)
 //            case .NotOK:
 //                completionHandler(.failed)

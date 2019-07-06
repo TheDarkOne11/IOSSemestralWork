@@ -10,35 +10,58 @@ import Foundation
 import RealmSwift
 @testable import IOSSemestralWork
 
+/**
+ Mock of [AppDependency](x-source-tag://appDependency) singleton. This class is used at its place for Dependency Injection.
+ 
+ TestDependency is not a singleton because all test cases need their own Realm DB and UserDefaults.
+ */
 final class TestDependency{
-    static let shared = TestDependency()
-    private lazy var realmConfig: Realm.Configuration = Realm.Configuration(inMemoryIdentifier: UUID().uuidString, encryptionKey: nil, readOnly: false, schemaVersion: 0, migrationBlock: nil, objectTypes: nil)
+    lazy var realm: Realm = getRealm()
+    lazy var rootFolder: Folder = getRootFolder()
+    lazy var userDefaults: UserDefaults = TestDependency.getUserDefaults()
     
-    lazy var realm: Realm = TestDependency.realm()
-    lazy var rootFolder: Folder = TestDependency.getRootFolder()
-    
-    lazy var dbHandler: DBHandler = DBHandler(dependencies: TestDependency.shared)
-    lazy var repository: IRepository = Repository(dependencies: TestDependency.shared)
+    lazy var dbHandler: DBHandler = DBHandler(dependencies: self)
+    lazy var repository: IRepository = Repository(dependencies: self)
 }
 
 extension TestDependency: HasRepository { }
-extension TestDependency: HasRealm { }
-extension TestDependency: HasRootFolder {
-    private static func getRootFolder() -> Folder {
-        guard let rootFolder = shared.realm.objects(Folder.self).filter("title == %@", L10n.rootFolder).first else {
-            fatalError("The root folder must already exist in Realm")
+extension TestDependency: HasDBHandler { }
+extension TestDependency: HasUserDefaults {
+    private static func getUserDefaults() -> UserDefaults {
+        let name = UUID().uuidString
+        guard let userDefaults = UserDefaults(suiteName: name) else {
+            fatalError("UserDefaults object should have been created.")
         }
+        userDefaults.removePersistentDomain(forName: name)
+        
+        return userDefaults
+    }
+}
+extension TestDependency: HasRootFolder {
+    private func getRootFolder() -> Folder {
+        // Create root folder
+        let rootFolder: Folder = Folder(withTitle: L10n.Base.rootFolder)
+        
+        self.dbHandler.create(rootFolder)
+        self.userDefaults.set(rootFolder.itemId, forKey: UserDefaults.Keys.rootFolderItemId.rawValue)
         
         return rootFolder
     }
 }
-extension TestDependency: HasDBHandler {
+extension TestDependency: HasRealm {
     /**
      Provides Realm DB object. Automatically creates in-memory Realm DB object when testing.
      */
-    private static func realm() -> Realm {
+    private func getRealm() -> Realm {
         do {
-            return try Realm(configuration: shared.realmConfig)
+            let realmConfig: Realm.Configuration = Realm.Configuration(inMemoryIdentifier: UUID().uuidString, encryptionKey: nil, readOnly: false, schemaVersion: 0, migrationBlock: nil, objectTypes: nil)
+            let realm = try Realm(configuration: realmConfig)
+            
+            try! realm.write { () -> Void in
+                realm.deleteAll()
+            }
+            
+            return realm
         } catch {
             fatalError("Error initializing new Realm for the first time: \(error)")
         }

@@ -10,6 +10,16 @@ import Foundation
 import UIKit
 import RealmSwift
 
+extension UserDefaults {
+    /**
+     This enum stores all the keys that are used in the UserDefaults.
+     */
+    enum Keys: String {
+        case lastUpdate
+        case rootFolderItemId
+    }
+}
+
 extension UIView {
     func addSubViews(_ subViews: UIView...) -> UIView {
         for subView in subViews {

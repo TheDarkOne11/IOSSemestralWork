@@ -19,34 +19,25 @@ class UnitTests: XCTestCase {
         super.setUp()
         
         dependencies = TestDependency()
-        try! dependencies.realm.write { () -> Void in
-            dependencies.realm.deleteAll()
-        }
         
         initRealmDb()
-        
-        let folder: Folder = dependencies.rootFolder
         
         viewModel = RSSFeedEditVM(dependencies: dependencies)
         viewModel.feedName.value = "Custom title"
         viewModel.link.value = "google.com"
-        viewModel.selectedFolder.value = folder
+        viewModel.selectedFolder.value = dependencies.rootFolder
     }
     
     /**
      Operations which are done only when the app is launched for the first time.
      */
     private func initRealmDb() {
-        let defaults = UserDefaults.standard
-        
-        // Create special "None" folder
-        let folderNone: Folder = Folder(withTitle: L10n.rootFolder)
-        dependencies.dbHandler.create(folderNone)
+        let defaults = dependencies.userDefaults
         
         // Set important values in UserDefaults
-        defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
+        defaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
         
-        let folderIdnes = Folder(withTitle: "Idnes", in: folderNone)
+        let folderIdnes = Folder(withTitle: "Idnes", in: dependencies.rootFolder)
         dependencies.dbHandler.create(folderIdnes)
         dependencies.dbHandler.create(MyRSSFeed(title: "Zpravodaj", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj", in: folderIdnes))
     }

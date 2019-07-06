@@ -4,7 +4,7 @@
 "rssEditView.feedDetails" = "Informace o Feedu";
 "rssEditView.specifyFolder" = "Specifikace složky";
 "rssEditView.namePlaceholder" = "Jméno";
-"rssEditView.linkPlaceholder" = "";
+"rssEditView.linkPlaceholder" = "http://";
 "rssEditView.addFolder" = "Přidat složku";
 "rssEditView.folderLabel" = "Složka:";
 "rssEditView.titleUpdate" = "Upravit RSS Feed";

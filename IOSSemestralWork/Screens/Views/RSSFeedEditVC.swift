@@ -43,14 +43,14 @@ class RSSFeedEditVC: BaseViewController {
     }
     
     private func prepareRows() {
-        let feedDetails = UITableView.Section(rows: 2, header: "Feed Details")
-        let specifyFolder = UITableView.Section(rows: 3, header: "Specify Folder")
+        let feedDetails = UITableView.Section(rows: 2, header: L10n.RssEditView.feedDetails)
+        let specifyFolder = UITableView.Section(rows: 3, header: L10n.RssEditView.specifyFolder)
         
         // Create rows
         // Feed details rows
         let feedNameField = UITextField()
         feedDetails.rows[0].contentView = UIView().addSubViews(feedNameField)
-        feedNameField.placeholder = "Name"
+        feedNameField.placeholder = L10n.RssEditView.namePlaceholder
         feedNameField.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.top.equalToSuperview().inset(8)
@@ -59,7 +59,7 @@ class RSSFeedEditVC: BaseViewController {
     
         let linkField = UITextField()
         feedDetails.rows[1].contentView = UIView().addSubViews(linkField)
-        linkField.placeholder = "http://..."
+        linkField.placeholder = L10n.RssEditView.linkPlaceholder
         linkField.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.top.equalToSuperview().inset(8)
@@ -73,7 +73,7 @@ class RSSFeedEditVC: BaseViewController {
         // Specify folder rows
         let addFolderLabel = UILabel()
         specifyFolder.rows[0].contentView = UIView().addSubViews(addFolderLabel)
-        addFolderLabel.text = "Add a new Folder"
+        addFolderLabel.text = L10n.RssEditView.addFolder
         addFolderLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.top.equalToSuperview().inset(8)
@@ -83,7 +83,7 @@ class RSSFeedEditVC: BaseViewController {
         let folderLabel = UILabel()
         let folderNameLabel = UILabel()
         specifyFolder.rows[1].contentView = UIView().addSubViews(folderLabel, folderNameLabel)
-        folderLabel.text = "Folder:"
+        folderLabel.text = L10n.RssEditView.folderLabel
         folderLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         folderLabel.setContentHuggingPriority(.init(250), for: .horizontal)
         folderLabel.snp.makeConstraints { make in
@@ -121,7 +121,7 @@ class RSSFeedEditVC: BaseViewController {
         setupOnSelectActions()
         setupBindings()
         
-        navigationItem.title = "Edit RSS feed"
+        navigationItem.title = viewModel.feedForUpdate.value != nil ? L10n.RssEditView.titleUpdate : L10n.RssEditView.titleCreate
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(actionBarButtonTapped(_:)))
     }
     
@@ -156,24 +156,25 @@ class RSSFeedEditVC: BaseViewController {
         })
         
         viewModel.saveBtnAction.errors.producer.startWithValues { (errors) in
+            //FIXME: Show error
             print("Error occured: \(errors)")
         }
         
         viewModel.saveBtnAction.completed
             .observe(on: UIScheduler())
             .observeValues { [weak self] in
+                //FIXME: Go back
                 print("SaveBtnCompleted")
         }
     }
     
     @objc
     private func actionBarButtonTapped(_ sender: UIBarButtonItem) {
-        print("Done bar button tapped.")
         viewModel.saveBtnAction.apply().start()
     }
     
     private func addFolderTapped() {
-        //TODO: Add folder
+        //FIXME: Add folder
         fatalError("Not implemented")
     }
     
@@ -200,15 +201,13 @@ extension RSSFeedEditVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "rssFeedEditCell", for: indexPath)
-        var rows = sections[indexPath.section].rows.filter { !$0.isHidden }
+        let rows = sections[indexPath.section].rows.filter { !$0.isHidden }
         
         if let view = rows[indexPath.row].contentView {
             cell.contentView.addSubview(view)
             view.snp.makeConstraints { make in
                 make.top.bottom.leading.trailing.equalToSuperview()
             }
-        } else {
-            cell.textLabel?.text = "This is row \(indexPath.row)"
         }
         
         return cell
