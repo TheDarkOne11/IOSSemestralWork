@@ -1,0 +1,11 @@
+"base.app_version" = "App version";
+"base.build_number" = "Build number";
+"base.rootFolder" = "None";
+"rssEditView.feedDetails" = "Feed Details";
+"rssEditView.specifyFolder" = "Specify Folder";
+"rssEditView.namePlaceholder" = "Name";
+"rssEditView.linkPlaceholder" = "http://";
+"rssEditView.addFolder" = "Add a new Folder";
+"rssEditView.folderLabel" = "Folder:";
+"rssEditView.titleUpdate" = "Edit RSS feed";
+"rssEditView.titleCreate" = "Add RSS feed";

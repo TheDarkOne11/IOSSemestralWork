@@ -16,6 +16,7 @@ enum ItemType: String {
 }
 
 class Item: Object {
+    @objc dynamic var itemId = UUID().uuidString
     @objc dynamic var title: String = "SomeItem"
     
     /**
@@ -37,6 +38,10 @@ class Item: Object {
         self.title = title
         self.type = type
     }
+    
+    override static func primaryKey() -> String? {
+        return "itemId"
+    }
 }
 
 class PolyItem: Object {
@@ -44,20 +49,4 @@ class PolyItem: Object {
     @objc dynamic var folder: Folder? = nil
     @objc dynamic var myRssFeed: MyRSSFeed? = nil
     @objc dynamic var myRssItem: MyRSSItem? = nil
-}
-
-extension List where Element == PolyItem {
-    func append(_ item: Item) {
-        let polyItem = PolyItem()
-        switch item.type {
-        case .folder:
-            polyItem.folder = item as? Folder
-        case .myRssFeed:
-            polyItem.myRssFeed = item as? MyRSSFeed
-        case .myRssItem:
-            polyItem.myRssItem = item as? MyRSSItem
-        }
-        
-        self.append(polyItem)
-    }
 }

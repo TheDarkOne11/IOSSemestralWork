@@ -1,12 +1,21 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '9.0'
+use_frameworks!
 
 target 'IOSSemestralWork' do
-    # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-    use_frameworks!
-
     # Pods for IOSSemestralWork
-    pod 'AlamofireRSSParser'
-    pod 'RealmSwift'
-    pod 'Toast-Swift'
+    pod 'AlamofireRSSParser', '~> 2.2.0'
+    pod 'RealmSwift', '~> 3.16.2'
+    pod 'Toast-Swift', '~> 5.0.0'
+    pod 'ACKLocalization', '~> 0.3.3'
+    pod 'SwiftGen', '~> 6.1'
+    pod 'ReactiveSwift', '~> 6.0.0'
+    pod 'ReactiveCocoa', '~> 10.0.0'    # Enables reactive usage of IOS components (UITextField...)
+    pod 'Overture', '~> 0.5.0'          # Better functional programming
+    pod 'SnapKit', '~> 4.2'             # Easier programmatic creation of UI
+end
+
+target 'UnitTests' do
+    pod 'RealmSwift', '~> 3.16.2'
+    pod 'ReactiveSwift', '~> 6.0.0'
 end

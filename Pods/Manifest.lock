@@ -1,34 +1,59 @@
 PODS:
-  - Alamofire (4.8.1)
+  - ACKLocalization (0.3.3)
+  - Alamofire (4.8.2)
   - AlamofireRSSParser (2.2.0):
     - Alamofire
-  - Realm (3.13.1):
-    - Realm/Headers (= 3.13.1)
-  - Realm/Headers (3.13.1)
-  - RealmSwift (3.13.1):
-    - Realm (= 3.13.1)
-  - Toast-Swift (4.0.1)
+  - Overture (0.5.0)
+  - ReactiveCocoa (10.0.0):
+    - ReactiveSwift (~> 6.0)
+  - ReactiveSwift (6.0.0)
+  - Realm (3.16.2):
+    - Realm/Headers (= 3.16.2)
+  - Realm/Headers (3.16.2)
+  - RealmSwift (3.16.2):
+    - Realm (= 3.16.2)
+  - SnapKit (4.2.0)
+  - SwiftGen (6.1.0)
+  - Toast-Swift (5.0.0)
 
 DEPENDENCIES:
-  - AlamofireRSSParser
-  - RealmSwift
-  - Toast-Swift
+  - ACKLocalization (~> 0.3.3)
+  - AlamofireRSSParser (~> 2.2.0)
+  - Overture (~> 0.5.0)
+  - ReactiveCocoa (~> 10.0.0)
+  - ReactiveSwift (~> 6.0.0)
+  - RealmSwift (~> 3.16.2)
+  - SnapKit (~> 4.2)
+  - SwiftGen (~> 6.1)
+  - Toast-Swift (~> 5.0.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - ACKLocalization
     - Alamofire
     - AlamofireRSSParser
+    - Overture
+    - ReactiveCocoa
+    - ReactiveSwift
     - Realm
     - RealmSwift
+    - SnapKit
+    - SwiftGen
     - Toast-Swift
 
 SPEC CHECKSUMS:
-  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  ACKLocalization: d24a1ba1a31ec153ba9ab2dca5a38d653863214e
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   AlamofireRSSParser: 4feb3c8cedf1fba2759ba30cf37cdf6ba45efd38
-  Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
-  RealmSwift: 8a1e6a02b7a08cd17a31e3115143fb69fe5f3fb9
-  Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
+  Overture: 2e6252ead5da6d3347f758047f27a31cb469d59d
+  ReactiveCocoa: 6d4c37ba236f5d9a7a55b2172cd09f19ba85f574
+  ReactiveSwift: 24b7ed245617bbfd30ee0c87779b6c64ac1b4518
+  Realm: 0e73b4edeb5b6a90da3d83206883b2e34e00eb38
+  RealmSwift: a81e650171ef0a5f999df1ed8d39ba8d6fce88a4
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SwiftGen: f872ca75cbd17bf7103c17f13dcfa0d9a15667b0
+  Toast-Swift: 36f4720243c8582c2be243a60a51e193c761f541
 
-PODFILE CHECKSUM: 093545b794164aabeb1ccb24ca95fd6956d0c420
+PODFILE CHECKSUM: 7660576d1d1423309b33e6f1ed6409034aa411bb
 
 COCOAPODS: 1.5.3

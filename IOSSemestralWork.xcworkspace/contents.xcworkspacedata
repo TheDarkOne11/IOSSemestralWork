@@ -1,6 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "group:View"
+      name = "View">
+      <Group
+         location = "group:/Users/petr/Documents/Projects/IOS_Projects/School/IOSSemestralWork/IOSSemestralWork/Screens/RssItemCell"
+         name = "RssItemCell">
+         <FileRef
+            location = "group:RssItemCell.swift">
+         </FileRef>
+         <FileRef
+            location = "group:RssItemCell.xib">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:AddFeed.storyboard">
+      </FileRef>
+      <Group
+         location = "group:/Users/petr/Documents/Projects/IOS_Projects/School/IOSSemestralWork/IOSSemestralWork/Screens/ItemCell"
+         name = "ItemCell">
+         <FileRef
+            location = "group:ItemCell.xib">
+         </FileRef>
+         <FileRef
+            location = "group:ItemCell.swift">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Base.lproj"
+         name = "Base.lproj">
+         <FileRef
+            location = "group:LaunchScreen.storyboard">
+         </FileRef>
+         <FileRef
+            location = "group:Main.storyboard">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:ShowRSSItems.storyboard">
+      </FileRef>
+      <Group
+         location = "group:PullToRefresh"
+         name = "PullToRefresh">
+         <FileRef
+            location = "group:PullToRefreshView.xib">
+         </FileRef>
+         <FileRef
+            location = "group:PullToRefreshView.swift">
+         </FileRef>
+      </Group>
+   </Group>
+   <Group
+      location = "group:ViewController"
+      name = "ViewController">
+      <FileRef
+         location = "group:ItemTableVC.swift">
+      </FileRef>
+      <FileRef
+         location = "group:RSSFeedTableVC.swift">
+      </FileRef>
+      <FileRef
+         location = "group:RSSItemVC.swift">
+      </FileRef>
+      <FileRef
+         location = "group:RSSFeedEditVC.swift">
+      </FileRef>
+      <Group
+         location = "group:Helper classes"
+         name = "Helper classes">
+         <FileRef
+            location = "group:UserDefaultsKeys.swift">
+         </FileRef>
+         <FileRef
+            location = "group:RefreshControl.swift">
+         </FileRef>
+         <FileRef
+            location = "group:DBHandler.swift">
+         </FileRef>
+         <FileRef
+            location = "group:SeguePreparationSender.swift">
+         </FileRef>
+      </Group>
+   </Group>
    <FileRef
       location = "group:IOSSemestralWork.xcodeproj">
    </FileRef>

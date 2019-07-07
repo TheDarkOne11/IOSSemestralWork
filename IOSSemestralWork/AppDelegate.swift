@@ -14,39 +14,34 @@ import Toast_Swift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var appFlowCoordinator: AppFlowCoordinator!
     
     /**
      Returns true when the scheme is set to production. Otherwise false.
      */
     public static let isProduction : Bool = {
         #if DEBUG
-        print("DEBUG")
-        let dic = ProcessInfo.processInfo.environment
-        if let forceProduction = dic["forceProduction"] , forceProduction == "true" {
-            return true
-        }
-        return false
+            print("DEBUG")
+            let dic = ProcessInfo.processInfo.environment
+            if let forceProduction = dic["forceProduction"] , forceProduction == "true" {
+                return true
+            }
+            return false
         
         #else
-        print("PRODUCTION")
-        return true
+            print("PRODUCTION")
+            return true
         #endif
     }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         print("Realm DB location: \(Realm.Configuration.defaultConfiguration.fileURL!)")
         
-        // Initialize realm for the first time. That should be the only time an exception is thrown.
-        do {
-            let realm = try Realm()
-            
-            if realm.isEmpty {
-                firstTimeInit(realm)
-            }
-        } catch {
-            print("Error initializing new Realm for the first time: \(error)")
+        let realm = AppDependency.shared.realm
+        if realm.isEmpty {
+            firstTimeInit(AppDependency.shared.dbHandler)
         }
-        
+
         // Set background fetch intervals
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
         
@@ -55,26 +50,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ToastManager.shared.position = .center
         ToastManager.shared.style.backgroundColor = UIColor.black.withAlphaComponent(0.71)
         
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        
+        appFlowCoordinator = AppFlowCoordinator()
+        appFlowCoordinator.start(in: window!)
+        
         return true
     }
     
     /**
      Operations which are done only when the app is launched for the first time.
      */
-    private func firstTimeInit(_ realm: Realm) {
-        let dbHandler = DBHandler()
-        let defaults = UserDefaults.standard
-        
-        // Create special "None" folder
-        let folderNone: Folder = Folder(with: UserDefaultsKeys.NoneFolderTitle.rawValue)
-        dbHandler.create(folderNone)
-        
-        // Set important values in UserDefaults
-        defaults.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
+    private func firstTimeInit(_ dbHandler: DBHandler) {
+        AppDependency.shared.userDefaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
         
         if !AppDelegate.isProduction {
-            let folderIdnes = Folder(with: "Idnes", in: folderNone)
-            let folderImages = Folder(with: "WithImages", in: folderNone)
+            let rootFolder = AppDependency.shared.rootFolder
+            let folderIdnes = Folder(withTitle: "Idnes", in: rootFolder)
+            let folderImages = Folder(withTitle: "WithImages", in: rootFolder)
             
             dbHandler.create(folderIdnes)
             dbHandler.create(folderImages)
@@ -83,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dbHandler.create(MyRSSFeed(title: "Sport", link: "https://servis.idnes.cz/rss.aspx?c=sport", in: folderIdnes))
             dbHandler.create(MyRSSFeed(title: "Wired", link: "http://wired.com/feed/rss", in: folderImages))
             dbHandler.create(MyRSSFeed(title: "Lifehacker", link: "https://lifehacker.com/rss", in: folderImages))
-            dbHandler.create(MyRSSFeed(title: "FOX", link: "http://feeds.foxnews.com/foxnews/latest", in: folderNone))
+            dbHandler.create(MyRSSFeed(title: "FOX", link: "http://feeds.foxnews.com/foxnews/latest", in: rootFolder))
         }
     }
     
@@ -94,33 +88,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      */
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         print("Started Background fetch")
-        let dbHandler = DBHandler()
-        
-        // Updates RSS feeds, calls completionHandler approprietly
-        dbHandler.updateAll { (status) in
-            switch status {
-            case .OK:
-                self.updateUI()
-                UserDefaults.standard.set(NSDate(), forKey: UserDefaultsKeys.LastUpdate.rawValue)
-                completionHandler(.newData)
-            case .NotOK:
-                completionHandler(.failed)
-            case .Unreachable:
-                // No internet connection. Tells Ios that it should run backgroundFetch again sooner
-                completionHandler(.noData)
-            }
-        }
+//        let dbHandler = DBHandler()
+//
+//        // Updates RSS feeds, calls completionHandler approprietly
+//        dbHandler.updateAll { (status) in
+//            switch status {
+//            case .OK:
+//                self.updateUI()
+//                AppDependency.shared.userDefaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
+//                completionHandler(.newData)
+//            case .NotOK:
+//                completionHandler(.failed)
+//            case .Unreachable:
+//                // No internet connection. Tells Ios that it should run backgroundFetch again sooner
+//                completionHandler(.noData)
+//            }
+//        }
     }
     
     /**
      Update UI after Background fetch.
      */
     private func updateUI() {
-        if let navController = window?.rootViewController as? UINavigationController {
-            if let mainVc = navController.topViewController as? ItemTableVC {
-                mainVc.tableView.reloadData()
-            }
-        }
+//        if let navController = window?.rootViewController as? UINavigationController {
+//            if let mainVc = navController.topViewController as? ItemTableVC {
+//                mainVc.tableView.reloadData()
+//            }
+//        }
     }
     
     // MARK: Other methods

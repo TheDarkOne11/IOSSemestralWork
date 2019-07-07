@@ -13,7 +13,7 @@ class Folder: Item {
     @objc dynamic var parentFolder: Folder?
     let polyItems = List<PolyItem>()
     
-    convenience init(with title: String, in folder: Folder? = nil) {
+    convenience init(withTitle title: String, in folder: Folder? = nil) {
         self.init(with: title, type: .folder)
         self.parentFolder = folder
     }
