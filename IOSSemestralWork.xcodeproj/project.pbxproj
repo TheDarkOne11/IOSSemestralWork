@@ -40,6 +40,7 @@
 		4BCE7C4922CF7F4C00876225 /* phase_swiftgen.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4BCE7C4822CF7F4B00876225 /* phase_swiftgen.sh */; };
 		4BD2DD0622CE0C8800F445F4 /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD2DD0122CDFDDA00F445F4 /* AppDependency.swift */; };
 		4BD2DD0822CE0C9C00F445F4 /* TestDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD2DD0722CE0C9C00F445F4 /* TestDependency.swift */; };
+		4BE1E22222D1EADF002438CF /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4BE1E22122D1EADF002438CF /* .travis.yml */; };
 		4BE44F8522CE43560042925A /* RSSFeedEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE44F8422CE43560042925A /* RSSFeedEditVC.swift */; };
 		4BE53CE222D09D8600D64487 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE53CE122D09D8600D64487 /* Protocols.swift */; };
 		4BE8021222CCED500014DED4 /* RSSFeedEditVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8021122CCED500014DED4 /* RSSFeedEditVMTest.swift */; };
@@ -85,6 +86,7 @@
 		4BCE7C4822CF7F4B00876225 /* phase_swiftgen.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = phase_swiftgen.sh; sourceTree = "<group>"; };
 		4BD2DD0122CDFDDA00F445F4 /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
 		4BD2DD0722CE0C9C00F445F4 /* TestDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDependency.swift; sourceTree = "<group>"; };
+		4BE1E22122D1EADF002438CF /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = SOURCE_ROOT; };
 		4BE44F8422CE43560042925A /* RSSFeedEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedEditVC.swift; sourceTree = "<group>"; };
 		4BE44F8622CE4BBE0042925A /* RssItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RssItemCell.swift; sourceTree = "<group>"; };
 		4BE44F8722CE4BBE0042925A /* RssItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RssItemCell.xib; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 		4BFF775B22C1078F008047CB /* Configs */ = {
 			isa = PBXGroup;
 			children = (
+				4BE1E22122D1EADF002438CF /* .travis.yml */,
 				4BCE7C4822CF7F4B00876225 /* phase_swiftgen.sh */,
 				4BFF775C22C1078F008047CB /* phase_generatePreprocessHeaders.sh */,
 				4BFF775D22C1078F008047CB /* swiftgen.yml */,
@@ -423,6 +426,7 @@
 				4B0EA17622C0D6F8004411BD /* LaunchScreen.storyboard in Resources */,
 				4BCE7C4922CF7F4C00876225 /* phase_swiftgen.sh in Resources */,
 				4BE8A60221D6CB06009B66F0 /* Assets.xcassets in Resources */,
+				4BE1E22222D1EADF002438CF /* .travis.yml in Resources */,
 				4BFF775F22C1078F008047CB /* swiftgen.yml in Resources */,
 				4BB407892202382300CD1D57 /* Web in Resources */,
 				4BFF775E22C1078F008047CB /* phase_generatePreprocessHeaders.sh in Resources */,
