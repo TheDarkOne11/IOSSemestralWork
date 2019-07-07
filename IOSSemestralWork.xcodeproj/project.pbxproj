@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		4BE7641722D2270400A250B4 /* Generate Preprocessor file */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4BE7641A22D2270400A250B4 /* Build configuration list for PBXAggregateTarget "Generate Preprocessor file" */;
+			buildPhases = (
+				4BE7641B22D2272600A250B4 /* Generate preprocessor file */,
+			);
+			dependencies = (
+			);
+			name = "Generate Preprocessor file";
+			productName = "Generate Preprocessor file";
+		};
 		4BFF774E22C0FD2B008047CB /* Localization */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 4BFF775122C0FD2B008047CB /* Build configuration list for PBXAggregateTarget "Localization" */;
@@ -37,24 +48,27 @@
 		4BCD96A922CB9BD000F214E2 /* RSSFeedEditVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD96A822CB9BD000F214E2 /* RSSFeedEditVM.swift */; };
 		4BCE7C4422CF54F500876225 /* Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCE7C4322CF54F500876225 /* Other.swift */; };
 		4BCE7C4622CF707100876225 /* Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCE7C4522CF707100876225 /* Reactive.swift */; };
-		4BCE7C4922CF7F4C00876225 /* phase_swiftgen.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4BCE7C4822CF7F4B00876225 /* phase_swiftgen.sh */; };
 		4BD2DD0622CE0C8800F445F4 /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD2DD0122CDFDDA00F445F4 /* AppDependency.swift */; };
 		4BD2DD0822CE0C9C00F445F4 /* TestDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD2DD0722CE0C9C00F445F4 /* TestDependency.swift */; };
-		4BE1E22222D1EADF002438CF /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4BE1E22122D1EADF002438CF /* .travis.yml */; };
 		4BE44F8522CE43560042925A /* RSSFeedEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE44F8422CE43560042925A /* RSSFeedEditVC.swift */; };
 		4BE53CE222D09D8600D64487 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE53CE122D09D8600D64487 /* Protocols.swift */; };
 		4BE8021222CCED500014DED4 /* RSSFeedEditVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8021122CCED500014DED4 /* RSSFeedEditVMTest.swift */; };
 		4BE8A5FB21D6CB05009B66F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */; };
 		4BE8A60221D6CB06009B66F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BE8A60121D6CB06009B66F0 /* Assets.xcassets */; };
 		4BEB54CE22D10B6B00872896 /* AppFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB54CD22D10B6B00872896 /* AppFlowCoordinator.swift */; };
-		4BFF775E22C1078F008047CB /* phase_generatePreprocessHeaders.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4BFF775C22C1078F008047CB /* phase_generatePreprocessHeaders.sh */; };
-		4BFF775F22C1078F008047CB /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4BFF775D22C1078F008047CB /* swiftgen.yml */; };
 		4BFF776B22C10B5A008047CB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4BFF776822C10B5A008047CB /* Localizable.strings */; };
 		4BFF777022C10BBC008047CB /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFF776F22C10BBC008047CB /* Strings.swift */; };
 		AC46C49E926FF669F2F75134 /* Pods_UnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69085190F63D20E0DF1839BC /* Pods_UnitTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4BE7641C22D2275C00A250B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4BE8A5EF21D6CB05009B66F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4BE7641722D2270400A250B4;
+			remoteInfo = "Generate Preprocessor file";
+		};
 		4BE8021422CCED500014DED4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4BE8A5EF21D6CB05009B66F0 /* Project object */;
@@ -145,11 +159,11 @@
 		4BA1366021D794A5009D4EBB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4BFF776C22C10B8E008047CB /* Generated */,
 				4B4A74CD22CCC3F6000D63B2 /* Item.swift */,
 				4B4A74CA22CCC3F6000D63B2 /* Folder.swift */,
 				4B4A74CC22CCC3F6000D63B2 /* MyRSSFeed.swift */,
 				4B4A74CB22CCC3F6000D63B2 /* MyRSSItem.swift */,
-				4BFF776C22C10B8E008047CB /* Generated */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -257,14 +271,14 @@
 		4BE8A5F921D6CB05009B66F0 /* IOSSemestralWork */ = {
 			isa = PBXGroup;
 			children = (
-				4BD2DD0122CDFDDA00F445F4 /* AppDependency.swift */,
-				4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */,
-				4B27865E22CB4A6F002FD614 /* Repository.swift */,
 				4BEB54CC22D10B3C00872896 /* FlowCoordinators */,
 				4BD2DD0422CE099900F445F4 /* Screens */,
 				4BA1366021D794A5009D4EBB /* Model */,
 				4B27866A22CB5443002FD614 /* Services */,
 				4BE4C06321DA38DA00505A0F /* SupportFiles */,
+				4BD2DD0122CDFDDA00F445F4 /* AppDependency.swift */,
+				4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */,
+				4B27865E22CB4A6F002FD614 /* Repository.swift */,
 				4B0EA17222C0D6F8004411BD /* LaunchScreen.storyboard */,
 				4BE8A60621D6CB06009B66F0 /* Info.plist */,
 			);
@@ -346,7 +360,6 @@
 			buildConfigurationList = 4BE8A60921D6CB06009B66F0 /* Build configuration list for PBXNativeTarget "IOSSemestralWork" */;
 			buildPhases = (
 				9AF1698B361D0D3221F77CD3 /* [CP] Check Pods Manifest.lock */,
-				4B0EA17A22C0DA1D004411BD /* Generate preprocess header */,
 				4BD03E8122CFB1020012AE62 /* Swiftgen */,
 				4BE8A5F321D6CB05009B66F0 /* Sources */,
 				4BE8A5F421D6CB05009B66F0 /* Frameworks */,
@@ -356,6 +369,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4BE7641D22D2275C00A250B4 /* PBXTargetDependency */,
 			);
 			name = IOSSemestralWork;
 			productName = IOSSemestralWork;
@@ -372,6 +386,9 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Petr Budík";
 				TargetAttributes = {
+					4BE7641722D2270400A250B4 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
 					4BE8020E22CCED500014DED4 = {
 						CreatedOnToolsVersion = 10.2.1;
 						TestTargetID = 4BE8A5F621D6CB05009B66F0;
@@ -406,6 +423,7 @@
 			targets = (
 				4BE8A5F621D6CB05009B66F0 /* IOSSemestralWork */,
 				4BFF774E22C0FD2B008047CB /* Localization */,
+				4BE7641722D2270400A250B4 /* Generate Preprocessor file */,
 				4BE8020E22CCED500014DED4 /* UnitTests */,
 			);
 		};
@@ -424,12 +442,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B0EA17622C0D6F8004411BD /* LaunchScreen.storyboard in Resources */,
-				4BCE7C4922CF7F4C00876225 /* phase_swiftgen.sh in Resources */,
 				4BE8A60221D6CB06009B66F0 /* Assets.xcassets in Resources */,
-				4BE1E22222D1EADF002438CF /* .travis.yml in Resources */,
-				4BFF775F22C1078F008047CB /* swiftgen.yml in Resources */,
 				4BB407892202382300CD1D57 /* Web in Resources */,
-				4BFF775E22C1078F008047CB /* phase_generatePreprocessHeaders.sh in Resources */,
 				4BFF776B22C10B5A008047CB /* Localizable.strings in Resources */,
 				4B0EA48122C0DF6A004411BD /* .gitignore in Resources */,
 			);
@@ -438,24 +452,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4B0EA17A22C0DA1D004411BD /* Generate preprocess header */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Generate preprocess header";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nsh \"$PROJECT_DIR/Configs/phase_generatePreprocessHeaders.sh\"\n";
-		};
 		4BD03E8122CFB1020012AE62 /* Swiftgen */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -473,6 +469,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "sh \"$PROJECT_DIR/Configs/phase_swiftgen.sh\"\n";
+		};
+		4BE7641B22D2272600A250B4 /* Generate preprocessor file */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Generate preprocessor file";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nsh \"$PROJECT_DIR/Configs/phase_generatePreprocessHeaders.sh\"\n";
 		};
 		4BFF775222C0FD33008047CB /* Download localized strings from online spreadsheet */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -641,6 +655,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4BE7641D22D2275C00A250B4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4BE7641722D2270400A250B4 /* Generate Preprocessor file */;
+			targetProxy = 4BE7641C22D2275C00A250B4 /* PBXContainerItemProxy */;
+		};
 		4BE8021522CCED500014DED4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4BE8A5F621D6CB05009B66F0 /* IOSSemestralWork */;
@@ -669,6 +688,24 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4BE7641822D2270400A250B4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 634A34CZA9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4BE7641922D2270400A250B4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 634A34CZA9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		4BE8021622CCED500014DED4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = ABA08C447AAAD8E4C96D86BF /* Pods-UnitTests.debug.xcconfig */;
@@ -909,6 +946,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4BE7641A22D2270400A250B4 /* Build configuration list for PBXAggregateTarget "Generate Preprocessor file" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4BE7641822D2270400A250B4 /* Debug */,
+				4BE7641922D2270400A250B4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4BE8021822CCED500014DED4 /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
