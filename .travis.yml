@@ -2,6 +2,7 @@ os: osx
 osx_image: xcode10.2
 language: swift
 cache: cocoapods
+gemfile: Configs/Gemfile
 install:
 - gem update bundler
 - bundle install --gemfile Configs/Gemfile
