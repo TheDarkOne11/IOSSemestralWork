@@ -2,8 +2,9 @@ os: osx
 osx_image: xcode10.2
 language: swift
 cache: cocoapods
+gemfile: Configs/Gemfile
 install:
 - gem update bundler
-- bundle install --gemfile ./Configs/Gemfile
+- bundle install --gemfile Configs/Gemfile
 - bundle exec pod install || bundle exec pod install --repo-update
 script: xcodebuild clean build test -workspace IOSSemestralWork.xcworkspace -scheme "IOSSemestralWork" -sdk iphonesimulator -destination "platform=iOS Simulator,OS=12.2,name=iPhone 5s" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO -quiet
