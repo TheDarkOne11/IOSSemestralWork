@@ -18,6 +18,4 @@ end
 target 'UnitTests' do
     pod 'RealmSwift', '~> 3.16.2'
     pod 'ReactiveSwift', '~> 6.0.0'
-    pod 'AlamofireRSSParser', '~> 2.2.0'
-    pod 'SnapKit', '~> 4.2'
 end
