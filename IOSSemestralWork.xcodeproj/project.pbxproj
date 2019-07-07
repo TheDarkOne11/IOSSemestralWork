@@ -42,6 +42,13 @@
 		4B4A74CF22CCC3F6000D63B2 /* MyRSSItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A74CB22CCC3F6000D63B2 /* MyRSSItem.swift */; };
 		4B4A74D022CCC3F6000D63B2 /* MyRSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A74CC22CCC3F6000D63B2 /* MyRSSFeed.swift */; };
 		4B4A74D122CCC3F6000D63B2 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A74CD22CCC3F6000D63B2 /* Item.swift */; };
+		4B53B43722D2481900454E94 /* ItemTableVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B43622D2481900454E94 /* ItemTableVM.swift */; };
+		4B53B43922D2494700454E94 /* ItemTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B43822D2494700454E94 /* ItemTableVC.swift */; };
+		4B53B43B22D24C8C00454E94 /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B43A22D24C8C00454E94 /* RefreshControl.swift */; };
+		4B53B44922D24EE000454E94 /* PullToRefreshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B53B44722D24EDF00454E94 /* PullToRefreshView.xib */; };
+		4B53B44A22D24EE000454E94 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B44822D24EDF00454E94 /* PullToRefreshView.swift */; };
+		4B53B44C22D27DE700454E94 /* SpecialItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B44B22D27DE700454E94 /* SpecialItem.swift */; };
+		4B53B44E22D2834F00454E94 /* PolyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B44D22D2834F00454E94 /* PolyItem.swift */; };
 		4BB407892202382300CD1D57 /* Web in Resources */ = {isa = PBXBuildFile; fileRef = 4BB407882202382300CD1D57 /* Web */; };
 		4BCD96A322CB953400F214E2 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD96A222CB953400F214E2 /* Errors.swift */; };
 		4BCD96A622CB99BC00F214E2 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD96A522CB99BC00F214E2 /* Base.swift */; };
@@ -90,6 +97,13 @@
 		4B4A74CB22CCC3F6000D63B2 /* MyRSSItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyRSSItem.swift; sourceTree = "<group>"; };
 		4B4A74CC22CCC3F6000D63B2 /* MyRSSFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyRSSFeed.swift; sourceTree = "<group>"; };
 		4B4A74CD22CCC3F6000D63B2 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		4B53B43622D2481900454E94 /* ItemTableVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableVM.swift; sourceTree = "<group>"; };
+		4B53B43822D2494700454E94 /* ItemTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableVC.swift; sourceTree = "<group>"; };
+		4B53B43A22D24C8C00454E94 /* RefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControl.swift; sourceTree = "<group>"; };
+		4B53B44722D24EDF00454E94 /* PullToRefreshView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PullToRefreshView.xib; sourceTree = "<group>"; };
+		4B53B44822D24EDF00454E94 /* PullToRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullToRefreshView.swift; sourceTree = "<group>"; };
+		4B53B44B22D27DE700454E94 /* SpecialItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialItem.swift; sourceTree = "<group>"; };
+		4B53B44D22D2834F00454E94 /* PolyItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyItem.swift; sourceTree = "<group>"; };
 		4BB407882202382300CD1D57 /* Web */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Web; sourceTree = "<group>"; };
 		4BC9D7BBD57C408F4E4294CD /* Pods-UnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		4BCD96A222CB953400F214E2 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
@@ -148,19 +162,30 @@
 		4B27866A22CB5443002FD614 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				4BCE7C4722CF707F00876225 /* Extensions */,
 				4B27866C22CB545F002FD614 /* DBHandler.swift */,
 				4BCD96A222CB953400F214E2 /* Errors.swift */,
 				4BE53CE122D09D8600D64487 /* Protocols.swift */,
-				4BCE7C4722CF707F00876225 /* Extensions */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		4B53B44622D24EDF00454E94 /* PullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				4B53B44722D24EDF00454E94 /* PullToRefreshView.xib */,
+				4B53B44822D24EDF00454E94 /* PullToRefreshView.swift */,
+			);
+			path = PullToRefresh;
 			sourceTree = "<group>";
 		};
 		4BA1366021D794A5009D4EBB /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				4BFF776C22C10B8E008047CB /* Generated */,
+				4B53B44D22D2834F00454E94 /* PolyItem.swift */,
 				4B4A74CD22CCC3F6000D63B2 /* Item.swift */,
+				4B53B44B22D27DE700454E94 /* SpecialItem.swift */,
 				4B4A74CA22CCC3F6000D63B2 /* Folder.swift */,
 				4B4A74CC22CCC3F6000D63B2 /* MyRSSFeed.swift */,
 				4B4A74CB22CCC3F6000D63B2 /* MyRSSItem.swift */,
@@ -172,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				4BCD96A822CB9BD000F214E2 /* RSSFeedEditVM.swift */,
+				4B53B43622D2481900454E94 /* ItemTableVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -181,6 +207,7 @@
 			children = (
 				4B0EA17822C0D712004411BD /* TestViewController.swift */,
 				4BE44F8422CE43560042925A /* RSSFeedEditVC.swift */,
+				4B53B43822D2494700454E94 /* ItemTableVC.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -197,11 +224,13 @@
 		4BD2DD0422CE099900F445F4 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				4BCD96A522CB99BC00F214E2 /* Base.swift */,
+				4B53B44622D24EDF00454E94 /* PullToRefresh */,
 				4BE44F8822CE4BBE0042925A /* RssItemCell */,
 				4BE44F8B22CE4BBF0042925A /* ItemCell */,
 				4BCD96A722CB9A0100F214E2 /* Views */,
 				4BCD96A422CB98B000F214E2 /* ViewModel */,
+				4BCD96A522CB99BC00F214E2 /* Base.swift */,
+				4B53B43A22D24C8C00454E94 /* RefreshControl.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -229,9 +258,9 @@
 		4BE4C06321DA38DA00505A0F /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
-				4BFF776822C10B5A008047CB /* Localizable.strings */,
 				4BB407882202382300CD1D57 /* Web */,
 				4BE8A60121D6CB06009B66F0 /* Assets.xcassets */,
+				4BFF776822C10B5A008047CB /* Localizable.strings */,
 				4B0EA48022C0DF6A004411BD /* .gitignore */,
 			);
 			path = SupportFiles;
@@ -441,6 +470,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B53B44922D24EE000454E94 /* PullToRefreshView.xib in Resources */,
 				4B0EA17622C0D6F8004411BD /* LaunchScreen.storyboard in Resources */,
 				4BE8A60221D6CB06009B66F0 /* Assets.xcassets in Resources */,
 				4BB407892202382300CD1D57 /* Web in Resources */,
@@ -635,15 +665,21 @@
 				4B4A74CE22CCC3F6000D63B2 /* Folder.swift in Sources */,
 				4B0EA17922C0D712004411BD /* TestViewController.swift in Sources */,
 				4B27865F22CB4A6F002FD614 /* Repository.swift in Sources */,
+				4B53B43922D2494700454E94 /* ItemTableVC.swift in Sources */,
 				4B4A74CF22CCC3F6000D63B2 /* MyRSSItem.swift in Sources */,
 				4BD2DD0622CE0C8800F445F4 /* AppDependency.swift in Sources */,
 				4B27867022CB545F002FD614 /* DBHandler.swift in Sources */,
 				4BEB54CE22D10B6B00872896 /* AppFlowCoordinator.swift in Sources */,
+				4B53B43B22D24C8C00454E94 /* RefreshControl.swift in Sources */,
 				4B4A74D122CCC3F6000D63B2 /* Item.swift in Sources */,
 				4BE44F8522CE43560042925A /* RSSFeedEditVC.swift in Sources */,
+				4B53B44E22D2834F00454E94 /* PolyItem.swift in Sources */,
 				4BCD96A322CB953400F214E2 /* Errors.swift in Sources */,
+				4B53B43722D2481900454E94 /* ItemTableVM.swift in Sources */,
 				4BCE7C4422CF54F500876225 /* Other.swift in Sources */,
 				4B4A74D022CCC3F6000D63B2 /* MyRSSFeed.swift in Sources */,
+				4B53B44A22D24EE000454E94 /* PullToRefreshView.swift in Sources */,
+				4B53B44C22D27DE700454E94 /* SpecialItem.swift in Sources */,
 				4BE8A5FB21D6CB05009B66F0 /* AppDelegate.swift in Sources */,
 				4BCE7C4622CF707100876225 /* Reactive.swift in Sources */,
 				4BCD96A922CB9BD000F214E2 /* RSSFeedEditVM.swift in Sources */,

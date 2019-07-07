@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import RealmSwift
 import AlamofireRSSParser
 
-class MyRSSItem: Item {
+class MyRSSItem: Object {
+    @objc dynamic var itemId = UUID().uuidString
     @objc dynamic var articleLink: String = ""
     @objc dynamic var itemDescription: String = ""
     @objc dynamic var author: String = ""
@@ -27,7 +29,8 @@ class MyRSSItem: Item {
     }
     
     convenience init(_ rssItem: RSSItem?, _ myRssFeed: MyRSSFeed) {
-        self.init(with: rssItem?.title ?? "Unknown", type: .myRssItem)
+//        self.init(with: rssItem?.title ?? "Unknown", type: .myRssItem)
+        self.init()
         
         self.articleLink = rssItem?.link ?? "Unknown"
         self.author = rssItem?.author ?? "Unknown author"

@@ -36,7 +36,11 @@ class AppFlowCoordinator: BaseFlowCoordinator {
                 print("RSS feed selected: \(item.title)")
             case .myRssItem:
                 let item = item as! MyRSSItem
-                print("RSS item selected: \(item.title)")
+                print("RSS item selected: \(item.articleLink)")
+                
+            case .specialItem:
+                let item = item as! SpecialItem
+                print("Special item selected: \(item.title)")
             }
         }
     }

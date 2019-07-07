@@ -70,7 +70,11 @@ extension List where Element == PolyItem {
             polyItem.myRssFeed = item as? MyRSSFeed
         case .myRssItem:
             polyItem.myRssItem = item as? MyRSSItem
+        case .specialItem:
+            print("Error?") //FIXME: What here?
         }
+        
+        
         
         self.append(polyItem)
     }

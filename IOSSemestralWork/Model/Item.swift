@@ -13,25 +13,20 @@ enum ItemType: String {
     case folder
     case myRssFeed
     case myRssItem
+    case specialItem
 }
 
-class Item: Object {
+protocol TableItem {
+    var itemId: String { get }
+    var title: String { get }
+    var type: ItemType { get }
+}
+
+class Item: Object, TableItem {
     @objc dynamic var itemId = UUID().uuidString
     @objc dynamic var title: String = "SomeItem"
     
-    /**
-     The ItemType enum can't be saved directly using Realm. Variable savedType is saved as a String but type variable is used everywhere else.
-     */
-    @objc private dynamic var savedType: String = ItemType.myRssItem.rawValue
-    var type: ItemType {
-        get {
-            return ItemType(rawValue: savedType)!
-        }
-        
-        set {
-            savedType = newValue.rawValue
-        }
-    }
+    var type: ItemType = .specialItem
     
     convenience init(with title: String, type: ItemType) {
         self.init()
@@ -42,11 +37,4 @@ class Item: Object {
     override static func primaryKey() -> String? {
         return "itemId"
     }
-}
-
-class PolyItem: Object {
-    @objc dynamic var item: Item? = nil
-    @objc dynamic var folder: Folder? = nil
-    @objc dynamic var myRssFeed: MyRSSFeed? = nil
-    @objc dynamic var myRssItem: MyRSSItem? = nil
 }
