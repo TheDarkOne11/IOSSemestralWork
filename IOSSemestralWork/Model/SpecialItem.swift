@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class SpecialItem: TableItem {
+class SpecialItem: Item {
     typealias Action = () -> [Item]
     let action: Action
     

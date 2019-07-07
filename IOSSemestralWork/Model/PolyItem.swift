@@ -10,7 +10,6 @@ import Foundation
 import RealmSwift
 
 class PolyItem: Object {
-    @objc dynamic var item: Item? = nil
     @objc dynamic var folder: Folder? = nil
     @objc dynamic var myRssFeed: MyRSSFeed? = nil
     @objc dynamic var myRssItem: MyRSSItem? = nil

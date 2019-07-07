@@ -9,12 +9,21 @@
 import Foundation
 import RealmSwift
 
-class Folder: Item {
-    @objc dynamic var parentFolder: Folder?
+class Folder: Object, Item {
+    @objc dynamic var itemId: String = UUID().uuidString
+    @objc dynamic var title: String = ""
+    @objc dynamic var parentFolder: Folder? = nil
     let polyItems = List<PolyItem>()
     
+    var type: ItemType = .folder
+    
     convenience init(withTitle title: String, in folder: Folder? = nil) {
-        self.init(with: title, type: .folder)
+        self.init()
+        self.title = title
         self.parentFolder = folder
+    }
+    
+    override static func primaryKey() -> String? {
+        return "itemId"
     }
 }

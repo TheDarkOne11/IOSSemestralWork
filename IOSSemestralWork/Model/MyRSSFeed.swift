@@ -9,7 +9,9 @@
 import Foundation
 import RealmSwift
 
-class MyRSSFeed: Item {
+class MyRSSFeed: Object, Item {
+    @objc dynamic var itemId: String = UUID().uuidString
+    @objc dynamic var title: String = ""
     @objc dynamic var link: String = ""
     @objc dynamic var folder: Folder?
     let myRssItems = List<MyRSSItem>()
@@ -19,10 +21,17 @@ class MyRSSFeed: Item {
      */
     @objc dynamic var isOk: Bool = true
     
+    var type: ItemType = .myRssFeed
+    
     convenience init(title: String, link: String, in folder: Folder) {
-        self.init(with: title, type: .myRssFeed)
+        self.init()
+        self.title = title
         self.folder = folder
         self.link = link
+    }
+    
+    override static func primaryKey() -> String? {
+        return "itemId"
     }
     
     func unreadItemsCount() -> Int {

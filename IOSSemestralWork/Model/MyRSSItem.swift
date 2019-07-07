@@ -29,7 +29,6 @@ class MyRSSItem: Object {
     }
     
     convenience init(_ rssItem: RSSItem?, _ myRssFeed: MyRSSFeed) {
-//        self.init(with: rssItem?.title ?? "Unknown", type: .myRssItem)
         self.init()
         
         self.articleLink = rssItem?.link ?? "Unknown"
@@ -39,6 +38,10 @@ class MyRSSItem: Object {
         self.rssFeed = myRssFeed
         
         setImage(rssItem)
+    }
+    
+    override static func primaryKey() -> String? {
+        return "itemId"
     }
     
     /**
