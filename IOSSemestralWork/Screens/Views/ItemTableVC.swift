@@ -31,24 +31,17 @@ class ItemTableVC: BaseViewController {
         super.loadView()
         view.backgroundColor = .white
         
-        let tableView = UITableView(frame: self.view.bounds, style: UITableView.Style.grouped)
+        let tableView = UITableView(frame: self.view.bounds, style: UITableView.Style.plain)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.backgroundColor = UIColor.green
-        tableView.contentInsetAdjustmentBehavior = .never
         
         // Initialize PullToRefresh
         tableView.refreshControl = refresher
         refresher.delegate = self
         
-//        tableView.register(UINib(nibName: "ItemCell", bundle: nil), forCellReuseIdentifier: "ItemCell")
         tableView.register(ItemCell.self, forCellReuseIdentifier: "ItemCell")
         view.addSubview(tableView)
         self.tableView = tableView
-        tableView.snp.makeConstraints { make in
-            make.bottom.leading.trailing.equalToSuperview()
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-        }
     }
     
     override func viewDidLoad() {
