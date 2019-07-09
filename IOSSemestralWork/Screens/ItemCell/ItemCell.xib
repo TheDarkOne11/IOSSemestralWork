@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ItemCell" id="KGk-i7-Jjw" customClass="ItemCell" customModule="IOSSemestralWork" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ItemCell" id="KGk-i7-Jjw" customClass="ItemCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -38,7 +38,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NumOfItems" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pFO-Ub-bAX">
-                        <rect key="frame" x="214.5" y="14.5" width="71.5" height="14.5"/>
+                        <rect key="frame" x="214" y="14.5" width="72" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -58,17 +58,11 @@
                     <constraint firstItem="cMz-uz-Vej" firstAttribute="leading" secondItem="TtZ-nd-CiR" secondAttribute="trailing" constant="16" id="vC9-2u-zmR"/>
                 </constraints>
             </tableViewCellContentView>
-            <connections>
-                <outlet property="errorImage" destination="ZAT-JD-JbJ" id="xS8-p5-AZd"/>
-                <outlet property="numOfItemsLabel" destination="pFO-Ub-bAX" id="tJe-i9-bBu"/>
-                <outlet property="titleLabel" destination="cMz-uz-Vej" id="9dG-5K-Bgy"/>
-                <outlet property="typeImage" destination="TtZ-nd-CiR" id="phD-Aj-9fL"/>
-            </connections>
             <point key="canvasLocation" x="180.80000000000001" y="107.94602698650675"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="all" width="48" height="48"/>
-        <image name="error" width="48" height="48"/>
+        <image name="all" width="100" height="100"/>
+        <image name="error" width="100" height="100"/>
     </resources>
 </document>

@@ -14,12 +14,13 @@ protocol IItemTableVM {
     typealias ShownItems = ([SpecialItem], List<PolyItem>)
     var selectedItem: Folder { get }
     var currentlyShownItems: MutableProperty<ShownItems?> { get }
+    var screenTitle: String { get }
     
     func remove(_ polyItem: PolyItem)
 }
 
 final class ItemTableVM: BaseViewModel, IItemTableVM {
-    typealias Dependencies = HasRepository & HasDBHandler & HasRealm
+    typealias Dependencies = HasRepository & HasDBHandler & HasRealm & HasRootFolder
     private let dependencies: Dependencies!
     
     /** SpecialItems, Folders and MyRSSFeeds. */
@@ -30,6 +31,8 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
     
     private let specialItems: [SpecialItem] = []
     
+    let screenTitle: String
+    
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
         
@@ -38,6 +41,8 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
         } else {
             fatalError("Should be a Folder.")
         }
+        
+        self.screenTitle = selectedItem.itemId == dependencies.rootFolder.itemId ? "RSSFeed reader" : selectedItem.title
         
         super.init()
         
@@ -49,15 +54,15 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
     }
     
     private func getItems() -> ShownItems {
-        let allItems = SpecialItem(withTitle: "All items") { () -> SpecialItem.ActionResult in
+        let allItems = SpecialItem(withTitle: "All items", imageName: "all") { () -> SpecialItem.ActionResult in
             return (self.selectedItem, Array<NSPredicate>())
         }
         
-        let unreadItems = SpecialItem(withTitle: "Unread items") { () -> SpecialItem.ActionResult in
+        let unreadItems = SpecialItem(withTitle: "Unread items", imageName: "unread") { () -> SpecialItem.ActionResult in
             return (self.selectedItem, [NSPredicate(format: "isRead == false")])
         }
         
-        let starredItems = SpecialItem(withTitle: "Starred items") { () -> SpecialItem.ActionResult in
+        let starredItems = SpecialItem(withTitle: "Starred items", imageName: "starred") { () -> SpecialItem.ActionResult in
             return (self.selectedItem, [NSPredicate(format: "isStarred == true")])
         }
         

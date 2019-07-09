@@ -21,9 +21,11 @@ class SpecialItem: Item {
     let itemId: String = UUID().uuidString
     let title: String
     let type: ItemType = ItemType.specialItem
+    let imgName: String
     
-    init(withTitle title: String, with action: @escaping Action) {
+    init(withTitle title: String, imageName imgName: String, _ action: @escaping Action) {
         self.title = title
         self.action = action
+        self.imgName = imgName
     }
 }

@@ -20,28 +20,31 @@ class AppFlowCoordinator: BaseFlowCoordinator {
         window.rootViewController = navigationController
         self.navigationController = navigationController
         
-        let vm = RSSFeedEditVM(dependencies: AppDependency.shared)
-        let vc = RSSFeedEditVC(vm)
-        vc.flowDelegate = self
-        navigationController.setViewControllers([vc], animated: true)
+        //        let vm = RSSFeedEditVM(dependencies: AppDependency.shared)
+        //        let vc = RSSFeedEditVC(vm)
+        //        vc.flowDelegate = self
+        //        navigationController.setViewControllers([vc], animated: true)
         
-        AppDependency.shared.repository.selectedItem.producer.startWithValues { item in
-            switch item.type {
-                
-            case .folder:
-                let item = item as! Folder
-                print("Folder selected: \(item.title)")
-            case .myRssFeed:
-                let item = item as! MyRSSFeed
-                print("RSS feed selected: \(item.title)")
-            case .myRssItem:
-                let item = item as! MyRSSItem
-                print("RSS item selected: \(item.articleLink)")
-            case .specialItem:
-                let item = item as! SpecialItem
-                let actionResult = item.action()
-                print("Special item selected: \(item.title)")
-            }
+        AppDependency.shared.repository.selectedItem.producer
+            .startWithValues { [weak navigationController] item in
+                switch item.type {
+                    
+                case .folder:
+                    let item = item as! Folder
+                    let vm = ItemTableVM(dependencies: AppDependency.shared)
+                    let vc = ItemTableVC(vm)
+                    navigationController?.setViewControllers([vc], animated: true)
+                case .myRssFeed:
+                    let item = item as! MyRSSFeed
+                    print("RSS feed selected: \(item.title)")
+                case .myRssItem:
+                    let item = item as! MyRSSItem
+                    print("RSS item selected: \(item.articleLink)")
+                case .specialItem:
+                    let item = item as! SpecialItem
+                    let actionResult = item.action()
+                    print("Special item selected: \(item.title)")
+                }
         }
     }
 }
@@ -50,5 +53,14 @@ class AppFlowCoordinator: BaseFlowCoordinator {
 extension AppFlowCoordinator: RSSFeedEditFlowDelegate {
     func editSuccessful(in viewController: RSSFeedEditVC) {
         viewController.dismiss(animated: true)
+    }
+}
+
+extension AppFlowCoordinator: ItemTableVCFlowDelegate {
+    func toFeedEdit(in viewController: ItemTableVC) {
+        let vm = RSSFeedEditVM(dependencies: AppDependency.shared)
+        let vc = RSSFeedEditVC(vm)
+        vc.flowDelegate = self
+        navigationController.setViewControllers([vc], animated: true)
     }
 }

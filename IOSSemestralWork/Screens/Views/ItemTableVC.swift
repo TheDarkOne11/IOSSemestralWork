@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ItemTableVCFlowDelegate {
-    
+    func toFeedEdit(in viewController: ItemTableVC)
 }
 
 class ItemTableVC: BaseViewController {
@@ -40,7 +40,8 @@ class ItemTableVC: BaseViewController {
         tableView.refreshControl = refresher
         refresher.delegate = self
         
-        tableView.register(UINib(nibName: "ItemCell", bundle: nil), forCellReuseIdentifier: "ItemCell")
+//        tableView.register(UINib(nibName: "ItemCell", bundle: nil), forCellReuseIdentifier: "ItemCell")
+        tableView.register(ItemCell.self, forCellReuseIdentifier: "ItemCell")
         view.addSubview(tableView)
         self.tableView = tableView
     }
@@ -50,7 +51,7 @@ class ItemTableVC: BaseViewController {
         
         setupBindings()
         
-        navigationItem.title = "Custom title"
+        navigationItem.title = viewModel.screenTitle
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(actionBarButtonTapped(_:)))
     }
     
@@ -63,15 +64,33 @@ class ItemTableVC: BaseViewController {
 //FIXME: Implement
 extension ItemTableVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        fatalError("Not implemented")
+        guard let shownItems = viewModel.currentlyShownItems.value else {
+            return 0
+        }
+        
+        let count = shownItems.0.count + shownItems.1.count
+        return count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        fatalError("Not implemented")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
+        guard let shownItems = viewModel.currentlyShownItems.value else {
+            fatalError("Shown items should not be nil.")
+        }
+        
+        if indexPath.row < shownItems.0.count {
+            let specialItem = shownItems.0[indexPath.row]
+            cell.setData(title: specialItem.title, imgName: specialItem.imgName, itemCount: 0)  //FIXME: Count right item count
+        } else {
+            let polyItem = shownItems.1[indexPath.row - shownItems.0.count]
+            cell.setData(using: polyItem)
+        }
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        print("Selected an item at: \(indexPath.row)")
     }
 }
 
