@@ -13,55 +13,57 @@ class ItemCell: UITableViewCell {
     private weak var titleLabel: UILabel!
     private weak var numOfItemsLabel: UILabel!
     private weak var typeImage: UIImageView!
-//    private weak var errorImage: UIImageView!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        let stackView = UIStackView()
-        addSubview(stackView)
+        let typeImage = UIImageView()
+        addSubview(typeImage)
+        self.typeImage = typeImage
+        typeImage.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        typeImage.setContentHuggingPriority(.defaultLow, for: .vertical)
+        typeImage.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        typeImage.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         
         let titleLabel = UILabel()
-        stackView.addArrangedSubview(titleLabel)
+        addSubview(titleLabel)
         self.titleLabel = titleLabel
-//        titleLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-//        titleLabel.setContentHuggingPriority(.defaultLow, for: .vertical)
-//        titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-//        titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        titleLabel.backgroundColor = .green
+        titleLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        titleLabel.setContentHuggingPriority(.init(251), for: .vertical)
+        titleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        titleLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         
         let numOfItemsLabel = UILabel()
-        stackView.addArrangedSubview(numOfItemsLabel)
+        addSubview(numOfItemsLabel)
         self.numOfItemsLabel = numOfItemsLabel
-//        numOfItemsLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-//        numOfItemsLabel.setContentHuggingPriority(.init(251), for: .vertical)
-//        numOfItemsLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-//        numOfItemsLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+        numOfItemsLabel.textColor = .lightGray
+        numOfItemsLabel.setContentHuggingPriority(.init(251), for: .horizontal)
+        numOfItemsLabel.setContentHuggingPriority(.init(251), for: .vertical)
+        numOfItemsLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        numOfItemsLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         
-        let typeImage = UIImageView()
-        stackView.addArrangedSubview(typeImage)
-        self.typeImage = typeImage
-//        typeImage.setContentHuggingPriority(.init(251), for: .horizontal)
-//        typeImage.setContentHuggingPriority(.init(251), for: .vertical)
-//        typeImage.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-//        typeImage.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+        // Constraints
+        typeImage.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().inset(16)
+            make.width.equalTo(typeImage.snp.height).multipliedBy(1/1)
+            make.height.equalTo(30)
+        }
         
-        stackView.snp.makeConstraints { make in
-            make.top.bottom.leading.trailing.equalToSuperview()
+        titleLabel.snp.makeConstraints { make in
+            make.bottom.top.equalToSuperview().inset(8)
+            make.leading.equalTo(typeImage.snp_trailing).offset(16)
+            make.trailing.greaterThanOrEqualTo(numOfItemsLabel.snp_leading).offset(-8)
+        }
+        
+        numOfItemsLabel.snp.makeConstraints { make in
+            make.bottom.trailing.top.equalToSuperview().inset(8)
         }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
     func setData(using polyItem: PolyItem) {
@@ -98,8 +100,6 @@ class ItemCell: UITableViewCell {
         }
         
         // Set errorImage/numOfItemsLabel
-//        errorImage.isHidden = errorHidden!
-//        numOfItemsLabel.isHidden = !errorImage.isHidden
         numOfItemsLabel.text = "\(count)"
     }
     

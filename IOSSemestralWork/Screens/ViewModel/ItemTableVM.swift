@@ -62,7 +62,7 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
             return (self.selectedItem, [NSPredicate(format: "isRead == false")])
         }
         
-        let starredItems = SpecialItem(withTitle: "Starred items", imageName: "starred") { () -> SpecialItem.ActionResult in
+        let starredItems = SpecialItem(withTitle: "Starred items", imageName: "star") { () -> SpecialItem.ActionResult in
             return (self.selectedItem, [NSPredicate(format: "isStarred == true")])
         }
         
