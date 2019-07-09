@@ -71,7 +71,7 @@ class ItemTableVC: BaseViewController {
         if status == DownloadStatus.Unreachable {
             // Internet is unreachable
             print("Internet is unreachable")
-            self.view.makeToast("Internet is unreachable. Please try updating later.")
+            self.view.makeToast(L10n.Error.internetUnreachable)
             
         }
     }
@@ -107,12 +107,27 @@ extension ItemTableVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected an item at: \(indexPath.row)")
+        guard let shownItems = viewModel.currentlyShownItems.value else {
+            fatalError("Shown items should not be nil.")
+        }
+        
+        if indexPath.row < shownItems.0.count {
+            let specialItem = shownItems.0[indexPath.row]
+            viewModel.select(specialItem)
+        } else {
+            let polyItem = shownItems.1[indexPath.row - shownItems.0.count]
+            
+            if let folder = polyItem.folder {
+                viewModel.select(folder)
+            } else if let feed = polyItem.myRssFeed {
+                viewModel.select(feed)
+            }
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
-
-//FIXME: Implement
 extension ItemTableVC: RefreshControlDelegate {
     
     /**
@@ -147,12 +162,12 @@ extension ItemTableVC: RefreshControlDelegate {
 //    }
 //    
 //    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//        let removeAction = UITableViewRowAction(style: .destructive, title: "Remove") { (action, indexPath) in
+//        let removeAction = UITableViewRowAction(style: .destructive, title: L10n.Base.actionRemove) { (action, indexPath) in
 //            self.removeItem(at: indexPath)
 //            self.tableView.reloadData()
 //        }
 //        
-//        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (action, indexPath) in
+//        let editAction = UITableViewRowAction(style: .normal, title: L10n.Base.actionEdit) { (action, indexPath) in
 //            self.editItem(at: indexPath)
 //            self.tableView.reloadData()
 //        }

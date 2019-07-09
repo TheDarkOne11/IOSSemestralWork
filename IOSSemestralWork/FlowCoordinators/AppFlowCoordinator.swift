@@ -30,10 +30,9 @@ class AppFlowCoordinator: BaseFlowCoordinator {
                 switch item.type {
                     
                 case .folder:
-                    let item = item as! Folder
                     let vm = ItemTableVM(dependencies: AppDependency.shared)
                     let vc = ItemTableVC(vm)
-                    navigationController?.setViewControllers([vc], animated: true)
+                    navigationController?.pushViewController(vc, animated: true)
                 case .myRssFeed:
                     let item = item as! MyRSSFeed
                     print("RSS feed selected: \(item.title)")

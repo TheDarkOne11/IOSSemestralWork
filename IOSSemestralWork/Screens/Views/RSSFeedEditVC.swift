@@ -181,9 +181,9 @@ class RSSFeedEditVC: BaseViewController {
     private func presentCreateFolderAlert() {
         var textField = UITextField()
         
-        let alert = UIAlertController(title: "Create folder", message: "", preferredStyle: .alert)
-        let actionCancel = UIAlertAction(title: "Cancel", style: .cancel)
-        let actionDone = UIAlertAction(title: "Done", style: .default) { [weak self] (action) in
+        let alert = UIAlertController(title: L10n.RssEditView.addFolderTitle, message: "", preferredStyle: .alert)
+        let actionCancel = UIAlertAction(title: L10n.Base.actionCancel, style: .cancel)
+        let actionDone = UIAlertAction(title: L10n.Base.actionDone, style: .default) { [weak self] (action) in
             self?.viewModel.createFolder(title: textField.text!)
             self?.pickerView.reloadAllComponents()
         }
@@ -192,7 +192,7 @@ class RSSFeedEditVC: BaseViewController {
         alert.addAction(actionDone)
         alert.addAction(actionCancel)
         alert.addTextField { (alertTextField) in
-            alertTextField.placeholder = "Folder name"
+            alertTextField.placeholder = L10n.RssEditView.folderNamePlaceholder
             alertTextField.enablesReturnKeyAutomatically = true
             
             textField = alertTextField

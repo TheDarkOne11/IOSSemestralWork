@@ -19,6 +19,7 @@ protocol IItemTableVM {
     
     func remove(_ polyItem: PolyItem)
     func updateAllFeeds()
+    func select(_ item: Item)
 }
 
 final class ItemTableVM: BaseViewModel, IItemTableVM {
@@ -46,7 +47,7 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
             fatalError("Should be a Folder.")
         }
         
-        self.screenTitle = selectedItem.itemId == dependencies.rootFolder.itemId ? "RSSFeed reader" : selectedItem.title
+        self.screenTitle = selectedItem.itemId == dependencies.rootFolder.itemId ? L10n.ItemTableView.baseTitle : selectedItem.title
         
         super.init()
         
@@ -58,15 +59,15 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
     }
     
     private func getItems() -> ShownItems {
-        let allItems = SpecialItem(withTitle: "All items", imageName: "all") { () -> SpecialItem.ActionResult in
+        let allItems = SpecialItem(withTitle: L10n.Base.allItems, imageName: "all") { () -> SpecialItem.ActionResult in
             return (self.selectedItem, Array<NSPredicate>())
         }
         
-        let unreadItems = SpecialItem(withTitle: "Unread items", imageName: "unread") { () -> SpecialItem.ActionResult in
+        let unreadItems = SpecialItem(withTitle: L10n.Base.unreadItems, imageName: "unread") { () -> SpecialItem.ActionResult in
             return (self.selectedItem, [NSPredicate(format: "isRead == false")])
         }
         
-        let starredItems = SpecialItem(withTitle: "Starred items", imageName: "star") { () -> SpecialItem.ActionResult in
+        let starredItems = SpecialItem(withTitle: L10n.Base.starredItems, imageName: "star") { () -> SpecialItem.ActionResult in
             return (self.selectedItem, [NSPredicate(format: "isStarred == true")])
         }
         
@@ -93,5 +94,9 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
         if status == DownloadStatus.OK {
             dependencies.userDefaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
         }
+    }
+    
+    func select(_ item: Item) {
+        dependencies.repository.selectedItem.value = item
     }
 }
