@@ -10,8 +10,9 @@ import Foundation
 import RealmSwift
 import AlamofireRSSParser
 
-class MyRSSItem: Object {
+class MyRSSItem: Object, Item {
     @objc dynamic var itemId = UUID().uuidString
+    @objc dynamic var title: String = ""
     @objc dynamic var articleLink: String = ""
     @objc dynamic var itemDescription: String = ""
     @objc dynamic var author: String = ""
@@ -20,6 +21,8 @@ class MyRSSItem: Object {
     @objc dynamic var rssFeed: MyRSSFeed?
     @objc dynamic var isRead: Bool = false
     @objc dynamic var isStarred: Bool = false
+    
+    var type: ItemType = .myRssItem
     
     var description_NoHtml: String {
         get {

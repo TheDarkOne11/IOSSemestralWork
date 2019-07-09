@@ -10,7 +10,12 @@ import Foundation
 import RealmSwift
 
 class SpecialItem: Item {
-    typealias Action = () -> [Item]
+    /**
+     - Folder: A folder to be selected
+     - [NSPredicate]: Predicates used to filter items of the selected Folder
+     */
+    typealias ActionResult = (Folder, [NSPredicate])
+    typealias Action = () -> ActionResult
     let action: Action
     
     let itemId: String = UUID().uuidString
