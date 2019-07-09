@@ -34,7 +34,8 @@ class ItemTableVC: BaseViewController {
         let tableView = UITableView(frame: self.view.bounds, style: UITableView.Style.grouped)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.backgroundColor = UIColor.white
+        tableView.backgroundColor = UIColor.green
+        tableView.contentInsetAdjustmentBehavior = .never
         
         // Initialize PullToRefresh
         tableView.refreshControl = refresher
@@ -44,6 +45,10 @@ class ItemTableVC: BaseViewController {
         tableView.register(ItemCell.self, forCellReuseIdentifier: "ItemCell")
         view.addSubview(tableView)
         self.tableView = tableView
+        tableView.snp.makeConstraints { make in
+            make.bottom.leading.trailing.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+        }
     }
     
     override func viewDidLoad() {
@@ -56,7 +61,26 @@ class ItemTableVC: BaseViewController {
     }
     
     private func setupBindings() {
-        //FIXME: Implement
+        viewModel.downloadStatus.producer.startWithValues { [weak self] status in
+            print("End refreshing")
+            self?.refresher.refreshView.stopUpdating()
+            self?.refresher.endRefreshing()
+            
+            if let status = status {
+                self?.checkStatus(status)
+            }
+            
+            self?.tableView.reloadData()
+        }
+    }
+    
+    private func checkStatus(_ status: DownloadStatus) {
+        if status == DownloadStatus.Unreachable {
+            // Internet is unreachable
+            print("Internet is unreachable")
+            self.view.makeToast("Internet is unreachable. Please try updating later.")
+            
+        }
     }
 }
 
@@ -97,8 +121,26 @@ extension ItemTableVC: UITableViewDelegate, UITableViewDataSource {
 
 //FIXME: Implement
 extension ItemTableVC: RefreshControlDelegate {
+    
+    /**
+     Checks beginning of the PullToRefresh and updates its label.
+     */
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        var offset: CGFloat = 0
+        if let frame = self.navigationController?.navigationBar.frame {
+            offset = frame.minY + frame.size.height
+        }
+        
+        if (-scrollView.contentOffset.y >= offset ) {
+            refresher.refreshView.updateLabelText()
+        }
+    }
+    
     func update() {
-        fatalError("Not implemented")
+        print("requesting data")
+        
+        refresher.refreshView.startUpdating()
+        viewModel.updateAllFeeds()
     }
 }
 

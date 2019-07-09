@@ -28,7 +28,6 @@ class ItemCell: UITableViewCell {
         let titleLabel = UILabel()
         addSubview(titleLabel)
         self.titleLabel = titleLabel
-        titleLabel.backgroundColor = .green
         titleLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         titleLabel.setContentHuggingPriority(.init(251), for: .vertical)
         titleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
