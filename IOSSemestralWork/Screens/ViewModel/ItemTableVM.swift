@@ -18,7 +18,7 @@ struct ShownItems {
     func getItem(at index: Int) -> Item {
         if index < specialItems.count {
             return specialItems[index]
-        } else if index < index - specialItems.count {
+        } else if index < specialItems.count + folders.count {
             return folders[index - specialItems.count]
         } else {
             return feeds[index - specialItems.count - folders.count]

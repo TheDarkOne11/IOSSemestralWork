@@ -85,7 +85,7 @@ extension ItemTableVC: UITableViewDelegate, UITableViewDataSource {
             return 0
         }
         
-        let count = shownItems.specialItems.count + shownItems.folders.count
+        let count = shownItems.specialItems.count + shownItems.folders.count + shownItems.feeds.count
         return count
     }
     
@@ -95,13 +95,8 @@ extension ItemTableVC: UITableViewDelegate, UITableViewDataSource {
             fatalError("Shown items should not be nil.")
         }
         
-        if indexPath.row < shownItems.specialItems.count {
-            let specialItem = shownItems.specialItems[indexPath.row]
-            cell.setData(title: specialItem.title, imgName: specialItem.imgName, itemCount: 0)  //FIXME: Count right item count
-        } else {
-            let polyItem = shownItems.folders[indexPath.row - shownItems.specialItems.count]
-            cell.setData(using: polyItem)
-        }
+        let item = shownItems.getItem(at: indexPath.row)
+        cell.setData(using: item)
         
         return cell
     }

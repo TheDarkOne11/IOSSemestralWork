@@ -65,6 +65,20 @@ class ItemCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setData(using item: Item) {
+        switch item.type {
+        case .folder:
+            setData(using: item as! Folder)
+        case .myRssFeed:
+            setData(using: item as! MyRSSFeed)
+        case .myRssItem:
+            fatalError("The ItemCell should not be used with RSSItems.")
+        case .specialItem:
+            let item = item as! SpecialItem
+            setData(title: item.title, imgName: item.imgName, itemCount: 0) //FIXME: Add right count
+        }
+    }
+    
     func setData(using folder: Folder) {
         setData(title: folder.title, imgName: "folder", itemCount: getUnreadItems(of: folder), true)
     }
