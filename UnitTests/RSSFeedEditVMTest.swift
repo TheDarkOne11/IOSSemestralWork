@@ -120,9 +120,9 @@ class UnitTests: XCTestCase {
     func testUpdateOK() {
         let expectation = XCTestExpectation(description: "Valid viewModel data returns no error")
         
-        let folder = Folder(withTitle: "TestFolder")
-        dependencies.dbHandler.create(folder)
-        let feedForUpdate = MyRSSFeed(title: viewModel.feedName.value, link: viewModel.link.value, in: folder)
+        let oldFolder = Folder(withTitle: "TestFolder")
+        dependencies.dbHandler.create(oldFolder)
+        let feedForUpdate = MyRSSFeed(title: viewModel.feedName.value, link: viewModel.link.value, in: oldFolder)
         
         viewModel = RSSFeedEditVM(dependencies: dependencies, feedForUpdate: feedForUpdate)
         
@@ -146,10 +146,13 @@ class UnitTests: XCTestCase {
             XCTAssertTrue(rssFeedRes.count == 1)
             XCTAssertNotNil(rssFeedRes.first)
             XCTAssertEqual(rssFeedsCount, self.dependencies.realm.objects(MyRSSFeed.self).count)
+            XCTAssertEqual(oldFolder.feeds.filter("itemId == %@", feedForUpdate.itemId).count, 0)
             
             let rssFeed: MyRSSFeed = rssFeedRes.first!
             
+            XCTAssertEqual(feedForUpdate.itemId, rssFeed.itemId)
             XCTAssertNotNil(rssFeed.folder)
+            XCTAssertEqual(rssFeed.folder?.feeds.filter("itemId == %@", rssFeed.itemId).count, 1)
             XCTAssertTrue(rssFeed.link.contains(self.viewModel.link.value))
             XCTAssertTrue(rssFeed.link.starts(with: "http://"))
             

@@ -58,6 +58,7 @@ final class Repository: IRepository {
 
             // Change folders
             oldFolder?.feeds.remove(at: oldIndex!)
+            newFeed.folder?.feeds.append(oldFeed)
         }
         return SignalProducer(value: oldFeed)
     }
