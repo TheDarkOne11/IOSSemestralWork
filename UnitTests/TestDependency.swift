@@ -22,6 +22,10 @@ final class TestDependency{
     
     lazy var dbHandler: DBHandler = DBHandler(dependencies: self)
     lazy var repository: IRepository = Repository(dependencies: self)
+    
+    init() {
+        print("Root folder created: \(rootFolder.itemId)")
+    }
 }
 
 extension TestDependency: HasRepository { }

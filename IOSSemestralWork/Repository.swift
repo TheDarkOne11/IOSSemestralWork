@@ -58,8 +58,10 @@ final class Repository: IRepository {
             oldFeed.link = newFeed.link
 
             // Change folders
-            oldFolder?.feeds.remove(at: oldIndex!)
-            parentFolder.feeds.append(oldFeed)    //FIXME: Try out. Maybe check if folders arent the same
+            if oldFolder?.itemId != parentFolder.itemId {
+                oldFolder?.feeds.remove(at: oldIndex!)
+                parentFolder.feeds.append(oldFeed)
+            }
         }
         return SignalProducer(value: oldFeed)
     }
