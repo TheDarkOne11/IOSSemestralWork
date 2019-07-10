@@ -129,6 +129,8 @@ class RSSFeedEditVC: BaseViewController {
         
         navigationItem.title = viewModel.feedForUpdate.value != nil ? L10n.RssEditView.titleUpdate : L10n.RssEditView.titleCreate
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(actionBarButtonTapped(_:)))
+        navigationItem.setHidesBackButton(true, animated: false)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelBarButtonTapped(_:)))
     }
     
     private func setupOnSelectActions() {
@@ -176,6 +178,11 @@ class RSSFeedEditVC: BaseViewController {
     @objc
     private func actionBarButtonTapped(_ sender: UIBarButtonItem) {
         viewModel.saveBtnAction.apply().start()
+    }
+    
+    @objc
+    private func cancelBarButtonTapped(_ sender: UIBarButtonItem) {
+        flowDelegate?.editSuccessful(in: self)
     }
     
     private func presentCreateFolderAlert() {
