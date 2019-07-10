@@ -33,6 +33,11 @@ class ItemTableVC: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        token.invalidate()
+        token2.invalidate()
+    }
+    
     override func loadView() {
         super.loadView()
         view.backgroundColor = .white
@@ -56,7 +61,7 @@ class ItemTableVC: BaseViewController {
         setupBindings()
         
         navigationItem.title = viewModel.screenTitle
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(actionBarButtonTapped(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addBarButtonTapped(_:)))
     }
     
     private func setupBindings() {
@@ -113,6 +118,11 @@ class ItemTableVC: BaseViewController {
                 fatalError(err.localizedDescription)
             }
         })
+    }
+    
+    @objc
+    private func addBarButtonTapped(_ sender: UIBarButtonItem) {
+        flowDelegate?.toFeedEdit(with: nil)
     }
     
     private func checkStatus(_ status: DownloadStatus) {
