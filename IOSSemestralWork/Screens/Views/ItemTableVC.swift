@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol ItemTableVCFlowDelegate {
     func toFeedEdit(with feed: MyRSSFeed?)
@@ -18,6 +19,9 @@ class ItemTableVC: BaseViewController {
     lazy var refresher = RefreshControl()
     
     var flowDelegate: ItemTableVCFlowDelegate?
+    
+    var token: NotificationToken!
+    var token2: NotificationToken!
     
     init(_ viewModel: ItemTableVM) {
         self.viewModel = viewModel
@@ -67,6 +71,48 @@ class ItemTableVC: BaseViewController {
             
             self?.tableView.reloadData()
         }
+        
+        token = viewModel.shownItems.feeds.observe({ [weak self] changes in
+            guard let tableView = self?.tableView else { return }
+            guard let shownItems = self?.viewModel.shownItems else { return }
+            switch changes {
+            case .initial(_):
+                tableView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                let offset = shownItems.specialItems.count + shownItems.folders.count
+                tableView.beginUpdates()
+                tableView.insertRows(at: insertions.map { IndexPath(row: $0 + offset, section: 0) },
+                                          with: .automatic)
+                tableView.deleteRows(at: deletions.map { IndexPath(row: $0 + offset, section: 0) },
+                                          with: .automatic)
+                tableView.reloadRows(at: modifications.map { IndexPath(row: $0 + offset, section: 0) },
+                                          with: .automatic)
+                tableView.endUpdates()
+            case .error(let err):
+                fatalError(err.localizedDescription)
+            }
+        })
+        
+        token2 = viewModel.shownItems.folders.observe({ [weak self] changes in
+            guard let tableView = self?.tableView else { return }
+            guard let shownItems = self?.viewModel.shownItems else { return }
+            switch changes {
+            case .initial(_):
+                tableView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                let offset = shownItems.specialItems.count
+                tableView.beginUpdates()
+                tableView.insertRows(at: insertions.map { IndexPath(row: $0 + offset, section: 0) },
+                                     with: .automatic)
+                tableView.deleteRows(at: deletions.map { IndexPath(row: $0 + offset, section: 0) },
+                                     with: .automatic)
+                tableView.reloadRows(at: modifications.map { IndexPath(row: $0 + offset, section: 0) },
+                                     with: .automatic)
+                tableView.endUpdates()
+            case .error(let err):
+                fatalError(err.localizedDescription)
+            }
+        })
     }
     
     private func checkStatus(_ status: DownloadStatus) {
@@ -81,7 +127,7 @@ class ItemTableVC: BaseViewController {
 
 extension ItemTableVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let shownItems = viewModel.shownItems.value else {
+        guard let shownItems = viewModel.shownItems else {
             return 0
         }
         
@@ -91,7 +137,7 @@ extension ItemTableVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
-        guard let shownItems = viewModel.shownItems.value else {
+        guard let shownItems = viewModel.shownItems else {
             fatalError("Shown items should not be nil.")
         }
         
@@ -102,7 +148,7 @@ extension ItemTableVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let shownItems = viewModel.shownItems.value else {
+        guard let shownItems = viewModel.shownItems else {
             fatalError("Shown items should not be nil.")
         }
         
@@ -141,22 +187,17 @@ extension ItemTableVC: RefreshControlDelegate {
 
 extension ItemTableVC {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        guard let count = viewModel.shownItems.value?.specialItems.count else {
-            return false
-        }
-        
+        let count = viewModel.shownItems.specialItems.count
         return indexPath.row >= count
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let removeAction = UITableViewRowAction(style: .destructive, title: L10n.Base.actionRemove) { (action, indexPath) in
             self.removeItem(at: indexPath)
-            self.tableView.reloadData()
         }
         
         let editAction = UITableViewRowAction(style: .normal, title: L10n.Base.actionEdit) { (action, indexPath) in
             self.editItem(at: indexPath)
-            self.tableView.reloadData()
         }
         
         return [removeAction, editAction]
@@ -167,7 +208,7 @@ extension ItemTableVC {
      - parameter indexPath: The location of the cell (Folder or RSS feed) we want to edit.
      */
     private func editItem(at indexPath: IndexPath) {
-        guard let shownItems = viewModel.shownItems.value else {
+        guard let shownItems = viewModel.shownItems else {
             fatalError("Error when loading a PolyItem from PolyItems collection.")
         }
         
@@ -196,7 +237,6 @@ extension ItemTableVC {
         let actionCancel = UIAlertAction(title: L10n.Base.actionCancel, style: .cancel)
         let actionDone = UIAlertAction(title: L10n.Base.actionDone, style: .default) { [weak self] (action) in
             self?.viewModel.edit(folder, title: textField.text ?? "")
-            self?.tableView.reloadData()
         }
         
         alert.addAction(actionDone)
@@ -224,12 +264,11 @@ extension ItemTableVC {
      - parameter indexPath: The location of the cell (Folder or RSS feed) we want to remove.
      */
     private func removeItem(at indexPath: IndexPath) {
-        guard let shownItems = viewModel.shownItems.value else {
+        guard let shownItems = viewModel.shownItems else {
             fatalError("Error when loading a PolyItem from PolyItems collection.")
         }
         
         let item = shownItems.getItem(at: indexPath.row)
         viewModel.remove(item)
-        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 }

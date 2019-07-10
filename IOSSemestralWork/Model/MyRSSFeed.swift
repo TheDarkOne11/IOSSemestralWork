@@ -13,7 +13,7 @@ class MyRSSFeed: Object, Item {
     @objc dynamic var itemId: String = UUID().uuidString
     @objc dynamic var title: String = ""
     @objc dynamic var link: String = ""
-    @objc dynamic var folder: Folder?
+    let folder = LinkingObjects(fromType: Folder.self, property: "feeds")
     let myRssItems = List<MyRSSItem>()
     
     /**
@@ -23,10 +23,9 @@ class MyRSSFeed: Object, Item {
     
     var type: ItemType = .myRssFeed
     
-    convenience init(title: String, link: String, in folder: Folder) {
+    convenience init(title: String, link: String) {
         self.init()
         self.title = title
-        self.folder = folder
         self.link = link
     }
     

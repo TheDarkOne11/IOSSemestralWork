@@ -52,11 +52,14 @@ class DBHandler {
     func remove(_ item: Item) {
         switch item.type {
         case .folder:
-            remove(item as! Folder)
+            let folder = item as! Folder
+            remove(folder)
         case .myRssFeed:
-            remove(item as! MyRSSFeed)
+            let feed = item as! MyRSSFeed
+            remove(feed)
         case .myRssItem:
-            remove(item as! MyRSSItem)
+            let rssItem = item as! MyRSSItem
+            remove(rssItem)
         case .specialItem:
             fatalError("Should not be able to remove SpecialItem.")
         }
@@ -67,25 +70,29 @@ class DBHandler {
     func create(_ folder: Folder) {
         // Save the folder to Realm
         realmEdit(errorMsg: "Could not add a new folder to Realm") {
-            if let parentFolder = folder.parentFolder {
-                parentFolder.folders.append(folder)
-            } else {
-                dependencies.realm.add(folder)  //TODO: What this code does?
-            }
+            dependencies.realm.add(folder)  //TODO: Remove method
         }
     }
     
     func remove(_ folder: Folder) {
         // Remove folders contents
-        for folder in folder.folders {
-            remove(folder)
-        }
-        
-        for feed in folder.feeds {
-            remove(feed)
-        }
+//        for folder in folder.folders {
+//            remove(folder)
+//        }
+//
+//        for feed in folder.feeds {
+//            remove(feed)
+//        }
         
         realmEdit(errorMsg: "Error occured when removing a folder \(folder.title)") {
+            for folder in folder.folders {
+                dependencies.realm.delete(folder)
+            }
+            
+            for feed in folder.feeds {
+                dependencies.realm.delete(feed)
+            }
+            
             dependencies.realm.delete(folder)
         }
     }
@@ -94,7 +101,7 @@ class DBHandler {
     
     func create(_ myRssFeed: MyRSSFeed) {
         realmEdit(errorMsg: "Error occured when creating a new MyRSSFeed") {
-            myRssFeed.folder?.feeds.append(myRssFeed)
+            myRssFeed.folder.first?.feeds.append(myRssFeed) //TODO: Remove method?
         }
     }
     
@@ -202,12 +209,10 @@ class DBHandler {
             }
             
             for item in feed.items {
-                let myRssItem = MyRSSItem(item, myRssFeed)
+                let myRssItem = MyRSSItem(item)
                 
                 // Add the item only if it doesn't exist already
                 if dependencies.realm.object(ofType: MyRSSItem.self, forPrimaryKey: myRssItem.itemId) == nil {
-                    dependencies.realm.add(myRssItem, update: .error)
-                    
                     myRssFeed.myRssItems.append(myRssItem)
                 }
             }

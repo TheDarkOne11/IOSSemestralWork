@@ -12,16 +12,15 @@ import RealmSwift
 class Folder: Object, Item {
     @objc dynamic var itemId: String = UUID().uuidString
     @objc dynamic var title: String = ""
-    @objc dynamic var parentFolder: Folder? = nil
+    let parentFolder = LinkingObjects(fromType: Folder.self, property: "folders")
     let folders = List<Folder>()
     let feeds = List<MyRSSFeed>()
     
     var type: ItemType = .folder
     
-    convenience init(withTitle title: String, in folder: Folder? = nil) {
+    convenience init(withTitle title: String) {
         self.init()
         self.title = title
-        self.parentFolder = folder
     }
     
     override static func primaryKey() -> String? {

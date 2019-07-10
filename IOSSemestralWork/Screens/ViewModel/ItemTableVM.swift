@@ -28,7 +28,7 @@ struct ShownItems {
 
 protocol IItemTableVM {
     var selectedItem: Folder { get }
-    var shownItems: MutableProperty<ShownItems?> { get }
+    var shownItems: ShownItems! { get }
     var downloadStatus: MutableProperty<DownloadStatus?> { get }
     var screenTitle: String { get }
     
@@ -45,7 +45,7 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
     let downloadStatus = MutableProperty<DownloadStatus?>(nil)
     
     /** SpecialItems, Folders and MyRSSFeeds. */
-    let shownItems = MutableProperty<ShownItems?>(nil)
+    private(set) var shownItems: ShownItems!
     
     /** Folder */
     let selectedItem: Folder
@@ -67,7 +67,7 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
         
         super.init()
         
-        shownItems.value = getItems()
+        shownItems = getItems()
     }
     
     func edit(_ folder: Folder, title: String) {

@@ -18,12 +18,11 @@ class MyRSSItem: Object, Item {
     @objc dynamic var author: String = ""
     @objc dynamic var date: Date?
     @objc dynamic var image: String?
-    @objc dynamic var rssFeed: MyRSSFeed?
     @objc dynamic var isRead: Bool = false
     @objc dynamic var isStarred: Bool = false
     
+    let rssFeed = LinkingObjects(fromType: MyRSSFeed.self, property: "myRssItems")
     var type: ItemType = .myRssItem
-    
     var description_NoHtml: String {
         get {
             // Removes all HTML tags
@@ -31,14 +30,13 @@ class MyRSSItem: Object, Item {
         }
     }
     
-    convenience init(_ rssItem: RSSItem?, _ myRssFeed: MyRSSFeed) {
+    convenience init(_ rssItem: RSSItem?) {
         self.init()
         
         self.articleLink = rssItem?.link ?? "Unknown"
         self.author = rssItem?.author ?? "Unknown author"
         self.itemDescription = rssItem?.itemDescription ?? "Unknown"
         self.date = rssItem?.pubDate
-        self.rssFeed = myRssFeed
         
         setImage(rssItem)
     }
