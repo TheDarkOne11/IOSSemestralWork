@@ -49,8 +49,7 @@ final class Repository: IRepository {
         //TODO: Error handling – change errorMsg to a closure
         dependencies.dbHandler.realmEdit(errorMsg: "Error occured when updating the RSSFeed") {
             let oldFolder = oldFeed.folder
-            let oldIndex = oldFolder?.polyItems.index(matching: "myRssFeed.link == %@", oldFeed.link)
-            let oldItem = oldFolder?.polyItems[oldIndex!]
+            let oldIndex = oldFolder?.feeds.index(matching: "link == %@", oldFeed.link)
 
             // Update properties
             oldFeed.title = newFeed.title
@@ -58,8 +57,7 @@ final class Repository: IRepository {
             oldFeed.folder = newFeed.folder
 
             // Change folders
-            oldFolder?.polyItems.remove(at: oldIndex!)
-            newFeed.folder?.polyItems.append(oldItem!)
+            oldFolder?.feeds.remove(at: oldIndex!)
         }
         return SignalProducer(value: oldFeed)
     }

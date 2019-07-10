@@ -13,7 +13,8 @@ class Folder: Object, Item {
     @objc dynamic var itemId: String = UUID().uuidString
     @objc dynamic var title: String = ""
     @objc dynamic var parentFolder: Folder? = nil
-    let polyItems = List<PolyItem>()
+    let folders = List<Folder>()
+    let feeds = List<MyRSSFeed>()
     
     var type: ItemType = .folder
     

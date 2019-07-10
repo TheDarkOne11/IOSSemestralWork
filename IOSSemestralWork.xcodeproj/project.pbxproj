@@ -49,7 +49,6 @@
 		4B53B44922D24EE000454E94 /* PullToRefreshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B53B44722D24EDF00454E94 /* PullToRefreshView.xib */; };
 		4B53B44A22D24EE000454E94 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B44822D24EDF00454E94 /* PullToRefreshView.swift */; };
 		4B53B44C22D27DE700454E94 /* SpecialItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B44B22D27DE700454E94 /* SpecialItem.swift */; };
-		4B53B44E22D2834F00454E94 /* PolyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B44D22D2834F00454E94 /* PolyItem.swift */; };
 		4BB407892202382300CD1D57 /* Web in Resources */ = {isa = PBXBuildFile; fileRef = 4BB407882202382300CD1D57 /* Web */; };
 		4BCD96A322CB953400F214E2 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD96A222CB953400F214E2 /* Errors.swift */; };
 		4BCD96A622CB99BC00F214E2 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD96A522CB99BC00F214E2 /* Base.swift */; };
@@ -105,7 +104,6 @@
 		4B53B44722D24EDF00454E94 /* PullToRefreshView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PullToRefreshView.xib; sourceTree = "<group>"; };
 		4B53B44822D24EDF00454E94 /* PullToRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullToRefreshView.swift; sourceTree = "<group>"; };
 		4B53B44B22D27DE700454E94 /* SpecialItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialItem.swift; sourceTree = "<group>"; };
-		4B53B44D22D2834F00454E94 /* PolyItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyItem.swift; sourceTree = "<group>"; };
 		4BB407882202382300CD1D57 /* Web */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Web; sourceTree = "<group>"; };
 		4BC9D7BBD57C408F4E4294CD /* Pods-UnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		4BCD96A222CB953400F214E2 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
@@ -183,7 +181,6 @@
 			isa = PBXGroup;
 			children = (
 				4BFF776C22C10B8E008047CB /* Generated */,
-				4B53B44D22D2834F00454E94 /* PolyItem.swift */,
 				4B4A74CD22CCC3F6000D63B2 /* Item.swift */,
 				4B53B44B22D27DE700454E94 /* SpecialItem.swift */,
 				4B4A74CA22CCC3F6000D63B2 /* Folder.swift */,
@@ -663,7 +660,6 @@
 				4B53B43B22D24C8C00454E94 /* RefreshControl.swift in Sources */,
 				4B4A74D122CCC3F6000D63B2 /* Item.swift in Sources */,
 				4BE44F8522CE43560042925A /* RSSFeedEditVC.swift in Sources */,
-				4B53B44E22D2834F00454E94 /* PolyItem.swift in Sources */,
 				4BCD96A322CB953400F214E2 /* Errors.swift in Sources */,
 				4B53B43722D2481900454E94 /* ItemTableVM.swift in Sources */,
 				4BCE7C4422CF54F500876225 /* Other.swift in Sources */,

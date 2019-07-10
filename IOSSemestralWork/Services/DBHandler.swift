@@ -47,17 +47,18 @@ class DBHandler {
         }
     }
     
-    // MARK: PolyItem methods
+    // MARK: Item methods
     
-    func remove(_ polyItem: PolyItem) {
-        if let folder = polyItem.folder {
-            self.remove(folder)
-        } else if let feed = polyItem.myRssFeed {
-            self.remove(feed)
-        }
-        
-        realmEdit(errorMsg: "Error occured when removing a polyItem") {
-            dependencies.realm.delete(polyItem)
+    func remove(_ item: Item) {
+        switch item.type {
+        case .folder:
+            remove(item as! Folder)
+        case .myRssFeed:
+            remove(item as! MyRSSFeed)
+        case .myRssItem:
+            remove(item as! MyRSSItem)
+        case .specialItem:
+            fatalError("Should not be able to remove SpecialItem.")
         }
     }
     
@@ -67,20 +68,20 @@ class DBHandler {
         // Save the folder to Realm
         realmEdit(errorMsg: "Could not add a new folder to Realm") {
             if let parentFolder = folder.parentFolder {
-                parentFolder.polyItems.append(folder)
+                parentFolder.folders.append(folder)
             } else {
-                dependencies.realm.add(folder)
-                
-                let polyItem = PolyItem()
-                polyItem.folder = folder
-                dependencies.realm.add(polyItem)
+                dependencies.realm.add(folder)  //TODO: What this code does?
             }
         }
     }
     
     func remove(_ folder: Folder) {
         // Remove folders contents
-        for feed in folder.polyItems {
+        for folder in folder.folders {
+            remove(folder)
+        }
+        
+        for feed in folder.feeds {
             remove(feed)
         }
         
@@ -93,7 +94,7 @@ class DBHandler {
     
     func create(_ myRssFeed: MyRSSFeed) {
         realmEdit(errorMsg: "Error occured when creating a new MyRSSFeed") {
-            myRssFeed.folder!.polyItems.append(myRssFeed)
+            myRssFeed.folder?.feeds.append(myRssFeed)
         }
     }
     

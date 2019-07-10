@@ -10,15 +10,30 @@ import Foundation
 import ReactiveSwift
 import RealmSwift
 
+struct ShownItems {
+    let specialItems: [SpecialItem]
+    let folders: List<Folder>
+    let feeds: List<MyRSSFeed>
+    
+    func getItem(at index: Int) -> Item {
+        if index < specialItems.count {
+            return specialItems[index]
+        } else if index < index - specialItems.count {
+            return folders[index - specialItems.count]
+        } else {
+            return feeds[index - specialItems.count - folders.count]
+        }
+    }
+}
+
 protocol IItemTableVM {
-    typealias ShownItems = ([SpecialItem], List<PolyItem>)
     var selectedItem: Folder { get }
-    var currentlyShownItems: MutableProperty<ShownItems?> { get }
+    var shownItems: MutableProperty<ShownItems?> { get }
     var downloadStatus: MutableProperty<DownloadStatus?> { get }
     var screenTitle: String { get }
     
     func edit(_ folder: Folder, title: String)
-    func remove(_ polyItem: PolyItem)
+    func remove(_ item: Item)
     func updateAllFeeds()
     func select(_ item: Item)
 }
@@ -30,7 +45,7 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
     let downloadStatus = MutableProperty<DownloadStatus?>(nil)
     
     /** SpecialItems, Folders and MyRSSFeeds. */
-    let currentlyShownItems = MutableProperty<ShownItems?>(nil)
+    let shownItems = MutableProperty<ShownItems?>(nil)
     
     /** Folder */
     let selectedItem: Folder
@@ -52,7 +67,7 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
         
         super.init()
         
-        currentlyShownItems.value = getItems()
+        shownItems.value = getItems()
     }
     
     func edit(_ folder: Folder, title: String) {
@@ -61,8 +76,8 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
         })
     }
     
-    func remove(_ polyItem: PolyItem) {
-        dependencies.dbHandler.remove(polyItem)
+    func remove(_ item: Item) {
+        dependencies.dbHandler.remove(item)
     }
     
     private func getItems() -> ShownItems {
@@ -78,7 +93,7 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
             return (self.selectedItem, [NSPredicate(format: "isStarred == true")])
         }
         
-        return ([allItems, unreadItems, starredItems], selectedItem.polyItems)
+        return ShownItems(specialItems: [allItems, unreadItems, starredItems], folders: selectedItem.folders, feeds: selectedItem.feeds)
     }
     
     func updateAllFeeds() {

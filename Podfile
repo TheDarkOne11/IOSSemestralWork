@@ -2,6 +2,9 @@
 platform :ios, '9.0'
 use_frameworks!
 
+# ignore all warnings from all pods
+inhibit_all_warnings!
+
 target 'IOSSemestralWork' do
     # Pods for IOSSemestralWork
     pod 'AlamofireRSSParser', '~> 2.2.0'

@@ -65,23 +65,21 @@ class ItemCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setData(using polyItem: PolyItem) {
-        if let folder = polyItem.folder {
-            setData(using: folder)
-        } else if let feed = polyItem.myRssFeed {
-            setData(using: feed)
-        }
+    func setData(using folder: Folder) {
+        setData(title: folder.title, imgName: "folder", itemCount: getUnreadItems(of: folder), true)
     }
     
-    func setData(using folder: Folder) {
+    private func getUnreadItems(of folder: Folder) -> Int {
         var count = 0
-        for feed in folder.polyItems {
-            if let feed = feed.myRssFeed {
-                count += feed.unreadItemsCount()
-            }
+        for feed in folder.feeds {
+            count += feed.unreadItemsCount()
         }
         
-        setData(title: folder.title, imgName: "folder", itemCount: count, true)
+        for subfolder in folder.folders {
+            count += getUnreadItems(of: subfolder)
+        }
+        
+        return count
     }
     
     func setData(using feed: MyRSSFeed) {

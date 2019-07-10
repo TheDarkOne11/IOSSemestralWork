@@ -81,25 +81,25 @@ class ItemTableVC: BaseViewController {
 
 extension ItemTableVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let shownItems = viewModel.currentlyShownItems.value else {
+        guard let shownItems = viewModel.shownItems.value else {
             return 0
         }
         
-        let count = shownItems.0.count + shownItems.1.count
+        let count = shownItems.specialItems.count + shownItems.folders.count
         return count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
-        guard let shownItems = viewModel.currentlyShownItems.value else {
+        guard let shownItems = viewModel.shownItems.value else {
             fatalError("Shown items should not be nil.")
         }
         
-        if indexPath.row < shownItems.0.count {
-            let specialItem = shownItems.0[indexPath.row]
+        if indexPath.row < shownItems.specialItems.count {
+            let specialItem = shownItems.specialItems[indexPath.row]
             cell.setData(title: specialItem.title, imgName: specialItem.imgName, itemCount: 0)  //FIXME: Count right item count
         } else {
-            let polyItem = shownItems.1[indexPath.row - shownItems.0.count]
+            let polyItem = shownItems.folders[indexPath.row - shownItems.specialItems.count]
             cell.setData(using: polyItem)
         }
         
@@ -107,22 +107,12 @@ extension ItemTableVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let shownItems = viewModel.currentlyShownItems.value else {
+        guard let shownItems = viewModel.shownItems.value else {
             fatalError("Shown items should not be nil.")
         }
         
-        if indexPath.row < shownItems.0.count {
-            let specialItem = shownItems.0[indexPath.row]
-            viewModel.select(specialItem)
-        } else {
-            let polyItem = shownItems.1[indexPath.row - shownItems.0.count]
-            
-            if let folder = polyItem.folder {
-                viewModel.select(folder)
-            } else if let feed = polyItem.myRssFeed {
-                viewModel.select(feed)
-            }
-        }
+        let item = shownItems.getItem(at: indexPath.row)
+        viewModel.select(item)
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -156,7 +146,7 @@ extension ItemTableVC: RefreshControlDelegate {
 
 extension ItemTableVC {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        guard let count = viewModel.currentlyShownItems.value?.0.count else {
+        guard let count = viewModel.shownItems.value?.specialItems.count else {
             return false
         }
         
@@ -182,16 +172,20 @@ extension ItemTableVC {
      - parameter indexPath: The location of the cell (Folder or RSS feed) we want to edit.
      */
     private func editItem(at indexPath: IndexPath) {
-        guard let currentlyShownItems = viewModel.currentlyShownItems.value else {
+        guard let shownItems = viewModel.shownItems.value else {
             fatalError("Error when loading a PolyItem from PolyItems collection.")
         }
         
-        let polyItem = currentlyShownItems.1[indexPath.row - currentlyShownItems.0.count]
-        
-        if let folder = polyItem.folder {
-            presentEditAlert(folder)
-        } else if let feed = polyItem.myRssFeed {
-            flowDelegate?.toFeedEdit(with: feed)
+        let item = shownItems.getItem(at: indexPath.row)
+        switch item.type {
+        case .folder:
+            presentEditAlert(item as! Folder)
+        case .myRssFeed:
+            flowDelegate?.toFeedEdit(with: item as! MyRSSFeed)
+        case .myRssItem:
+            fatalError("RSSItems should not be in this window")
+        case .specialItem:
+            fatalError("Should not be able to edit a special item \(item.title)")
         }
     }
     
@@ -235,14 +229,12 @@ extension ItemTableVC {
      - parameter indexPath: The location of the cell (Folder or RSS feed) we want to remove.
      */
     private func removeItem(at indexPath: IndexPath) {
-        guard let currentlyShownItems = viewModel.currentlyShownItems.value else {
+        guard let shownItems = viewModel.shownItems.value else {
             fatalError("Error when loading a PolyItem from PolyItems collection.")
         }
         
-        let polyItem = currentlyShownItems.1[indexPath.row - currentlyShownItems.0.count]
-        
-        viewModel.remove(polyItem)
-        
+        let item = shownItems.getItem(at: indexPath.row)
+        viewModel.remove(item)
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 }
