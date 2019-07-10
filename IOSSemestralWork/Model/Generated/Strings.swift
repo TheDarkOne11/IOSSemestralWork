@@ -43,6 +43,10 @@ internal enum L10n {
   internal enum ItemTableView {
     /// RSSFeed reader
     internal static let baseTitle = L10n.tr("Localizable", "itemTableView.baseTitle")
+    /// Edit folder
+    internal static let editFolderTitle = L10n.tr("Localizable", "itemTableView.editFolderTitle")
+    /// Folder name
+    internal static let folderNamePlaceholder = L10n.tr("Localizable", "itemTableView.folderNamePlaceholder")
   }
 
   internal enum RssEditView {

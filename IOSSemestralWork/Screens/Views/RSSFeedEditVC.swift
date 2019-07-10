@@ -277,6 +277,6 @@ extension RSSFeedEditVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        folderNameLabel.text = viewModel.getFolder(at: row).title
+         viewModel.selectedFolder.value = viewModel.getFolder(at: row)
     }
 }

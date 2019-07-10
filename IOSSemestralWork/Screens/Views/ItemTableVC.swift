@@ -9,13 +9,15 @@
 import UIKit
 
 protocol ItemTableVCFlowDelegate {
-    func toFeedEdit(in viewController: ItemTableVC)
+    func toFeedEdit(with feed: MyRSSFeed?)
 }
 
 class ItemTableVC: BaseViewController {
     private let viewModel: IItemTableVM
     private weak var tableView: UITableView!
     lazy var refresher = RefreshControl()
+    
+    var flowDelegate: ItemTableVCFlowDelegate?
     
     init(_ viewModel: ItemTableVM) {
         self.viewModel = viewModel
@@ -77,8 +79,6 @@ class ItemTableVC: BaseViewController {
     }
 }
 
-
-//FIXME: Implement
 extension ItemTableVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let shownItems = viewModel.currentlyShownItems.value else {
@@ -154,91 +154,95 @@ extension ItemTableVC: RefreshControlDelegate {
 
 // MARK: TableView cells editing and removing
 
-//FIXME: Implement
-//extension ItemTableVC {
-//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-////        return indexPath.row >= specialFoldersCount
-//        fatalError("Not implemented")
-//    }
-//    
-//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//        let removeAction = UITableViewRowAction(style: .destructive, title: L10n.Base.actionRemove) { (action, indexPath) in
-//            self.removeItem(at: indexPath)
-//            self.tableView.reloadData()
-//        }
-//        
-//        let editAction = UITableViewRowAction(style: .normal, title: L10n.Base.actionEdit) { (action, indexPath) in
-//            self.editItem(at: indexPath)
-//            self.tableView.reloadData()
-//        }
-//        
-//        return [removeAction, editAction]
-//    }
-//    
-//    /**
-//     According to the selected cell we move a user to the screens where he can edit Folders or RSS feeds.
-//     - parameter indexPath: The location of the cell (Folder or RSS feed) we want to edit.
-//     */
-//    private func editItem(at indexPath: IndexPath) {
-//        guard let polyItem = polyItems?[indexPath.row - specialFoldersCount] else {
-//            fatalError("Error when loading a PolyItem from PolyItems collection.")
-//        }
-//        
-//        if let folder = polyItem.folder {
-//            presentEditAlert(folder)
-//        } else if let feed = polyItem.myRssFeed {
-//            performSegue(withIdentifier: "ShowAddFeed", sender: feed)
-//        }
-//    }
-//    
-//    /**
-//     Creates and presents an alert used for editing the selected folder.
-//     
-//     - parameter folder: The selected folder.
-//     */
-//    private func presentEditAlert(_ folder: Folder) {
-//        var textField = UITextField()
-//        
-//        let alert = UIAlertController(title: "Edit folder", message: "", preferredStyle: .alert)
-//        let actionCancel = UIAlertAction(title: "Cancel", style: .cancel)
-//        let actionDone = UIAlertAction(title: "Done", style: .default) { (action) in
-//            self.dbHandler.realmEdit(errorMsg: "Error occured when editing a folder", editCode: {
-//                folder.title = textField.text!
-//            })
-//            self.tableView.reloadData()
-//        }
-//        
-//        alert.addAction(actionDone)
-//        alert.addAction(actionCancel)
-//        alert.addTextField { (alertTextField) in
-//            alertTextField.placeholder = "Folder name"
-//            alertTextField.text = folder.title
-//            alertTextField.enablesReturnKeyAutomatically = true
-//            
-//            textField = alertTextField
-//        }
-//        
-//        // Check for textField changes. Done button is enabled only when the textField isn't empty
-//        NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { _ in
-//            // Enables and disables Done action. Triggered when value of textField changes
-//            let textCount = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0
-//            actionDone.isEnabled = textCount > 0
-//        }
-//        
-//        present(alert, animated: true, completion: nil)
-//    }
-//    
-//    /**
-//     We remove the selected cell.
-//     - parameter indexPath: The location of the cell (Folder or RSS feed) we want to remove.
-//     */
-//    private func removeItem(at indexPath: IndexPath) {
-//        guard let polyItem = polyItems?[indexPath.row - specialFoldersCount] else {
-//            fatalError("Error when loading a PolyItem from PolyItems collection.")
-//        }
-//        
-//        viewModel.remove(polyItem)
-//        
-//        tableView.deleteRows(at: [indexPath], with: .automatic)
-//    }
-//}
+extension ItemTableVC {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        guard let count = viewModel.currentlyShownItems.value?.0.count else {
+            return false
+        }
+        
+        return indexPath.row >= count
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let removeAction = UITableViewRowAction(style: .destructive, title: L10n.Base.actionRemove) { (action, indexPath) in
+            self.removeItem(at: indexPath)
+            self.tableView.reloadData()
+        }
+        
+        let editAction = UITableViewRowAction(style: .normal, title: L10n.Base.actionEdit) { (action, indexPath) in
+            self.editItem(at: indexPath)
+            self.tableView.reloadData()
+        }
+        
+        return [removeAction, editAction]
+    }
+    
+    /**
+     According to the selected cell we move a user to the screens where he can edit Folders or RSS feeds.
+     - parameter indexPath: The location of the cell (Folder or RSS feed) we want to edit.
+     */
+    private func editItem(at indexPath: IndexPath) {
+        guard let currentlyShownItems = viewModel.currentlyShownItems.value else {
+            fatalError("Error when loading a PolyItem from PolyItems collection.")
+        }
+        
+        let polyItem = currentlyShownItems.1[indexPath.row - currentlyShownItems.0.count]
+        
+        if let folder = polyItem.folder {
+            presentEditAlert(folder)
+        } else if let feed = polyItem.myRssFeed {
+            flowDelegate?.toFeedEdit(with: feed)
+        }
+    }
+    
+    /**
+     Creates and presents an alert used for editing the selected folder.
+     
+     - parameter folder: The selected folder.
+     */
+    private func presentEditAlert(_ folder: Folder) {
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: L10n.ItemTableView.editFolderTitle, message: "", preferredStyle: .alert)
+        let actionCancel = UIAlertAction(title: L10n.Base.actionCancel, style: .cancel)
+        let actionDone = UIAlertAction(title: L10n.Base.actionDone, style: .default) { [weak self] (action) in
+            self?.viewModel.edit(folder, title: textField.text ?? "")
+            self?.tableView.reloadData()
+        }
+        
+        alert.addAction(actionDone)
+        alert.addAction(actionCancel)
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = L10n.ItemTableView.folderNamePlaceholder
+            alertTextField.text = folder.title
+            alertTextField.enablesReturnKeyAutomatically = true
+            
+            textField = alertTextField
+        }
+        
+        // Check for textField changes. Done button is enabled only when the textField isn't empty
+        NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { _ in
+            // Enables and disables Done action. Triggered when value of textField changes
+            let textCount = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0
+            actionDone.isEnabled = textCount > 0
+        }
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    /**
+     We remove the selected cell.
+     - parameter indexPath: The location of the cell (Folder or RSS feed) we want to remove.
+     */
+    private func removeItem(at indexPath: IndexPath) {
+        guard let currentlyShownItems = viewModel.currentlyShownItems.value else {
+            fatalError("Error when loading a PolyItem from PolyItems collection.")
+        }
+        
+        let polyItem = currentlyShownItems.1[indexPath.row - currentlyShownItems.0.count]
+        
+        viewModel.remove(polyItem)
+        
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+}

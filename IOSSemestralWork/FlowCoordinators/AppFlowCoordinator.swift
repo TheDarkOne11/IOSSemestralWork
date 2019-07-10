@@ -32,6 +32,7 @@ class AppFlowCoordinator: BaseFlowCoordinator {
                 case .folder:
                     let vm = ItemTableVM(dependencies: AppDependency.shared)
                     let vc = ItemTableVC(vm)
+                    vc.flowDelegate = self
                     navigationController?.pushViewController(vc, animated: true)
                 case .myRssFeed:
                     let item = item as! MyRSSFeed
@@ -51,15 +52,15 @@ class AppFlowCoordinator: BaseFlowCoordinator {
 
 extension AppFlowCoordinator: RSSFeedEditFlowDelegate {
     func editSuccessful(in viewController: RSSFeedEditVC) {
-        viewController.dismiss(animated: true)
+        navigationController.popViewController(animated: true)
     }
 }
 
 extension AppFlowCoordinator: ItemTableVCFlowDelegate {
-    func toFeedEdit(in viewController: ItemTableVC) {
-        let vm = RSSFeedEditVM(dependencies: AppDependency.shared)
+    func toFeedEdit(with feed: MyRSSFeed?) {
+        let vm = RSSFeedEditVM(dependencies: AppDependency.shared, feedForUpdate: feed)
         let vc = RSSFeedEditVC(vm)
         vc.flowDelegate = self
-        navigationController.setViewControllers([vc], animated: true)
+        navigationController?.pushViewController(vc, animated: true)    //FIXME: We shouldn't go back when cancelling edit, we should cancel
     }
 }

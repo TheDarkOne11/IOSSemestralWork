@@ -55,6 +55,10 @@ class DBHandler {
         } else if let feed = polyItem.myRssFeed {
             self.remove(feed)
         }
+        
+        realmEdit(errorMsg: "Error occured when removing a polyItem") {
+            dependencies.realm.delete(polyItem)
+        }
     }
     
     // MARK: Folder methods

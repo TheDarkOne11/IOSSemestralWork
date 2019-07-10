@@ -17,6 +17,7 @@ protocol IItemTableVM {
     var downloadStatus: MutableProperty<DownloadStatus?> { get }
     var screenTitle: String { get }
     
+    func edit(_ folder: Folder, title: String)
     func remove(_ polyItem: PolyItem)
     func updateAllFeeds()
     func select(_ item: Item)
@@ -52,6 +53,12 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
         super.init()
         
         currentlyShownItems.value = getItems()
+    }
+    
+    func edit(_ folder: Folder, title: String) {
+        dependencies.dbHandler.realmEdit(errorMsg: "Error occured when editing a folder", editCode: {
+            folder.title = title
+        })
     }
     
     func remove(_ polyItem: PolyItem) {

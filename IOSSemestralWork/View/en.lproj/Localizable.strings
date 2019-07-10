@@ -20,3 +20,5 @@
 "rssEditView.titleCreate" = "Add RSS feed";
 "error.internetUnreachable" = "Internet is unreachable. Please try updating later.";
 "itemTableView.baseTitle" = "RSSFeed reader";
+"itemTableView.folderNamePlaceholder" = "Folder name";
+"itemTableView.editFolderTitle" = "Edit folder";

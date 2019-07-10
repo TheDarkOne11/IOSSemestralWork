@@ -20,3 +20,5 @@
 "rssEditView.titleCreate" = "Přidat RSS Feed";
 "error.internetUnreachable" = "K Internetu se nelze připojit. Zkuste prosím později.";
 "itemTableView.baseTitle" = "RSSFeed reader";
+"itemTableView.folderNamePlaceholder" = "Jméno složky";
+"itemTableView.editFolderTitle" = "Upravit složku";
