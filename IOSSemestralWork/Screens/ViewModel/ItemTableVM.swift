@@ -85,11 +85,13 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
             return (self.selectedItem, Array<NSPredicate>())
         }
         
-        let unreadItems = SpecialItem(withTitle: L10n.Base.unreadItems, imageName: "unread") { () -> SpecialItem.ActionResult in
+        let predicateUnread = NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "isRead == false")])
+        let unreadItems = SpecialItem(withTitle: L10n.Base.unreadItems, imageName: "unread", predicate: predicateUnread) { () -> SpecialItem.ActionResult in
             return (self.selectedItem, [NSPredicate(format: "isRead == false")])
         }
         
-        let starredItems = SpecialItem(withTitle: L10n.Base.starredItems, imageName: "star") { () -> SpecialItem.ActionResult in
+        let predicateStarred = NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "isStarred == true")])
+        let starredItems = SpecialItem(withTitle: L10n.Base.starredItems, imageName: "star", predicate: predicateStarred) { () -> SpecialItem.ActionResult in
             return (self.selectedItem, [NSPredicate(format: "isStarred == true")])
         }
         

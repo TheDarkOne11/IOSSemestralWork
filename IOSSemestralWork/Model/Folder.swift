@@ -26,4 +26,24 @@ class Folder: Object, Item {
     override static func primaryKey() -> String? {
         return "itemId"
     }
+    
+    func getRssItemsCount(predicate: NSCompoundPredicate? = nil) -> Int {
+        var count = 0
+        
+        for folder in folders {
+            count += folder.getRssItemsCount(predicate: predicate)
+        }
+        
+        if let predicate = predicate {
+            for feed in feeds {
+                count += feed.myRssItems.filter(predicate).count
+            }
+        } else {
+            for feed in feeds {
+                count += feed.myRssItems.count
+            }
+        }
+        
+        return count
+    }
 }

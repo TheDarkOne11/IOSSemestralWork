@@ -32,8 +32,4 @@ class MyRSSFeed: Object, Item {
     override static func primaryKey() -> String? {
         return "itemId"
     }
-    
-    func unreadItemsCount() -> Int {
-        return myRssItems.filter("isRead == false").count
-    }
 }

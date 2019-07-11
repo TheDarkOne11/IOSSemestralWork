@@ -75,29 +75,18 @@ class ItemCell: UITableViewCell {
             fatalError("The ItemCell should not be used with RSSItems.")
         case .specialItem:
             let item = item as! SpecialItem
-            setData(title: item.title, imgName: item.imgName, itemCount: 0) //FIXME: Add right count
+            setData(title: item.title, imgName: item.imgName, itemCount: item.itemsCount())
         }
     }
     
     func setData(using folder: Folder) {
-        setData(title: folder.title, imgName: "folder", itemCount: getUnreadItems(of: folder), true)
-    }
-    
-    private func getUnreadItems(of folder: Folder) -> Int {
-        var count = 0
-        for feed in folder.feeds {
-            count += feed.unreadItemsCount()
-        }
-        
-        for subfolder in folder.folders {
-            count += getUnreadItems(of: subfolder)
-        }
-        
-        return count
+        let predicateUnread = NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "isRead == false")])
+        setData(title: folder.title, imgName: "folder", itemCount: folder.getRssItemsCount(predicate: predicateUnread), true)
     }
     
     func setData(using feed: MyRSSFeed) {
-        setData(title: feed.title, imgName: nil, itemCount: feed.unreadItemsCount(), feed.isOk)
+        let count = feed.myRssItems.filter("isRead == false").count
+        setData(title: feed.title, imgName: nil, itemCount: count, feed.isOk)
     }
     
     func setData(title: String?, imgName: String?, itemCount count: Int, _ errorHidden: Bool? = true) {

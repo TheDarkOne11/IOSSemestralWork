@@ -22,10 +22,16 @@ class SpecialItem: Item {
     let title: String
     let type: ItemType = ItemType.specialItem
     let imgName: String
+    let predicate: NSCompoundPredicate?
     
-    init(withTitle title: String, imageName imgName: String, _ action: @escaping Action) {
+    init(withTitle title: String, imageName imgName: String, predicate: NSCompoundPredicate? = nil, _ action: @escaping Action) {
         self.title = title
         self.action = action
         self.imgName = imgName
+        self.predicate = predicate
+    }
+    
+    func itemsCount() -> Int {
+        return action().0.getRssItemsCount(predicate: predicate)
     }
 }
