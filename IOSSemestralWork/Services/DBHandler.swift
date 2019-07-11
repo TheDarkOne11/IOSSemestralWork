@@ -27,9 +27,13 @@ enum DownloadStatus: String {
 class DBHandler {
     typealias Dependencies = HasRealm
     private let dependencies: Dependencies
+    private let rssItems: Results<MyRSSItem>
+    private let feeds: Results<MyRSSFeed>
     
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
+        self.rssItems = dependencies.realm.objects(MyRSSItem.self)
+        self.feeds = dependencies.realm.objects(MyRSSFeed.self)
     }
     
     /**
@@ -75,16 +79,8 @@ class DBHandler {
     }
     
     func remove(_ folder: Folder) {
-        // Remove folders contents
-//        for folder in folder.folders {
-//            remove(folder)
-//        }
-//
-//        for feed in folder.feeds {
-//            remove(feed)
-//        }
-        
         realmEdit(errorMsg: "Error occured when removing a folder \(folder.title)") {
+            // Remove folders contents
             for folder in folder.folders {
                 dependencies.realm.delete(folder)
             }
@@ -128,7 +124,7 @@ class DBHandler {
             return
         }
         
-        for feed in dependencies.realm.objects(MyRSSFeed.self) {
+        for feed in feeds {
             
             // Do not update bad feeds
             if !feed.isOk {
@@ -209,11 +205,11 @@ class DBHandler {
             }
             
             for item in feed.items {
-                let myRssItem = MyRSSItem(item)
+                let newRssItem = MyRSSItem(item)
                 
                 // Add the item only if it doesn't exist already
-                if dependencies.realm.object(ofType: MyRSSItem.self, forPrimaryKey: myRssItem.itemId) == nil {
-                    myRssFeed.myRssItems.append(myRssItem)
+                if rssItems.filter("articleLink CONTAINS[cd] %@", newRssItem.articleLink).count == 0 {
+                    myRssFeed.myRssItems.append(newRssItem)
                 }
             }
         }

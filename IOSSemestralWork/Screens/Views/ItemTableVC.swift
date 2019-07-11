@@ -135,6 +135,8 @@ class ItemTableVC: BaseViewController {
     }
 }
 
+// MARK: UITableView delegate and data source
+
 extension ItemTableVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let shownItems = viewModel.shownItems else {
@@ -168,6 +170,8 @@ extension ItemTableVC: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
+
+// MARK: Refresher
 
 extension ItemTableVC: RefreshControlDelegate {
     
