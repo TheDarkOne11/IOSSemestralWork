@@ -10,7 +10,7 @@ import XCTest
 import RealmSwift
 @testable import IOSSemestralWork
 
-class UnitTests: XCTestCase {
+class RSSFeedEditVMTest: XCTestCase {
     private var dependencies: TestDependency!
     
     private var viewModel: IRSSFeedEditVM!

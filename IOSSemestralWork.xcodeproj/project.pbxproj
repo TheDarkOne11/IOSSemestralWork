@@ -57,6 +57,9 @@
 		4BCE7C4622CF707100876225 /* Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCE7C4522CF707100876225 /* Reactive.swift */; };
 		4BD2DD0622CE0C8800F445F4 /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD2DD0122CDFDDA00F445F4 /* AppDependency.swift */; };
 		4BD2DD0822CE0C9C00F445F4 /* TestDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD2DD0722CE0C9C00F445F4 /* TestDependency.swift */; };
+		4BE1A7D722D88A4800762AE0 /* RSSItemsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE1A7D622D88A4800762AE0 /* RSSItemsTableVC.swift */; };
+		4BE1A7D922D88A5A00762AE0 /* RSSItemsTableVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE1A7D822D88A5A00762AE0 /* RSSItemsTableVM.swift */; };
+		4BE1A7DB22D8993500762AE0 /* RepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE1A7DA22D8993500762AE0 /* RepositoryTest.swift */; };
 		4BE44F8522CE43560042925A /* RSSFeedEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE44F8422CE43560042925A /* RSSFeedEditVC.swift */; };
 		4BE53CE222D09D8600D64487 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE53CE122D09D8600D64487 /* Protocols.swift */; };
 		4BE8021222CCED500014DED4 /* RSSFeedEditVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8021122CCED500014DED4 /* RSSFeedEditVMTest.swift */; };
@@ -114,6 +117,9 @@
 		4BCE7C4822CF7F4B00876225 /* phase_swiftgen.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = phase_swiftgen.sh; sourceTree = "<group>"; };
 		4BD2DD0122CDFDDA00F445F4 /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
 		4BD2DD0722CE0C9C00F445F4 /* TestDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDependency.swift; sourceTree = "<group>"; };
+		4BE1A7D622D88A4800762AE0 /* RSSItemsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSItemsTableVC.swift; sourceTree = "<group>"; };
+		4BE1A7D822D88A5A00762AE0 /* RSSItemsTableVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSItemsTableVM.swift; sourceTree = "<group>"; };
+		4BE1A7DA22D8993500762AE0 /* RepositoryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTest.swift; sourceTree = "<group>"; };
 		4BE1E22122D1EADF002438CF /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = SOURCE_ROOT; };
 		4BE44F8422CE43560042925A /* RSSFeedEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedEditVC.swift; sourceTree = "<group>"; };
 		4BE44F8622CE4BBE0042925A /* RssItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RssItemCell.swift; sourceTree = "<group>"; };
@@ -195,6 +201,7 @@
 			children = (
 				4BCD96A822CB9BD000F214E2 /* RSSFeedEditVM.swift */,
 				4B53B43622D2481900454E94 /* ItemTableVM.swift */,
+				4BE1A7D822D88A5A00762AE0 /* RSSItemsTableVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -205,6 +212,7 @@
 				4B0EA17822C0D712004411BD /* TestViewController.swift */,
 				4BE44F8422CE43560042925A /* RSSFeedEditVC.swift */,
 				4B53B43822D2494700454E94 /* ItemTableVC.swift */,
+				4BE1A7D622D88A4800762AE0 /* RSSItemsTableVC.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -256,6 +264,7 @@
 		4BE8021022CCED500014DED4 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				4BE1A7DA22D8993500762AE0 /* RepositoryTest.swift */,
 				4BE8021122CCED500014DED4 /* RSSFeedEditVMTest.swift */,
 				4BD2DD0722CE0C9C00F445F4 /* TestDependency.swift */,
 				4BE8021322CCED500014DED4 /* Info.plist */,
@@ -641,6 +650,7 @@
 			files = (
 				4BD2DD0822CE0C9C00F445F4 /* TestDependency.swift in Sources */,
 				4BE8021222CCED500014DED4 /* RSSFeedEditVMTest.swift in Sources */,
+				4BE1A7DB22D8993500762AE0 /* RepositoryTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,6 +660,7 @@
 			files = (
 				4BCD96A622CB99BC00F214E2 /* Base.swift in Sources */,
 				4B4A74CE22CCC3F6000D63B2 /* Folder.swift in Sources */,
+				4BE1A7D922D88A5A00762AE0 /* RSSItemsTableVM.swift in Sources */,
 				4B0EA17922C0D712004411BD /* TestViewController.swift in Sources */,
 				4B27865F22CB4A6F002FD614 /* Repository.swift in Sources */,
 				4B53B43922D2494700454E94 /* ItemTableVC.swift in Sources */,
@@ -660,6 +671,7 @@
 				4B53B43B22D24C8C00454E94 /* RefreshControl.swift in Sources */,
 				4B4A74D122CCC3F6000D63B2 /* Item.swift in Sources */,
 				4BE44F8522CE43560042925A /* RSSFeedEditVC.swift in Sources */,
+				4BE1A7D722D88A4800762AE0 /* RSSItemsTableVC.swift in Sources */,
 				4BCD96A322CB953400F214E2 /* Errors.swift in Sources */,
 				4B53B43722D2481900454E94 /* ItemTableVM.swift in Sources */,
 				4BCE7C4422CF54F500876225 /* Other.swift in Sources */,

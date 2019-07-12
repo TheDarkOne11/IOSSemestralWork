@@ -20,11 +20,6 @@ class AppFlowCoordinator: BaseFlowCoordinator {
         window.rootViewController = navigationController
         self.navigationController = navigationController
         
-        //        let vm = RSSFeedEditVM(dependencies: AppDependency.shared)
-        //        let vc = RSSFeedEditVC(vm)
-        //        vc.flowDelegate = self
-        //        navigationController.setViewControllers([vc], animated: true)
-        
         AppDependency.shared.repository.selectedItem.producer
             .startWithValues { [weak navigationController] item in
                 switch item.type {

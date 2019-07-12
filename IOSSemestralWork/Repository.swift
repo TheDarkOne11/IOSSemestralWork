@@ -20,6 +20,7 @@ protocol IRepository {
     
     func create(rssFeed feed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, MyRSSFeedError>
     func update(selectedFeed oldFeed: MyRSSFeed, with newFeed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, MyRSSFeedError>
+    func getAllRssItems(of folder: Folder, predicate: NSCompoundPredicate?) -> Results<MyRSSItem>
 }
 
 final class Repository: IRepository {
@@ -64,5 +65,29 @@ final class Repository: IRepository {
             }
         }
         return SignalProducer(value: oldFeed)
+    }
+    
+    func getAllRssItems(of folder: Folder, predicate: NSCompoundPredicate? = nil) -> Results<MyRSSItem> {
+        let rssItems = dependencies.realm.objects(MyRSSItem.self)
+        let folderNames: [String] = getAllFolderNames(from: folder)
+        let foldersPredicate = NSPredicate(format: "ANY rssFeed.folder.title IN %@", folderNames)
+                
+        if let predicate = predicate {
+            return rssItems
+                .filter(predicate)
+                .filter(foldersPredicate)
+        } else {
+            return rssItems.filter(foldersPredicate)
+        }
+    }
+    
+    private func getAllFolderNames(from folder: Folder) -> [String] {
+        var folderNames: [String] = [folder.title]
+        
+        for subfolder in folder.folders {
+            folderNames.append(contentsOf: getAllFolderNames(from: subfolder))
+        }
+        
+        return folderNames
     }
 }

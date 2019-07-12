@@ -23,7 +23,7 @@ class ItemTableVC: BaseViewController {
     var token: NotificationToken!
     var token2: NotificationToken!
     
-    init(_ viewModel: ItemTableVM) {
+    init(_ viewModel: IItemTableVM) {
         self.viewModel = viewModel
         
         super.init()
