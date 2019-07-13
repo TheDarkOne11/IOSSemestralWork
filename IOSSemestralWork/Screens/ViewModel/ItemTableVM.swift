@@ -82,17 +82,17 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
     
     private func getItems() -> ShownItems {
         let allItems = SpecialItem(withTitle: L10n.Base.allItems, imageName: "all") { () -> SpecialItem.ActionResult in
-            return (self.selectedItem, Array<NSPredicate>())
+            return (self.selectedItem, nil)
         }
         
         let predicateUnread = NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "isRead == false")])
         let unreadItems = SpecialItem(withTitle: L10n.Base.unreadItems, imageName: "unread", predicate: predicateUnread) { () -> SpecialItem.ActionResult in
-            return (self.selectedItem, [NSPredicate(format: "isRead == false")])
+            return (self.selectedItem, NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "isRead == false")]))
         }
         
         let predicateStarred = NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "isStarred == true")])
         let starredItems = SpecialItem(withTitle: L10n.Base.starredItems, imageName: "star", predicate: predicateStarred) { () -> SpecialItem.ActionResult in
-            return (self.selectedItem, [NSPredicate(format: "isStarred == true")])
+            return (self.selectedItem, NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "isStarred == true")]))
         }
         
         return ShownItems(specialItems: [allItems, unreadItems, starredItems], folders: selectedItem.folders, feeds: selectedItem.feeds)

@@ -33,6 +33,7 @@ class MyRSSItem: Object, Item {
     convenience init(_ rssItem: RSSItem?) {
         self.init()
         
+        self.title = rssItem?.title ?? "Unknown title"
         self.articleLink = rssItem?.link ?? "Unknown"
         self.author = rssItem?.author ?? "Unknown author"
         self.itemDescription = rssItem?.itemDescription ?? "Unknown"

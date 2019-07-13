@@ -14,7 +14,7 @@ class SpecialItem: Item {
      - Folder: A folder to be selected
      - [NSPredicate]: Predicates used to filter items of the selected Folder
      */
-    typealias ActionResult = (Folder, [NSPredicate])
+    typealias ActionResult = (Folder, NSCompoundPredicate?)
     typealias Action = () -> ActionResult
     let action: Action
     
