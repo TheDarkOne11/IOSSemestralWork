@@ -36,7 +36,9 @@ class AppFlowCoordinator: BaseFlowCoordinator {
                     navigationController?.pushViewController(vc, animated: true)
                 case .myRssItem:
                     let item = item as! MyRSSItem
-                    print("RSS item selected: \(item.articleLink)")
+                    let vm = RSSItemVM(dependencies: AppDependency.shared)
+                    let vc = RSSItemVC(vm)
+                    navigationController?.pushViewController(vc, animated: true)
                 case .specialItem:
                     let item = item as! SpecialItem
                     let actionResult = item.action()

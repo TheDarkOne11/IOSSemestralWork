@@ -24,6 +24,10 @@ final class RSSItemsTableVC: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    
     override func loadView() {
         super.loadView()
         view.backgroundColor = .white
