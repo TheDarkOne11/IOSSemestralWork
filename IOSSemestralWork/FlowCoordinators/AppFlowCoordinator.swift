@@ -23,7 +23,7 @@ class AppFlowCoordinator: BaseFlowCoordinator {
         AppDependency.shared.repository.selectedItem.producer
             .startWithValues { [weak navigationController] item in
                 switch item.type {
-                    
+
                 case .folder:
                     let vm = ItemTableVM(dependencies: AppDependency.shared)
                     let vc = ItemTableVC(vm)
@@ -31,14 +31,18 @@ class AppFlowCoordinator: BaseFlowCoordinator {
                     navigationController?.pushViewController(vc, animated: true)
                 case .myRssFeed:
                     let item = item as! MyRSSFeed
-                    print("RSS feed selected: \(item.title)")
+                    let vm = RSSItemsTableVM(dependencies: AppDependency.shared, selectedItem: item)
+                    let vc = RSSItemsTableVC(vm)
+                    navigationController?.pushViewController(vc, animated: true)
                 case .myRssItem:
                     let item = item as! MyRSSItem
                     print("RSS item selected: \(item.articleLink)")
                 case .specialItem:
                     let item = item as! SpecialItem
                     let actionResult = item.action()
-                    print("Special item selected: \(item.title)")
+                    let vm = RSSItemsTableVM(dependencies: AppDependency.shared, selectedItem: actionResult.0, predicate: actionResult.1)
+                    let vc = RSSItemsTableVC(vm)
+                    navigationController?.pushViewController(vc, animated: true)
                 }
         }
     }

@@ -13,8 +13,10 @@ import RealmSwift
 protocol IRSSItemsTableVM {
     var selectedItem: Item { get }
     var shownItems: Results<MyRSSItem> { get }
+    var downloadStatus: MutableProperty<DownloadStatus?> { get }
     
     func updateAllFeeds()
+    func select(_ item: Item)
 }
 
 final class RSSItemsTableVM: BaseViewModel, IRSSItemsTableVM {
@@ -63,5 +65,9 @@ final class RSSItemsTableVM: BaseViewModel, IRSSItemsTableVM {
         if status == DownloadStatus.OK {
             dependencies.userDefaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
         }
+    }
+    
+    func select(_ item: Item) {
+        dependencies.repository.selectedItem.value = item
     }
 }

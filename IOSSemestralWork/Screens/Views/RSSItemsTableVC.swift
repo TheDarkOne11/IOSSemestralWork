@@ -55,12 +55,21 @@ final class RSSItemsTableVC: BaseViewController {
     }
     
     private func setupBindings() {
-        
+        viewModel.downloadStatus.producer.startWithValues { [weak self] status in
+            print("End refreshing")
+            self?.refresher.refreshView.stopUpdating()
+            self?.refresher.endRefreshing()
+            
+            if let status = status {
+                self?.checkStatus(status)
+            }
+            
+            self?.tableView.reloadData()
+        }
     }
 }
 
 // MARK: UITableView delegate and data source
-//FIXME: Implement
 extension RSSItemsTableVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.shownItems.count
@@ -74,7 +83,10 @@ extension RSSItemsTableVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.select(viewModel.shownItems[indexPath.row])
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
 // MARK: Refresher
@@ -100,5 +112,14 @@ extension RSSItemsTableVC: RefreshControlDelegate {
         
         refresher.refreshView.startUpdating()
         viewModel.updateAllFeeds()
+    }
+    
+    private func checkStatus(_ status: DownloadStatus) {
+        if status == DownloadStatus.Unreachable {
+            // Internet is unreachable
+            print("Internet is unreachable")
+            self.view.makeToast(L10n.Error.internetUnreachable)
+            
+        }
     }
 }

@@ -124,15 +124,6 @@ class ItemTableVC: BaseViewController {
     private func addBarButtonTapped(_ sender: UIBarButtonItem) {
         flowDelegate?.toFeedEdit(with: nil)
     }
-    
-    private func checkStatus(_ status: DownloadStatus) {
-        if status == DownloadStatus.Unreachable {
-            // Internet is unreachable
-            print("Internet is unreachable")
-            self.view.makeToast(L10n.Error.internetUnreachable)
-            
-        }
-    }
 }
 
 // MARK: UITableView delegate and data source
@@ -194,6 +185,15 @@ extension ItemTableVC: RefreshControlDelegate {
         
         refresher.refreshView.startUpdating()
         viewModel.updateAllFeeds()
+    }
+    
+    private func checkStatus(_ status: DownloadStatus) {
+        if status == DownloadStatus.Unreachable {
+            // Internet is unreachable
+            print("Internet is unreachable")
+            self.view.makeToast(L10n.Error.internetUnreachable)
+            
+        }
     }
 }
 
