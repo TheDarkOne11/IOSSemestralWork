@@ -34,9 +34,9 @@ final class RSSItemsTableVM: BaseViewModel, IRSSItemsTableVM {
         self.dependencies = dependencies
         self.selectedItem = selectedItem
         
-        if let selectedItem = dependencies.repository.selectedItem.value as? MyRSSFeed {
+        if let selectedItem = selectedItem as? MyRSSFeed {
             shownItems = selectedItem.myRssItems.filter(NSPredicate(value: true))
-        } else if let selectedItem = dependencies.repository.selectedItem.value as? Folder {
+        } else if let selectedItem = selectedItem as? Folder {
             shownItems = dependencies.repository.getAllRssItems(of: selectedItem, predicate: predicate)
         } else {
             fatalError("Should be a Folder or RSSFeed.")

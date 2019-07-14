@@ -35,7 +35,6 @@ class AppFlowCoordinator: BaseFlowCoordinator {
                     let vc = RSSItemsTableVC(vm)
                     navigationController?.pushViewController(vc, animated: true)
                 case .myRssItem:
-                    let item = item as! MyRSSItem
                     let vm = RSSItemVM(dependencies: AppDependency.shared)
                     let vc = RSSItemVC(vm)
                     navigationController?.pushViewController(vc, animated: true)
