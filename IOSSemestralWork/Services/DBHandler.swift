@@ -27,9 +27,13 @@ enum DownloadStatus: String {
 class DBHandler {
     typealias Dependencies = HasRealm
     private let dependencies: Dependencies
+    private let rssItems: Results<MyRSSItem>
+    private let feeds: Results<MyRSSFeed>
     
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
+        self.rssItems = dependencies.realm.objects(MyRSSItem.self)
+        self.feeds = dependencies.realm.objects(MyRSSFeed.self)
     }
     
     /**
@@ -47,13 +51,21 @@ class DBHandler {
         }
     }
     
-    // MARK: PolyItem methods
+    // MARK: Item methods
     
-    func remove(_ polyItem: PolyItem) {
-        if let folder = polyItem.folder {
-            self.remove(folder)
-        } else if let feed = polyItem.myRssFeed {
-            self.remove(feed)
+    func remove(_ item: Item) {
+        switch item.type {
+        case .folder:
+            let folder = item as! Folder
+            remove(folder)
+        case .myRssFeed:
+            let feed = item as! MyRSSFeed
+            remove(feed)
+        case .myRssItem:
+            let rssItem = item as! MyRSSItem
+            remove(rssItem)
+        case .specialItem:
+            fatalError("Should not be able to remove SpecialItem.")
         }
     }
     
@@ -62,25 +74,21 @@ class DBHandler {
     func create(_ folder: Folder) {
         // Save the folder to Realm
         realmEdit(errorMsg: "Could not add a new folder to Realm") {
-            if let parentFolder = folder.parentFolder {
-                parentFolder.polyItems.append(folder)
-            } else {
-                dependencies.realm.add(folder)
-                
-                let polyItem = PolyItem()
-                polyItem.folder = folder
-                dependencies.realm.add(polyItem)
-            }
+            dependencies.realm.add(folder)  //TODO: Remove method
         }
     }
     
     func remove(_ folder: Folder) {
-        // Remove folders contents
-        for feed in folder.polyItems {
-            remove(feed)
-        }
-        
         realmEdit(errorMsg: "Error occured when removing a folder \(folder.title)") {
+            // Remove folders contents
+            for folder in folder.folders {
+                dependencies.realm.delete(folder)
+            }
+            
+            for feed in folder.feeds {
+                dependencies.realm.delete(feed)
+            }
+            
             dependencies.realm.delete(folder)
         }
     }
@@ -89,7 +97,7 @@ class DBHandler {
     
     func create(_ myRssFeed: MyRSSFeed) {
         realmEdit(errorMsg: "Error occured when creating a new MyRSSFeed") {
-            myRssFeed.folder!.polyItems.append(myRssFeed)
+            myRssFeed.folder.first?.feeds.append(myRssFeed) //TODO: Remove method?
         }
     }
     
@@ -116,7 +124,7 @@ class DBHandler {
             return
         }
         
-        for feed in dependencies.realm.objects(MyRSSFeed.self) {
+        for feed in feeds {
             
             // Do not update bad feeds
             if !feed.isOk {
@@ -197,13 +205,11 @@ class DBHandler {
             }
             
             for item in feed.items {
-                let myRssItem = MyRSSItem(item, myRssFeed)
+                let newRssItem = MyRSSItem(item)
                 
                 // Add the item only if it doesn't exist already
-                if dependencies.realm.object(ofType: MyRSSItem.self, forPrimaryKey: myRssItem.itemId) == nil {
-                    dependencies.realm.add(myRssItem, update: .error)
-                    
-                    myRssFeed.myRssItems.append(myRssItem)
+                if rssItems.filter("articleLink CONTAINS[cd] %@", newRssItem.articleLink).count == 0 {
+                    myRssFeed.myRssItems.append(newRssItem)
                 }
             }
         }

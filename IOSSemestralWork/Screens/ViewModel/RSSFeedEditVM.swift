@@ -43,7 +43,7 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
         if let feedForUpdate = feedForUpdate {
             feedName.value = feedForUpdate.title
             link.value = feedForUpdate.link
-            selectedFolder = MutableProperty<Folder>(feedForUpdate.folder!)
+            selectedFolder = MutableProperty<Folder>(feedForUpdate.folder.first!)
             self.feedForUpdate.value = feedForUpdate
         } else {
             selectedFolder = MutableProperty<Folder>(dependencies.rootFolder)
@@ -68,11 +68,11 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
             title = link
         }
         
-        let newFeed = MyRSSFeed(title: title, link: link, in: folder)
+        let newFeed = MyRSSFeed(title: title, link: link)   //FIXME: No folder
         if let feed = self.feedForUpdate.value {
-            return self.dependencies.repository.update(selectedFeed: feed, with: newFeed)
+            return self.dependencies.repository.update(selectedFeed: feed, with: newFeed, parentFolder: folder)
         } else {
-            return self.dependencies.repository.create(rssFeed: newFeed)
+            return self.dependencies.repository.create(rssFeed: newFeed, parentFolder: folder)
         }
     }
     

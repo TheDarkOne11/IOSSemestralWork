@@ -67,17 +67,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if !AppDelegate.isProduction {
             let rootFolder = AppDependency.shared.rootFolder
-            let folderIdnes = Folder(withTitle: "Idnes", in: rootFolder)
-            let folderImages = Folder(withTitle: "WithImages", in: rootFolder)
+            let folderIdnes = Folder(withTitle: "Idnes")
+            let folderImages = Folder(withTitle: "WithImages")
             
-            dbHandler.create(folderIdnes)
-            dbHandler.create(folderImages)
-            
-            dbHandler.create(MyRSSFeed(title: "Zpravodaj", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj", in: folderIdnes))
-            dbHandler.create(MyRSSFeed(title: "Sport", link: "https://servis.idnes.cz/rss.aspx?c=sport", in: folderIdnes))
-            dbHandler.create(MyRSSFeed(title: "Wired", link: "http://wired.com/feed/rss", in: folderImages))
-            dbHandler.create(MyRSSFeed(title: "Lifehacker", link: "https://lifehacker.com/rss", in: folderImages))
-            dbHandler.create(MyRSSFeed(title: "FOX", link: "http://feeds.foxnews.com/foxnews/latest", in: rootFolder))
+            dbHandler.realmEdit(errorMsg: "Could not initiate test DB.") {
+                rootFolder.folders.append(objectsIn: [folderIdnes, folderImages])
+                rootFolder.feeds.append(MyRSSFeed(title: "FOX", link: "http://feeds.foxnews.com/foxnews/latest"))
+                
+                folderIdnes.feeds.append(MyRSSFeed(title: "Zpravodaj", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj"))
+                folderIdnes.feeds.append(MyRSSFeed(title: "Sport", link: "https://servis.idnes.cz/rss.aspx?c=sport"))
+                
+                folderImages.feeds.append(MyRSSFeed(title: "Wired", link: "http://wired.com/feed/rss"))
+                folderImages.feeds.append(MyRSSFeed(title: "Lifehacker", link: "https://lifehacker.com/rss"))
+            }
         }
     }
     

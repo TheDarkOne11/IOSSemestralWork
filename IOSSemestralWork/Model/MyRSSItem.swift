@@ -7,18 +7,22 @@
 //
 
 import Foundation
+import RealmSwift
 import AlamofireRSSParser
 
-class MyRSSItem: Item {
+class MyRSSItem: Object, Item {
+    @objc dynamic var itemId = UUID().uuidString
+    @objc dynamic var title: String = ""
     @objc dynamic var articleLink: String = ""
     @objc dynamic var itemDescription: String = ""
     @objc dynamic var author: String = ""
     @objc dynamic var date: Date?
     @objc dynamic var image: String?
-    @objc dynamic var rssFeed: MyRSSFeed?
     @objc dynamic var isRead: Bool = false
     @objc dynamic var isStarred: Bool = false
     
+    let rssFeed = LinkingObjects(fromType: MyRSSFeed.self, property: "myRssItems")
+    var type: ItemType = .myRssItem
     var description_NoHtml: String {
         get {
             // Removes all HTML tags
@@ -26,16 +30,20 @@ class MyRSSItem: Item {
         }
     }
     
-    convenience init(_ rssItem: RSSItem?, _ myRssFeed: MyRSSFeed) {
-        self.init(with: rssItem?.title ?? "Unknown", type: .myRssItem)
+    convenience init(_ rssItem: RSSItem?) {
+        self.init()
         
+        self.title = rssItem?.title ?? "Unknown title"
         self.articleLink = rssItem?.link ?? "Unknown"
         self.author = rssItem?.author ?? "Unknown author"
         self.itemDescription = rssItem?.itemDescription ?? "Unknown"
         self.date = rssItem?.pubDate
-        self.rssFeed = myRssFeed
         
         setImage(rssItem)
+    }
+    
+    override static func primaryKey() -> String? {
+        return "itemId"
     }
     
     /**

@@ -4,29 +4,9 @@
    <Group
       location = "group:View"
       name = "View">
-      <Group
-         location = "group:/Users/petr/Documents/Projects/IOS_Projects/School/IOSSemestralWork/IOSSemestralWork/Screens/RssItemCell"
-         name = "RssItemCell">
-         <FileRef
-            location = "group:RssItemCell.swift">
-         </FileRef>
-         <FileRef
-            location = "group:RssItemCell.xib">
-         </FileRef>
-      </Group>
       <FileRef
          location = "group:AddFeed.storyboard">
       </FileRef>
-      <Group
-         location = "group:/Users/petr/Documents/Projects/IOS_Projects/School/IOSSemestralWork/IOSSemestralWork/Screens/ItemCell"
-         name = "ItemCell">
-         <FileRef
-            location = "group:ItemCell.xib">
-         </FileRef>
-         <FileRef
-            location = "group:ItemCell.swift">
-         </FileRef>
-      </Group>
       <Group
          location = "group:Base.lproj"
          name = "Base.lproj">

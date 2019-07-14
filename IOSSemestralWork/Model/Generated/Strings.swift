@@ -13,21 +13,53 @@ import Foundation
 internal enum L10n {
 
   internal enum Base {
+    /// Cancel
+    internal static let actionCancel = L10n.tr("Localizable", "base.actionCancel")
+    /// Done
+    internal static let actionDone = L10n.tr("Localizable", "base.actionDone")
+    /// Edit
+    internal static let actionEdit = L10n.tr("Localizable", "base.actionEdit")
+    /// Remove
+    internal static let actionRemove = L10n.tr("Localizable", "base.actionRemove")
+    /// All items
+    internal static let allItems = L10n.tr("Localizable", "base.allItems")
     /// App version
     internal static let appVersion = L10n.tr("Localizable", "base.app_version")
     /// Build number
     internal static let buildNumber = L10n.tr("Localizable", "base.build_number")
     /// None
     internal static let rootFolder = L10n.tr("Localizable", "base.rootFolder")
+    /// Starred items
+    internal static let starredItems = L10n.tr("Localizable", "base.starredItems")
+    /// Unread items
+    internal static let unreadItems = L10n.tr("Localizable", "base.unreadItems")
+  }
+
+  internal enum Error {
+    /// Internet is unreachable. Please try updating later.
+    internal static let internetUnreachable = L10n.tr("Localizable", "error.internetUnreachable")
+  }
+
+  internal enum ItemTableView {
+    /// RSSFeed reader
+    internal static let baseTitle = L10n.tr("Localizable", "itemTableView.baseTitle")
+    /// Edit folder
+    internal static let editFolderTitle = L10n.tr("Localizable", "itemTableView.editFolderTitle")
+    /// Folder name
+    internal static let folderNamePlaceholder = L10n.tr("Localizable", "itemTableView.folderNamePlaceholder")
   }
 
   internal enum RssEditView {
     /// Add a new Folder
     internal static let addFolder = L10n.tr("Localizable", "rssEditView.addFolder")
+    /// Create folder
+    internal static let addFolderTitle = L10n.tr("Localizable", "rssEditView.addFolderTitle")
     /// Feed Details
     internal static let feedDetails = L10n.tr("Localizable", "rssEditView.feedDetails")
     /// Folder:
     internal static let folderLabel = L10n.tr("Localizable", "rssEditView.folderLabel")
+    /// Folder name
+    internal static let folderNamePlaceholder = L10n.tr("Localizable", "rssEditView.folderNamePlaceholder")
     /// http://
     internal static let linkPlaceholder = L10n.tr("Localizable", "rssEditView.linkPlaceholder")
     /// Name

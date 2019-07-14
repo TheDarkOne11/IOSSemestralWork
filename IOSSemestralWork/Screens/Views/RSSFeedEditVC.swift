@@ -129,6 +129,8 @@ class RSSFeedEditVC: BaseViewController {
         
         navigationItem.title = viewModel.feedForUpdate.value != nil ? L10n.RssEditView.titleUpdate : L10n.RssEditView.titleCreate
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(actionBarButtonTapped(_:)))
+        navigationItem.setHidesBackButton(true, animated: false)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelBarButtonTapped(_:)))
     }
     
     private func setupOnSelectActions() {
@@ -178,12 +180,17 @@ class RSSFeedEditVC: BaseViewController {
         viewModel.saveBtnAction.apply().start()
     }
     
+    @objc
+    private func cancelBarButtonTapped(_ sender: UIBarButtonItem) {
+        flowDelegate?.editSuccessful(in: self)
+    }
+    
     private func presentCreateFolderAlert() {
         var textField = UITextField()
         
-        let alert = UIAlertController(title: "Create folder", message: "", preferredStyle: .alert)
-        let actionCancel = UIAlertAction(title: "Cancel", style: .cancel)
-        let actionDone = UIAlertAction(title: "Done", style: .default) { [weak self] (action) in
+        let alert = UIAlertController(title: L10n.RssEditView.addFolderTitle, message: "", preferredStyle: .alert)
+        let actionCancel = UIAlertAction(title: L10n.Base.actionCancel, style: .cancel)
+        let actionDone = UIAlertAction(title: L10n.Base.actionDone, style: .default) { [weak self] (action) in
             self?.viewModel.createFolder(title: textField.text!)
             self?.pickerView.reloadAllComponents()
         }
@@ -192,7 +199,7 @@ class RSSFeedEditVC: BaseViewController {
         alert.addAction(actionDone)
         alert.addAction(actionCancel)
         alert.addTextField { (alertTextField) in
-            alertTextField.placeholder = "Folder name"
+            alertTextField.placeholder = L10n.RssEditView.folderNamePlaceholder
             alertTextField.enablesReturnKeyAutomatically = true
             
             textField = alertTextField
@@ -277,6 +284,6 @@ extension RSSFeedEditVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        folderNameLabel.text = viewModel.getFolder(at: row).title
+         viewModel.selectedFolder.value = viewModel.getFolder(at: row)
     }
 }
