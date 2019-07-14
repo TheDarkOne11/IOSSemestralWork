@@ -4,3 +4,8 @@ strings:
   outputs:
     - templateName: structured-swift4
       output: ../IOSSemestralWork/Model/Generated/Strings.swift
+xcassets:
+  inputs: ../IOSSemestralWork/SupportFiles/Assets.xcassets
+  outputs:
+    - templateName: swift4
+      output: ../IOSSemestralWork/Model/Generated/assets-images.swift

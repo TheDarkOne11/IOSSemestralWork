@@ -13,9 +13,7 @@ final class RSSItemsTableVC: BaseViewController {
     private let viewModel: IRSSItemsTableVM
     private weak var tableView: UITableView!
     lazy var refresher = RefreshControl()
-    
-//    var flowDelegate: ItemTableVCFlowDelegate?
-    
+        
     init(_ viewModel: IRSSItemsTableVM) {
         self.viewModel = viewModel
         
@@ -51,7 +49,6 @@ final class RSSItemsTableVC: BaseViewController {
         setupBindings()
         
         navigationItem.title = viewModel.selectedItem.title
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addBarButtonTapped(_:)))
     }
     
     private func setupBindings() {
