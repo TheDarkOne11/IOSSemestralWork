@@ -106,8 +106,7 @@ class RSSItemVC: BaseViewController {
         })
         
         starButton.reactive.image <~ viewModel.selectedItem.producer.map({ rssItem -> UIImage in
-            let asset = rssItem.isStarred ? Asset.tabStarred : Asset.tabUnstarred
-            return UIImage(asset: asset)
+            return UIImage(asset: (rssItem.isStarred ? Asset.tabStarred : Asset.tabUnstarred))
         })
         
         upButton.reactive.isEnabled <~ viewModel.canGoUp
@@ -118,12 +117,18 @@ class RSSItemVC: BaseViewController {
     
     @objc
     private func readBarButtonTapped(_ sender: UIBarButtonItem) {
-        viewModel.set(isRead: !viewModel.selectedItem.value.isRead)
+        let newValue = !viewModel.selectedItem.value.isRead
+        viewModel.set(isRead: newValue)
+        
+        readButton.image = UIImage(asset: newValue ? Asset.tabRead : Asset.tabUnread)
     }
     
     @objc
     private func starBarButtonTapped(_ sender: UIBarButtonItem) {
-        viewModel.set(isStarred: !viewModel.selectedItem.value.isStarred)
+        let newValue = !viewModel.selectedItem.value.isStarred
+        viewModel.set(isStarred: newValue)
+        
+        starButton.image = UIImage(asset: newValue ? Asset.tabStarred : Asset.tabUnstarred)
     }
     
     @objc

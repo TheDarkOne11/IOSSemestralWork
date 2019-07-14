@@ -55,8 +55,10 @@ final class RSSItemVM: BaseViewModel, IRSSItemVM {
             self?.canGoUp.value = selectedItem.itemId != self?.parentFeed.myRssItems.first!.itemId
             self?.canGoDown.value = selectedItem.itemId != self?.parentFeed.myRssItems.last!.itemId
 
-            self?.dependencies.dbHandler.realmEdit(errorMsg: "Could not edit the selected item.") {
-                self?.selectedItem.value.isRead = true
+            if !selectedItem.isRead {
+                self?.dependencies.dbHandler.realmEdit(errorMsg: "Could not edit the selected item.") {
+                    selectedItem.isRead = true
+                }
             }
         }
     }
@@ -64,14 +66,12 @@ final class RSSItemVM: BaseViewModel, IRSSItemVM {
     func set(isRead: Bool) {
         dependencies.dbHandler.realmEdit(errorMsg: "Could not edit the selected item.") {
             selectedItem.value.isRead = isRead
-            selectedItem.value = selectedItem.value
         }
     }
     
     func set(isStarred: Bool) {
         dependencies.dbHandler.realmEdit(errorMsg: "Could not edit the selected item.") {
             selectedItem.value.isStarred = isStarred
-            selectedItem.value = selectedItem.value
         }
     }
     
