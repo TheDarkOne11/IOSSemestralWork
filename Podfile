@@ -22,3 +22,7 @@ target 'UnitTests' do
     pod 'RealmSwift', '~> 3.16.2'
     pod 'ReactiveSwift', '~> 6.0.0'
 end
+
+target 'FeedTodayAppExtension' do
+    pod 'SnapKit', '~> 4.2'
+end

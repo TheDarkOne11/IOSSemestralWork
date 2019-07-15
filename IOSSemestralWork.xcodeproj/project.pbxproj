@@ -64,6 +64,9 @@
 		4BE1A7D922D88A5A00762AE0 /* RSSItemsTableVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE1A7D822D88A5A00762AE0 /* RSSItemsTableVM.swift */; };
 		4BE1A7DB22D8993500762AE0 /* RepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE1A7DA22D8993500762AE0 /* RepositoryTest.swift */; };
 		4BE1A7DD22D8F9D100762AE0 /* RssItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE1A7DC22D8F9D100762AE0 /* RssItemCell.swift */; };
+		4BE1B2EE22DC7D0A00D33E85 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BE1B2ED22DC7D0A00D33E85 /* NotificationCenter.framework */; };
+		4BE1B2F122DC7D0A00D33E85 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE1B2F022DC7D0A00D33E85 /* TodayViewController.swift */; };
+		4BE1B2F822DC7D0A00D33E85 /* FeedTodayAppExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4BE1B2EC22DC7D0A00D33E85 /* FeedTodayAppExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4BE44F8522CE43560042925A /* RSSFeedEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE44F8422CE43560042925A /* RSSFeedEditVC.swift */; };
 		4BE53CE222D09D8600D64487 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE53CE122D09D8600D64487 /* Protocols.swift */; };
 		4BE8021222CCED500014DED4 /* RSSFeedEditVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8021122CCED500014DED4 /* RSSFeedEditVMTest.swift */; };
@@ -73,9 +76,17 @@
 		4BFF776B22C10B5A008047CB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4BFF776822C10B5A008047CB /* Localizable.strings */; };
 		4BFF777022C10BBC008047CB /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFF776F22C10BBC008047CB /* Strings.swift */; };
 		AC46C49E926FF669F2F75134 /* Pods_UnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69085190F63D20E0DF1839BC /* Pods_UnitTests.framework */; };
+		E9B14E9E9A9AD9264214376D /* Pods_FeedTodayAppExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3BE163F0F937DCBAC32EAD3 /* Pods_FeedTodayAppExtension.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4BE1B2F622DC7D0A00D33E85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4BE8A5EF21D6CB05009B66F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4BE1B2EB22DC7D0A00D33E85;
+			remoteInfo = FeedTodayAppExtension;
+		};
 		4BE7641C22D2275C00A250B4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4BE8A5EF21D6CB05009B66F0 /* Project object */;
@@ -92,8 +103,23 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		4BE1B2FC22DC7D0A00D33E85 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4BE1B2F822DC7D0A00D33E85 /* FeedTodayAppExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1A26211D2B8C7051A78A3F05 /* Pods-IOSSemestralWork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSSemestralWork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IOSSemestralWork/Pods-IOSSemestralWork.debug.xcconfig"; sourceTree = "<group>"; };
+		20E605B3F480D720B726660F /* Pods-FeedTodayAppExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FeedTodayAppExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-FeedTodayAppExtension/Pods-FeedTodayAppExtension.release.xcconfig"; sourceTree = "<group>"; };
 		41DAE754AFF5F4B367771429 /* Pods_IOSSemestralWork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IOSSemestralWork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B0EA17322C0D6F8004411BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B0EA17822C0D712004411BD /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
@@ -128,6 +154,10 @@
 		4BE1A7D822D88A5A00762AE0 /* RSSItemsTableVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSItemsTableVM.swift; sourceTree = "<group>"; };
 		4BE1A7DA22D8993500762AE0 /* RepositoryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTest.swift; sourceTree = "<group>"; };
 		4BE1A7DC22D8F9D100762AE0 /* RssItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RssItemCell.swift; path = RssItemCell/RssItemCell.swift; sourceTree = "<group>"; };
+		4BE1B2EC22DC7D0A00D33E85 /* FeedTodayAppExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FeedTodayAppExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BE1B2ED22DC7D0A00D33E85 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		4BE1B2F022DC7D0A00D33E85 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		4BE1B2F522DC7D0A00D33E85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BE1E22122D1EADF002438CF /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = SOURCE_ROOT; };
 		4BE44F8422CE43560042925A /* RSSFeedEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedEditVC.swift; sourceTree = "<group>"; };
 		4BE53CE122D09D8600D64487 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
@@ -146,10 +176,21 @@
 		4BFF776F22C10BBC008047CB /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		69085190F63D20E0DF1839BC /* Pods_UnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		70604E19792E7A209AD45857 /* Pods-IOSSemestralWork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSSemestralWork.release.xcconfig"; path = "Pods/Target Support Files/Pods-IOSSemestralWork/Pods-IOSSemestralWork.release.xcconfig"; sourceTree = "<group>"; };
+		8FA4276BE6EE5905F7629D65 /* Pods-FeedTodayAppExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FeedTodayAppExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FeedTodayAppExtension/Pods-FeedTodayAppExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		A3BE163F0F937DCBAC32EAD3 /* Pods_FeedTodayAppExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FeedTodayAppExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABA08C447AAAD8E4C96D86BF /* Pods-UnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4BE1B2E922DC7D0A00D33E85 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BE1B2EE22DC7D0A00D33E85 /* NotificationCenter.framework in Frameworks */,
+				E9B14E9E9A9AD9264214376D /* Pods_FeedTodayAppExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4BE8020C22CCED500014DED4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -248,6 +289,15 @@
 			path = Screens;
 			sourceTree = "<group>";
 		};
+		4BE1B2EF22DC7D0A00D33E85 /* FeedTodayAppExtension */ = {
+			isa = PBXGroup;
+			children = (
+				4BE1B2F022DC7D0A00D33E85 /* TodayViewController.swift */,
+				4BE1B2F522DC7D0A00D33E85 /* Info.plist */,
+			);
+			path = FeedTodayAppExtension;
+			sourceTree = "<group>";
+		};
 		4BE4C06321DA38DA00505A0F /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,6 +326,7 @@
 				4BE8A5F921D6CB05009B66F0 /* IOSSemestralWork */,
 				4BFF775B22C1078F008047CB /* Configs */,
 				4BE8021022CCED500014DED4 /* UnitTests */,
+				4BE1B2EF22DC7D0A00D33E85 /* FeedTodayAppExtension */,
 				4BE8A5F821D6CB05009B66F0 /* Products */,
 				DDC08AD18CF2A72BA1A9BCAA /* Pods */,
 				5BF2A335EE5DD817F32A6E54 /* Frameworks */,
@@ -287,6 +338,7 @@
 			children = (
 				4BE8A5F721D6CB05009B66F0 /* IOSSemestralWork.app */,
 				4BE8020F22CCED500014DED4 /* UnitTests.xctest */,
+				4BE1B2EC22DC7D0A00D33E85 /* FeedTodayAppExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -341,6 +393,8 @@
 			children = (
 				41DAE754AFF5F4B367771429 /* Pods_IOSSemestralWork.framework */,
 				69085190F63D20E0DF1839BC /* Pods_UnitTests.framework */,
+				4BE1B2ED22DC7D0A00D33E85 /* NotificationCenter.framework */,
+				A3BE163F0F937DCBAC32EAD3 /* Pods_FeedTodayAppExtension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -352,6 +406,8 @@
 				70604E19792E7A209AD45857 /* Pods-IOSSemestralWork.release.xcconfig */,
 				ABA08C447AAAD8E4C96D86BF /* Pods-UnitTests.debug.xcconfig */,
 				4BC9D7BBD57C408F4E4294CD /* Pods-UnitTests.release.xcconfig */,
+				8FA4276BE6EE5905F7629D65 /* Pods-FeedTodayAppExtension.debug.xcconfig */,
+				20E605B3F480D720B726660F /* Pods-FeedTodayAppExtension.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -359,6 +415,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4BE1B2EB22DC7D0A00D33E85 /* FeedTodayAppExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4BE1B2FB22DC7D0A00D33E85 /* Build configuration list for PBXNativeTarget "FeedTodayAppExtension" */;
+			buildPhases = (
+				67CC3717E4D83C13EA0A8128 /* [CP] Check Pods Manifest.lock */,
+				4BE1B2E822DC7D0A00D33E85 /* Sources */,
+				4BE1B2E922DC7D0A00D33E85 /* Frameworks */,
+				4BE1B2EA22DC7D0A00D33E85 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FeedTodayAppExtension;
+			productName = FeedTodayAppExtension;
+			productReference = 4BE1B2EC22DC7D0A00D33E85 /* FeedTodayAppExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		4BE8020E22CCED500014DED4 /* UnitTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4BE8021822CCED500014DED4 /* Build configuration list for PBXNativeTarget "UnitTests" */;
@@ -389,11 +463,13 @@
 				4BE8A5F421D6CB05009B66F0 /* Frameworks */,
 				4BE8A5F521D6CB05009B66F0 /* Resources */,
 				B2846DC5230084AE6E2BD705 /* [CP] Embed Pods Frameworks */,
+				4BE1B2FC22DC7D0A00D33E85 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				4BE7641D22D2275C00A250B4 /* PBXTargetDependency */,
+				4BE1B2F722DC7D0A00D33E85 /* PBXTargetDependency */,
 			);
 			name = IOSSemestralWork;
 			productName = IOSSemestralWork;
@@ -410,6 +486,9 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Petr Budík";
 				TargetAttributes = {
+					4BE1B2EB22DC7D0A00D33E85 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
 					4BE7641722D2270400A250B4 = {
 						CreatedOnToolsVersion = 10.2.1;
 					};
@@ -449,11 +528,19 @@
 				4BFF774E22C0FD2B008047CB /* Localization */,
 				4BE7641722D2270400A250B4 /* Generate Preprocessor file */,
 				4BE8020E22CCED500014DED4 /* UnitTests */,
+				4BE1B2EB22DC7D0A00D33E85 /* FeedTodayAppExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4BE1B2EA22DC7D0A00D33E85 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4BE8020D22CCED500014DED4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -530,6 +617,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Download from spreadsheet\n# https://docs.google.com/spreadsheets/d/e/2PACX-1vQYmseYrhYp3c_wifBEJV40FPyZG4ugMOm0ZwsbmH59R3P9WS6HIY_sdr72Wf76gfPI2-c6KM45Wvn3/pubhtml\n\n\"$PROJECT_DIR/Pods/ACKLocalization/Localization\" \"1vQYmseYrhYp3c_wifBEJV40FPyZG4ugMOm0ZwsbmH59R3P9WS6HIY_sdr72Wf76gfPI2-c6KM45Wvn3\" \"key_ios\" '{\"EN\": \"en\", \"CS\": \"cs\"}' \"$PROJECT_DIR/IOSSemestralWork/View\" \"Localizable.strings\"\n";
+			showEnvVarsInLog = 0;
+		};
+		67CC3717E4D83C13EA0A8128 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FeedTodayAppExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9AF1698B361D0D3221F77CD3 /* [CP] Check Pods Manifest.lock */ = {
@@ -643,6 +752,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4BE1B2E822DC7D0A00D33E85 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BE1B2F122DC7D0A00D33E85 /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4BE8020B22CCED500014DED4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -693,6 +810,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4BE1B2F722DC7D0A00D33E85 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4BE1B2EB22DC7D0A00D33E85 /* FeedTodayAppExtension */;
+			targetProxy = 4BE1B2F622DC7D0A00D33E85 /* PBXContainerItemProxy */;
+		};
 		4BE7641D22D2275C00A250B4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4BE7641722D2270400A250B4 /* Generate Preprocessor file */;
@@ -726,6 +848,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4BE1B2F922DC7D0A00D33E85 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8FA4276BE6EE5905F7629D65 /* Pods-FeedTodayAppExtension.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 634A34CZA9;
+				INFOPLIST_FILE = FeedTodayAppExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cz.budikpet.IOSSemestralWork.FeedTodayAppExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4BE1B2FA22DC7D0A00D33E85 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 20E605B3F480D720B726660F /* Pods-FeedTodayAppExtension.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 634A34CZA9;
+				INFOPLIST_FILE = FeedTodayAppExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cz.budikpet.IOSSemestralWork.FeedTodayAppExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		4BE7641822D2270400A250B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -984,6 +1148,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4BE1B2FB22DC7D0A00D33E85 /* Build configuration list for PBXNativeTarget "FeedTodayAppExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4BE1B2F922DC7D0A00D33E85 /* Debug */,
+				4BE1B2FA22DC7D0A00D33E85 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4BE7641A22D2270400A250B4 /* Build configuration list for PBXAggregateTarget "Generate Preprocessor file" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
