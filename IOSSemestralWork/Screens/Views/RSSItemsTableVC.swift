@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Resources
 
 final class RSSItemsTableVC: BaseViewController {
     private let viewModel: IRSSItemsTableVM

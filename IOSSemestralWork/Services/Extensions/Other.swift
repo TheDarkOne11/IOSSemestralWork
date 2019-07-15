@@ -59,3 +59,13 @@ extension UITableView {
         }
     }
 }
+
+extension Bundle {
+    public static let resources: Bundle = {
+        guard let bundle = Bundle(identifier: "cz.budikpet.Resources") else {
+            fatalError("Resources bundle must exist.")
+        }
+        
+        return bundle
+    }()
+}

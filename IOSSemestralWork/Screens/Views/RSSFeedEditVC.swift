@@ -3,6 +3,7 @@ import SnapKit
 import ReactiveSwift
 import ReactiveCocoa
 import RealmSwift
+import Resources
 
 protocol RSSFeedEditFlowDelegate {
     func editSuccessful(in viewController: RSSFeedEditVC)

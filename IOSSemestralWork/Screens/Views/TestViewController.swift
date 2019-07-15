@@ -2,6 +2,7 @@ import UIKit
 import SnapKit
 import ReactiveSwift
 import RealmSwift
+import Resources
 
 class ViewController: BaseViewController {
     private let viewModel: IRSSFeedEditVM

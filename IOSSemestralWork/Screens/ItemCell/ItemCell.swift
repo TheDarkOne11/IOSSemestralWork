@@ -93,7 +93,7 @@ class ItemCell: UITableViewCell {
         titleLabel.text = title
         
         if let imgName = imgName {
-            typeImage.image = UIImage(named: imgName)
+            typeImage.image = UIImage(named: imgName, in: Bundle.resources, compatibleWith: nil)
             typeImage.isHidden = false
         } else {
             typeImage.isHidden = true
