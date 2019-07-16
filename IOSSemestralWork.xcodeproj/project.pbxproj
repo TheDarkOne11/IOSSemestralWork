@@ -38,9 +38,9 @@
 		4B0EA48122C0DF6A004411BD /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 4B0EA48022C0DF6A004411BD /* .gitignore */; };
 		4B140D6A22DDB67D0070D05B /* Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B140D6922DDB67D0070D05B /* Common.framework */; };
 		4B140D6B22DDB67D0070D05B /* Common.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B140D6922DDB67D0070D05B /* Common.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4B140DA322DDCBF30070D05B /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B140DA222DDCBF30070D05B /* Data.framework */; };
+		4B140DA422DDCBF30070D05B /* Data.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B140DA222DDCBF30070D05B /* Data.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4B15BF8722D4990B00B3B962 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B15BF8622D4990A00B3B962 /* ItemCell.swift */; };
-		4B27865F22CB4A6F002FD614 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27865E22CB4A6F002FD614 /* Repository.swift */; };
-		4B27867022CB545F002FD614 /* DBHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27866C22CB545F002FD614 /* DBHandler.swift */; };
 		4B53B43722D2481900454E94 /* ItemTableVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B43622D2481900454E94 /* ItemTableVM.swift */; };
 		4B53B43922D2494700454E94 /* ItemTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B43822D2494700454E94 /* ItemTableVC.swift */; };
 		4B53B43B22D24C8C00454E94 /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B43A22D24C8C00454E94 /* RefreshControl.swift */; };
@@ -48,7 +48,6 @@
 		4B53B44A22D24EE000454E94 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B44822D24EDF00454E94 /* PullToRefreshView.swift */; };
 		4BCD96A622CB99BC00F214E2 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD96A522CB99BC00F214E2 /* Base.swift */; };
 		4BCD96A922CB9BD000F214E2 /* RSSFeedEditVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD96A822CB9BD000F214E2 /* RSSFeedEditVM.swift */; };
-		4BD2DD0622CE0C8800F445F4 /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD2DD0122CDFDDA00F445F4 /* AppDependency.swift */; };
 		4BD2DD0822CE0C9C00F445F4 /* TestDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD2DD0722CE0C9C00F445F4 /* TestDependency.swift */; };
 		4BDE2ECD22DB253900AAF3DC /* RSSItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDE2ECC22DB253900AAF3DC /* RSSItemVC.swift */; };
 		4BDE2ECF22DB267800AAF3DC /* RSSItemVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDE2ECE22DB267800AAF3DC /* RSSItemVM.swift */; };
@@ -113,6 +112,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				4B140DA422DDCBF30070D05B /* Data.framework in Embed Frameworks */,
 				4BE1B48822DCF53800D33E85 /* Resources.framework in Embed Frameworks */,
 				4B140D6B22DDB67D0070D05B /* Common.framework in Embed Frameworks */,
 			);
@@ -129,9 +129,8 @@
 		4B0EA17822C0D712004411BD /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		4B0EA48022C0DF6A004411BD /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 		4B140D6922DDB67D0070D05B /* Common.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Common.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B140DA222DDCBF30070D05B /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B15BF8622D4990A00B3B962 /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ItemCell.swift; path = ItemCell/ItemCell.swift; sourceTree = "<group>"; };
-		4B27865E22CB4A6F002FD614 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
-		4B27866C22CB545F002FD614 /* DBHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBHandler.swift; sourceTree = "<group>"; };
 		4B53B43622D2481900454E94 /* ItemTableVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableVM.swift; sourceTree = "<group>"; };
 		4B53B43822D2494700454E94 /* ItemTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableVC.swift; sourceTree = "<group>"; };
 		4B53B43A22D24C8C00454E94 /* RefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControl.swift; sourceTree = "<group>"; };
@@ -140,7 +139,6 @@
 		4BC9D7BBD57C408F4E4294CD /* Pods-UnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		4BCD96A522CB99BC00F214E2 /* Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = "<group>"; };
 		4BCD96A822CB9BD000F214E2 /* RSSFeedEditVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedEditVM.swift; sourceTree = "<group>"; };
-		4BD2DD0122CDFDDA00F445F4 /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
 		4BD2DD0722CE0C9C00F445F4 /* TestDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDependency.swift; sourceTree = "<group>"; };
 		4BDE2ECC22DB253900AAF3DC /* RSSItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSItemVC.swift; sourceTree = "<group>"; };
 		4BDE2ECE22DB267800AAF3DC /* RSSItemVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSItemVM.swift; sourceTree = "<group>"; };
@@ -194,6 +192,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B140DA322DDCBF30070D05B /* Data.framework in Frameworks */,
 				4B140D6A22DDB67D0070D05B /* Common.framework in Frameworks */,
 				4BE1B48722DCF53800D33E85 /* Resources.framework in Frameworks */,
 				434AF0675DA05159F971DB51 /* Pods_IOSSemestralWork.framework in Frameworks */,
@@ -203,14 +202,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4B27866A22CB5443002FD614 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				4B27866C22CB545F002FD614 /* DBHandler.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
 		4B53B44622D24EDF00454E94 /* PullToRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +280,7 @@
 		4BE8A5EE21D6CB05009B66F0 = {
 			isa = PBXGroup;
 			children = (
+				4B140DA222DDCBF30070D05B /* Data.framework */,
 				4B140D6922DDB67D0070D05B /* Common.framework */,
 				4BE1B48622DCF53800D33E85 /* Resources.framework */,
 				4BE8A5F921D6CB05009B66F0 /* IOSSemestralWork */,
@@ -316,11 +308,8 @@
 			children = (
 				4BEB54CC22D10B3C00872896 /* FlowCoordinators */,
 				4BD2DD0422CE099900F445F4 /* Screens */,
-				4B27866A22CB5443002FD614 /* Services */,
 				4BE4C06321DA38DA00505A0F /* SupportFiles */,
-				4BD2DD0122CDFDDA00F445F4 /* AppDependency.swift */,
 				4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */,
-				4B27865E22CB4A6F002FD614 /* Repository.swift */,
 				4B0EA17222C0D6F8004411BD /* LaunchScreen.storyboard */,
 				4BE8A60621D6CB06009B66F0 /* Info.plist */,
 			);
@@ -715,12 +704,9 @@
 				4BCD96A622CB99BC00F214E2 /* Base.swift in Sources */,
 				4BE1A7D922D88A5A00762AE0 /* RSSItemsTableVM.swift in Sources */,
 				4B0EA17922C0D712004411BD /* TestViewController.swift in Sources */,
-				4B27865F22CB4A6F002FD614 /* Repository.swift in Sources */,
 				4B53B43922D2494700454E94 /* ItemTableVC.swift in Sources */,
 				4BDE2ECF22DB267800AAF3DC /* RSSItemVM.swift in Sources */,
 				4BE1A7DD22D8F9D100762AE0 /* RssItemCell.swift in Sources */,
-				4BD2DD0622CE0C8800F445F4 /* AppDependency.swift in Sources */,
-				4B27867022CB545F002FD614 /* DBHandler.swift in Sources */,
 				4BEB54CE22D10B6B00872896 /* AppFlowCoordinator.swift in Sources */,
 				4B53B43B22D24C8C00454E94 /* RefreshControl.swift in Sources */,
 				4BE44F8522CE43560042925A /* RSSFeedEditVC.swift in Sources */,

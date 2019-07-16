@@ -8,14 +8,14 @@
 
 import Foundation
 import RealmSwift
-import ReactiveSwift
 import Common
+import ReactiveSwift
 
-protocol HasRepository {
+public protocol HasRepository {
     var repository: IRepository { get }
 }
 
-protocol IRepository {
+public protocol IRepository {
     /** Currently selected folder, RSS feed or RSS item */
     var selectedItem: MutableProperty<Item> { get }
     
@@ -24,22 +24,22 @@ protocol IRepository {
     func getAllRssItems(of folder: Folder, predicate: NSCompoundPredicate?) -> Results<MyRSSItem>
 }
 
-final class Repository: IRepository {
-    typealias Dependencies = HasDBHandler & HasRealm & HasRootFolder
+public final class Repository: IRepository {
+    public typealias Dependencies = HasDBHandler & HasRealm & HasRootFolder
     private let dependencies: Dependencies
     
-    let selectedItem: MutableProperty<Item>
+    public let selectedItem: MutableProperty<Item>
     
-    init(dependencies: Dependencies) {
+    public init(dependencies: Dependencies) {
         self.dependencies = dependencies
         self.selectedItem = MutableProperty<Item>(dependencies.rootFolder)
     }
     
-    func create(rssFeed feed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, MyRSSFeedError> {
+    public func create(rssFeed feed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, MyRSSFeedError> {
         // Check for duplicates
         let cleanLink = feed.link.replacingOccurrences(of: "http://", with: "")
         if let duplicateFeed = dependencies.realm.objects(MyRSSFeed.self).filter("link CONTAINS[cd] %@", cleanLink).first {
-            return SignalProducer(error: .exists(duplicateFeed))
+            return SignalProducer(error: .exists)
         }
         
         // Save the new feed
@@ -49,7 +49,7 @@ final class Repository: IRepository {
         return SignalProducer(value: feed)
     }
     
-    func update(selectedFeed oldFeed: MyRSSFeed, with newFeed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, MyRSSFeedError> {
+    public func update(selectedFeed oldFeed: MyRSSFeed, with newFeed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, MyRSSFeedError> {
         //TODO: Error handling – change errorMsg to a closure
         dependencies.dbHandler.realmEdit(errorMsg: "Error occured when updating the RSSFeed") {
             let oldFolder = oldFeed.folder.first
@@ -68,7 +68,7 @@ final class Repository: IRepository {
         return SignalProducer(value: oldFeed)
     }
     
-    func getAllRssItems(of folder: Folder, predicate: NSCompoundPredicate? = nil) -> Results<MyRSSItem> {
+    public func getAllRssItems(of folder: Folder, predicate: NSCompoundPredicate? = nil) -> Results<MyRSSItem> {
         let rssItems = dependencies.realm.objects(MyRSSItem.self)
         let folderNames: [String] = getAllFolderNames(from: folder)
         let foldersPredicate = NSPredicate(format: "ANY rssFeed.folder.title IN %@", folderNames)

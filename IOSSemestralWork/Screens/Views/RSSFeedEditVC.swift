@@ -4,6 +4,7 @@ import ReactiveSwift
 import ReactiveCocoa
 import RealmSwift
 import Resources
+import Data
 import Common
 
 protocol RSSFeedEditFlowDelegate {

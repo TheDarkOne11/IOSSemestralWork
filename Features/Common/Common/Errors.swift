@@ -9,5 +9,5 @@
 import Foundation
 
 public enum MyRSSFeedError: Error {
-    case exists(MyRSSFeed)
+    case exists
 }

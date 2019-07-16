@@ -9,7 +9,7 @@
 import Foundation
 import ReactiveSwift
 import RealmSwift
-import Common
+import Data
 
 protocol IRSSItemsTableVM {
     var selectedItem: Item { get }

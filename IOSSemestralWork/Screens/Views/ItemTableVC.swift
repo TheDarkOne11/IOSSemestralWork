@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 import Resources
-import Common
+import Data
 
 protocol ItemTableVCFlowDelegate {
     func toFeedEdit(with feed: MyRSSFeed?)

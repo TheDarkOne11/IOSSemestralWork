@@ -10,13 +10,12 @@ import Foundation
 import RealmSwift
 import Alamofire
 import AlamofireRSSParser
-import Common
 
-protocol HasDBHandler {
+public protocol HasDBHandler {
     var dbHandler: DBHandler { get }
 }
 
-enum DownloadStatus: String {
+public enum DownloadStatus: String {
     case OK
     case NotOK
     case Unreachable
@@ -25,13 +24,13 @@ enum DownloadStatus: String {
 /**
  This class has all methods for manipulation with Models in Realm database.
  */
-class DBHandler {
-    typealias Dependencies = HasRealm
+public class DBHandler {
+    public typealias Dependencies = HasRealm
     private let dependencies: Dependencies
     private let rssItems: Results<MyRSSItem>
     private let feeds: Results<MyRSSFeed>
     
-    init(dependencies: Dependencies) {
+    public init(dependencies: Dependencies) {
         self.dependencies = dependencies
         self.rssItems = dependencies.realm.objects(MyRSSItem.self)
         self.feeds = dependencies.realm.objects(MyRSSFeed.self)
@@ -42,7 +41,7 @@ class DBHandler {
      - parameter errorMsg: An error string which displays when an exception is thrown.
      - parameter editCode: A function where we create, edit or delete any Realm objects.
      */
-    func realmEdit(errorMsg: String, editCode: () -> Void) {
+    public func realmEdit(errorMsg: String, editCode: () -> Void) {
         do {
             try dependencies.realm.write {
                 editCode()
@@ -54,7 +53,7 @@ class DBHandler {
     
     // MARK: Item methods
     
-    func remove(_ item: Item) {
+    public func remove(_ item: Item) {
         switch item.type {
         case .folder:
             let folder = item as! Folder
@@ -72,14 +71,14 @@ class DBHandler {
     
     // MARK: Folder methods
     
-    func create(_ folder: Folder) {
+    public func create(_ folder: Folder) {
         // Save the folder to Realm
         realmEdit(errorMsg: "Could not add a new folder to Realm") {
             dependencies.realm.add(folder)  //TODO: Remove method
         }
     }
     
-    func remove(_ folder: Folder) {
+    public func remove(_ folder: Folder) {
         realmEdit(errorMsg: "Error occured when removing a folder \(folder.title)") {
             // Remove folders contents
             for folder in folder.folders {
@@ -96,13 +95,13 @@ class DBHandler {
     
     // MARK: MyRSSFeed methods
     
-    func create(_ myRssFeed: MyRSSFeed) {
+    public func create(_ myRssFeed: MyRSSFeed) {
         realmEdit(errorMsg: "Error occured when creating a new MyRSSFeed") {
             myRssFeed.folder.first?.feeds.append(myRssFeed) //TODO: Remove method?
         }
     }
     
-    func remove(_ myRssFeed: MyRSSFeed) {
+    public func remove(_ myRssFeed: MyRSSFeed) {
         realmEdit(errorMsg: "Error occured when removing a folder \(myRssFeed.title)") {
             dependencies.realm.delete(myRssFeed.myRssItems)
             dependencies.realm.delete(myRssFeed)
@@ -115,7 +114,7 @@ class DBHandler {
      Downloads items of the all feeds.
      - parameter completed: A function that is called when all feeds are updated.
      */
-    func updateAll(completed: @escaping (DownloadStatus) -> Void) {
+    public func updateAll(completed: @escaping (DownloadStatus) -> Void) {
         // DispatchGroup enables us to trigger some code when all async requests are done
         let myGroup = DispatchGroup()
         
@@ -152,7 +151,7 @@ class DBHandler {
      - parameter completed: A function that is called when an asynchronous Alamofire request ends.
      - parameter myRssFeed: The RSS feed whose RSS items we are downloading.
      */
-    func update(_ myRssFeed: MyRSSFeed, completed: @escaping (DownloadStatus) -> Void) {
+    public func update(_ myRssFeed: MyRSSFeed, completed: @escaping (DownloadStatus) -> Void) {
         
         // Check if internet is reachable
         if !NetworkReachabilityManager()!.isReachable {

@@ -9,23 +9,23 @@
 import Foundation
 import RealmSwift
 import Resources
-import Common
+
 
 /**
  Singleton that holds all instances of dependencies. Used for Dependency Injection.
  
  - TAG: appDependency
  */
-final class AppDependency{
+public final class AppDependency{
     private init() { }
-    static let shared = AppDependency()
+    public static let shared = AppDependency()
     
-    lazy var realm: Realm = AppDependency.realm()
-    lazy var rootFolder: Folder = AppDependency.getRootFolder()
-    lazy var userDefaults: UserDefaults = UserDefaults.standard
+    public lazy var realm: Realm = AppDependency.realm()
+    public lazy var rootFolder: Folder = AppDependency.getRootFolder()
+    public lazy var userDefaults: UserDefaults = UserDefaults.standard
 
-    lazy var dbHandler: DBHandler = DBHandler(dependencies: AppDependency.shared)
-    lazy var repository: IRepository = Repository(dependencies: AppDependency.shared)
+    public lazy var dbHandler: DBHandler = DBHandler(dependencies: AppDependency.shared)
+    public lazy var repository: IRepository = Repository(dependencies: AppDependency.shared)
 }
 
 extension AppDependency: HasRepository { }
