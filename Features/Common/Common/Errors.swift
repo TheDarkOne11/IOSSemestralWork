@@ -8,6 +8,6 @@
 
 import Foundation
 
-enum MyRSSFeedError: Error {
+public enum MyRSSFeedError: Error {
     case exists(MyRSSFeed)
 }

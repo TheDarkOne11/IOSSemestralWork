@@ -4,6 +4,7 @@ import ReactiveSwift
 import ReactiveCocoa
 import RealmSwift
 import Resources
+import Common
 
 protocol RSSFeedEditFlowDelegate {
     func editSuccessful(in viewController: RSSFeedEditVC)

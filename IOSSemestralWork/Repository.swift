@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 import ReactiveSwift
+import Common
 
 protocol HasRepository {
     var repository: IRepository { get }

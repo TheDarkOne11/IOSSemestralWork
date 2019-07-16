@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import RealmSwift
+import Common
 
 class AppFlowCoordinator: BaseFlowCoordinator {
     public var childCoordinators = [BaseFlowCoordinator]()

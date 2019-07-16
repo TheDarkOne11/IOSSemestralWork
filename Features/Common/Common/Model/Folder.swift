@@ -9,25 +9,25 @@
 import Foundation
 import RealmSwift
 
-class Folder: Object, Item {
-    @objc dynamic var itemId: String = UUID().uuidString
-    @objc dynamic var title: String = ""
-    let parentFolder = LinkingObjects(fromType: Folder.self, property: "folders")
-    let folders = List<Folder>()
-    let feeds = List<MyRSSFeed>()
+public class Folder: Object, Item {
+    @objc dynamic public var itemId: String = UUID().uuidString
+    @objc dynamic public var title: String = ""
+    public let parentFolder = LinkingObjects(fromType: Folder.self, property: "folders")
+    public let folders = List<Folder>()
+    public let feeds = List<MyRSSFeed>()
     
-    var type: ItemType = .folder
+    public var type: ItemType = .folder
     
-    convenience init(withTitle title: String) {
+    public convenience init(withTitle title: String) {
         self.init()
         self.title = title
     }
     
-    override static func primaryKey() -> String? {
+    override public static func primaryKey() -> String? {
         return "itemId"
     }
     
-    func getRssItemsCount(predicate: NSCompoundPredicate? = nil) -> Int {
+    public func getRssItemsCount(predicate: NSCompoundPredicate? = nil) -> Int {
         var count = 0
         
         for folder in folders {

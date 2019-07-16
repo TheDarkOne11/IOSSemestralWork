@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Common
 
 class RssItemCell: UITableViewCell {
     private weak var titleLabel: UILabel!

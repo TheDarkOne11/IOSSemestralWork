@@ -9,14 +9,14 @@
 import Foundation
 import RealmSwift
 
-enum ItemType: String {
+public enum ItemType: String {
     case folder
     case myRssFeed
     case myRssItem
     case specialItem
 }
 
-protocol Item {
+public protocol Item {
     var itemId: String { get }
     var title: String { get }
     var type: ItemType { get }

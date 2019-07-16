@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 @testable import IOSSemestralWork
 @testable import Resources
+@testable import Common
 
 /**
  Mock of [AppDependency](x-source-tag://appDependency) singleton. This class is used at its place for Dependency Injection.

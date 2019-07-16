@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Common
 
 class ItemCell: UITableViewCell {
     private weak var titleLabel: UILabel!

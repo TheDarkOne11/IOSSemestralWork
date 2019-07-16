@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 import Alamofire
 import AlamofireRSSParser
+import Common
 
 protocol HasDBHandler {
     var dbHandler: DBHandler { get }

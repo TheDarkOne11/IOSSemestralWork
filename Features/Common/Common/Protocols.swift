@@ -9,14 +9,14 @@
 import Foundation
 import RealmSwift
 
-protocol HasUserDefaults {
+public protocol HasUserDefaults {
     var userDefaults: UserDefaults { get }
 }
 
-protocol HasRealm {
+public protocol HasRealm {
     var realm: Realm { get }
 }
 
-protocol HasRootFolder {
+public protocol HasRootFolder {
     var rootFolder: Folder { get }
 }

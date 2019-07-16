@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 import Resources
+import Common
 
 /**
  Singleton that holds all instances of dependencies. Used for Dependency Injection.

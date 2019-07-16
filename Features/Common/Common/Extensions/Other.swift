@@ -8,20 +8,19 @@
 
 import Foundation
 import UIKit
-import RealmSwift
 
 extension UserDefaults {
     /**
      This enum stores all the keys that are used in the UserDefaults.
      */
-    enum Keys: String {
+    public enum Keys: String {
         case lastUpdate
         case rootFolderItemId
     }
 }
 
 extension UIView {
-    func addSubViews(_ subViews: UIView...) -> UIView {
+    public func addSubViews(_ subViews: UIView...) -> UIView {
         for subView in subViews {
             self.addSubview(subView)
         }
@@ -31,12 +30,12 @@ extension UIView {
 }
 
 extension UITableView {
-    class Section {
-        var rows: [Row] = []
-        var header: String?
-        var footer: String?
+    public class Section {
+        public var rows: [Row] = []
+        public var header: String?
+        public var footer: String?
         
-        init(rows: Int, header: String? = nil, footer: String? = nil) {
+        public init(rows: Int, header: String? = nil, footer: String? = nil) {
             self.header = header
             self.footer = footer
             
@@ -46,13 +45,13 @@ extension UITableView {
         }
     }
     
-    class Row {
-        typealias SelectedAction = () -> ()
-        var contentView: UIView?
-        var isHidden: Bool
-        var onSelected: SelectedAction?
+    public class Row {
+        public typealias SelectedAction = () -> ()
+        public var contentView: UIView?
+        public var isHidden: Bool
+        public var onSelected: SelectedAction?
         
-        init(contentView: UIView? = nil, isHidden: Bool = false, isSelected: SelectedAction? = nil) {
+        public init(contentView: UIView? = nil, isHidden: Bool = false, isSelected: SelectedAction? = nil) {
             self.contentView = contentView
             self.onSelected = isSelected
             self.isHidden = isHidden
@@ -62,7 +61,7 @@ extension UITableView {
 
 extension Bundle {
     public static let resources: Bundle = {
-        guard let bundle = Bundle(identifier: "cz.budikpet.Resources") else {
+        guard let bundle = Bundle(identifier: "cz.budikpet.IOSSemestralWork.Resources") else {
             fatalError("Resources bundle must exist.")
         }
         

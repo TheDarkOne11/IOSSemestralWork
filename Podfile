@@ -1,6 +1,9 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
 # Uncomment the next line to define a global platform for your project
 platform :ios, '9.0'
 use_frameworks!
+workspace 'IOSSemestralWork'
 
 # ignore all warnings from all pods
 inhibit_all_warnings!
@@ -25,4 +28,12 @@ end
 
 target 'FeedTodayAppExtension' do
     pod 'SnapKit', '~> 4.2'
+end
+
+target 'Common' do
+    project 'Features/Common/Common'
+    pod 'ReactiveSwift', '~> 6.0.0'
+    pod 'ReactiveCocoa', '~> 10.0.0'
+    pod 'RealmSwift', '~> 3.16.2'
+    pod 'AlamofireRSSParser', '~> 2.2.0'
 end

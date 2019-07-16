@@ -10,27 +10,27 @@ import Foundation
 import RealmSwift
 import AlamofireRSSParser
 
-class MyRSSItem: Object, Item {
-    @objc dynamic var itemId = UUID().uuidString
-    @objc dynamic var title: String = ""
-    @objc dynamic var articleLink: String = ""
-    @objc dynamic var itemDescription: String = ""
-    @objc dynamic var author: String = ""
-    @objc dynamic var date: Date?
-    @objc dynamic var image: String?
-    @objc dynamic var isRead: Bool = false
-    @objc dynamic var isStarred: Bool = false
+public class MyRSSItem: Object, Item {
+    @objc dynamic public var itemId = UUID().uuidString
+    @objc dynamic public var title: String = ""
+    @objc dynamic public var articleLink: String = ""
+    @objc dynamic public var itemDescription: String = ""
+    @objc dynamic public var author: String = ""
+    @objc dynamic public var date: Date?
+    @objc dynamic public var image: String?
+    @objc dynamic public var isRead: Bool = false
+    @objc dynamic public var isStarred: Bool = false
     
-    let rssFeed = LinkingObjects(fromType: MyRSSFeed.self, property: "myRssItems")
-    var type: ItemType = .myRssItem
-    var description_NoHtml: String {
+    public let rssFeed = LinkingObjects(fromType: MyRSSFeed.self, property: "myRssItems")
+    public var type: ItemType = .myRssItem
+    public var description_NoHtml: String {
         get {
             // Removes all HTML tags
             return remove(from: itemDescription, pattern: "\\<.*?\\>")
         }
     }
     
-    convenience init(_ rssItem: RSSItem?) {
+    public convenience init(_ rssItem: RSSItem?) {
         self.init()
         
         self.title = rssItem?.title ?? "Unknown title"
@@ -42,7 +42,7 @@ class MyRSSItem: Object, Item {
         setImage(rssItem)
     }
     
-    override static func primaryKey() -> String? {
+    override public static func primaryKey() -> String? {
         return "itemId"
     }
     

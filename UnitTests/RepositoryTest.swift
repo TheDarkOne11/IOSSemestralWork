@@ -9,6 +9,7 @@
 import XCTest
 import RealmSwift
 @testable import IOSSemestralWork
+@testable import Common
 
 class RepositoryTest: XCTestCase {
     private var dependencies: TestDependency!
