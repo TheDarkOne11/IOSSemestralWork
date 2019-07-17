@@ -20,7 +20,6 @@
 		4B140DB722DDD0C10070D05B /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B140DAE22DDD0C10070D05B /* AppDependency.swift */; };
 		4B140DB922DDD1010070D05B /* Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B140DB822DDD1010070D05B /* Common.framework */; };
 		4BBFD48C22DF763E00DBD757 /* Resources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBFD48B22DF763E00DBD757 /* Resources.framework */; };
-		4BBFD48E22DF76DC00DBD757 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBFD48D22DF76DC00DBD757 /* Test.swift */; };
 		4BE6058722DF368300BF655F /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B140D9422DDCB750070D05B /* Data.framework */; };
 		4BE6059022DF373400BF655F /* RepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE6058D22DF373400BF655F /* RepositoryTest.swift */; };
 		4BE6059222DF373400BF655F /* TestDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE6058F22DF373400BF655F /* TestDependency.swift */; };
@@ -54,7 +53,6 @@
 		4B140DAE22DDD0C10070D05B /* AppDependency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
 		4B140DB822DDD1010070D05B /* Common.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Common.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BBFD48B22DF763E00DBD757 /* Resources.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Resources.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4BBFD48D22DF76DC00DBD757 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		4BE6058222DF368300BF655F /* DataUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BE6058622DF368300BF655F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BE6058D22DF373400BF655F /* RepositoryTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryTest.swift; sourceTree = "<group>"; };
@@ -153,7 +151,6 @@
 				4BE6058D22DF373400BF655F /* RepositoryTest.swift */,
 				4BE6058F22DF373400BF655F /* TestDependency.swift */,
 				4BE6058622DF368300BF655F /* Info.plist */,
-				4BBFD48D22DF76DC00DBD757 /* Test.swift */,
 			);
 			path = DataUnitTests;
 			sourceTree = "<group>";
@@ -378,7 +375,6 @@
 			files = (
 				4BE6059222DF373400BF655F /* TestDependency.swift in Sources */,
 				4BE6059022DF373400BF655F /* RepositoryTest.swift in Sources */,
-				4BBFD48E22DF76DC00DBD757 /* Test.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
