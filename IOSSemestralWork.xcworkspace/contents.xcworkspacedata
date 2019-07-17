@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Features/Data/Data.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:IOSSemestralWork.xcodeproj">
    </FileRef>
    <FileRef
@@ -15,6 +12,9 @@
       name = "Features">
       <FileRef
          location = "group:Features/Common/Common.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Features/Data/Data.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Features/Resources/Resources.xcodeproj">

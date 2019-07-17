@@ -8,7 +8,6 @@
 
 import XCTest
 import RealmSwift
-@testable import IOSSemestralWork
 @testable import Data
 
 class RepositoryTest: XCTestCase {

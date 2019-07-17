@@ -41,4 +41,8 @@ target 'Data' do
     pod 'ReactiveSwift', '~> 6.0.0'
     pod 'RealmSwift', '~> 3.16.2'
     pod 'AlamofireRSSParser', '~> 2.2.0'
+    target 'DataUnitTests' do
+        pod 'RealmSwift', '~> 3.16.2'
+        pod 'ReactiveSwift', '~> 6.0.0'
+    end
 end
