@@ -42,7 +42,10 @@ target 'Data' do
     pod 'RealmSwift', '~> 3.16.2'
     pod 'AlamofireRSSParser', '~> 2.2.0'
     target 'DataUnitTests' do
+        project 'Features/Data/Data'
+        inherit! :search_paths
         pod 'RealmSwift', '~> 3.16.2'
         pod 'ReactiveSwift', '~> 6.0.0'
+        pod 'ReactiveCocoa', '~> 10.0.0'
     end
 end
