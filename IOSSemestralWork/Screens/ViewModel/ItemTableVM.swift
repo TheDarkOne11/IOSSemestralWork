@@ -9,6 +9,8 @@
 import Foundation
 import ReactiveSwift
 import RealmSwift
+import Resources
+import Data
 
 struct ShownItems {
     let specialItems: [SpecialItem]

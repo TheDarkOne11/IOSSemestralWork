@@ -38,6 +38,16 @@
                ReferencedContainer = "container:IOSSemestralWork.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4BE6058122DF368300BF655F"
+               BuildableName = "DataUnitTests.xctest"
+               BlueprintName = "DataUnitTests"
+               ReferencedContainer = "container:Features/Data/Data.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

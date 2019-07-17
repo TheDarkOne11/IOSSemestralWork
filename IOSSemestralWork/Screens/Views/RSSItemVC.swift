@@ -12,6 +12,7 @@ import ReactiveCocoa
 import ReactiveSwift
 import UIKit
 import WebKit
+import Resources
 
 class RSSItemVC: BaseViewController {
     private let viewModel: IRSSItemVM
@@ -29,7 +30,7 @@ class RSSItemVC: BaseViewController {
         let webView = WKWebView(frame: .zero)
         
         // Load HTML template
-        if let url = Bundle.main.url(forResource: "RSSItemFormat", withExtension: "html", subdirectory: "Web") {
+        if let url = Bundle.resources.url(forResource: "RSSItemFormat", withExtension: "html") {
             print("Loading webView")
             webView.loadFileURL(url, allowingReadAccessTo: url)
             let request = URLRequest(url: url)

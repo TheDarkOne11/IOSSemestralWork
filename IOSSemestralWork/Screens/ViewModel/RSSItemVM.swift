@@ -9,6 +9,7 @@
 import Foundation
 import ReactiveSwift
 import RealmSwift
+import Data
 
 protocol IRSSItemVM {
     var selectedItem: MutableProperty<MyRSSItem> { get }

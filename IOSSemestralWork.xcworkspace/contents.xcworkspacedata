@@ -7,4 +7,17 @@
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
+   <Group
+      location = "container:"
+      name = "Features">
+      <FileRef
+         location = "group:Features/Common/Common.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Features/Data/Data.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Features/Resources/Resources.xcodeproj">
+      </FileRef>
+   </Group>
 </Workspace>

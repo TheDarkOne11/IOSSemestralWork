@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import Toast_Swift
+import Data
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
