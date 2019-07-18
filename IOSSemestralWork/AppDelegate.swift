@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        print("Realm DB location: \(Realm.Configuration.defaultConfiguration.fileURL!)")
+        print("Realm DB location: \(AppDependency.shared.realm.configuration.fileURL!)")
         
         let realm = AppDependency.shared.realm
         if realm.isEmpty {
@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
         
         // Set default Toast values
-        ToastManager.shared.duration = 4.0
+        ToastManager.shared.duration = 2.0
         ToastManager.shared.position = .center
         ToastManager.shared.style.backgroundColor = UIColor.black.withAlphaComponent(0.71)
         

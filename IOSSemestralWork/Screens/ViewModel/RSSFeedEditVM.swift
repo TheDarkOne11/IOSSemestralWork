@@ -25,7 +25,7 @@ protocol IRSSFeedEditVM {
     /** Returns a folder at the selected index.*/
     func getFolder(at index: Int) -> Folder
     
-    func createFolder(title: String)
+    func createFolder(title: String, parentFolder: Folder?)
 }
 
 final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
@@ -95,9 +95,12 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
         return folder
     }
     
-    func createFolder(title: String) {
+    func createFolder(title: String, parentFolder: Folder? = nil) {
         let folder = Folder(withTitle: title)
-        dependencies.dbHandler.create(folder)
+        let parentFolder = parentFolder != nil ? parentFolder : dependencies.rootFolder
+        dependencies.dbHandler.realmEdit(errorMsg: "Could not create a new folder.") {
+            parentFolder?.folders.append(folder)
+        }
         
         selectedFolder.value = folder
     }

@@ -6,6 +6,7 @@ import RealmSwift
 import Resources
 import Data
 import Common
+import Toast_Swift
 
 protocol RSSFeedEditFlowDelegate {
     func editSuccessful(in viewController: RSSFeedEditVC)
@@ -52,13 +53,13 @@ class RSSFeedEditVC: BaseViewController {
     }
     
     private func prepareRows() {
-        let feedDetails = UITableView.Section(rows: 2, header: L10n.RssEditView.feedDetails)
-        let specifyFolder = UITableView.Section(rows: 3, header: L10n.RssEditView.specifyFolder)
+        let secFeedDetails = UITableView.Section(rows: 2, header: L10n.RssEditView.feedDetails)
+        let secSpecifyFolder = UITableView.Section(rows: 3, header: L10n.RssEditView.specifyFolder)
         
         // Create rows
         // Feed details rows
         let feedNameField = UITextField()
-        feedDetails.rows[0].contentView = UIView().addSubViews(feedNameField)
+        secFeedDetails.rows[0].contentView = UIView().addSubViews(feedNameField)
         feedNameField.placeholder = L10n.RssEditView.namePlaceholder
         feedNameField.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
@@ -67,7 +68,7 @@ class RSSFeedEditVC: BaseViewController {
         self.feedNameField = feedNameField
     
         let linkField = UITextField()
-        feedDetails.rows[1].contentView = UIView().addSubViews(linkField)
+        secFeedDetails.rows[1].contentView = UIView().addSubViews(linkField)
         linkField.placeholder = L10n.RssEditView.linkPlaceholder
         linkField.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
@@ -81,7 +82,7 @@ class RSSFeedEditVC: BaseViewController {
         
         // Specify folder rows
         let addFolderLabel = UILabel()
-        specifyFolder.rows[0].contentView = UIView().addSubViews(addFolderLabel)
+        secSpecifyFolder.rows[0].contentView = UIView().addSubViews(addFolderLabel)
         addFolderLabel.text = L10n.RssEditView.addFolder
         addFolderLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
@@ -91,7 +92,7 @@ class RSSFeedEditVC: BaseViewController {
         
         let folderLabel = UILabel()
         let folderNameLabel = UILabel()
-        specifyFolder.rows[1].contentView = UIView().addSubViews(folderLabel, folderNameLabel)
+        secSpecifyFolder.rows[1].contentView = UIView().addSubViews(folderLabel, folderNameLabel)
         folderLabel.text = L10n.RssEditView.folderLabel
         folderLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         folderLabel.setContentHuggingPriority(.init(250), for: .horizontal)
@@ -110,8 +111,8 @@ class RSSFeedEditVC: BaseViewController {
         
         
         let pickerView = UIPickerView()
-        specifyFolder.rows[2].contentView = UIView().addSubViews(pickerView)
-        specifyFolder.rows[2].isHidden = true
+        secSpecifyFolder.rows[2].contentView = UIView().addSubViews(pickerView)
+        secSpecifyFolder.rows[2].isHidden = true
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.snp.makeConstraints { make in
@@ -120,8 +121,8 @@ class RSSFeedEditVC: BaseViewController {
         self.pickerView = pickerView
         
         // Add sections to the array
-        sections.append(feedDetails)
-        sections.append(specifyFolder)
+        sections.append(secFeedDetails)
+        sections.append(secSpecifyFolder)
     }
     
     override func viewDidLoad() {
@@ -137,13 +138,13 @@ class RSSFeedEditVC: BaseViewController {
     }
     
     private func setupOnSelectActions() {
-        let specifyFolder = sections[1]
-        specifyFolder.rows[0].onSelected = { [weak self] in
+        let secSpecifyFolder = sections[1]
+        secSpecifyFolder.rows[0].onSelected = { [weak self] in
             self?.presentCreateFolderAlert()
         }
         
-        specifyFolder.rows[1].onSelected = { [weak self] in
-            let row = specifyFolder.rows[2]
+        secSpecifyFolder.rows[1].onSelected = { [weak self] in
+            let row = secSpecifyFolder.rows[2]
             row.isHidden = !row.isHidden
             self?.folderNameLabel.textColor = row.isHidden ? UIColor.black : UIColor.red
         }
@@ -194,7 +195,8 @@ class RSSFeedEditVC: BaseViewController {
         let alert = UIAlertController(title: L10n.RssEditView.addFolderTitle, message: "", preferredStyle: .alert)
         let actionCancel = UIAlertAction(title: L10n.Base.actionCancel, style: .cancel)
         let actionDone = UIAlertAction(title: L10n.Base.actionDone, style: .default) { [weak self] (action) in
-            self?.viewModel.createFolder(title: textField.text!)
+            self?.viewModel.createFolder(title: textField.text!, parentFolder: nil)
+            self?.view.makeToast("Folder %@ created", position: .bottom)
             self?.pickerView.reloadAllComponents()
         }
         actionDone.isEnabled = false
