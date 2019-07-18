@@ -9,13 +9,14 @@
 import Foundation
 import RealmSwift
 import AlamofireRSSParser
+import Resources
 
 public class MyRSSItem: Object, Item {
     @objc dynamic public var itemId = UUID().uuidString
     @objc dynamic public var title: String = ""
-    @objc dynamic public var articleLink: String = ""
+    @objc dynamic public var articleLink: String?
     @objc dynamic public var itemDescription: String = ""
-    @objc dynamic public var author: String = ""
+    @objc dynamic public var author: String?
     @objc dynamic public var date: Date?
     @objc dynamic public var image: String?
     @objc dynamic public var isRead: Bool = false
@@ -33,10 +34,10 @@ public class MyRSSItem: Object, Item {
     public convenience init(_ rssItem: RSSItem?) {
         self.init()
         
-        self.title = rssItem?.title ?? "Unknown title"
-        self.articleLink = rssItem?.link ?? "Unknown"
-        self.author = rssItem?.author ?? "Unknown author"
-        self.itemDescription = rssItem?.itemDescription ?? "Unknown"
+        self.title = rssItem?.title ?? L10n.MyRssItem.missingTitle
+        self.articleLink = rssItem?.link
+        self.author = rssItem?.author
+        self.itemDescription = rssItem?.itemDescription ?? L10n.MyRssItem.missingDescription
         self.date = rssItem?.pubDate
         
         setImage(rssItem)

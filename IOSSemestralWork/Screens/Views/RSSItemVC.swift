@@ -144,7 +144,9 @@ class RSSItemVC: BaseViewController {
     
     @objc
     private func toWebsiteButtonTapped(_ sender: UIBarButtonItem) {
-        goToWeb(url: URL(string: viewModel.selectedItem.value.articleLink))
+        if let link = viewModel.selectedItem.value.articleLink {
+            goToWeb(url: URL(string: link))
+        }
     }
 }
 

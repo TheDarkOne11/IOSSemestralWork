@@ -55,7 +55,7 @@
 		4BE1A7D922D88A5A00762AE0 /* RSSItemsTableVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE1A7D822D88A5A00762AE0 /* RSSItemsTableVM.swift */; };
 		4BE1A7DD22D8F9D100762AE0 /* RssItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE1A7DC22D8F9D100762AE0 /* RssItemCell.swift */; };
 		4BE1B2EE22DC7D0A00D33E85 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BE1B2ED22DC7D0A00D33E85 /* NotificationCenter.framework */; };
-		4BE1B2F122DC7D0A00D33E85 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE1B2F022DC7D0A00D33E85 /* TodayViewController.swift */; };
+		4BE1B2F122DC7D0A00D33E85 /* TodayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE1B2F022DC7D0A00D33E85 /* TodayVC.swift */; };
 		4BE1B2F822DC7D0A00D33E85 /* FeedTodayAppExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4BE1B2EC22DC7D0A00D33E85 /* FeedTodayAppExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4BE1B48122DCF31900D33E85 /* Gemfile in Resources */ = {isa = PBXBuildFile; fileRef = 4BE1B48022DCF31900D33E85 /* Gemfile */; };
 		4BE1B48722DCF53800D33E85 /* Resources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BE1B48622DCF53800D33E85 /* Resources.framework */; };
@@ -151,7 +151,7 @@
 		4BE1A7DC22D8F9D100762AE0 /* RssItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RssItemCell.swift; path = RssItemCell/RssItemCell.swift; sourceTree = "<group>"; };
 		4BE1B2EC22DC7D0A00D33E85 /* FeedTodayAppExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FeedTodayAppExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BE1B2ED22DC7D0A00D33E85 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		4BE1B2F022DC7D0A00D33E85 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		4BE1B2F022DC7D0A00D33E85 /* TodayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayVC.swift; sourceTree = "<group>"; };
 		4BE1B2F522DC7D0A00D33E85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BE1B48022DCF31900D33E85 /* Gemfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Gemfile; sourceTree = "<group>"; };
 		4BE1B48622DCF53800D33E85 /* Resources.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Resources.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -255,7 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				4B164BD622E07C5D00753626 /* FeedTodayAppExtension.entitlements */,
-				4BE1B2F022DC7D0A00D33E85 /* TodayViewController.swift */,
+				4BE1B2F022DC7D0A00D33E85 /* TodayVC.swift */,
 				4BE1B2F522DC7D0A00D33E85 /* Info.plist */,
 			);
 			path = FeedTodayAppExtension;
@@ -696,7 +696,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BE1B2F122DC7D0A00D33E85 /* TodayViewController.swift in Sources */,
+				4BE1B2F122DC7D0A00D33E85 /* TodayVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

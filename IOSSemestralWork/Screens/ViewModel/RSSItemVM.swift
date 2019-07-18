@@ -10,6 +10,7 @@ import Foundation
 import ReactiveSwift
 import RealmSwift
 import Data
+import Resources
 
 protocol IRSSItemVM {
     var selectedItem: MutableProperty<MyRSSItem> { get }
@@ -100,7 +101,11 @@ final class RSSItemVM: BaseViewModel, IRSSItemVM {
         formatter.dateStyle = .medium
         formatter.timeStyle = .short
         formatter.locale = Locale(identifier: "en_GB")  // "cs_CZ"
-        let timeString = "Published \( formatter.string(from: selectedItem.value.date!) ) by \(selectedItem.value.author)"
+        var timeString = L10n.RssItemVM.timeString(formatter.string(from: selectedItem.value.date!))
+        
+        if let author = selectedItem.value.author {
+            timeString = "\(timeString) \(L10n.RssItemVM.authorPart(author))"
+        }
         
         // Init RSSItem webView
         var code = String(format: "init(`%@`, `%@`, `%@`);", selectedItem.value.title, timeString, selectedItem.value.itemDescription)

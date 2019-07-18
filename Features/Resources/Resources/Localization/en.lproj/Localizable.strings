@@ -22,3 +22,9 @@
 "itemTableView.baseTitle" = "RSSFeed reader";
 "itemTableView.folderNamePlaceholder" = "Folder name";
 "itemTableView.editFolderTitle" = "Edit folder";
+"rssItemVM.timeString" = "Published %@";
+"rssItemVM.authorPart" = "by %@";
+"todayVC.unreadLabel" = "Unread items: %@";
+"todayVC.starredLabel" = "Starred items: %@";
+"myRssItem.missingTitle" = "No title provided";
+"myRssItem.missingDescription" = "No description provided";

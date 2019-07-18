@@ -22,3 +22,9 @@
 "itemTableView.baseTitle" = "RSSFeed reader";
 "itemTableView.folderNamePlaceholder" = "Jméno složky";
 "itemTableView.editFolderTitle" = "Upravit složku";
+"rssItemVM.timeString" = "Published %@";
+"rssItemVM.authorPart" = ", autor %@";
+"todayVC.unreadLabel" = "Nepřečtené články: %@";
+"todayVC.starredLabel" = "Oblíbené články: %@";
+"myRssItem.missingTitle" = "Nebyl nalezen žádný titulek";
+"myRssItem.missingDescription" = "Nebyl nalezen žádný popis";

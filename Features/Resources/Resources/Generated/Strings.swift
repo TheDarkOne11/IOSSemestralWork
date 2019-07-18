@@ -49,6 +49,13 @@ public enum L10n {
     public static let folderNamePlaceholder = L10n.tr("Localizable", "itemTableView.folderNamePlaceholder")
   }
 
+  public enum MyRssItem {
+    /// No description provided
+    public static let missingDescription = L10n.tr("Localizable", "myRssItem.missingDescription")
+    /// No title provided
+    public static let missingTitle = L10n.tr("Localizable", "myRssItem.missingTitle")
+  }
+
   public enum RssEditView {
     /// Add a new Folder
     public static let addFolder = L10n.tr("Localizable", "rssEditView.addFolder")
@@ -70,6 +77,28 @@ public enum L10n {
     public static let titleCreate = L10n.tr("Localizable", "rssEditView.titleCreate")
     /// Edit RSS feed
     public static let titleUpdate = L10n.tr("Localizable", "rssEditView.titleUpdate")
+  }
+
+  public enum RssItemVM {
+    /// by %@
+    public static func authorPart(_ p1: String) -> String {
+      return L10n.tr("Localizable", "rssItemVM.authorPart", p1)
+    }
+    /// Published %@
+    public static func timeString(_ p1: String) -> String {
+      return L10n.tr("Localizable", "rssItemVM.timeString", p1)
+    }
+  }
+
+  public enum TodayVC {
+    /// Starred items: %@
+    public static func starredLabel(_ p1: String) -> String {
+      return L10n.tr("Localizable", "todayVC.starredLabel", p1)
+    }
+    /// Unread items: %@
+    public static func unreadLabel(_ p1: String) -> String {
+      return L10n.tr("Localizable", "todayVC.unreadLabel", p1)
+    }
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

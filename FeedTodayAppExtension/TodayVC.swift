@@ -14,8 +14,8 @@ import Data
 import Common
 import Resources
 
-@objc(TodayViewController)
-class TodayViewController: UIViewController, NCWidgetProviding {
+@objc(TodayVC)
+class TodayVC: UIViewController, NCWidgetProviding {
     private weak var unreadLabel: UILabel!
     private weak var starredLabel: UILabel!
     
@@ -54,8 +54,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         let unreadCount = rssItems.filter("isRead == false").count
         let starredCount = rssItems.filter("isStarred == true").count
         
-        unreadLabel.text = "Unread items: \(unreadCount)"
-        starredLabel.text = "Starred items: \(starredCount)"
+        unreadLabel.text = L10n.TodayVC.unreadLabel("\(unreadCount)")
+        starredLabel.text = L10n.TodayVC.starredLabel("\(starredCount)")
     }
         
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
