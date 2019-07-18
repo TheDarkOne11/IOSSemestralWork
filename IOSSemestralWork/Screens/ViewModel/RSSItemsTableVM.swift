@@ -18,6 +18,7 @@ protocol IRSSItemsTableVM {
     
     func updateAllFeeds()
     func select(_ item: Item)
+    func lastUpdateDate() -> NSDate
 }
 
 final class RSSItemsTableVM: BaseViewModel, IRSSItemsTableVM {
@@ -70,5 +71,9 @@ final class RSSItemsTableVM: BaseViewModel, IRSSItemsTableVM {
     
     func select(_ item: Item) {
         dependencies.repository.selectedItem.value = item
+    }
+    
+    func lastUpdateDate() -> NSDate {
+        return dependencies.userDefaults.object(forKey: UserDefaults.Keys.lastUpdate.rawValue) as! NSDate
     }
 }

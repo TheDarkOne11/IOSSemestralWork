@@ -40,6 +40,7 @@
 		4B140DA322DDCBF30070D05B /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B140DA222DDCBF30070D05B /* Data.framework */; };
 		4B140DA422DDCBF30070D05B /* Data.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B140DA222DDCBF30070D05B /* Data.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4B15BF8722D4990B00B3B962 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B15BF8622D4990A00B3B962 /* ItemCell.swift */; };
+		4B164BD522E0794500753626 /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B164BD422E0794500753626 /* Data.framework */; };
 		4B53B43722D2481900454E94 /* ItemTableVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B43622D2481900454E94 /* ItemTableVM.swift */; };
 		4B53B43922D2494700454E94 /* ItemTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B43822D2494700454E94 /* ItemTableVC.swift */; };
 		4B53B43B22D24C8C00454E94 /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B43A22D24C8C00454E94 /* RefreshControl.swift */; };
@@ -132,6 +133,9 @@
 		4B140D6922DDB67D0070D05B /* Common.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Common.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B140DA222DDCBF30070D05B /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B15BF8622D4990A00B3B962 /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ItemCell.swift; path = ItemCell/ItemCell.swift; sourceTree = "<group>"; };
+		4B164BD422E0794500753626 /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B164BD622E07C5D00753626 /* FeedTodayAppExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FeedTodayAppExtension.entitlements; sourceTree = "<group>"; };
+		4B164BD722E07C8B00753626 /* IOSSemestralWork.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IOSSemestralWork.entitlements; sourceTree = "<group>"; };
 		4B53B43622D2481900454E94 /* ItemTableVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableVM.swift; sourceTree = "<group>"; };
 		4B53B43822D2494700454E94 /* ItemTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableVC.swift; sourceTree = "<group>"; };
 		4B53B43A22D24C8C00454E94 /* RefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControl.swift; sourceTree = "<group>"; };
@@ -173,6 +177,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B164BD522E0794500753626 /* Data.framework in Frameworks */,
 				4BE1B2EE22DC7D0A00D33E85 /* NotificationCenter.framework in Frameworks */,
 				C1971EA8F4F0253B61134AA0 /* Pods_FeedTodayAppExtension.framework in Frameworks */,
 			);
@@ -249,6 +254,7 @@
 		4BE1B2EF22DC7D0A00D33E85 /* FeedTodayAppExtension */ = {
 			isa = PBXGroup;
 			children = (
+				4B164BD622E07C5D00753626 /* FeedTodayAppExtension.entitlements */,
 				4BE1B2F022DC7D0A00D33E85 /* TodayViewController.swift */,
 				4BE1B2F522DC7D0A00D33E85 /* Info.plist */,
 			);
@@ -303,6 +309,7 @@
 		4BE8A5F921D6CB05009B66F0 /* IOSSemestralWork */ = {
 			isa = PBXGroup;
 			children = (
+				4B164BD722E07C8B00753626 /* IOSSemestralWork.entitlements */,
 				4BEB54CC22D10B3C00872896 /* FlowCoordinators */,
 				4BD2DD0422CE099900F445F4 /* Screens */,
 				4BE4C06321DA38DA00505A0F /* SupportFiles */,
@@ -334,6 +341,7 @@
 		5BF2A335EE5DD817F32A6E54 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4B164BD422E0794500753626 /* Data.framework */,
 				4BE1B2ED22DC7D0A00D33E85 /* NotificationCenter.framework */,
 				F6788763BE65516A1B00859C /* Pods_FeedTodayAppExtension.framework */,
 				552EF9EDE482CA24354BC9AD /* Pods_IOSSemestralWork.framework */,
@@ -431,6 +439,11 @@
 				TargetAttributes = {
 					4BE1B2EB22DC7D0A00D33E85 = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					4BE7641722D2270400A250B4 = {
 						CreatedOnToolsVersion = 10.2.1;
@@ -443,6 +456,9 @@
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
@@ -752,6 +768,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0004DA09F3461EB9C4357216 /* Pods-FeedTodayAppExtension.debug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = FeedTodayAppExtension/FeedTodayAppExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 634A34CZA9;
 				INFOPLIST_FILE = FeedTodayAppExtension/Info.plist;
@@ -773,6 +790,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 32B476AC863420844BE38DAA /* Pods-FeedTodayAppExtension.release.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = FeedTodayAppExtension/FeedTodayAppExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 634A34CZA9;
 				INFOPLIST_FILE = FeedTodayAppExtension/Info.plist;
@@ -979,6 +997,7 @@
 			baseConfigurationReference = 1715EF30FE6687A6157A5573 /* Pods-IOSSemestralWork.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = IOSSemestralWork/IOSSemestralWork.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 634A34CZA9;
 				INFOPLIST_FILE = IOSSemestralWork/Info.plist;
@@ -1007,6 +1026,7 @@
 			baseConfigurationReference = 5EBA44F4C9DA0B60A0DAF51F /* Pods-IOSSemestralWork.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = IOSSemestralWork/IOSSemestralWork.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 634A34CZA9;
 				INFOPLIST_FILE = IOSSemestralWork/Info.plist;

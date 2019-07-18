@@ -9,9 +9,17 @@
 import UIKit
 import NotificationCenter
 import SnapKit
+import RealmSwift
+import Data
+import Common
+import Resources
 
 @objc(TodayViewController)
 class TodayViewController: UIViewController, NCWidgetProviding {
+    private weak var unreadLabel: UILabel!
+    private weak var starredLabel: UILabel!
+    
+    private lazy var rssItems: Results<MyRSSItem> = AppDependency.shared.realm.objects(MyRSSItem.self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,16 +32,30 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
         let unreadLabel = UILabel()
         stackView.addArrangedSubview(unreadLabel)
-        unreadLabel.text = "Unread items: 666"
+        self.unreadLabel = unreadLabel
 
         let starredLabel = UILabel()
         stackView.addArrangedSubview(starredLabel)
-        starredLabel.text = "Starred items: 666"
+        self.starredLabel = starredLabel
 
         stackView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.trailing.equalToSuperview().inset(16)
         }
+        
+        updateLabels()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        updateLabels()
+    }
+    
+    func updateLabels() {
+        let unreadCount = rssItems.filter("isRead == false").count
+        let starredCount = rssItems.filter("isStarred == true").count
+        
+        unreadLabel.text = "Unread items: \(unreadCount)"
+        starredLabel.text = "Starred items: \(starredCount)"
     }
         
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {

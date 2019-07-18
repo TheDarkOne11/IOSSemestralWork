@@ -38,6 +38,7 @@ protocol IItemTableVM {
     func remove(_ item: Item)
     func updateAllFeeds()
     func select(_ item: Item)
+    func getLastUpdateDate() -> NSDate
 }
 
 final class ItemTableVM: BaseViewModel, IItemTableVM {
@@ -124,5 +125,9 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
     
     func select(_ item: Item) {
         dependencies.repository.selectedItem.value = item
+    }
+    
+    func getLastUpdateDate() -> NSDate {
+        return dependencies.userDefaults.object(forKey: UserDefaults.Keys.lastUpdate.rawValue) as! NSDate
     }
 }

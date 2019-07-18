@@ -41,6 +41,10 @@ end
 
 target 'FeedTodayAppExtension' do
     pod snapkit.name, snapkit.version
+    pod alamofireRSSParser.name, alamofireRSSParser.version
+    pod realmSwift.name, realmSwift.version
+    pod reactiveSwift.name, reactiveSwift.version
+    pod reactiveCocoa.name, reactiveCocoa.version
 end
 
 def project_path(projectName)

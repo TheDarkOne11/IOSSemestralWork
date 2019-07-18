@@ -22,7 +22,7 @@ public final class AppDependency{
     
     public lazy var realm: Realm = AppDependency.realm()
     public lazy var rootFolder: Folder = AppDependency.getRootFolder()
-    public lazy var userDefaults: UserDefaults = UserDefaults.standard
+    public lazy var userDefaults: UserDefaults = UserDefaults.init(suiteName: "group.cz.budikpet.IOSSemestralWork")!
 
     public lazy var dbHandler: DBHandler = DBHandler(dependencies: AppDependency.shared)
     public lazy var repository: IRepository = Repository(dependencies: AppDependency.shared)
@@ -63,7 +63,12 @@ extension AppDependency: HasRealm {
      */
     private static func realm() -> Realm {
         do {
-            return try Realm();
+            let fileURL = FileManager.default
+                .containerURL(forSecurityApplicationGroupIdentifier: "group.cz.budikpet.IOSSemestralWork")!
+                .appendingPathComponent("default.realm")
+            let config = Realm.Configuration(fileURL: fileURL)
+            
+            return try Realm(configuration: config)
         } catch {
             fatalError("Error initializing new Realm for the first time: \(error)")
         }
