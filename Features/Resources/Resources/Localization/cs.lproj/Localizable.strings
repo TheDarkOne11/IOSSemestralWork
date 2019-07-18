@@ -17,6 +17,7 @@
 "rssEditView.addFolder" = "Přidat složku";
 "rssEditView.addFolderTitle" = "Vytvořit složku";
 "rssEditView.feedDetails" = "Informace o Feedu";
+"rssEditView.folderCreated" = "Složky %@ vytvořena.";
 "rssEditView.folderLabel" = "Složka:";
 "rssEditView.folderNamePlaceholder" = "Jméno složky";
 "rssEditView.linkPlaceholder" = "http://";
@@ -28,3 +29,5 @@
 "rssItemVM.timeString" = "Published %@";
 "todayVC.starredLabel" = "Oblíbené články: %@";
 "todayVC.unreadLabel" = "Nepřečtené články: %@";
+"rssEditView.errorTitle" = "Při přidávání nového RSS Feedu nastal problém.";
+"rssEditView.errorExistsDescription" = "RSS Feed se stejným odkazem již existuje.";

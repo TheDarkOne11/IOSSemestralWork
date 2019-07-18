@@ -61,8 +61,16 @@ public enum L10n {
     public static let addFolder = L10n.tr("Localizable", "rssEditView.addFolder")
     /// Create folder
     public static let addFolderTitle = L10n.tr("Localizable", "rssEditView.addFolderTitle")
+    /// Feed with the same link already exists.
+    public static let errorExistsDescription = L10n.tr("Localizable", "rssEditView.errorExistsDescription")
+    /// Error occured when adding a new feed.
+    public static let errorTitle = L10n.tr("Localizable", "rssEditView.errorTitle")
     /// Feed Details
     public static let feedDetails = L10n.tr("Localizable", "rssEditView.feedDetails")
+    /// Folder %@ created.
+    public static func folderCreated(_ p1: String) -> String {
+      return L10n.tr("Localizable", "rssEditView.folderCreated", p1)
+    }
     /// Folder:
     public static let folderLabel = L10n.tr("Localizable", "rssEditView.folderLabel")
     /// Folder name

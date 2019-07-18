@@ -17,6 +17,7 @@
 "rssEditView.addFolder" = "Add a new Folder";
 "rssEditView.addFolderTitle" = "Create folder";
 "rssEditView.feedDetails" = "Feed Details";
+"rssEditView.folderCreated" = "Folder %@ created.";
 "rssEditView.folderLabel" = "Folder:";
 "rssEditView.folderNamePlaceholder" = "Folder name";
 "rssEditView.linkPlaceholder" = "http://";
@@ -28,3 +29,5 @@
 "rssItemVM.timeString" = "Published %@";
 "todayVC.starredLabel" = "Starred items: %@";
 "todayVC.unreadLabel" = "Unread items: %@";
+"rssEditView.errorTitle" = "Error occured when adding a new feed.";
+"rssEditView.errorExistsDescription" = "Feed with the same link already exists.";

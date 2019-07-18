@@ -77,7 +77,8 @@ class RSSFeedEditVC: BaseViewController {
         self.linkField = linkField
         
         if(!AppDelegate.isProduction) {
-            linkField.text = "https://servis.idnes.cz/rss.aspx?c=zpravodaj"
+            viewModel.feedName.value = "Reality"
+            viewModel.link.value = "https://servis.idnes.cz/rss.aspx?c=reality"
         }
         
         // Specify folder rows
@@ -168,9 +169,13 @@ class RSSFeedEditVC: BaseViewController {
             return folder.title
         })
         
-        viewModel.saveBtnAction.errors.producer.startWithValues { (errors) in
-            //FIXME: Show error
+        viewModel.saveBtnAction.errors.producer.startWithValues { [weak self] (errors) in
             print("Error occured: \(errors)")
+            
+            switch errors {
+            case .exists:
+                self?.view.makeToast(L10n.RssEditView.errorExistsDescription, duration: 4, title: L10n.RssEditView.errorTitle)
+            }
         }
         
         viewModel.saveBtnAction.completed
@@ -196,7 +201,7 @@ class RSSFeedEditVC: BaseViewController {
         let actionCancel = UIAlertAction(title: L10n.Base.actionCancel, style: .cancel)
         let actionDone = UIAlertAction(title: L10n.Base.actionDone, style: .default) { [weak self] (action) in
             self?.viewModel.createFolder(title: textField.text!, parentFolder: nil)
-            self?.view.makeToast("Folder %@ created", position: .bottom)
+            self?.view.makeToast(L10n.RssEditView.folderCreated("\"\(textField.text!)\""))
             self?.pickerView.reloadAllComponents()
         }
         actionDone.isEnabled = false

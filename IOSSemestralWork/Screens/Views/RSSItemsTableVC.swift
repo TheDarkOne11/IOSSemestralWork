@@ -53,7 +53,7 @@ final class RSSItemsTableVC: BaseViewController {
         
         setupBindings()
         
-        navigationItem.title = viewModel.selectedItem.title
+        navigationItem.title = viewModel.title
     }
     
     private func setupBindings() {

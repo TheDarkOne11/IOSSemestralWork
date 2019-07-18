@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Set default Toast values
         ToastManager.shared.duration = 2.0
-        ToastManager.shared.position = .center
+        ToastManager.shared.position = .bottom
         ToastManager.shared.style.backgroundColor = UIColor.black.withAlphaComponent(0.71)
         
         window = UIWindow(frame: UIScreen.main.bounds)

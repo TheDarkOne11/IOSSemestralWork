@@ -32,7 +32,7 @@ class AppFlowCoordinator: BaseFlowCoordinator {
                     navigationController?.pushViewController(vc, animated: true)
                 case .myRssFeed:
                     let item = item as! MyRSSFeed
-                    let vm = RSSItemsTableVM(dependencies: AppDependency.shared, selectedItem: item)
+                    let vm = RSSItemsTableVM(dependencies: AppDependency.shared, title: item.title, selectedItem: item)
                     let vc = RSSItemsTableVC(vm)
                     navigationController?.pushViewController(vc, animated: true)
                 case .myRssItem:
@@ -42,7 +42,7 @@ class AppFlowCoordinator: BaseFlowCoordinator {
                 case .specialItem:
                     let item = item as! SpecialItem
                     let actionResult = item.action()
-                    let vm = RSSItemsTableVM(dependencies: AppDependency.shared, selectedItem: actionResult.0, predicate: actionResult.1)
+                    let vm = RSSItemsTableVM(dependencies: AppDependency.shared, title: item.title, selectedItem: actionResult.0, predicate: actionResult.1)
                     let vc = RSSItemsTableVC(vm)
                     navigationController?.pushViewController(vc, animated: true)
                 }

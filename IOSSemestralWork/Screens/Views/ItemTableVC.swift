@@ -40,10 +40,6 @@ class ItemTableVC: BaseViewController {
         token2.invalidate()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        tableView.reloadData()
-    }
-    
     override func loadView() {
         super.loadView()
         view.backgroundColor = .white
