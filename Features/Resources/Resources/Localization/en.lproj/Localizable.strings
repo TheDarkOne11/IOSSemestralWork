@@ -31,3 +31,4 @@
 "todayVC.unreadLabel" = "Unread items: %@";
 "rssEditView.errorTitle" = "Error occured when adding a new feed.";
 "rssEditView.errorExistsDescription" = "Feed with the same link already exists.";
+"rssItemVC.defaultTitle" = "RSS Items";

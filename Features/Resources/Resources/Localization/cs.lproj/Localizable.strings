@@ -31,3 +31,4 @@
 "todayVC.unreadLabel" = "Nepřečtené články: %@";
 "rssEditView.errorTitle" = "Při přidávání nového RSS Feedu nastal problém.";
 "rssEditView.errorExistsDescription" = "RSS Feed se stejným odkazem již existuje.";
+"rssItemVC.defaultTitle" = "RSS Items";

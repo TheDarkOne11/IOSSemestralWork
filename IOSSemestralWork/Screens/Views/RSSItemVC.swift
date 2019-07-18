@@ -73,7 +73,6 @@ class RSSItemVC: BaseViewController {
         
         setupBindings()
         
-        navigationItem.title = viewModel.selectedItem.value.rssFeed.first?.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(asset: Asset.toWebsite), style: .plain, target: self, action: #selector(toWebsiteButtonTapped(_:)))
     }
     
@@ -112,6 +111,9 @@ class RSSItemVC: BaseViewController {
         
         upButton.reactive.isEnabled <~ viewModel.canGoUp
         downButton.reactive.isEnabled <~ viewModel.canGoDown
+        navigationItem.reactive.title <~ viewModel.selectedItem.map({ rssItem -> String in
+            return rssItem.rssFeed.first?.title ?? ""
+        })
     }
     
     // MARK: Bar buttons

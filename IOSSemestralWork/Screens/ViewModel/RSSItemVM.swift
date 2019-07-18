@@ -29,24 +29,24 @@ final class RSSItemVM: BaseViewModel, IRSSItemVM {
     typealias Dependencies = HasRepository & HasDBHandler & HasRealm & HasRootFolder & HasUserDefaults
     private let dependencies: Dependencies!
     
-    let parentFeed: MyRSSFeed
+    let otherRssItems: Results<MyRSSItem>
     let selectedItem: MutableProperty<MyRSSItem>
     let canGoUp = MutableProperty<Bool>(false)
     let canGoDown = MutableProperty<Bool>(false)
     
     private var currentIndex: Int
     
-    init(dependencies: Dependencies) {
+    init(dependencies: Dependencies, otherRssItems: Results<MyRSSItem>) {
         self.dependencies = dependencies
+        self.otherRssItems = otherRssItems
         
         guard let selectedItem = dependencies.repository.selectedItem.value as? MyRSSItem else {
             fatalError("Selected item must be a RSSItem")
         }
         
         self.selectedItem = MutableProperty<MyRSSItem>(selectedItem)
-        self.parentFeed = selectedItem.rssFeed.first!
         
-        guard let index = parentFeed.myRssItems.index(of: selectedItem) else {
+        guard let index = otherRssItems.index(of: selectedItem) else {
             fatalError("Selected item must exist in Realm DB")
         }
         self.currentIndex = index
@@ -54,8 +54,8 @@ final class RSSItemVM: BaseViewModel, IRSSItemVM {
         super.init()
         
         self.selectedItem.producer.startWithValues { [weak self] selectedItem in
-            self?.canGoUp.value = selectedItem.itemId != self?.parentFeed.myRssItems.first!.itemId
-            self?.canGoDown.value = selectedItem.itemId != self?.parentFeed.myRssItems.last!.itemId
+            self?.canGoUp.value = selectedItem.itemId != otherRssItems.first!.itemId
+            self?.canGoDown.value = selectedItem.itemId != otherRssItems.last!.itemId
 
             if !selectedItem.isRead {
                 self?.dependencies.dbHandler.realmEdit(errorMsg: "Could not edit the selected item.") {
@@ -79,12 +79,12 @@ final class RSSItemVM: BaseViewModel, IRSSItemVM {
     
     func goUp() {
         currentIndex -= 1
-        selectedItem.value = parentFeed.myRssItems[currentIndex]
+        selectedItem.value = otherRssItems[currentIndex]
     }
     
     func goDown() {
         currentIndex += 1
-        selectedItem.value = parentFeed.myRssItems[currentIndex]
+        selectedItem.value = otherRssItems[currentIndex]
     }
     
     /**

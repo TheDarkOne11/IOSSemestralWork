@@ -87,6 +87,11 @@ public enum L10n {
     public static let titleUpdate = L10n.tr("Localizable", "rssEditView.titleUpdate")
   }
 
+  public enum RssItemVC {
+    /// RSS Items
+    public static let defaultTitle = L10n.tr("Localizable", "rssItemVC.defaultTitle")
+  }
+
   public enum RssItemVM {
     /// by %@
     public static func authorPart(_ p1: String) -> String {

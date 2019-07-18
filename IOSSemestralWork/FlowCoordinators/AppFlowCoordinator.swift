@@ -33,17 +33,15 @@ class AppFlowCoordinator: BaseFlowCoordinator {
                 case .myRssFeed:
                     let item = item as! MyRSSFeed
                     let vm = RSSItemsTableVM(dependencies: AppDependency.shared, title: item.title, selectedItem: item)
-                    let vc = RSSItemsTableVC(vm)
+                    let vc = RSSItemsTableVC(vm, delegate: self)
                     navigationController?.pushViewController(vc, animated: true)
                 case .myRssItem:
-                    let vm = RSSItemVM(dependencies: AppDependency.shared)
-                    let vc = RSSItemVC(vm)
-                    navigationController?.pushViewController(vc, animated: true)
+                    break
                 case .specialItem:
                     let item = item as! SpecialItem
                     let actionResult = item.action()
                     let vm = RSSItemsTableVM(dependencies: AppDependency.shared, title: item.title, selectedItem: actionResult.0, predicate: actionResult.1)
-                    let vc = RSSItemsTableVC(vm)
+                    let vc = RSSItemsTableVC(vm, delegate: self)
                     navigationController?.pushViewController(vc, animated: true)
                 }
         }
@@ -62,6 +60,14 @@ extension AppFlowCoordinator: ItemTableVCFlowDelegate {
         let vm = RSSFeedEditVM(dependencies: AppDependency.shared, feedForUpdate: feed)
         let vc = RSSFeedEditVC(vm)
         vc.flowDelegate = self
-        navigationController?.pushViewController(vc, animated: true)    //FIXME: We shouldn't go back when cancelling edit, we should cancel
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension AppFlowCoordinator: RSSItemsTableVCFlowDelegate {
+    func select(_ rssItem: MyRSSItem, otherRssItems: Results<MyRSSItem>) {
+        let vm = RSSItemVM(dependencies: AppDependency.shared, otherRssItems: otherRssItems)
+        let vc = RSSItemVC(vm)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
