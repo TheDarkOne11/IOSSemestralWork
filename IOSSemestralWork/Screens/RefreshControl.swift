@@ -8,28 +8,28 @@
 
 import Foundation
 import UIKit
+import Data
 
 protocol RefreshControlDelegate {
     /**
      This method is called when PullToRefresh is activated.
      */
     func update()
+    func lastUpdateDate() -> NSDate
 }
 
 class RefreshControl: UIRefreshControl {
-    var refreshView: PullToRefreshView!
-    var delegate: RefreshControlDelegate!
+    private(set) var refreshView: PullToRefreshView!
+    private let delegate: RefreshControlDelegate!
     
-    let defaults = UserDefaults.standard
-    
-    override init() {
+    init(delegate: RefreshControlDelegate) {
+        self.delegate = delegate
         super.init()
         commonInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
+        fatalError("init(coder:) has not been implemented")
     }
     
     /**
@@ -44,7 +44,7 @@ class RefreshControl: UIRefreshControl {
         if let objOfRefreshView = Bundle.main.loadNibNamed("PullToRefreshView", owner: self, options: nil)?.first as? PullToRefreshView {
             // Initializing the 'refreshView'
             refreshView = objOfRefreshView
-            refreshView.updateLabelText()
+            refreshView.updateLabelText(date: delegate.lastUpdateDate())
             refreshView.frame = frame
             
             // Adding the 'refreshView' to 'tableViewRefreshControl'
@@ -58,6 +58,7 @@ class RefreshControl: UIRefreshControl {
      */
     @objc
     private func updateFeeds() {
+        refreshView.updateLabelText(date: delegate.lastUpdateDate())
         delegate.update()
     }
 }

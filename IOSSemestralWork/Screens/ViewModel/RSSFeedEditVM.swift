@@ -9,6 +9,8 @@
 import Foundation
 import ReactiveSwift
 import RealmSwift
+import Data
+import Common
 
 protocol IRSSFeedEditVM {
     var feedName: MutableProperty<String> { get }

@@ -8,6 +8,8 @@
 
 import UIKit
 import RealmSwift
+import Resources
+import Data
 
 protocol ItemTableVCFlowDelegate {
     func toFeedEdit(with feed: MyRSSFeed?)
@@ -16,7 +18,7 @@ protocol ItemTableVCFlowDelegate {
 class ItemTableVC: BaseViewController {
     private let viewModel: IItemTableVM
     private weak var tableView: UITableView!
-    lazy var refresher = RefreshControl()
+    lazy var refresher = RefreshControl(delegate: self)
     
     var flowDelegate: ItemTableVCFlowDelegate?
     
@@ -52,7 +54,6 @@ class ItemTableVC: BaseViewController {
         
         // Initialize PullToRefresh
         tableView.refreshControl = refresher
-        refresher.delegate = self
         
         tableView.register(ItemCell.self, forCellReuseIdentifier: "ItemCell")
         view.addSubview(tableView)
@@ -169,6 +170,10 @@ extension ItemTableVC: UITableViewDelegate, UITableViewDataSource {
 // MARK: Refresher
 
 extension ItemTableVC: RefreshControlDelegate {
+    func lastUpdateDate() -> NSDate {
+        return viewModel.getLastUpdateDate()
+    }
+    
     
     /**
      Checks beginning of the PullToRefresh and updates its label.
@@ -180,7 +185,7 @@ extension ItemTableVC: RefreshControlDelegate {
         }
         
         if (-scrollView.contentOffset.y >= offset ) {
-            refresher.refreshView.updateLabelText()
+            refresher.refreshView.updateLabelText(date: lastUpdateDate())
         }
     }
     

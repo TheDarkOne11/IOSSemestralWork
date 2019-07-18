@@ -8,11 +8,13 @@
 
 import Foundation
 import UIKit
+import Resources
+import Data
 
 final class RSSItemsTableVC: BaseViewController {
     private let viewModel: IRSSItemsTableVM
     private weak var tableView: UITableView!
-    lazy var refresher = RefreshControl()
+    lazy var refresher = RefreshControl(delegate: self)
         
     init(_ viewModel: IRSSItemsTableVM) {
         self.viewModel = viewModel
@@ -40,7 +42,6 @@ final class RSSItemsTableVC: BaseViewController {
         
         // Initialize PullToRefresh
         tableView.refreshControl = refresher
-        refresher.delegate = self
         
         tableView.register(RssItemCell.self, forCellReuseIdentifier: "RssItemCell")
         view.addSubview(tableView)
@@ -93,6 +94,9 @@ extension RSSItemsTableVC: UITableViewDelegate, UITableViewDataSource {
 // MARK: Refresher
 
 extension RSSItemsTableVC: RefreshControlDelegate {
+    func lastUpdateDate() -> NSDate {
+        return viewModel.lastUpdateDate()
+    }
     
     /**
      Checks beginning of the PullToRefresh and updates its label.
@@ -104,7 +108,7 @@ extension RSSItemsTableVC: RefreshControlDelegate {
         }
         
         if (-scrollView.contentOffset.y >= offset ) {
-            refresher.refreshView.updateLabelText()
+            refresher.refreshView.updateLabelText(date: lastUpdateDate())
         }
     }
     
