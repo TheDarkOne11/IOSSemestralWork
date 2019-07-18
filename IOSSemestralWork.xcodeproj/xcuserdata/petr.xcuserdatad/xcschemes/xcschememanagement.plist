@@ -12,12 +12,14 @@
 		<key>FeedTodayAppExtension.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>20</integer>
+			<integer>1</integer>
 		</dict>
-		<key>Generate Preprocessor file.xcscheme_^#shared#^_</key>
+		<key>Generate Preprocessor file.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
-			<integer>19</integer>
+			<integer>20</integer>
 		</dict>
 		<key>IOSSemestralWork.xcscheme_^#shared#^_</key>
 		<dict>
@@ -27,12 +29,27 @@
 		<key>Localization.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>18</integer>
+			<integer>2</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>4BE1B2EB22DC7D0A00D33E85</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4BE7641722D2270400A250B4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>4BE8A5F621D6CB05009B66F0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4BFF774E22C0FD2B008047CB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

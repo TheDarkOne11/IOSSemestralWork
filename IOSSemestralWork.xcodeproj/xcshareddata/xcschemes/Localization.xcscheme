@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4BE1B45422DCF20300D33E85"
-               BuildableName = "Resources.framework"
-               BlueprintName = "Resources"
-               ReferencedContainer = "container:../Resources/Resources.xcodeproj">
+               BlueprintIdentifier = "4BFF774E22C0FD2B008047CB"
+               BuildableName = "Localization"
+               BlueprintName = "Localization"
+               ReferencedContainer = "container:IOSSemestralWork.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,15 +29,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4B140D5D22DDB6040070D05B"
-            BuildableName = "Common.framework"
-            BlueprintName = "Common"
-            ReferencedContainer = "container:Common.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -54,10 +45,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4BE1B45422DCF20300D33E85"
-            BuildableName = "Resources.framework"
-            BlueprintName = "Resources"
-            ReferencedContainer = "container:../Resources/Resources.xcodeproj">
+            BlueprintIdentifier = "4BFF774E22C0FD2B008047CB"
+            BuildableName = "Localization"
+            BlueprintName = "Localization"
+            ReferencedContainer = "container:IOSSemestralWork.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -69,6 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "4BFF774E22C0FD2B008047CB"
+            BuildableName = "Localization"
+            BlueprintName = "Localization"
+            ReferencedContainer = "container:IOSSemestralWork.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
