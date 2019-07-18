@@ -40,6 +40,10 @@ class ItemTableVC: BaseViewController {
         token2.invalidate()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    
     override func loadView() {
         super.loadView()
         view.backgroundColor = .white
@@ -79,45 +83,11 @@ class ItemTableVC: BaseViewController {
         }
         
         token = viewModel.shownItems.feeds.observe({ [weak self] changes in
-            guard let tableView = self?.tableView else { return }
-            guard let shownItems = self?.viewModel.shownItems else { return }
-            switch changes {
-            case .initial(_):
-                tableView.reloadData()
-            case .update(_, let deletions, let insertions, let modifications):
-                let offset = shownItems.specialItems.count + shownItems.folders.count
-                tableView.beginUpdates()
-                tableView.insertRows(at: insertions.map { IndexPath(row: $0 + offset, section: 0) },
-                                          with: .automatic)
-                tableView.deleteRows(at: deletions.map { IndexPath(row: $0 + offset, section: 0) },
-                                          with: .automatic)
-                tableView.reloadRows(at: modifications.map { IndexPath(row: $0 + offset, section: 0) },
-                                          with: .automatic)
-                tableView.endUpdates()
-            case .error(let err):
-                fatalError(err.localizedDescription)
-            }
+            self?.tableView.reloadData()
         })
         
         token2 = viewModel.shownItems.folders.observe({ [weak self] changes in
-            guard let tableView = self?.tableView else { return }
-            guard let shownItems = self?.viewModel.shownItems else { return }
-            switch changes {
-            case .initial(_):
-                tableView.reloadData()
-            case .update(_, let deletions, let insertions, let modifications):
-                let offset = shownItems.specialItems.count
-                tableView.beginUpdates()
-                tableView.insertRows(at: insertions.map { IndexPath(row: $0 + offset, section: 0) },
-                                     with: .automatic)
-                tableView.deleteRows(at: deletions.map { IndexPath(row: $0 + offset, section: 0) },
-                                     with: .automatic)
-                tableView.reloadRows(at: modifications.map { IndexPath(row: $0 + offset, section: 0) },
-                                     with: .automatic)
-                tableView.endUpdates()
-            case .error(let err):
-                fatalError(err.localizedDescription)
-            }
+            self?.tableView.reloadData()
         })
     }
     
