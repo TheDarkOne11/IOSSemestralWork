@@ -62,8 +62,10 @@ public enum L10n {
     /// Create folder
     public static let addFolderTitle = L10n.tr("Localizable", "rssEditView.addFolderTitle")
     /// Feed with the same link already exists.
-    public static let errorExistsDescription = L10n.tr("Localizable", "rssEditView.errorExistsDescription")
-    /// Error occured when adding a new feed.
+    public static let errorFeedExistsDescription = L10n.tr("Localizable", "rssEditView.errorFeedExistsDescription")
+    /// Folder of the same name already exists.
+    public static let errorFolderExistsDescription = L10n.tr("Localizable", "rssEditView.errorFolderExistsDescription")
+    /// Error occured
     public static let errorTitle = L10n.tr("Localizable", "rssEditView.errorTitle")
     /// Feed Details
     public static let feedDetails = L10n.tr("Localizable", "rssEditView.feedDetails")
@@ -85,11 +87,6 @@ public enum L10n {
     public static let titleCreate = L10n.tr("Localizable", "rssEditView.titleCreate")
     /// Edit RSS feed
     public static let titleUpdate = L10n.tr("Localizable", "rssEditView.titleUpdate")
-  }
-
-  public enum RssItemVC {
-    /// RSS Items
-    public static let defaultTitle = L10n.tr("Localizable", "rssItemVC.defaultTitle")
   }
 
   public enum RssItemVM {

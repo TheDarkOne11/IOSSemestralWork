@@ -13,6 +13,8 @@ import Data
 import Common
 
 protocol IRSSFeedEditVM {
+    typealias CreateFolderInput = (String, Folder?)
+    
     var feedName: MutableProperty<String> { get }
     var link: MutableProperty<String> { get }
     var feedForUpdate: MutableProperty<MyRSSFeed?> { get }
@@ -20,7 +22,8 @@ protocol IRSSFeedEditVM {
     var selectedFolder: MutableProperty<Folder> { get }
     var folders: Results<Folder> { get }
     
-    var saveBtnAction: Action<Void, MyRSSFeed, MyRSSFeedError> { get }
+    var saveBtnAction: Action<Void, MyRSSFeed, RSSFeedCreationError> { get }
+    var createFolderAction: Action<CreateFolderInput, Folder, RSSFeedCreationError> { get }
     
     /** Returns a folder at the selected index.*/
     func getFolder(at index: Int) -> Folder
@@ -51,31 +54,29 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
             selectedFolder = MutableProperty<Folder>(dependencies.rootFolder)
         }
         
-        folders = dependencies.realm.objects(Folder.self).filter("title != %@", dependencies.rootFolder.title)
+        folders = dependencies.repository.folders.filter("title != %@", dependencies.rootFolder.title)
     }
     
     /*
      Action that starts when the Save button is clicked.
      */
-    lazy var saveBtnAction = Action<Void, MyRSSFeed, MyRSSFeedError> { [unowned self] in
-        var link = self.link.value
-        var title = self.feedName.value
-        var folder: Folder = self.selectedFolder.value
+    lazy var saveBtnAction = Action<Void, MyRSSFeed, RSSFeedCreationError> { [unowned self] in
+        let folder = self.selectedFolder.value
+        let newFeed = self.createFeed(title: self.feedName.value, link: self.link.value)
         
-        if !link.starts(with: "http://") && !link.starts(with: "https://") {
-            link = "http://" + link
-        }
-        
-        if title == "" {
-            title = link
-        }
-        
-        let newFeed = MyRSSFeed(title: title, link: link)   //FIXME: No folder
         if let feed = self.feedForUpdate.value {
             return self.dependencies.repository.update(selectedFeed: feed, with: newFeed, parentFolder: folder)
         } else {
             return self.dependencies.repository.create(rssFeed: newFeed, parentFolder: folder)
         }
+    }
+    
+    lazy var createFolderAction = Action<CreateFolderInput, Folder, RSSFeedCreationError> { [unowned self] (title, parentFolder) in
+        let parentFolder: Folder = parentFolder != nil ? parentFolder! : self.dependencies.rootFolder
+        return self.dependencies.repository.create(newFolder: Folder(withTitle: title), parentFolder: parentFolder)
+            .on(value: { [weak self] folder in
+                self?.selectedFolder.value = folder
+            })
     }
     
     /**
@@ -103,5 +104,20 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
         }
         
         selectedFolder.value = folder
+    }
+    
+    private func createFeed(title: String, link: String) -> MyRSSFeed {
+        var link = link
+        var title = title
+        
+        if !link.starts(with: "http://") && !link.starts(with: "https://") {
+            link = "http://" + link
+        }
+        
+        if title == "" {
+            title = link
+        }
+        
+        return MyRSSFeed(title: title, link: link)
     }
 }

@@ -174,13 +174,25 @@ class RSSFeedEditVC: BaseViewController {
             
             switch errors {
             case .exists:
-                self?.view.makeToast(L10n.RssEditView.errorExistsDescription, duration: 4, title: L10n.RssEditView.errorTitle)
+                self?.view.makeToast(L10n.RssEditView.errorFeedExistsDescription, duration: 4, title: L10n.RssEditView.errorTitle)
             }
         }
         
         viewModel.saveBtnAction.completed
             .observe(on: UIScheduler()).observeValues { [weak self] _ in
                 self?.flowDelegate?.editSuccessful(in: self!)
+        }
+        
+        viewModel.createFolderAction.errors.producer.startWithValues { [weak self] (errors) in
+            switch errors {
+            case .exists:
+                self?.view.makeToast(L10n.RssEditView.errorFolderExistsDescription, duration: 4, title: L10n.RssEditView.errorTitle)
+            }
+        }
+        
+        viewModel.createFolderAction.values.producer.startWithValues { [weak self] folder in
+            self?.view.makeToast(L10n.RssEditView.folderCreated("\"\(folder.title)\""))
+            self?.pickerView.reloadAllComponents()
         }
     }
     
@@ -200,9 +212,8 @@ class RSSFeedEditVC: BaseViewController {
         let alert = UIAlertController(title: L10n.RssEditView.addFolderTitle, message: "", preferredStyle: .alert)
         let actionCancel = UIAlertAction(title: L10n.Base.actionCancel, style: .cancel)
         let actionDone = UIAlertAction(title: L10n.Base.actionDone, style: .default) { [weak self] (action) in
-            self?.viewModel.createFolder(title: textField.text!, parentFolder: nil)
-            self?.view.makeToast(L10n.RssEditView.folderCreated("\"\(textField.text!)\""))
-            self?.pickerView.reloadAllComponents()
+            let folderData: IRSSFeedEditVM.CreateFolderInput = (textField.text!, nil)
+            self?.viewModel.createFolderAction.apply(folderData).start()
         }
         actionDone.isEnabled = false
         

@@ -29,6 +29,6 @@
 "rssItemVM.timeString" = "Published %@";
 "todayVC.starredLabel" = "Oblíbené články: %@";
 "todayVC.unreadLabel" = "Nepřečtené články: %@";
-"rssEditView.errorTitle" = "Při přidávání nového RSS Feedu nastal problém.";
-"rssEditView.errorExistsDescription" = "RSS Feed se stejným odkazem již existuje.";
-"rssItemVC.defaultTitle" = "RSS Items";
+"rssEditView.errorTitle" = "Nastal problém";
+"rssEditView.errorFeedExistsDescription" = "RSS Feed se stejným odkazem již existuje.";
+"rssEditView.errorFolderExistsDescription" = "Složka se stejným jménem již existuje.";

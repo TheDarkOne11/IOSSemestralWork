@@ -18,10 +18,16 @@ public protocol HasRepository {
 public protocol IRepository {
     /** Currently selected folder, RSS feed or RSS item */
     var selectedItem: MutableProperty<Item> { get }
+    var folders: Results<Folder> { get }
+    var feeds: Results<MyRSSFeed> { get }
+    var rssItems: Results<MyRSSItem> { get }
     
-    func create(rssFeed feed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, MyRSSFeedError>
-    func update(selectedFeed oldFeed: MyRSSFeed, with newFeed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, MyRSSFeedError>
+    func create(rssFeed feed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RSSFeedCreationError>
+    func create(newFolder: Folder, parentFolder: Folder) -> SignalProducer<Folder, RSSFeedCreationError>
+    func update(selectedFeed oldFeed: MyRSSFeed, with newFeed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RSSFeedCreationError>
     func getAllRssItems(of folder: Folder, predicate: NSCompoundPredicate?) -> Results<MyRSSItem>
+    
+    func exists(_ item: Item) -> Bool
 }
 
 public final class Repository: IRepository {
@@ -29,16 +35,18 @@ public final class Repository: IRepository {
     private let dependencies: Dependencies
     
     public let selectedItem: MutableProperty<Item>
+    public lazy var folders: Results<Folder> = self.dependencies.realm.objects(Folder.self)
+    public lazy var feeds: Results<MyRSSFeed> = self.dependencies.realm.objects(MyRSSFeed.self)
+    public lazy var rssItems: Results<MyRSSItem> = self.dependencies.realm.objects(MyRSSItem.self)
     
     public init(dependencies: Dependencies) {
         self.dependencies = dependencies
         self.selectedItem = MutableProperty<Item>(dependencies.rootFolder)
     }
     
-    public func create(rssFeed feed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, MyRSSFeedError> {
+    public func create(rssFeed feed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RSSFeedCreationError> {
         // Check for duplicates
-        let cleanLink = feed.link.replacingOccurrences(of: "http://", with: "")
-        if let duplicateFeed = dependencies.realm.objects(MyRSSFeed.self).filter("link CONTAINS[cd] %@", cleanLink).first {
+        if exists(feed) {
             return SignalProducer(error: .exists)
         }
         
@@ -49,7 +57,22 @@ public final class Repository: IRepository {
         return SignalProducer(value: feed)
     }
     
-    public func update(selectedFeed oldFeed: MyRSSFeed, with newFeed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, MyRSSFeedError> {
+    public func create(newFolder: Folder, parentFolder: Folder) -> SignalProducer<Folder, RSSFeedCreationError> {
+        return SignalProducer<Folder, RSSFeedCreationError> { (observer, lifetime) in
+            if self.exists(newFolder) {
+                observer.send(error: .exists)
+            }
+            
+            self.dependencies.dbHandler.realmEdit(errorMsg: "Could not create the folder.") {
+                parentFolder.folders.append(newFolder)
+            }
+            
+            observer.send(value: newFolder)
+            observer.sendCompleted()
+        }
+    }
+    
+    public func update(selectedFeed oldFeed: MyRSSFeed, with newFeed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RSSFeedCreationError> {
         //TODO: Error handling – change errorMsg to a closure
         dependencies.dbHandler.realmEdit(errorMsg: "Error occured when updating the RSSFeed") {
             let oldFolder = oldFeed.folder.first
@@ -69,7 +92,6 @@ public final class Repository: IRepository {
     }
     
     public func getAllRssItems(of folder: Folder, predicate: NSCompoundPredicate? = nil) -> Results<MyRSSItem> {
-        let rssItems = dependencies.realm.objects(MyRSSItem.self)
         let folderNames: [String] = getAllFolderNames(from: folder)
         let foldersPredicate = NSPredicate(format: "ANY rssFeed.folder.title IN %@", folderNames)
                 
@@ -90,5 +112,21 @@ public final class Repository: IRepository {
         }
         
         return folderNames
+    }
+    
+    public func exists(_ item: Item) -> Bool {
+        switch item.type {
+        case .folder:
+            return folders.filter("title == %@", item.title).count != 0
+        case .myRssFeed:
+            let feed = item as! MyRSSFeed
+            let cleanLink = feed.link.replacingOccurrences(of: "http://", with: "").replacingOccurrences(of: "https://", with: "")
+            return feeds.filter("link CONTAINS[cd] %@", cleanLink).count != 0
+        case .myRssItem:
+            let rssItem = item as! MyRSSItem
+            return rssItems.filter("articleLink CONTAINS[cd] %@", rssItem.articleLink).count != 0
+        case .specialItem:
+            return false
+        }
     }
 }
