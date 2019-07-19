@@ -30,7 +30,7 @@ protocol IRSSFeedEditVM {
 }
 
 final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
-    typealias Dependencies = HasRepository & HasRealm & HasRootFolder
+    typealias Dependencies = HasRepository & HasRealm
     private let dependencies: Dependencies
     
     let feedName = MutableProperty<String>("")
@@ -49,10 +49,10 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
             selectedFolder = MutableProperty<Folder>(feedForUpdate.folder.first!)
             self.feedForUpdate.value = feedForUpdate
         } else {
-            selectedFolder = MutableProperty<Folder>(dependencies.rootFolder)
+            selectedFolder = MutableProperty<Folder>(dependencies.repository.rootFolder)
         }
         
-        folders = dependencies.repository.folders.filter("title != %@", dependencies.rootFolder.title)
+        folders = dependencies.repository.folders.filter("title != %@", dependencies.repository.rootFolder.title)
     }
     
     /*
@@ -70,7 +70,7 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
     }
     
     lazy var createFolderAction = Action<CreateFolderInput, Folder, RSSFeedCreationError> { [unowned self] (title, parentFolder) in
-        let parentFolder: Folder = parentFolder != nil ? parentFolder! : self.dependencies.rootFolder
+        let parentFolder: Folder = parentFolder != nil ? parentFolder! : self.dependencies.repository.rootFolder
         return self.dependencies.repository.create(newFolder: Folder(withTitle: title), parentFolder: parentFolder)
             .on(value: { [weak self] folder in
                 self?.selectedFolder.value = folder
@@ -84,7 +84,7 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
         var folder: Folder!
         
         if index == 0 {
-            folder = dependencies.rootFolder
+            folder = dependencies.repository.rootFolder
         } else if index >= 1 && index <= folders.count + 1 {
             folder = folders[index - 1]
         } else {

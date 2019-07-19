@@ -42,7 +42,7 @@ protocol IItemTableVM {
 }
 
 final class ItemTableVM: BaseViewModel, IItemTableVM {
-    typealias Dependencies = HasRepository & HasRealm & HasRootFolder & HasUserDefaults
+    typealias Dependencies = HasRepository & HasRealm & HasUserDefaults
     private let dependencies: Dependencies!
     
     let downloadStatus = MutableProperty<DownloadStatus?>(nil)
@@ -66,7 +66,7 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
             fatalError("Should be a Folder.")
         }
         
-        self.screenTitle = selectedItem.itemId == dependencies.rootFolder.itemId ? L10n.ItemTableView.baseTitle : selectedItem.title
+        self.screenTitle = selectedItem.itemId == dependencies.repository.rootFolder.itemId ? L10n.ItemTableView.baseTitle : selectedItem.title
         
         super.init()
         

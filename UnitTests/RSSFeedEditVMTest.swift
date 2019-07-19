@@ -27,7 +27,7 @@ class RSSFeedEditVMTest: XCTestCase {
         viewModel = RSSFeedEditVM(dependencies: dependencies)
         viewModel.feedName.value = "Custom title"
         viewModel.link.value = "google.com"
-        viewModel.selectedFolder.value = dependencies.rootFolder
+        viewModel.selectedFolder.value = dependencies.repository.rootFolder
     }
     
     /**
@@ -40,8 +40,8 @@ class RSSFeedEditVMTest: XCTestCase {
         defaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
         
         dependencies.repository.realmEdit(errorCode: nil) { realm in
-            dependencies.rootFolder.folders.append(Folder(withTitle: "Idnes"))
-            dependencies.rootFolder.feeds.append(MyRSSFeed(title: "Zpravodaj", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj"))
+            dependencies.repository.rootFolder.folders.append(Folder(withTitle: "Idnes"))
+            dependencies.repository.rootFolder.feeds.append(MyRSSFeed(title: "Zpravodaj", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj"))
         }
     }
     
@@ -129,7 +129,7 @@ class RSSFeedEditVMTest: XCTestCase {
         let oldFolder = Folder(withTitle: "TestFolder")
         let feedForUpdate = MyRSSFeed(title: viewModel.feedName.value, link: viewModel.link.value)
         dependencies.repository.realmEdit(errorCode: nil) { realm in
-            dependencies.rootFolder.folders.append(oldFolder)
+            dependencies.repository.rootFolder.folders.append(oldFolder)
             oldFolder.feeds.append(feedForUpdate)
         }
         
@@ -143,7 +143,7 @@ class RSSFeedEditVMTest: XCTestCase {
         // Data of the newly updated feed
         viewModel.feedName.value = "Updated title"
         viewModel.link.value = "seznam.cz"
-        viewModel.selectedFolder.value = dependencies.rootFolder
+        viewModel.selectedFolder.value = dependencies.repository.rootFolder
         
         let rssFeedsCount = dependencies.realm.objects(MyRSSFeed.self).count
         

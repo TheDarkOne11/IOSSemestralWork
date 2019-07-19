@@ -18,14 +18,9 @@ import RealmSwift
  */
 final class TestDependency{
     lazy var realm: Realm = getRealm()
-    lazy var rootFolder: Folder = getRootFolder()
     lazy var userDefaults: UserDefaults = TestDependency.getUserDefaults()
     
     lazy var repository: IRepository = Repository(dependencies: self)
-    
-    init() {
-        print("Root folder created: \(rootFolder.itemId)")
-    }
 }
 
 extension TestDependency: HasRepository { }
@@ -38,19 +33,6 @@ extension TestDependency: HasUserDefaults {
         userDefaults.removePersistentDomain(forName: name)
         
         return userDefaults
-    }
-}
-extension TestDependency: HasRootFolder {
-    private func getRootFolder() -> Folder {
-        // Create root folder
-        let rootFolder: Folder = Folder(withTitle: L10n.Base.rootFolder)
-        
-        repository.realmEdit(errorCode: nil) { realm in
-            realm.add(rootFolder)
-        }
-        userDefaults.set(rootFolder.itemId, forKey: UserDefaults.Keys.rootFolderItemId.rawValue)
-        
-        return rootFolder
     }
 }
 extension TestDependency: HasRealm {

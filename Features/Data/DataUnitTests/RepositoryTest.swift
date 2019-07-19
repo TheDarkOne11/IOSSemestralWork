@@ -15,7 +15,7 @@ class RepositoryTest: XCTestCase {
     
     private lazy var repository: IRepository = { self.dependencies.repository }()
     
-    private lazy var root: Folder = { self.dependencies.rootFolder }()
+    private lazy var root: Folder = { self.dependencies.repository.rootFolder }()
     private let folderA = Folder(withTitle: "A")
     private let folderAA = Folder(withTitle: "AA")
     private let folderAB = Folder(withTitle: "AB")

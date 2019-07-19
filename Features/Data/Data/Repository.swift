@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 import Common
+import Resources
 import ReactiveSwift
 
 public protocol HasRepository {
@@ -18,6 +19,7 @@ public protocol HasRepository {
 public protocol IRepository {
     /** Currently selected folder, RSS feed or RSS item */
     var selectedItem: MutableProperty<Item> { get }
+    var rootFolder: Folder { get }
     var folders: Results<Folder> { get }
     var feeds: Results<MyRSSFeed> { get }
     var rssItems: Results<MyRSSItem> { get }
@@ -35,12 +37,21 @@ public protocol IRepository {
 }
 
 public final class Repository: IRepository {
-    public typealias Dependencies = HasRealm & HasRootFolder
+    public typealias Dependencies = HasRealm & HasUserDefaults
     private let dependencies: Dependencies
     
     private let dbHandler: DBHandler
     
-    public let selectedItem: MutableProperty<Item>
+    private var _rootFolder: Folder!
+    public var rootFolder: Folder {
+        return _rootFolder
+    }
+    
+    private var _selectedItem: MutableProperty<Item>!
+    public var selectedItem: MutableProperty<Item> {
+        return _selectedItem
+    }
+    
     public lazy var folders: Results<Folder> = self.dbHandler.folders
     public lazy var feeds: Results<MyRSSFeed> = self.dbHandler.feeds
     public lazy var rssItems: Results<MyRSSItem> = self.dbHandler.rssItems
@@ -48,7 +59,35 @@ public final class Repository: IRepository {
     public init(dependencies: Dependencies) {
         self.dependencies = dependencies
         self.dbHandler = DBHandler(dependencies: dependencies)
-        self.selectedItem = MutableProperty<Item>(dependencies.rootFolder)
+        self._rootFolder = getRootFolder()
+        self._selectedItem = MutableProperty<Item>(_rootFolder)
+    }
+    
+    private func getRootFolder() -> Folder {
+        guard let itemId = dependencies.userDefaults.string(forKey: UserDefaults.Keys.rootFolderItemId.rawValue) else {
+            // Create root folder
+            let rootFolder: Folder = Folder(withTitle: L10n.Base.rootFolder)
+            
+            realmEdit(errorCode: nil) { realm in
+                realm.add(rootFolder)
+            }
+            dependencies.userDefaults.set(rootFolder.itemId, forKey: UserDefaults.Keys.rootFolderItemId.rawValue)
+            
+            return rootFolder
+        }
+        
+        guard let rootFolder = folders.filter("itemId == %@", itemId).first else {
+            fatalError("The root folder must already exist in Realm.")
+        }
+        
+        if rootFolder.title != L10n.Base.rootFolder {
+            // Update name of the root folder
+            realmEdit(errorCode: nil) { realm in
+                rootFolder.title = L10n.Base.rootFolder
+            }
+        }
+        
+        return rootFolder
     }
     
     /**
@@ -166,6 +205,9 @@ extension Repository {
                     oldFolder?.feeds.remove(at: oldIndex!)
                     parentFolder.feeds.append(oldFeed)
                 }
+                
+                observer.send(value: oldFeed)
+                observer.sendCompleted()
             })
         }
     }

@@ -23,7 +23,7 @@ protocol IRSSItemsTableVM {
 }
 
 final class RSSItemsTableVM: BaseViewModel, IRSSItemsTableVM {
-    typealias Dependencies = HasRepository & HasRealm & HasRootFolder & HasUserDefaults
+    typealias Dependencies = HasRepository & HasRealm & HasUserDefaults
     private let dependencies: Dependencies!
     
     let downloadStatus = MutableProperty<DownloadStatus?>(nil)

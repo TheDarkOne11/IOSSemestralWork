@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppDependency.shared.userDefaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
         
         if !AppDelegate.isProduction {
-            let rootFolder = AppDependency.shared.rootFolder
+            let rootFolder = repository.rootFolder
             let folderIdnes = Folder(withTitle: "Idnes")
             let folderImages = Folder(withTitle: "WithImages")
             

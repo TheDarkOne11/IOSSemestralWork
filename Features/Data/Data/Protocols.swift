@@ -16,7 +16,3 @@ public protocol HasUserDefaults {
 public protocol HasRealm {
     var realm: Realm { get }
 }
-
-public protocol HasRootFolder {
-    var rootFolder: Folder { get }
-}
