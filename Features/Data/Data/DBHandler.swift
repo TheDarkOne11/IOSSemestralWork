@@ -30,8 +30,6 @@ class DBHandler {
     
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
-        self.rssItems = dependencies.realm.objects(MyRSSItem.self)
-        self.feeds = dependencies.realm.objects(MyRSSFeed.self)
     }
     
     /**

@@ -52,14 +52,14 @@ class RSSFeedEditVMTest: XCTestCase {
     func testCreateOk() {
         let expectation = XCTestExpectation(description: "Valid viewModel data returns no error")
         
-        let rssFeedsCount = self.dependencies.realm.objects(MyRSSFeed.self).count
+        let rssFeedsCount = self.dependencies.repository.feeds.count
         
         viewModel.saveBtnAction.completed.observeValues {
-            let rssFeedRes = self.dependencies.realm.objects(MyRSSFeed.self).filter("title CONTAINS[cd] %@", self.viewModel.feedName.value)
+            let rssFeedRes = self.dependencies.repository.feeds.filter("title CONTAINS[cd] %@", self.viewModel.feedName.value)
             
             XCTAssertTrue(rssFeedRes.count == 1)
             XCTAssertNotNil(rssFeedRes.first)
-            XCTAssertEqual(rssFeedsCount + 1, self.dependencies.realm.objects(MyRSSFeed.self).count)
+            XCTAssertEqual(rssFeedsCount + 1, self.dependencies.repository.feeds.count)
             
             let rssFeed: MyRSSFeed = rssFeedRes.first!
             
@@ -89,14 +89,14 @@ class RSSFeedEditVMTest: XCTestCase {
             viewModel.selectedFolder.value.feeds.append(MyRSSFeed(title: viewModel.feedName.value, link: viewModel.link.value))
         }
 
-        let rssFeedsCount = self.dependencies.realm.objects(MyRSSFeed.self).count
+        let rssFeedsCount = self.dependencies.repository.feeds.count
 
         viewModel.saveBtnAction.errors.observeValues { error in
-            let rssFeedRes = self.dependencies.realm.objects(MyRSSFeed.self).filter("title CONTAINS[cd] %@", self.viewModel.feedName.value)
+            let rssFeedRes = self.dependencies.repository.feeds.filter("title CONTAINS[cd] %@", self.viewModel.feedName.value)
 
             XCTAssertEqual(rssFeedRes.count, 1)
             XCTAssertNotNil(rssFeedRes.first)
-            XCTAssertEqual(rssFeedsCount, self.dependencies.realm.objects(MyRSSFeed.self).count)
+            XCTAssertEqual(rssFeedsCount, self.dependencies.repository.feeds.count)
 
             let rssFeed: MyRSSFeed = rssFeedRes.first!
 
@@ -145,14 +145,14 @@ class RSSFeedEditVMTest: XCTestCase {
         viewModel.link.value = "seznam.cz"
         viewModel.selectedFolder.value = dependencies.repository.rootFolder
         
-        let rssFeedsCount = dependencies.realm.objects(MyRSSFeed.self).count
+        let rssFeedsCount = dependencies.repository.feeds.count
         
         viewModel.saveBtnAction.completed.observeValues {
-            let rssFeedRes = self.dependencies.realm.objects(MyRSSFeed.self).filter("title CONTAINS[cd] %@", self.viewModel.feedName.value)
+            let rssFeedRes = self.dependencies.repository.feeds.filter("title CONTAINS[cd] %@", self.viewModel.feedName.value)
             
             XCTAssertTrue(rssFeedRes.count == 1)
             XCTAssertNotNil(rssFeedRes.first)
-            XCTAssertEqual(rssFeedsCount, self.dependencies.realm.objects(MyRSSFeed.self).count)
+            XCTAssertEqual(rssFeedsCount, self.dependencies.repository.feeds.count)
             XCTAssertEqual(oldFolder.feeds.filter("itemId == %@", feedForUpdate.itemId).count, 0)
             
             let rssFeed: MyRSSFeed = rssFeedRes.first!

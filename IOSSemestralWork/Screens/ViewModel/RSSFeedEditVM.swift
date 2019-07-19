@@ -30,7 +30,7 @@ protocol IRSSFeedEditVM {
 }
 
 final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
-    typealias Dependencies = HasRepository & HasRealm
+    typealias Dependencies = HasRepository
     private let dependencies: Dependencies
     
     let feedName = MutableProperty<String>("")

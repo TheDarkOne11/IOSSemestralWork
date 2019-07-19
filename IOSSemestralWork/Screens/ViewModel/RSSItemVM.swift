@@ -26,7 +26,7 @@ protocol IRSSItemVM {
 }
 
 final class RSSItemVM: BaseViewModel, IRSSItemVM {
-    typealias Dependencies = HasRepository & HasRealm & HasUserDefaults
+    typealias Dependencies = HasRepository & HasUserDefaults
     private let dependencies: Dependencies!
     
     let otherRssItems: Results<MyRSSItem>

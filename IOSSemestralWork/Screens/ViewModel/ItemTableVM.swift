@@ -42,7 +42,7 @@ protocol IItemTableVM {
 }
 
 final class ItemTableVM: BaseViewModel, IItemTableVM {
-    typealias Dependencies = HasRepository & HasRealm & HasUserDefaults
+    typealias Dependencies = HasRepository & HasUserDefaults
     private let dependencies: Dependencies!
     
     let downloadStatus = MutableProperty<DownloadStatus?>(nil)
