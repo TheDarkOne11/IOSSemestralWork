@@ -26,6 +26,36 @@ class RSSFeedEditVC: BaseViewController {
     
     var flowDelegate: RSSFeedEditFlowDelegate?
     
+    private lazy var createFolderAlert: UIAlertController = {
+        let alert = UIAlertController(title: L10n.RssEditView.addFolderTitle, message: "", preferredStyle: .alert)
+        let actionCancel = UIAlertAction(title: L10n.Base.actionCancel, style: .cancel)
+        let actionDone = UIAlertAction(title: L10n.Base.actionDone, style: .default) { [weak self] (action) in
+            guard let title = self?.viewModel.newFolderName.value else {
+                return
+            }
+            
+            let folderData: IRSSFeedEditVM.CreateFolderInput = (title, nil)
+            self?.viewModel.createFolderAction.apply(folderData).start()
+        }
+        
+        alert.addAction(actionDone)
+        alert.addAction(actionCancel)
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = L10n.RssEditView.folderNamePlaceholder
+            alertTextField.enablesReturnKeyAutomatically = true
+            
+            self.viewModel.newFolderName <~> alertTextField
+        }
+        
+        // Check for textField changes. Done button is enabled only when the textField isn't empty
+        self.viewModel.newFolderName.producer
+            .startWithValues({ [weak self] currTitle in
+                actionDone.isEnabled = self?.viewModel.canCreate(folder: Folder(withTitle: currTitle)) ?? false
+            })
+        
+        return alert
+    }()
+    
     init(_ viewModel: IRSSFeedEditVM) {
         self.viewModel = viewModel
         
@@ -141,7 +171,9 @@ class RSSFeedEditVC: BaseViewController {
     private func setupOnSelectActions() {
         let secSpecifyFolder = sections[1]
         secSpecifyFolder.rows[0].onSelected = { [weak self] in
-            self?.presentCreateFolderAlert()
+            if let self = self {
+                self.present(self.createFolderAlert, animated: true, completion: nil)
+            }
         }
         
         secSpecifyFolder.rows[1].onSelected = { [weak self] in
@@ -209,37 +241,6 @@ class RSSFeedEditVC: BaseViewController {
     private func cancelBarButtonTapped(_ sender: UIBarButtonItem) {
         flowDelegate?.editSuccessful(in: self)
     }
-    
-    private func presentCreateFolderAlert() {
-        var textField = UITextField()
-        
-        let alert = UIAlertController(title: L10n.RssEditView.addFolderTitle, message: "", preferredStyle: .alert)
-        let actionCancel = UIAlertAction(title: L10n.Base.actionCancel, style: .cancel)
-        let actionDone = UIAlertAction(title: L10n.Base.actionDone, style: .default) { [weak self] (action) in
-            let folderData: IRSSFeedEditVM.CreateFolderInput = (textField.text!, nil)
-            self?.viewModel.createFolderAction.apply(folderData).start()
-        }
-        actionDone.isEnabled = false
-        
-        alert.addAction(actionDone)
-        alert.addAction(actionCancel)
-        alert.addTextField { (alertTextField) in
-            alertTextField.placeholder = L10n.RssEditView.folderNamePlaceholder
-            alertTextField.enablesReturnKeyAutomatically = true
-            
-            textField = alertTextField
-        }
-        
-        // Check for textField changes. Done button is enabled only when the textField isn't empty
-        NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { _ in
-            // Enables and disables Done action. Triggered when value of textField changes
-            let textCount = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0
-            actionDone.isEnabled = textCount > 0
-        }
-        
-        present(alert, animated: true, completion: nil)
-    }
-    
 }
 
 //MARK: UITableView Delegate and DataSource methods

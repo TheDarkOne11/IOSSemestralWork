@@ -22,11 +22,15 @@ protocol IRSSFeedEditVM {
     var selectedFolder: MutableProperty<Folder> { get }
     var folders: Results<Folder> { get }
     
+    var newFolderName: MutableProperty<String> { get }
+    
     var saveBtnAction: Action<Void, MyRSSFeed, RSSFeedCreationError> { get }
     var createFolderAction: Action<CreateFolderInput, Folder, RSSFeedCreationError> { get }
     
     /** Returns a folder at the selected index.*/
     func getFolder(at index: Int) -> Folder
+    
+    func canCreate(folder: Folder) -> Bool
 }
 
 final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
@@ -39,6 +43,8 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
     
     let selectedFolder: MutableProperty<Folder>
     let folders: Results<Folder>
+    
+    let newFolderName = MutableProperty<String>("")
     
     init(dependencies: Dependencies, feedForUpdate: MyRSSFeed? = nil) {
         self.dependencies = dependencies
@@ -107,5 +113,11 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
         }
         
         return MyRSSFeed(title: title, link: link)
+    }
+    
+    func canCreate(folder: Folder) -> Bool {
+        let textCount = folder.title.trimmingCharacters(in: .whitespacesAndNewlines).count
+        
+        return textCount > 0 && !dependencies.repository.exists(folder)
     }
 }
