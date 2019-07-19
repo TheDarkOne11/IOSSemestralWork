@@ -32,3 +32,4 @@
 "rssEditView.errorTitle" = "Nastal problém";
 "rssEditView.errorFeedExistsDescription" = "RSS Feed se stejným odkazem již existuje.";
 "rssEditView.errorFolderExistsDescription" = "Složka se stejným jménem již existuje.";
+"error.unknownError" = "Nastala neznámá chyba.";

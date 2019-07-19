@@ -38,6 +38,8 @@ public enum L10n {
   public enum Error {
     /// Internet is unreachable. Please try updating later.
     public static let internetUnreachable = L10n.tr("Localizable", "error.internetUnreachable")
+    /// Unknown error occured.
+    public static let unknownError = L10n.tr("Localizable", "error.unknownError")
   }
 
   public enum ItemTableView {

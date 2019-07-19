@@ -176,8 +176,7 @@ class RSSFeedEditVC: BaseViewController {
             case .exists:
                 self?.view.makeToast(L10n.RssEditView.errorFeedExistsDescription, duration: 4, title: L10n.RssEditView.errorTitle)
             case .unknown:
-                //FIXME: Localization
-                self?.view.makeToast("Unknown error occured", duration: 4, title: L10n.RssEditView.errorTitle)
+                self?.view.makeToast(L10n.Error.unknownError, duration: 4, title: L10n.RssEditView.errorTitle)
             }
         }
         
@@ -191,8 +190,7 @@ class RSSFeedEditVC: BaseViewController {
             case .exists:
                 self?.view.makeToast(L10n.RssEditView.errorFolderExistsDescription, duration: 4, title: L10n.RssEditView.errorTitle)
             case .unknown:
-                //FIXME: Localization
-                self?.view.makeToast("Unknown error occured", duration: 4, title: L10n.RssEditView.errorTitle)
+                self?.view.makeToast(L10n.Error.unknownError, duration: 4, title: L10n.RssEditView.errorTitle)
             }
         }
         

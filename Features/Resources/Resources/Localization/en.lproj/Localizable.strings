@@ -32,3 +32,4 @@
 "rssEditView.errorTitle" = "Error occured";
 "rssEditView.errorFeedExistsDescription" = "Feed with the same link already exists.";
 "rssEditView.errorFolderExistsDescription" = "Folder of the same name already exists.";
+"error.unknownError" = "Unknown error occured.";
