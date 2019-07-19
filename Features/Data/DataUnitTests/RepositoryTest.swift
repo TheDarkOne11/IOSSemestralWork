@@ -44,7 +44,7 @@ class RepositoryTest: XCTestCase {
         // Set important values in UserDefaults
         defaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
         
-        dependencies.dbHandler.realmEdit(errorMsg: "Could not init the test DB.") {
+        dependencies.repository.realmEdit(errorCode: nil) { realm in
             let feed1 = MyRSSFeed(title: "1", link: "Link")
             let feedA1 = MyRSSFeed(title: "A1", link: "Link")
             let feedAA1 = MyRSSFeed(title: "AA1", link: "Link")

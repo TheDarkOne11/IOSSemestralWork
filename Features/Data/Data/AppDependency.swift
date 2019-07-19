@@ -24,12 +24,10 @@ public final class AppDependency{
     public lazy var rootFolder: Folder = AppDependency.getRootFolder()
     public lazy var userDefaults: UserDefaults = UserDefaults.init(suiteName: "group.cz.budikpet.IOSSemestralWork")!
 
-    public lazy var dbHandler: DBHandler = DBHandler(dependencies: AppDependency.shared)
     public lazy var repository: IRepository = Repository(dependencies: AppDependency.shared)
 }
 
 extension AppDependency: HasRepository { }
-extension AppDependency: HasDBHandler { }
 extension AppDependency: HasUserDefaults { }
 extension AppDependency: HasRootFolder {
     private static func getRootFolder() -> Folder {
@@ -37,7 +35,9 @@ extension AppDependency: HasRootFolder {
             // Create root folder
             let rootFolder: Folder = Folder(withTitle: L10n.Base.rootFolder)
             
-            shared.dbHandler.create(rootFolder)
+            shared.repository.realmEdit(errorCode: nil) { realm in
+                realm.add(rootFolder)
+            }
             shared.userDefaults.set(rootFolder.itemId, forKey: UserDefaults.Keys.rootFolderItemId.rawValue)
             
             return rootFolder
@@ -49,7 +49,7 @@ extension AppDependency: HasRootFolder {
         
         if rootFolder.title != L10n.Base.rootFolder {
             // Update name of the root folder
-            shared.dbHandler.realmEdit(errorMsg: "Could not update name of the root folder.") {
+            shared.repository.realmEdit(errorCode: nil) { realm in
                 rootFolder.title = L10n.Base.rootFolder
             }
         }

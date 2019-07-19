@@ -23,7 +23,7 @@ protocol IRSSItemsTableVM {
 }
 
 final class RSSItemsTableVM: BaseViewModel, IRSSItemsTableVM {
-    typealias Dependencies = HasRepository & HasDBHandler & HasRealm & HasRootFolder & HasUserDefaults
+    typealias Dependencies = HasRepository & HasRealm & HasRootFolder & HasUserDefaults
     private let dependencies: Dependencies!
     
     let downloadStatus = MutableProperty<DownloadStatus?>(nil)
@@ -51,7 +51,7 @@ final class RSSItemsTableVM: BaseViewModel, IRSSItemsTableVM {
     }
     
     func updateAllFeeds() {
-        dependencies.dbHandler.updateAll() { [weak self] status in
+        dependencies.repository.updateAll() { [weak self] status in
             
             // Hiding of the RefreshView is delayed to at least 0.5 s so that the updateLabel is visible.
             let deadline = DispatchTime.now() + .milliseconds(500)

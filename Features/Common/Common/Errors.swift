@@ -9,5 +9,6 @@
 import Foundation
 
 public enum RSSFeedCreationError: Error {
+    case unknown
     case exists
 }

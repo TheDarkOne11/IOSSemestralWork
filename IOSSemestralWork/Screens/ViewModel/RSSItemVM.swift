@@ -26,7 +26,7 @@ protocol IRSSItemVM {
 }
 
 final class RSSItemVM: BaseViewModel, IRSSItemVM {
-    typealias Dependencies = HasRepository & HasDBHandler & HasRealm & HasRootFolder & HasUserDefaults
+    typealias Dependencies = HasRepository & HasRealm & HasRootFolder & HasUserDefaults
     private let dependencies: Dependencies!
     
     let otherRssItems: Results<MyRSSItem>
@@ -58,21 +58,22 @@ final class RSSItemVM: BaseViewModel, IRSSItemVM {
             self?.canGoDown.value = selectedItem.itemId != otherRssItems.last!.itemId
 
             if !selectedItem.isRead {
-                self?.dependencies.dbHandler.realmEdit(errorMsg: "Could not edit the selected item.") {
-                    selectedItem.isRead = true
-                }
+//                self?.dependencies.repository.realmEdit(errorCode: nil) { realm in
+//                    selectedItem.isRead = true
+//                }
+                self?.set(isRead: true)
             }
         }
     }
     
     func set(isRead: Bool) {
-        dependencies.dbHandler.realmEdit(errorMsg: "Could not edit the selected item.") {
+        dependencies.repository.realmEdit(errorCode: nil) { realm in
             selectedItem.value.isRead = isRead
         }
     }
     
     func set(isStarred: Bool) {
-        dependencies.dbHandler.realmEdit(errorMsg: "Could not edit the selected item.") {
+        dependencies.repository.realmEdit(errorCode: nil) { realm in
             selectedItem.value.isStarred = isStarred
         }
     }

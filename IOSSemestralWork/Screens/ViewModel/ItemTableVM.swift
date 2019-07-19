@@ -42,7 +42,7 @@ protocol IItemTableVM {
 }
 
 final class ItemTableVM: BaseViewModel, IItemTableVM {
-    typealias Dependencies = HasRepository & HasDBHandler & HasRealm & HasRootFolder & HasUserDefaults
+    typealias Dependencies = HasRepository & HasRealm & HasRootFolder & HasUserDefaults
     private let dependencies: Dependencies!
     
     let downloadStatus = MutableProperty<DownloadStatus?>(nil)
@@ -74,13 +74,13 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
     }
     
     func edit(_ folder: Folder, title: String) {
-        dependencies.dbHandler.realmEdit(errorMsg: "Error occured when editing a folder", editCode: {
+        dependencies.repository.realmEdit(errorCode: nil) { realm in
             folder.title = title
-        })
+        }
     }
     
     func remove(_ item: Item) {
-        dependencies.dbHandler.remove(item)
+        dependencies.repository.remove(item)
     }
     
     private func getItems() -> ShownItems {
@@ -102,7 +102,7 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
     }
     
     func updateAllFeeds() {
-        dependencies.dbHandler.updateAll() { [weak self] status in
+        dependencies.repository.updateAll() { [weak self] status in
             
             // Hiding of the RefreshView is delayed to at least 0.5 s so that the updateLabel is visible.
             let deadline = DispatchTime.now() + .milliseconds(500)

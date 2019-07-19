@@ -39,7 +39,7 @@ class RSSFeedEditVMTest: XCTestCase {
         // Set important values in UserDefaults
         defaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
         
-        dependencies.dbHandler.realmEdit(errorMsg: "Could not init the test DB.") {
+        dependencies.repository.realmEdit(errorCode: nil) { realm in
             dependencies.rootFolder.folders.append(Folder(withTitle: "Idnes"))
             dependencies.rootFolder.feeds.append(MyRSSFeed(title: "Zpravodaj", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj"))
         }
@@ -85,7 +85,7 @@ class RSSFeedEditVMTest: XCTestCase {
     func testCreateError() {
         let expectation = XCTestExpectation(description: "Valid viewModel data returns error")
 
-        dependencies.dbHandler.realmEdit(errorMsg: "Could not add a feed.") {
+        dependencies.repository.realmEdit(errorCode: nil) { realm in
             viewModel.selectedFolder.value.feeds.append(MyRSSFeed(title: viewModel.feedName.value, link: viewModel.link.value))
         }
 
@@ -128,7 +128,7 @@ class RSSFeedEditVMTest: XCTestCase {
         
         let oldFolder = Folder(withTitle: "TestFolder")
         let feedForUpdate = MyRSSFeed(title: viewModel.feedName.value, link: viewModel.link.value)
-        dependencies.dbHandler.realmEdit(errorMsg: "Could not create items.") {
+        dependencies.repository.realmEdit(errorCode: nil) { realm in
             dependencies.rootFolder.folders.append(oldFolder)
             oldFolder.feeds.append(feedForUpdate)
         }

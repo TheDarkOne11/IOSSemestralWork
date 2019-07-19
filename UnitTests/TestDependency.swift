@@ -8,7 +8,6 @@
 
 import Foundation
 import RealmSwift
-@testable import IOSSemestralWork
 @testable import Resources
 @testable import Data
 
@@ -22,7 +21,6 @@ final class TestDependency{
     lazy var rootFolder: Folder = getRootFolder()
     lazy var userDefaults: UserDefaults = TestDependency.getUserDefaults()
     
-    lazy var dbHandler: DBHandler = DBHandler(dependencies: self)
     lazy var repository: IRepository = Repository(dependencies: self)
     
     init() {
@@ -31,7 +29,6 @@ final class TestDependency{
 }
 
 extension TestDependency: HasRepository { }
-extension TestDependency: HasDBHandler { }
 extension TestDependency: HasUserDefaults {
     private static func getUserDefaults() -> UserDefaults {
         let name = UUID().uuidString
@@ -48,8 +45,10 @@ extension TestDependency: HasRootFolder {
         // Create root folder
         let rootFolder: Folder = Folder(withTitle: L10n.Base.rootFolder)
         
-        self.dbHandler.create(rootFolder)
-        self.userDefaults.set(rootFolder.itemId, forKey: UserDefaults.Keys.rootFolderItemId.rawValue)
+        repository.realmEdit(errorCode: nil) { realm in
+            realm.add(rootFolder)
+        }
+        userDefaults.set(rootFolder.itemId, forKey: UserDefaults.Keys.rootFolderItemId.rawValue)
         
         return rootFolder
     }

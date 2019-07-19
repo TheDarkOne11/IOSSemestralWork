@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let realm = AppDependency.shared.realm
         if realm.isEmpty {
-            firstTimeInit(AppDependency.shared.dbHandler)
+            firstTimeInit(AppDependency.shared.repository)
         }
 
         // Set background fetch intervals
@@ -63,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /**
      Operations which are done only when the app is launched for the first time.
      */
-    private func firstTimeInit(_ dbHandler: DBHandler) {
+    private func firstTimeInit(_ repository: IRepository) {
         AppDependency.shared.userDefaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
         
         if !AppDelegate.isProduction {
@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let folderIdnes = Folder(withTitle: "Idnes")
             let folderImages = Folder(withTitle: "WithImages")
             
-            dbHandler.realmEdit(errorMsg: "Could not initiate test DB.") {
+            repository.realmEdit(errorCode: nil) { realm in 
                 rootFolder.folders.append(objectsIn: [folderIdnes, folderImages])
                 rootFolder.feeds.append(MyRSSFeed(title: "FOX", link: "http://feeds.foxnews.com/foxnews/latest"))
                 
