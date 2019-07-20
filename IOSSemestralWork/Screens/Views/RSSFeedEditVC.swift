@@ -10,6 +10,7 @@ import Toast_Swift
 
 protocol RSSFeedEditFlowDelegate {
     func editSuccessful(in viewController: RSSFeedEditVC)
+    func add(folder: Folder?, delegate: FolderEditDelegate)
 }
 
 class RSSFeedEditVC: BaseViewController {
@@ -26,36 +27,36 @@ class RSSFeedEditVC: BaseViewController {
     
     var flowDelegate: RSSFeedEditFlowDelegate?
     
-    private lazy var createFolderAlert: UIAlertController = {
-        let alert = UIAlertController(title: L10n.RssEditView.addFolderTitle, message: "", preferredStyle: .alert)
-        let actionCancel = UIAlertAction(title: L10n.Base.actionCancel, style: .cancel)
-        let actionDone = UIAlertAction(title: L10n.Base.actionDone, style: .default) { [weak self] (action) in
-            guard let title = self?.viewModel.newFolderName.value else {
-                return
-            }
-            
-            let folderData: IRSSFeedEditVM.CreateFolderInput = (title, nil)
-            self?.viewModel.createFolderAction.apply(folderData).start()
-        }
-        
-        alert.addAction(actionDone)
-        alert.addAction(actionCancel)
-        alert.addTextField { (alertTextField) in
-            alertTextField.placeholder = L10n.RssEditView.folderNamePlaceholder
-            alertTextField.enablesReturnKeyAutomatically = true
-            
-            self.viewModel.newFolderName <~> alertTextField
-        }
-        
-        // Check for textField changes. Done button is enabled only when the textField isn't empty
-        self.viewModel.newFolderName.producer
-            .startWithValues({ [weak self] currTitle in
-                actionDone.isEnabled = self?.viewModel.canCreate(folder: Folder(withTitle: currTitle)) ?? false
-            })
-        
-        return alert
-    }()
-    
+//    private lazy var createFolderAlert: UIAlertController = {
+//        let alert = UIAlertController(title: L10n.RssEditView.addFolderTitle, message: "", preferredStyle: .alert)
+//        let actionCancel = UIAlertAction(title: L10n.Base.actionCancel, style: .cancel)
+//        let actionDone = UIAlertAction(title: L10n.Base.actionDone, style: .default) { [weak self] (action) in
+//            guard let title = self?.viewModel.newFolderName.value else {
+//                return
+//            }
+//
+//            let folderData: IRSSFeedEditVM.CreateFolderInput = (title, nil)
+//            self?.viewModel.createFolderAction.apply(folderData).start()
+//        }
+//
+//        alert.addAction(actionDone)
+//        alert.addAction(actionCancel)
+//        alert.addTextField { (alertTextField) in
+//            alertTextField.placeholder = L10n.RssEditView.folderNamePlaceholder
+//            alertTextField.enablesReturnKeyAutomatically = true
+//
+//            self.viewModel.newFolderName <~> alertTextField
+//        }
+//
+//        // Check for textField changes. Done button is enabled only when the textField isn't empty
+//        self.viewModel.newFolderName.producer
+//            .startWithValues({ [weak self] currTitle in
+//                actionDone.isEnabled = self?.viewModel.canCreate(folder: Folder(withTitle: currTitle)) ?? false
+//            })
+//
+//        return alert
+//    }()
+//
     init(_ viewModel: IRSSFeedEditVM) {
         self.viewModel = viewModel
         
@@ -172,7 +173,7 @@ class RSSFeedEditVC: BaseViewController {
         let secSpecifyFolder = sections[1]
         secSpecifyFolder.rows[0].onSelected = { [weak self] in
             if let self = self {
-                self.present(self.createFolderAlert, animated: true, completion: nil)
+                self.flowDelegate?.add(folder: nil, delegate: self)
             }
         }
         
@@ -311,5 +312,14 @@ extension RSSFeedEditVC: UIPickerViewDelegate, UIPickerViewDataSource {
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
          viewModel.selectedFolder.value = viewModel.getFolder(at: row)
+    }
+}
+
+
+extension RSSFeedEditVC: FolderEditDelegate {
+    func created(folder: Folder) {
+        self.view.makeToast(L10n.RssEditView.folderCreated("\"\(folder.title)\""))
+        viewModel.selectedFolder.value = folder
+        self.pickerView.reloadAllComponents()
     }
 }

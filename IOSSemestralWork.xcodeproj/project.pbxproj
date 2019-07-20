@@ -46,6 +46,8 @@
 		4B53B43B22D24C8C00454E94 /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B43A22D24C8C00454E94 /* RefreshControl.swift */; };
 		4B53B44922D24EE000454E94 /* PullToRefreshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B53B44722D24EDF00454E94 /* PullToRefreshView.xib */; };
 		4B53B44A22D24EE000454E94 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B44822D24EDF00454E94 /* PullToRefreshView.swift */; };
+		4B7E919F22E32080005F018D /* FolderEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7E919E22E32080005F018D /* FolderEditVC.swift */; };
+		4B7E91A122E320B3005F018D /* FolderEditVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7E91A022E320B3005F018D /* FolderEditVM.swift */; };
 		4BCD96A622CB99BC00F214E2 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD96A522CB99BC00F214E2 /* Base.swift */; };
 		4BCD96A922CB9BD000F214E2 /* RSSFeedEditVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD96A822CB9BD000F214E2 /* RSSFeedEditVM.swift */; };
 		4BD2DD0822CE0C9C00F445F4 /* TestDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD2DD0722CE0C9C00F445F4 /* TestDependency.swift */; };
@@ -141,6 +143,8 @@
 		4B53B43A22D24C8C00454E94 /* RefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControl.swift; sourceTree = "<group>"; };
 		4B53B44722D24EDF00454E94 /* PullToRefreshView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PullToRefreshView.xib; sourceTree = "<group>"; };
 		4B53B44822D24EDF00454E94 /* PullToRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullToRefreshView.swift; sourceTree = "<group>"; };
+		4B7E919E22E32080005F018D /* FolderEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderEditVC.swift; sourceTree = "<group>"; };
+		4B7E91A022E320B3005F018D /* FolderEditVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderEditVM.swift; sourceTree = "<group>"; };
 		4BCD96A522CB99BC00F214E2 /* Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = "<group>"; };
 		4BCD96A822CB9BD000F214E2 /* RSSFeedEditVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedEditVM.swift; sourceTree = "<group>"; };
 		4BD2DD0722CE0C9C00F445F4 /* TestDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDependency.swift; sourceTree = "<group>"; };
@@ -218,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				4BCD96A822CB9BD000F214E2 /* RSSFeedEditVM.swift */,
+				4B7E91A022E320B3005F018D /* FolderEditVM.swift */,
 				4B53B43622D2481900454E94 /* ItemTableVM.swift */,
 				4BE1A7D822D88A5A00762AE0 /* RSSItemsTableVM.swift */,
 				4BDE2ECE22DB267800AAF3DC /* RSSItemVM.swift */,
@@ -230,6 +235,7 @@
 			children = (
 				4B0EA17822C0D712004411BD /* TestViewController.swift */,
 				4BE44F8422CE43560042925A /* RSSFeedEditVC.swift */,
+				4B7E919E22E32080005F018D /* FolderEditVC.swift */,
 				4B53B43822D2494700454E94 /* ItemTableVC.swift */,
 				4BE1A7D622D88A4800762AE0 /* RSSItemsTableVC.swift */,
 				4BDE2ECC22DB253900AAF3DC /* RSSItemVC.swift */,
@@ -717,6 +723,7 @@
 				4BE1A7D922D88A5A00762AE0 /* RSSItemsTableVM.swift in Sources */,
 				4B0EA17922C0D712004411BD /* TestViewController.swift in Sources */,
 				4B53B43922D2494700454E94 /* ItemTableVC.swift in Sources */,
+				4B7E91A122E320B3005F018D /* FolderEditVM.swift in Sources */,
 				4BDE2ECF22DB267800AAF3DC /* RSSItemVM.swift in Sources */,
 				4BE1A7DD22D8F9D100762AE0 /* RssItemCell.swift in Sources */,
 				4BEB54CE22D10B6B00872896 /* AppFlowCoordinator.swift in Sources */,
@@ -724,6 +731,7 @@
 				4BE44F8522CE43560042925A /* RSSFeedEditVC.swift in Sources */,
 				4BE1A7D722D88A4800762AE0 /* RSSItemsTableVC.swift in Sources */,
 				4B53B43722D2481900454E94 /* ItemTableVM.swift in Sources */,
+				4B7E919F22E32080005F018D /* FolderEditVC.swift in Sources */,
 				4BDE2ECD22DB253900AAF3DC /* RSSItemVC.swift in Sources */,
 				4B53B44A22D24EE000454E94 /* PullToRefreshView.swift in Sources */,
 				4B15BF8722D4990B00B3B962 /* ItemCell.swift in Sources */,

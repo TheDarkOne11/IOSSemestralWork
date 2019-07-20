@@ -48,8 +48,21 @@ class AppFlowCoordinator: BaseFlowCoordinator {
     }
 }
 
+extension AppFlowCoordinator: FolderEditFlowDelegate {
+    func editSuccessful(in viewController: FolderEditVC) {
+        navigationController.popViewController(animated: true)
+    }
+}
 
 extension AppFlowCoordinator: RSSFeedEditFlowDelegate {
+    func add(folder: Folder?, delegate: FolderEditDelegate) {
+        let vm = FolderEditVM(dependencies: AppDependency.shared, folderForUpdate: folder)
+        let vc = FolderEditVC(vm)
+        vc.flowDelegate = self
+        vc.delegate = delegate
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func editSuccessful(in viewController: RSSFeedEditVC) {
         navigationController.popViewController(animated: true)
     }
