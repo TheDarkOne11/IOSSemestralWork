@@ -69,7 +69,6 @@ class FolderEditVC: BaseViewController {
         stackView.distribution = .fillProportionally
         stackView.spacing = 8
         secEditFolder.rows[0].contentView = UIView().addSubViews(stackView)
-        secEditFolder.rows[0].contentView?.backgroundColor = UIColor.green
         
         let folderNameField = UITextField()
         stackView.addArrangedSubview(folderNameField)
@@ -79,6 +78,8 @@ class FolderEditVC: BaseViewController {
         let errorLabel = UILabel()
         stackView.addArrangedSubview(errorLabel)
         errorLabel.text = "Error occured."
+        errorLabel.textColor = UIColor.red
+        errorLabel.font = UIFont.systemFont(ofSize: 12)
         
         self.folderNameField = folderNameField
         self.errorLabel = errorLabel
@@ -88,6 +89,7 @@ class FolderEditVC: BaseViewController {
             make.top.greaterThanOrEqualToSuperview().offset(8)
             make.bottom.lessThanOrEqualToSuperview().offset(-8)
             make.leading.trailing.equalToSuperview().inset(16)
+//            make.edges.equalToSuperview()
         }
         
         // Add sections to the array
@@ -102,18 +104,27 @@ class FolderEditVC: BaseViewController {
         navigationItem.setHidesBackButton(true, animated: false)
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelBarButtonTapped(_:)))
         
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 40.0
+        
         setupBindings()
     }
     
     private func setupBindings() {
         folderNameField <~> viewModel.folderName
         
-        doneBarButton.reactive.isEnabled <~ viewModel.canCreateFolderSignal
-        
-        errorLabel.reactive.textColor <~ viewModel.canCreateFolderSignal.map({ canCreate -> UIColor in
-            return canCreate ? UIColor.black : UIColor.red
-        })
-        errorLabel.reactive.isHidden <~ viewModel.canCreateFolderSignal
+        viewModel.canCreateFolderSignal.startWithValues { canCreate in
+            self.doneBarButton.isEnabled = canCreate
+            
+            if self.errorLabel.isHidden != canCreate {
+                self.errorLabel.isHidden = canCreate
+                
+                // Update cell height
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+                self.folderNameField.becomeFirstResponder()
+            }
+        }
         
         viewModel.createFolderAction.values.producer.startWithValues { [weak self] folder in
             if let self = self {
@@ -164,7 +175,7 @@ extension FolderEditVC: UITableViewDelegate, UITableViewDataSource {
         if let view = rows[indexPath.row].contentView {
             cell.contentView.addSubview(view)
             view.snp.makeConstraints { make in
-                make.top.bottom.leading.trailing.equalToSuperview()
+                make.edges.equalToSuperview()
             }
         }
         
