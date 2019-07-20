@@ -9,6 +9,11 @@
 "base.starredItems" = "Starred items";
 "base.unreadItems" = "Unread items";
 "error.internetUnreachable" = "Internet is unreachable. Please try updating later.";
+"error.unknownError" = "Unknown error occured.";
+"folderEditView.folderData" = "Folder data";
+"folderEditView.folderNamePlaceholder" = "Folder name";
+"folderEditView.titleCreate" = "Add folder";
+"folderEditView.titleUpdate" = "Edit folder";
 "itemTableView.baseTitle" = "RSSFeed reader";
 "itemTableView.editFolderTitle" = "Edit folder";
 "itemTableView.folderNamePlaceholder" = "Folder name";
@@ -16,6 +21,9 @@
 "myRssItem.missingTitle" = "No title provided";
 "rssEditView.addFolder" = "Add a new Folder";
 "rssEditView.addFolderTitle" = "Create folder";
+"rssEditView.errorFeedExistsDescription" = "Feed with the same link already exists.";
+"rssEditView.errorFolderExistsDescription" = "Folder of the same name already exists.";
+"rssEditView.errorTitle" = "Error occured";
 "rssEditView.feedDetails" = "Feed Details";
 "rssEditView.folderCreated" = "Folder %@ created.";
 "rssEditView.folderLabel" = "Folder:";
@@ -29,7 +37,3 @@
 "rssItemVM.timeString" = "Published %@";
 "todayVC.starredLabel" = "Starred items: %@";
 "todayVC.unreadLabel" = "Unread items: %@";
-"rssEditView.errorTitle" = "Error occured";
-"rssEditView.errorFeedExistsDescription" = "Feed with the same link already exists.";
-"rssEditView.errorFolderExistsDescription" = "Folder of the same name already exists.";
-"error.unknownError" = "Unknown error occured.";

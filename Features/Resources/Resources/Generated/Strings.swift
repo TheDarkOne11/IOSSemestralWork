@@ -42,6 +42,17 @@ public enum L10n {
     public static let unknownError = L10n.tr("Localizable", "error.unknownError")
   }
 
+  public enum FolderEditView {
+    /// Folder data
+    public static let folderData = L10n.tr("Localizable", "folderEditView.folderData")
+    /// Folder name
+    public static let folderNamePlaceholder = L10n.tr("Localizable", "folderEditView.folderNamePlaceholder")
+    /// Add folder
+    public static let titleCreate = L10n.tr("Localizable", "folderEditView.titleCreate")
+    /// Edit folder
+    public static let titleUpdate = L10n.tr("Localizable", "folderEditView.titleUpdate")
+  }
+
   public enum ItemTableView {
     /// RSSFeed reader
     public static let baseTitle = L10n.tr("Localizable", "itemTableView.baseTitle")

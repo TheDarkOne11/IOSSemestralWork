@@ -64,28 +64,30 @@ class FolderEditVC: BaseViewController {
     private func prepareRows() {
         let secEditFolder = UITableView.Section(rows: 1, header: L10n.RssEditView.feedDetails)
         
-        // Create rows
-        // Folder details rows
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 8
+        stackView.backgroundColor = UIColor.green
+        secEditFolder.rows[0].contentView = UIView().addSubViews(stackView)
+        
         let folderNameField = UITextField()
+        stackView.addArrangedSubview(folderNameField)
         folderNameField.placeholder = L10n.RssEditView.namePlaceholder
         folderNameField.enablesReturnKeyAutomatically = true
         
         let errorLabel = UILabel()
+        stackView.addArrangedSubview(errorLabel)
         errorLabel.text = "Error occured."
         
-        secEditFolder.rows[0].contentView = UIView().addSubViews(folderNameField, errorLabel)
         self.folderNameField = folderNameField
         self.errorLabel = errorLabel
         
-        folderNameField.snp.makeConstraints { make in
+        stackView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.top.greaterThanOrEqualToSuperview().offset(8)
+            make.bottom.lessThanOrEqualToSuperview().offset(-8)
             make.leading.trailing.equalToSuperview().inset(16)
-            make.top.equalToSuperview().inset(8)
-            make.bottom.equalTo(errorLabel.snp_top).offset(-8)
-        }
-        
-        errorLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(8)
         }
         
         // Add sections to the array
