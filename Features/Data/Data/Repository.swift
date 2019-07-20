@@ -26,8 +26,7 @@ public protocol IRepository {
     
     func realmEdit(errorCode: ((Error) -> Void)?, editCode: (Realm) -> Void)
     func getAllRssItems(of folder: Folder, predicate: NSCompoundPredicate?) -> Results<MyRSSItem>
-    func exists(_ item: Item) -> Bool
-    
+    func exists(_ item: Item) -> Item?
     
     func create(rssFeed feed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RSSFeedCreationError>
     func create(newFolder: Folder, parentFolder: Folder) -> SignalProducer<Folder, RSSFeedCreationError>
@@ -124,22 +123,22 @@ public final class Repository: IRepository {
         return folderNames
     }
     
-    public func exists(_ item: Item) -> Bool {
+    public func exists(_ item: Item) -> Item? {
         switch item.type {
         case .folder:
-            return folders.filter("title == %@", item.title).count != 0
+            return folders.filter("title == %@", item.title).first
         case .myRssFeed:
             let feed = item as! MyRSSFeed
             let cleanLink = feed.link.replacingOccurrences(of: "http://", with: "").replacingOccurrences(of: "https://", with: "")
-            return feeds.filter("link CONTAINS[cd] %@", cleanLink).count != 0
+            return feeds.filter("link CONTAINS[cd] %@", cleanLink).first
         case .myRssItem:
             guard let articleLink = (item as! MyRSSItem).articleLink else {
-                return false
+                return nil
             }
             
-            return rssItems.filter("articleLink CONTAINS[cd] %@", articleLink).count != 0
+            return rssItems.filter("articleLink CONTAINS[cd] %@", articleLink).first
         case .specialItem:
-            return false
+            return nil
         }
     }
 }
@@ -150,7 +149,7 @@ extension Repository {
     public func create(rssFeed feed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RSSFeedCreationError> {
         return SignalProducer<MyRSSFeed, RSSFeedCreationError> { (observer, lifetime) in
             // Check for duplicates
-            if self.exists(feed) {
+            if self.exists(feed) == nil {
                 observer.send(error: .exists)
                 return
             }
@@ -170,7 +169,7 @@ extension Repository {
     
     public func create(newFolder: Folder, parentFolder: Folder) -> SignalProducer<Folder, RSSFeedCreationError> {
         return SignalProducer<Folder, RSSFeedCreationError> { (observer, lifetime) in
-            if self.exists(newFolder) {
+            if self.exists(newFolder) == nil {
                 observer.send(error: .exists)
                 return
             }

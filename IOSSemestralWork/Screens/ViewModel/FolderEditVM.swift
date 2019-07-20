@@ -51,6 +51,8 @@ class FolderEditVM: BaseViewModel, IFolderEditVM {
     private func canCreate(folder: Folder) -> Bool {
         let textCount = folder.title.trimmingCharacters(in: .whitespacesAndNewlines).count
         
-        return textCount > 0 && !dependencies.repository.exists(folder)
+        let duplicate = dependencies.repository.exists(folder)
+        
+        return textCount > 0 && (duplicate == nil || duplicate?.itemId == self.folderForUpdate.value?.itemId)
     }
 }

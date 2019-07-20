@@ -69,7 +69,14 @@ extension AppFlowCoordinator: RSSFeedEditFlowDelegate {
 }
 
 extension AppFlowCoordinator: ItemTableVCFlowDelegate {
-    func toFeedEdit(with feed: MyRSSFeed?) {
+    func edit(folder: Folder) {
+        let vm = FolderEditVM(dependencies: AppDependency.shared, folderForUpdate: folder)
+        let vc = FolderEditVC(vm)
+        vc.flowDelegate = self
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func editOrCreate(feed: MyRSSFeed?) {
         let vm = RSSFeedEditVM(dependencies: AppDependency.shared, feedForUpdate: feed)
         let vc = RSSFeedEditVC(vm)
         vc.flowDelegate = self

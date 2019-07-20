@@ -12,7 +12,8 @@ import Resources
 import Data
 
 protocol ItemTableVCFlowDelegate {
-    func toFeedEdit(with feed: MyRSSFeed?)
+    func editOrCreate(feed: MyRSSFeed?)
+    func edit(folder: Folder)
 }
 
 class ItemTableVC: BaseViewController {
@@ -93,7 +94,7 @@ class ItemTableVC: BaseViewController {
     
     @objc
     private func addBarButtonTapped(_ sender: UIBarButtonItem) {
-        flowDelegate?.toFeedEdit(with: nil)
+        flowDelegate?.editOrCreate(feed: nil)
     }
 }
 
@@ -204,48 +205,14 @@ extension ItemTableVC {
         let item = shownItems.getItem(at: indexPath.row)
         switch item.type {
         case .folder:
-            presentEditAlert(item as! Folder)
+            flowDelegate?.edit(folder: item as! Folder)
         case .myRssFeed:
-            flowDelegate?.toFeedEdit(with: item as! MyRSSFeed)
+            flowDelegate?.editOrCreate(feed: item as! MyRSSFeed)
         case .myRssItem:
             fatalError("RSSItems should not be in this window")
         case .specialItem:
             fatalError("Should not be able to edit a special item \(item.title)")
         }
-    }
-    
-    /**
-     Creates and presents an alert used for editing the selected folder.
-     
-     - parameter folder: The selected folder.
-     */
-    private func presentEditAlert(_ folder: Folder) {
-        var textField = UITextField()
-        
-        let alert = UIAlertController(title: L10n.ItemTableView.editFolderTitle, message: "", preferredStyle: .alert)
-        let actionCancel = UIAlertAction(title: L10n.Base.actionCancel, style: .cancel)
-        let actionDone = UIAlertAction(title: L10n.Base.actionDone, style: .default) { [weak self] (action) in
-            self?.viewModel.edit(folder, title: textField.text ?? "")
-        }
-        
-        alert.addAction(actionDone)
-        alert.addAction(actionCancel)
-        alert.addTextField { (alertTextField) in
-            alertTextField.placeholder = L10n.ItemTableView.folderNamePlaceholder
-            alertTextField.text = folder.title
-            alertTextField.enablesReturnKeyAutomatically = true
-            
-            textField = alertTextField
-        }
-        
-        // Check for textField changes. Done button is enabled only when the textField isn't empty
-        NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { _ in
-            // Enables and disables Done action. Triggered when value of textField changes
-            let textCount = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0
-            actionDone.isEnabled = textCount > 0
-        }
-        
-        present(alert, animated: true, completion: nil)
     }
     
     /**

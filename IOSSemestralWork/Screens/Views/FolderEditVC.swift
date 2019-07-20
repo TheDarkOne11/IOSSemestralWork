@@ -62,18 +62,18 @@ class FolderEditVC: BaseViewController {
     }
     
     private func prepareRows() {
-        let secEditFolder = UITableView.Section(rows: 1, header: L10n.RssEditView.feedDetails)
+        let secEditFolder = UITableView.Section(rows: 1, header: L10n.FolderEditView.folderData)
         
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
         stackView.spacing = 8
-        stackView.backgroundColor = UIColor.green
         secEditFolder.rows[0].contentView = UIView().addSubViews(stackView)
+        secEditFolder.rows[0].contentView?.backgroundColor = UIColor.green
         
         let folderNameField = UITextField()
         stackView.addArrangedSubview(folderNameField)
-        folderNameField.placeholder = L10n.RssEditView.namePlaceholder
+        folderNameField.placeholder = L10n.FolderEditView.folderNamePlaceholder
         folderNameField.enablesReturnKeyAutomatically = true
         
         let errorLabel = UILabel()
@@ -96,7 +96,7 @@ class FolderEditVC: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = viewModel.folderForUpdate.value != nil ? L10n.RssEditView.titleUpdate : L10n.RssEditView.titleCreate
+        navigationItem.title = viewModel.folderForUpdate.value != nil ? L10n.FolderEditView.titleUpdate : L10n.FolderEditView.titleCreate
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(actionBarButtonTapped(_:)))
         doneBarButton = navigationItem.rightBarButtonItem
         navigationItem.setHidesBackButton(true, animated: false)
