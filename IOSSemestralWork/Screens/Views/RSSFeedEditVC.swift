@@ -27,36 +27,6 @@ class RSSFeedEditVC: BaseViewController {
     
     var flowDelegate: RSSFeedEditFlowDelegate?
     
-//    private lazy var createFolderAlert: UIAlertController = {
-//        let alert = UIAlertController(title: L10n.RssEditView.addFolderTitle, message: "", preferredStyle: .alert)
-//        let actionCancel = UIAlertAction(title: L10n.Base.actionCancel, style: .cancel)
-//        let actionDone = UIAlertAction(title: L10n.Base.actionDone, style: .default) { [weak self] (action) in
-//            guard let title = self?.viewModel.newFolderName.value else {
-//                return
-//            }
-//
-//            let folderData: IRSSFeedEditVM.CreateFolderInput = (title, nil)
-//            self?.viewModel.createFolderAction.apply(folderData).start()
-//        }
-//
-//        alert.addAction(actionDone)
-//        alert.addAction(actionCancel)
-//        alert.addTextField { (alertTextField) in
-//            alertTextField.placeholder = L10n.RssEditView.folderNamePlaceholder
-//            alertTextField.enablesReturnKeyAutomatically = true
-//
-//            self.viewModel.newFolderName <~> alertTextField
-//        }
-//
-//        // Check for textField changes. Done button is enabled only when the textField isn't empty
-//        self.viewModel.newFolderName.producer
-//            .startWithValues({ [weak self] currTitle in
-//                actionDone.isEnabled = self?.viewModel.canCreate(folder: Folder(withTitle: currTitle)) ?? false
-//            })
-//
-//        return alert
-//    }()
-//
     init(_ viewModel: IRSSFeedEditVM) {
         self.viewModel = viewModel
         
@@ -217,20 +187,6 @@ class RSSFeedEditVC: BaseViewController {
             .observe(on: UIScheduler()).observeValues { [weak self] _ in
                 self?.flowDelegate?.editSuccessful(in: self!)
         }
-        
-        viewModel.createFolderAction.errors.producer.startWithValues { [weak self] (errors) in
-            switch errors {
-            case .exists:
-                self?.view.makeToast(L10n.RssEditView.errorFolderExistsDescription, duration: 4, title: L10n.RssEditView.errorTitle)
-            case .unknown:
-                self?.view.makeToast(L10n.Error.unknownError, duration: 4, title: L10n.RssEditView.errorTitle)
-            }
-        }
-        
-        viewModel.createFolderAction.values.producer.startWithValues { [weak self] folder in
-            self?.view.makeToast(L10n.RssEditView.folderCreated("\"\(folder.title)\""))
-            self?.pickerView.reloadAllComponents()
-        }
     }
     
     @objc
@@ -315,6 +271,7 @@ extension RSSFeedEditVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 }
 
+//MARK: FolderEditDelegate
 
 extension RSSFeedEditVC: FolderEditDelegate {
     func created(folder: Folder) {

@@ -68,6 +68,7 @@ class FolderEditVC: BaseViewController {
         // Folder details rows
         let folderNameField = UITextField()
         folderNameField.placeholder = L10n.RssEditView.namePlaceholder
+        folderNameField.enablesReturnKeyAutomatically = true
         
         let errorLabel = UILabel()
         errorLabel.text = "Error occured."
@@ -107,6 +108,11 @@ class FolderEditVC: BaseViewController {
         
         doneBarButton.reactive.isEnabled <~ viewModel.canCreateFolderSignal
         
+        errorLabel.reactive.textColor <~ viewModel.canCreateFolderSignal.map({ canCreate -> UIColor in
+            return canCreate ? UIColor.black : UIColor.red
+        })
+        errorLabel.reactive.isHidden <~ viewModel.canCreateFolderSignal
+        
         viewModel.createFolderAction.values.producer.startWithValues { [weak self] folder in
             if let self = self {
                 self.delegate?.created(folder: folder)
@@ -119,7 +125,7 @@ class FolderEditVC: BaseViewController {
     private func actionBarButtonTapped(_ sender: UIBarButtonItem) {
         let title = viewModel.folderName.value
         
-        let folderData: IRSSFeedEditVM.CreateFolderInput = (title, nil)
+        let folderData: IFolderEditVM.CreateFolderInput = (title, nil)
         self.viewModel.createFolderAction.apply(folderData).start()
 
     }
