@@ -149,7 +149,7 @@ extension Repository {
     public func create(rssFeed feed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RSSFeedCreationError> {
         return SignalProducer<MyRSSFeed, RSSFeedCreationError> { (observer, lifetime) in
             // Check for duplicates
-            if self.exists(feed) == nil {
+            if self.exists(feed) != nil {
                 observer.send(error: .exists)
                 return
             }
@@ -169,7 +169,7 @@ extension Repository {
     
     public func create(newFolder: Folder, parentFolder: Folder) -> SignalProducer<Folder, RSSFeedCreationError> {
         return SignalProducer<Folder, RSSFeedCreationError> { (observer, lifetime) in
-            if self.exists(newFolder) == nil {
+            if self.exists(newFolder) != nil {
                 observer.send(error: .exists)
                 return
             }
