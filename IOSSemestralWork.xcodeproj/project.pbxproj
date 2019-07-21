@@ -67,6 +67,7 @@
 		4BE8A5FB21D6CB05009B66F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8A5FA21D6CB05009B66F0 /* AppDelegate.swift */; };
 		4BE8A60221D6CB06009B66F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BE8A60121D6CB06009B66F0 /* Assets.xcassets */; };
 		4BEB54CE22D10B6B00872896 /* AppFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB54CD22D10B6B00872896 /* AppFlowCoordinator.swift */; };
+		4BED8F4B22E503EC008F7233 /* ErrorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BED8F4A22E503EC008F7233 /* ErrorTextField.swift */; };
 		6FCB6B8038C5EE6721108461 /* Pods_IOSSemestralWork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 552EF9EDE482CA24354BC9AD /* Pods_IOSSemestralWork.framework */; };
 		9281FB478928E789D5755880 /* Pods_UnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F43B7345AE8AE020A7E54F4 /* Pods_UnitTests.framework */; };
 		C1971EA8F4F0253B61134AA0 /* Pods_FeedTodayAppExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6788763BE65516A1B00859C /* Pods_FeedTodayAppExtension.framework */; };
@@ -169,6 +170,7 @@
 		4BE8A60121D6CB06009B66F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4BE8A60621D6CB06009B66F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BEB54CD22D10B6B00872896 /* AppFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowCoordinator.swift; sourceTree = "<group>"; };
+		4BED8F4A22E503EC008F7233 /* ErrorTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTextField.swift; sourceTree = "<group>"; };
 		4BFF775C22C1078F008047CB /* phase_generatePreprocessHeaders.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = phase_generatePreprocessHeaders.sh; sourceTree = "<group>"; };
 		552EF9EDE482CA24354BC9AD /* Pods_IOSSemestralWork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IOSSemestralWork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EBA44F4C9DA0B60A0DAF51F /* Pods-IOSSemestralWork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSSemestralWork.release.xcconfig"; path = "Pods/Target Support Files/Pods-IOSSemestralWork/Pods-IOSSemestralWork.release.xcconfig"; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				4B53B43A22D24C8C00454E94 /* RefreshControl.swift */,
 				4B15BF8622D4990A00B3B962 /* ItemCell.swift */,
 				4BE1A7DC22D8F9D100762AE0 /* RssItemCell.swift */,
+				4BED8F4A22E503EC008F7233 /* ErrorTextField.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -726,6 +729,7 @@
 				4B7E91A122E320B3005F018D /* FolderEditVM.swift in Sources */,
 				4BDE2ECF22DB267800AAF3DC /* RSSItemVM.swift in Sources */,
 				4BE1A7DD22D8F9D100762AE0 /* RssItemCell.swift in Sources */,
+				4BED8F4B22E503EC008F7233 /* ErrorTextField.swift in Sources */,
 				4BEB54CE22D10B6B00872896 /* AppFlowCoordinator.swift in Sources */,
 				4B53B43B22D24C8C00454E94 /* RefreshControl.swift in Sources */,
 				4BE44F8522CE43560042925A /* RSSFeedEditVC.swift in Sources */,

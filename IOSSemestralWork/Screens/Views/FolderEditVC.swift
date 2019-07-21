@@ -26,9 +26,8 @@ protocol FolderEditDelegate {
 class FolderEditVC: BaseViewController {
     private let viewModel: IFolderEditVM
     private weak var tableView: UITableView!
-    private weak var folderNameField: UITextField!
-    private weak var errorLabel: UILabel!
     private weak var doneBarButton: UIBarButtonItem!
+    private var errorTextField: ErrorTextField!
     
     private var sections: [UITableView.Section] = []
     
@@ -64,28 +63,10 @@ class FolderEditVC: BaseViewController {
     private func prepareRows() {
         let secEditFolder = UITableView.Section(rows: 1, header: L10n.FolderEditView.folderData)
         
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 8
-        secEditFolder.rows[0].contentView = UIView().addSubViews(stackView)
+        errorTextField = ErrorTextField()
+        secEditFolder.rows[0].contentView = UIView().addSubViews(errorTextField.contentView)
         
-        let folderNameField = UITextField()
-        stackView.addArrangedSubview(folderNameField)
-        folderNameField.placeholder = L10n.FolderEditView.folderNamePlaceholder
-        folderNameField.enablesReturnKeyAutomatically = true
-        
-        let errorLabel = UILabel()
-        stackView.addArrangedSubview(errorLabel)
-        errorLabel.text = "Error occured."
-        errorLabel.textColor = UIColor.red
-        errorLabel.font = UIFont.systemFont(ofSize: 12)
-        errorLabel.isHidden = true
-        
-        self.folderNameField = folderNameField
-        self.errorLabel = errorLabel
-        
-        stackView.snp.makeConstraints { make in
+        errorTextField.contentView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.top.greaterThanOrEqualToSuperview().offset(8)
             make.bottom.lessThanOrEqualToSuperview().offset(-8)
@@ -111,7 +92,7 @@ class FolderEditVC: BaseViewController {
     }
     
     private func setupBindings() {
-        folderNameField <~> viewModel.folderName
+        errorTextField.textField <~> viewModel.folderName
         
         viewModel.canCreateFolderSignal.startWithValues { [weak self] error in
             guard let self = self else { return }
@@ -120,24 +101,24 @@ class FolderEditVC: BaseViewController {
             self.doneBarButton.isEnabled = canBeCreated
             
             // Show/hide the error label
-            if self.errorLabel.isHidden != canBeCreated {
-                self.errorLabel.isHidden = !self.errorLabel.isHidden
+            if self.errorTextField.errorLabel.isHidden != canBeCreated {
+                self.errorTextField.errorLabel.isHidden = !self.errorTextField.errorLabel.isHidden
                 
                 // Update cell height
                 self.tableView.beginUpdates()
                 self.tableView.endUpdates()
-                self.folderNameField.becomeFirstResponder()
+                self.errorTextField.textField.becomeFirstResponder()
             }
             
             if let error = error {
                 // Display errors
                 switch error {
                 case .exists:
-                    self.errorLabel.text = L10n.Error.folderExists
+                    self.errorTextField.errorLabel.text = L10n.Error.folderExists
                 case .unknown:
-                    self.errorLabel.text = L10n.Error.unknownError
+                    self.errorTextField.errorLabel.text = L10n.Error.unknownError
                 case .titleInvalid:
-                    self.errorLabel.text = L10n.Error.titleInvalid
+                    self.errorTextField.errorLabel.text = L10n.Error.titleInvalid
                 }
                 
                 return
