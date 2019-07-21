@@ -31,6 +31,7 @@ public protocol IRepository {
     func create(rssFeed feed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RealmObjectError>
     func create(newFolder: Folder, parentFolder: Folder) -> SignalProducer<Folder, RealmObjectError>
     func update(selectedFeed oldFeed: MyRSSFeed, with newFeed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RealmObjectError>
+    func update(selectedFolder oldFolder: Folder, with newFolder: Folder, parentFolder: Folder) -> SignalProducer<Folder, RealmObjectError>
     func updateAll(completed: @escaping (DownloadStatus) -> Void)
     func remove(_ item: Item)
 }
@@ -206,6 +207,30 @@ extension Repository {
                 }
                 
                 observer.send(value: oldFeed)
+                observer.sendCompleted()
+            })
+        }
+    }
+    
+    public func update(selectedFolder oldFolder: Folder, with newFolder: Folder, parentFolder: Folder) -> SignalProducer<Folder, RealmObjectError> {
+        return SignalProducer<Folder, RealmObjectError> { (observer, lifetime) in
+            self.dbHandler.realmEdit(errorCode: { error in
+                observer.send(error: .unknown)
+                return
+            }, editCode: { realm in
+                let oldParentFolder = oldFolder.parentFolder.first!
+                let oldIndex = oldFolder.folders.index(matching: "title == %@", oldFolder.title)
+                
+                // Update properties
+                oldFolder.title = newFolder.title
+                
+                // Change folders
+                if oldParentFolder.itemId != parentFolder.itemId {
+                    oldParentFolder.folders.remove(at: oldIndex!)
+                    parentFolder.folders.append(oldFolder)
+                }
+                
+                observer.send(value: oldFolder)
                 observer.sendCompleted()
             })
         }

@@ -56,7 +56,12 @@ class FolderEditVM: BaseViewModel, IFolderEditVM {
     
     lazy var createFolderAction = Action<CreateFolderInput, Folder, RealmObjectError> { [unowned self] (title, parentFolder) in
         let parentFolder: Folder = parentFolder != nil ? parentFolder! : self.dependencies.repository.rootFolder
+        let newFolder = Folder(withTitle: title)
         
-        return self.dependencies.repository.create(newFolder: Folder(withTitle: title), parentFolder: parentFolder)
+        if let folderForUpdate = self.folderForUpdate.value {
+            return self.dependencies.repository.update(selectedFolder: folderForUpdate, with: newFolder, parentFolder: parentFolder)
+        } else {
+            return self.dependencies.repository.create(newFolder: newFolder, parentFolder: parentFolder)
+        }
     }
 }
