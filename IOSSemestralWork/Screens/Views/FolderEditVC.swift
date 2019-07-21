@@ -80,6 +80,7 @@ class FolderEditVC: BaseViewController {
         errorLabel.text = "Error occured."
         errorLabel.textColor = UIColor.red
         errorLabel.font = UIFont.systemFont(ofSize: 12)
+        errorLabel.isHidden = true
         
         self.folderNameField = folderNameField
         self.errorLabel = errorLabel
@@ -89,7 +90,6 @@ class FolderEditVC: BaseViewController {
             make.top.greaterThanOrEqualToSuperview().offset(8)
             make.bottom.lessThanOrEqualToSuperview().offset(-8)
             make.leading.trailing.equalToSuperview().inset(16)
-//            make.edges.equalToSuperview()
         }
         
         // Add sections to the array
@@ -113,17 +113,40 @@ class FolderEditVC: BaseViewController {
     private func setupBindings() {
         folderNameField <~> viewModel.folderName
         
-        viewModel.canCreateFolderSignal.startWithValues { canCreate in
-            self.doneBarButton.isEnabled = canCreate
+        viewModel.canCreateFolderSignal.startWithValues { [weak self] error in
+            guard let self = self else { return }
+            let canBeCreated = error == nil
             
-            if self.errorLabel.isHidden != canCreate {
-                self.errorLabel.isHidden = canCreate
+            self.doneBarButton.isEnabled = canBeCreated
+            
+            // Show/hide the error label
+            if self.errorLabel.isHidden != canBeCreated {
+                self.errorLabel.isHidden = !self.errorLabel.isHidden
                 
                 // Update cell height
                 self.tableView.beginUpdates()
                 self.tableView.endUpdates()
                 self.folderNameField.becomeFirstResponder()
             }
+            
+            if let error = error {
+                // Display errors
+                switch error {
+                case .exists:
+                    self.errorLabel.text = L10n.Error.folderExists
+                case .unknown:
+                    self.errorLabel.text = L10n.Error.unknownError
+                case .titleInvalid:
+                    self.errorLabel.text = L10n.Error.titleInvalid
+                }
+                
+                return
+            }
+            
+        }
+        
+        viewModel.folderName.producer.startWithValues { currTitle in
+            print(currTitle)
         }
         
         viewModel.createFolderAction.values.producer.startWithValues { [weak self] folder in

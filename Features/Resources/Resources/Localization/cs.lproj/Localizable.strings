@@ -8,7 +8,11 @@
 "base.rootFolder" = "Žádný";
 "base.starredItems" = "Oblíbené články";
 "base.unreadItems" = "Nepřečtené články";
+"error.errorTitle" = "Nastal problém";
+"error.feedExists" = "RSS Feed se stejným odkazem již existuje.";
+"error.folderExists" = "Složka se stejným jménem již existuje.";
 "error.internetUnreachable" = "K Internetu se nelze připojit. Zkuste prosím později.";
+"error.titleInvalid" = "Chybný název";
 "error.unknownError" = "Nastala neznámá chyba.";
 "folderEditView.folderData" = "Data složky";
 "folderEditView.folderNamePlaceholder" = "Jméno složky";
@@ -21,9 +25,6 @@
 "myRssItem.missingTitle" = "Nebyl nalezen žádný titulek";
 "rssEditView.addFolder" = "Přidat složku";
 "rssEditView.addFolderTitle" = "Vytvořit složku";
-"rssEditView.errorFeedExistsDescription" = "RSS Feed se stejným odkazem již existuje.";
-"rssEditView.errorFolderExistsDescription" = "Složka se stejným jménem již existuje.";
-"rssEditView.errorTitle" = "Nastal problém";
 "rssEditView.feedDetails" = "Informace o Feedu";
 "rssEditView.folderCreated" = "Složky %@ vytvořena.";
 "rssEditView.folderLabel" = "Složka:";

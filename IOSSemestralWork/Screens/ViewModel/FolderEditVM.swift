@@ -17,8 +17,8 @@ protocol IFolderEditVM {
     var folderName: MutableProperty<String> { get }
     var folderForUpdate: MutableProperty<Folder?> { get }
     
-    var createFolderAction: Action<CreateFolderInput, Folder, RSSFeedCreationError> { get }
-    var canCreateFolderSignal: SignalProducer<Bool, Never> { get }
+    var createFolderAction: Action<CreateFolderInput, Folder, RealmObjectError> { get }
+    var canCreateFolderSignal: SignalProducer<RealmObjectError?, Never> { get }
 }
 
 class FolderEditVM: BaseViewModel, IFolderEditVM {
@@ -28,9 +28,20 @@ class FolderEditVM: BaseViewModel, IFolderEditVM {
     let folderName = MutableProperty<String>("")
     let folderForUpdate = MutableProperty<Folder?>(nil)
     
-    lazy var canCreateFolderSignal: SignalProducer<Bool, Never> = {
-        return folderName.producer.map({ [weak self] currTitle -> Bool in
-            return self?.canCreate(folder: Folder(withTitle: currTitle)) ?? false
+    lazy var canCreateFolderSignal: SignalProducer<RealmObjectError?, Never> = {
+        return folderName.producer.map({ [weak self] currTitle -> RealmObjectError? in
+            guard let self = self else { return .unknown }
+            
+            let isItemCreateable = ItemCreateableValidator(dependencies: self.dependencies).validate(newItem: Folder(withTitle: currTitle), itemForUpdate: self.folderForUpdate.value)
+            let titleValid = TitleValidator().validate(currTitle)
+            
+            if !titleValid {
+                return .titleInvalid
+            } else if !isItemCreateable {
+                return .exists
+            } else {
+                return nil
+            }
         })
     }()
     
@@ -43,16 +54,9 @@ class FolderEditVM: BaseViewModel, IFolderEditVM {
         }
     }
     
-    lazy var createFolderAction = Action<CreateFolderInput, Folder, RSSFeedCreationError> { [unowned self] (title, parentFolder) in
+    lazy var createFolderAction = Action<CreateFolderInput, Folder, RealmObjectError> { [unowned self] (title, parentFolder) in
         let parentFolder: Folder = parentFolder != nil ? parentFolder! : self.dependencies.repository.rootFolder
+        
         return self.dependencies.repository.create(newFolder: Folder(withTitle: title), parentFolder: parentFolder)
-    }
-    
-    private func canCreate(folder: Folder) -> Bool {
-        let textCount = folder.title.trimmingCharacters(in: .whitespacesAndNewlines).count
-        
-        let duplicate = dependencies.repository.exists(folder)
-        
-        return textCount > 0 && (duplicate == nil || duplicate?.itemId == self.folderForUpdate.value?.itemId)
     }
 }

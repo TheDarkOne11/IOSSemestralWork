@@ -20,7 +20,7 @@ protocol IRSSFeedEditVM {
     var selectedFolder: MutableProperty<Folder> { get }
     var folders: Results<Folder> { get }
     
-    var saveBtnAction: Action<Void, MyRSSFeed, RSSFeedCreationError> { get }
+    var saveBtnAction: Action<Void, MyRSSFeed, RealmObjectError> { get }
     
     /** Returns a folder at the selected index.*/
     func getFolder(at index: Int) -> Folder
@@ -56,7 +56,7 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
     /*
      Action that starts when the Save button is clicked.
      */
-    lazy var saveBtnAction = Action<Void, MyRSSFeed, RSSFeedCreationError> { [unowned self] in
+    lazy var saveBtnAction = Action<Void, MyRSSFeed, RealmObjectError> { [unowned self] in
         let folder = self.selectedFolder.value
         let newFeed = self.createFeed(title: self.feedName.value, link: self.link.value)
         

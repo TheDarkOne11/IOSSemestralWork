@@ -28,9 +28,9 @@ public protocol IRepository {
     func getAllRssItems(of folder: Folder, predicate: NSCompoundPredicate?) -> Results<MyRSSItem>
     func exists(_ item: Item) -> Item?
     
-    func create(rssFeed feed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RSSFeedCreationError>
-    func create(newFolder: Folder, parentFolder: Folder) -> SignalProducer<Folder, RSSFeedCreationError>
-    func update(selectedFeed oldFeed: MyRSSFeed, with newFeed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RSSFeedCreationError>
+    func create(rssFeed feed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RealmObjectError>
+    func create(newFolder: Folder, parentFolder: Folder) -> SignalProducer<Folder, RealmObjectError>
+    func update(selectedFeed oldFeed: MyRSSFeed, with newFeed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RealmObjectError>
     func updateAll(completed: @escaping (DownloadStatus) -> Void)
     func remove(_ item: Item)
 }
@@ -146,8 +146,8 @@ public final class Repository: IRepository {
 // MARK: CRUD methods
 
 extension Repository {
-    public func create(rssFeed feed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RSSFeedCreationError> {
-        return SignalProducer<MyRSSFeed, RSSFeedCreationError> { (observer, lifetime) in
+    public func create(rssFeed feed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RealmObjectError> {
+        return SignalProducer<MyRSSFeed, RealmObjectError> { (observer, lifetime) in
             // Check for duplicates
             if self.exists(feed) != nil {
                 observer.send(error: .exists)
@@ -167,8 +167,8 @@ extension Repository {
         }
     }
     
-    public func create(newFolder: Folder, parentFolder: Folder) -> SignalProducer<Folder, RSSFeedCreationError> {
-        return SignalProducer<Folder, RSSFeedCreationError> { (observer, lifetime) in
+    public func create(newFolder: Folder, parentFolder: Folder) -> SignalProducer<Folder, RealmObjectError> {
+        return SignalProducer<Folder, RealmObjectError> { (observer, lifetime) in
             if self.exists(newFolder) != nil {
                 observer.send(error: .exists)
                 return
@@ -186,8 +186,8 @@ extension Repository {
         }
     }
     
-    public func update(selectedFeed oldFeed: MyRSSFeed, with newFeed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RSSFeedCreationError> {
-        return SignalProducer<MyRSSFeed, RSSFeedCreationError> { (observer, lifetime) in
+    public func update(selectedFeed oldFeed: MyRSSFeed, with newFeed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RealmObjectError> {
+        return SignalProducer<MyRSSFeed, RealmObjectError> { (observer, lifetime) in
             self.dbHandler.realmEdit(errorCode: { error in
                 observer.send(error: .unknown)
                 return

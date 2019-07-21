@@ -8,7 +8,11 @@
 "base.rootFolder" = "None";
 "base.starredItems" = "Starred items";
 "base.unreadItems" = "Unread items";
+"error.errorTitle" = "Error occured";
+"error.feedExists" = "Feed with the same link already exists.";
+"error.folderExists" = "Folder of the same name already exists.";
 "error.internetUnreachable" = "Internet is unreachable. Please try updating later.";
+"error.titleInvalid" = "Invalid title";
 "error.unknownError" = "Unknown error occured.";
 "folderEditView.folderData" = "Folder data";
 "folderEditView.folderNamePlaceholder" = "Folder name";
@@ -21,9 +25,6 @@
 "myRssItem.missingTitle" = "No title provided";
 "rssEditView.addFolder" = "Add a new Folder";
 "rssEditView.addFolderTitle" = "Create folder";
-"rssEditView.errorFeedExistsDescription" = "Feed with the same link already exists.";
-"rssEditView.errorFolderExistsDescription" = "Folder of the same name already exists.";
-"rssEditView.errorTitle" = "Error occured";
 "rssEditView.feedDetails" = "Feed Details";
 "rssEditView.folderCreated" = "Folder %@ created.";
 "rssEditView.folderLabel" = "Folder:";

@@ -177,10 +177,13 @@ class RSSFeedEditVC: BaseViewController {
             
             switch errors {
             case .exists:
-                self?.view.makeToast(L10n.RssEditView.errorFeedExistsDescription, duration: 4, title: L10n.RssEditView.errorTitle)
+                self?.view.makeToast(L10n.Error.feedExists, duration: 4, title: L10n.Error.errorTitle)
             case .unknown:
-                self?.view.makeToast(L10n.Error.unknownError, duration: 4, title: L10n.RssEditView.errorTitle)
+                self?.view.makeToast(L10n.Error.unknownError, duration: 4, title: L10n.Error.errorTitle)
+            case .titleInvalid:
+                self?.view.makeToast(L10n.Error.titleInvalid, duration: 4, title: L10n.Error.errorTitle)
             }
+            
         }
         
         viewModel.saveBtnAction.completed

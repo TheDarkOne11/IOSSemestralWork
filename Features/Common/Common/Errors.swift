@@ -8,7 +8,8 @@
 
 import Foundation
 
-public enum RSSFeedCreationError: Error {
+public enum RealmObjectError: Error {
     case unknown
     case exists
+    case titleInvalid
 }

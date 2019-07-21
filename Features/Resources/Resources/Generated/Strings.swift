@@ -36,8 +36,16 @@ public enum L10n {
   }
 
   public enum Error {
+    /// Error occured
+    public static let errorTitle = L10n.tr("Localizable", "error.errorTitle")
+    /// Feed with the same link already exists.
+    public static let feedExists = L10n.tr("Localizable", "error.feedExists")
+    /// Folder of the same name already exists.
+    public static let folderExists = L10n.tr("Localizable", "error.folderExists")
     /// Internet is unreachable. Please try updating later.
     public static let internetUnreachable = L10n.tr("Localizable", "error.internetUnreachable")
+    /// Invalid title
+    public static let titleInvalid = L10n.tr("Localizable", "error.titleInvalid")
     /// Unknown error occured.
     public static let unknownError = L10n.tr("Localizable", "error.unknownError")
   }
@@ -74,12 +82,6 @@ public enum L10n {
     public static let addFolder = L10n.tr("Localizable", "rssEditView.addFolder")
     /// Create folder
     public static let addFolderTitle = L10n.tr("Localizable", "rssEditView.addFolderTitle")
-    /// Feed with the same link already exists.
-    public static let errorFeedExistsDescription = L10n.tr("Localizable", "rssEditView.errorFeedExistsDescription")
-    /// Folder of the same name already exists.
-    public static let errorFolderExistsDescription = L10n.tr("Localizable", "rssEditView.errorFolderExistsDescription")
-    /// Error occured
-    public static let errorTitle = L10n.tr("Localizable", "rssEditView.errorTitle")
     /// Feed Details
     public static let feedDetails = L10n.tr("Localizable", "rssEditView.feedDetails")
     /// Folder %@ created.
