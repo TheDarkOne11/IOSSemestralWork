@@ -44,10 +44,16 @@ public enum L10n {
     public static let folderExists = L10n.tr("Localizable", "error.folderExists")
     /// Internet is unreachable. Please try updating later.
     public static let internetUnreachable = L10n.tr("Localizable", "error.internetUnreachable")
+    /// The RSS feed has no items.
+    public static let noFeedItems = L10n.tr("Localizable", "error.noFeedItems")
+    /// Website of the link exists but it isn't a RSS feed.
+    public static let notRssFeed = L10n.tr("Localizable", "error.notRssFeed")
     /// Invalid title
     public static let titleInvalid = L10n.tr("Localizable", "error.titleInvalid")
     /// Unknown error occured.
     public static let unknownError = L10n.tr("Localizable", "error.unknownError")
+    /// Website of the link does not exist.
+    public static let websiteDoesNotExist = L10n.tr("Localizable", "error.websiteDoesNotExist")
   }
 
   public enum FolderEditView {

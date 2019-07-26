@@ -181,16 +181,16 @@ class RSSFeedEditVC: BaseViewController {
             
             switch downloadStatus {
             case .OK:
-                self.linkField.errorLabel.text = "OK"
+                break
             case .emptyFeed:
-                self.linkField.errorLabel.text = "The feed has no items."
+                self.linkField.errorLabel.text = L10n.Error.noFeedItems
                 self.linkField.errorLabel.textColor = UIColor.orange
             case .unreachable:
                 self.linkField.errorLabel.text = L10n.Error.internetUnreachable
             case .doesNotExist:
-                self.linkField.errorLabel.text = "Website of the link does not exist."
+                self.linkField.errorLabel.text = L10n.Error.websiteDoesNotExist
             case .notRSSFeed:
-                self.linkField.errorLabel.text = "Website of the link exists but it isn't a RSS feed."
+                self.linkField.errorLabel.text = L10n.Error.notRssFeed
             }
         }
         

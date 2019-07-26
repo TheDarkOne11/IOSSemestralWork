@@ -38,3 +38,6 @@
 "rssItemVM.timeString" = "Published %@";
 "todayVC.starredLabel" = "Oblíbené články: %@";
 "todayVC.unreadLabel" = "Nepřečtené články: %@";
+"error.noFeedItems" = "Tento RSS Feed nemá žádné články.";
+"error.websiteDoesNotExist" = "Webová stránka daného odkazu neexistuje.";
+"error.notRssFeed" = "Webová stránka daného odkazu existuje, ale není RSS feed.";

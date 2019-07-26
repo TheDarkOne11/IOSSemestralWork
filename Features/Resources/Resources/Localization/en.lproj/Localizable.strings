@@ -38,3 +38,6 @@
 "rssItemVM.timeString" = "Published %@";
 "todayVC.starredLabel" = "Starred items: %@";
 "todayVC.unreadLabel" = "Unread items: %@";
+"error.noFeedItems" = "The RSS feed has no items.";
+"error.websiteDoesNotExist" = "Website of the link does not exist.";
+"error.notRssFeed" = "Website of the link exists but it isn't a RSS feed.";
