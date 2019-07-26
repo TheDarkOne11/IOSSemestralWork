@@ -21,8 +21,12 @@ final class TestDependency{
     lazy var userDefaults: UserDefaults = TestDependency.getUserDefaults()
     
     lazy var repository: IRepository = Repository(dependencies: self)
+    
+    lazy var titleValidator: TitleValidator = TitleValidator()
+    lazy var itemCreateableValidator: ItemCreateableValidator = ItemCreateableValidator(dependencies: AppDependency.shared)
 }
 
+extension TestDependency: HasTitleValidator, HasItemCreateableValidator { }
 extension TestDependency: HasRepository { }
 extension TestDependency: HasUserDefaults {
     private static func getUserDefaults() -> UserDefaults {

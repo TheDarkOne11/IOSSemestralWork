@@ -24,8 +24,12 @@ public final class AppDependency{
     public lazy var userDefaults: UserDefaults = UserDefaults.init(suiteName: "group.cz.budikpet.IOSSemestralWork")!
 
     public lazy var repository: IRepository = Repository(dependencies: AppDependency.shared)
+    
+    public lazy var titleValidator: TitleValidator = TitleValidator()
+    public lazy var itemCreateableValidator: ItemCreateableValidator = ItemCreateableValidator(dependencies: AppDependency.shared)
 }
 
+extension AppDependency: HasTitleValidator, HasItemCreateableValidator { }
 extension AppDependency: HasRepository { }
 extension AppDependency: HasUserDefaults { }
 extension AppDependency: HasRealm {

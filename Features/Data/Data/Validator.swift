@@ -8,6 +8,10 @@
 
 import Foundation
 
+public protocol HasTitleValidator {
+    var titleValidator: TitleValidator { get }
+}
+
 public class TitleValidator {
     
     public init() {
@@ -18,6 +22,10 @@ public class TitleValidator {
         
         return textCount > 0
     }
+}
+
+public protocol HasItemCreateableValidator {
+    var itemCreateableValidator: ItemCreateableValidator { get }
 }
 
 public class ItemCreateableValidator {

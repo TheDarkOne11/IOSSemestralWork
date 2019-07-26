@@ -22,7 +22,7 @@ protocol IFolderEditVM {
 }
 
 class FolderEditVM: BaseViewModel, IFolderEditVM {
-    typealias Dependencies = HasRepository
+    typealias Dependencies = HasRepository & HasTitleValidator & HasItemCreateableValidator
     private let dependencies: Dependencies
     
     let folderName = MutableProperty<String>("")
@@ -32,8 +32,8 @@ class FolderEditVM: BaseViewModel, IFolderEditVM {
         return folderName.producer.map({ [weak self] currTitle -> RealmObjectError? in
             guard let self = self else { return .unknown }
             
-            let isItemCreateable = ItemCreateableValidator(dependencies: self.dependencies).validate(newItem: Folder(withTitle: currTitle), itemForUpdate: self.folderForUpdate.value)
-            let titleValid = TitleValidator().validate(currTitle)
+            let isItemCreateable = self.dependencies.itemCreateableValidator.validate(newItem: Folder(withTitle: currTitle), itemForUpdate: self.folderForUpdate.value)
+            let titleValid = self.dependencies.titleValidator.validate(currTitle)
             
             if !titleValid {
                 return .titleInvalid
