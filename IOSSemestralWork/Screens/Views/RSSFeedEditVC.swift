@@ -17,7 +17,7 @@ class RSSFeedEditVC: BaseViewController {
     private let viewModel: IRSSFeedEditVM
     private weak var tableView: UITableView!
     private weak var feedNameField: UITextField!
-    private weak var linkField: UITextField!
+    private var linkField: ErrorTextField!
     private weak var addFolderLabel: UILabel!
     private weak var folderLabel: UILabel!
     private weak var folderNameLabel: UILabel!
@@ -69,12 +69,14 @@ class RSSFeedEditVC: BaseViewController {
         }
         self.feedNameField = feedNameField
     
-        let linkField = UITextField()
-        secFeedDetails.rows[1].contentView = UIView().addSubViews(linkField)
-        linkField.placeholder = L10n.RssEditView.linkPlaceholder
-        linkField.snp.makeConstraints { make in
+        let linkField = ErrorTextField()
+        secFeedDetails.rows[1].contentView = UIView().addSubViews(linkField.contentView)
+        linkField.textField.placeholder = L10n.RssEditView.linkPlaceholder
+        linkField.contentView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.top.greaterThanOrEqualToSuperview().offset(8)
+            make.bottom.lessThanOrEqualToSuperview().offset(-8)
             make.leading.trailing.equalToSuperview().inset(16)
-            make.bottom.top.equalToSuperview().inset(8)
         }
         self.linkField = linkField
         
@@ -158,23 +160,37 @@ class RSSFeedEditVC: BaseViewController {
     
     private func setupBindings() {
         feedNameField <~> viewModel.feedName
-        linkField <~> viewModel.link
+        linkField.textField <~> viewModel.link
         doneBarButton.reactive.isEnabled <~ viewModel.canCreateFeed
         
         viewModel.validateLinkSignal.startWithValues { [weak self] downloadStatus in
             guard let self = self else { return }
+            let canBeCreated = downloadStatus == .OK
+            
+            // Show/hide the error label
+            if self.linkField.errorLabel.isHidden != canBeCreated {
+                self.linkField.errorLabel.isHidden = !self.linkField.errorLabel.isHidden
+                
+                // Update cell height
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+                self.linkField.textField.becomeFirstResponder()
+            }
+            
+            self.linkField.errorLabel.textColor = UIColor.red
             
             switch downloadStatus {
             case .OK:
-                print(downloadStatus)
+                self.linkField.errorLabel.text = "OK"
             case .emptyFeed:
-                print(downloadStatus)
+                self.linkField.errorLabel.text = "The feed has no items."
+                self.linkField.errorLabel.textColor = UIColor.orange
             case .unreachable:
-                print(downloadStatus)
+                self.linkField.errorLabel.text = L10n.Error.internetUnreachable
             case .doesNotExist:
-                print(downloadStatus)
+                self.linkField.errorLabel.text = "Website of the link does not exist."
             case .notRSSFeed:
-                print(downloadStatus)
+                self.linkField.errorLabel.text = "Website of the link exists but it isn't a RSS feed."
             }
         }
         
