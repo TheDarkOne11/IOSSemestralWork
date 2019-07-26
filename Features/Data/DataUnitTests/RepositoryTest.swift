@@ -15,7 +15,7 @@ class RepositoryTest: XCTestCase {
     
     private lazy var repository: IRepository = { self.dependencies.repository }()
     
-    private lazy var root: Folder = { self.dependencies.rootFolder }()
+    private lazy var root: Folder = { self.dependencies.repository.rootFolder }()
     private let folderA = Folder(withTitle: "A")
     private let folderAA = Folder(withTitle: "AA")
     private let folderAB = Folder(withTitle: "AB")
@@ -44,7 +44,7 @@ class RepositoryTest: XCTestCase {
         // Set important values in UserDefaults
         defaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
         
-        dependencies.dbHandler.realmEdit(errorMsg: "Could not init the test DB.") {
+        dependencies.repository.realmEdit(errorCode: nil) { realm in
             let feed1 = MyRSSFeed(title: "1", link: "Link")
             let feedA1 = MyRSSFeed(title: "A1", link: "Link")
             let feedAA1 = MyRSSFeed(title: "AA1", link: "Link")

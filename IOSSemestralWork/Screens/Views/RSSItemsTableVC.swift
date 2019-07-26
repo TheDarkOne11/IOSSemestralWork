@@ -10,14 +10,23 @@ import Foundation
 import UIKit
 import Resources
 import Data
+import RealmSwift
+import Common
+
+protocol RSSItemsTableVCFlowDelegate {
+    func select(_ rssItem: MyRSSItem, otherRssItems rssItems: Results<MyRSSItem>)
+}
 
 final class RSSItemsTableVC: BaseViewController {
     private let viewModel: IRSSItemsTableVM
     private weak var tableView: UITableView!
     lazy var refresher = RefreshControl(delegate: self)
+    
+    private let flowDelegate: RSSItemsTableVCFlowDelegate
         
-    init(_ viewModel: IRSSItemsTableVM) {
+    init(_ viewModel: IRSSItemsTableVM, delegate: RSSItemsTableVCFlowDelegate) {
         self.viewModel = viewModel
+        self.flowDelegate = delegate
         
         super.init()
     }
@@ -53,7 +62,7 @@ final class RSSItemsTableVC: BaseViewController {
         
         setupBindings()
         
-        navigationItem.title = viewModel.selectedItem.title
+        navigationItem.title = viewModel.title
     }
     
     private func setupBindings() {
@@ -86,7 +95,10 @@ extension RSSItemsTableVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.select(viewModel.shownItems[indexPath.row])
+        //TODO: Should we update repository here or in AppFlowCoordinator?
+        let selectedItem = viewModel.shownItems[indexPath.row]
+        viewModel.select(selectedItem)
+        flowDelegate.select(selectedItem, otherRssItems: viewModel.shownItems)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
@@ -120,7 +132,7 @@ extension RSSItemsTableVC: RefreshControlDelegate {
     }
     
     private func checkStatus(_ status: DownloadStatus) {
-        if status == DownloadStatus.Unreachable {
+        if status == DownloadStatus.unreachable {
             // Internet is unreachable
             print("Internet is unreachable")
             self.view.makeToast(L10n.Error.internetUnreachable)

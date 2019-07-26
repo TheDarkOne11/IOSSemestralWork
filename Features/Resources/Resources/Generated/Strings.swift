@@ -36,8 +36,35 @@ public enum L10n {
   }
 
   public enum Error {
+    /// Error occured
+    public static let errorTitle = L10n.tr("Localizable", "error.errorTitle")
+    /// Feed with the same link already exists.
+    public static let feedExists = L10n.tr("Localizable", "error.feedExists")
+    /// Folder of the same name already exists.
+    public static let folderExists = L10n.tr("Localizable", "error.folderExists")
     /// Internet is unreachable. Please try updating later.
     public static let internetUnreachable = L10n.tr("Localizable", "error.internetUnreachable")
+    /// The RSS feed has no items.
+    public static let noFeedItems = L10n.tr("Localizable", "error.noFeedItems")
+    /// Website of the link exists but it isn't a RSS feed.
+    public static let notRssFeed = L10n.tr("Localizable", "error.notRssFeed")
+    /// Invalid title
+    public static let titleInvalid = L10n.tr("Localizable", "error.titleInvalid")
+    /// Unknown error occured.
+    public static let unknownError = L10n.tr("Localizable", "error.unknownError")
+    /// Website of the link does not exist.
+    public static let websiteDoesNotExist = L10n.tr("Localizable", "error.websiteDoesNotExist")
+  }
+
+  public enum FolderEditView {
+    /// Folder data
+    public static let folderData = L10n.tr("Localizable", "folderEditView.folderData")
+    /// Folder name
+    public static let folderNamePlaceholder = L10n.tr("Localizable", "folderEditView.folderNamePlaceholder")
+    /// Add folder
+    public static let titleCreate = L10n.tr("Localizable", "folderEditView.titleCreate")
+    /// Edit folder
+    public static let titleUpdate = L10n.tr("Localizable", "folderEditView.titleUpdate")
   }
 
   public enum ItemTableView {
@@ -63,6 +90,10 @@ public enum L10n {
     public static let addFolderTitle = L10n.tr("Localizable", "rssEditView.addFolderTitle")
     /// Feed Details
     public static let feedDetails = L10n.tr("Localizable", "rssEditView.feedDetails")
+    /// Folder %@ created.
+    public static func folderCreated(_ p1: String) -> String {
+      return L10n.tr("Localizable", "rssEditView.folderCreated", p1)
+    }
     /// Folder:
     public static let folderLabel = L10n.tr("Localizable", "rssEditView.folderLabel")
     /// Folder name

@@ -10,11 +10,13 @@ import Foundation
 import ReactiveSwift
 import RealmSwift
 import Data
+import Common
 
 protocol IRSSItemsTableVM {
     var selectedItem: Item { get }
     var shownItems: Results<MyRSSItem> { get }
     var downloadStatus: MutableProperty<DownloadStatus?> { get }
+    var title: String {get}
     
     func updateAllFeeds()
     func select(_ item: Item)
@@ -22,19 +24,21 @@ protocol IRSSItemsTableVM {
 }
 
 final class RSSItemsTableVM: BaseViewModel, IRSSItemsTableVM {
-    typealias Dependencies = HasRepository & HasDBHandler & HasRealm & HasRootFolder & HasUserDefaults
+    typealias Dependencies = HasRepository & HasUserDefaults
     private let dependencies: Dependencies!
     
     let downloadStatus = MutableProperty<DownloadStatus?>(nil)
     
     let selectedItem: Item
     let shownItems: Results<MyRSSItem>
+    let title: String
     
     private let specialItems: [SpecialItem] = []
         
-    init(dependencies: Dependencies, selectedItem: Item, predicate: NSCompoundPredicate? = nil) {
+    init(dependencies: Dependencies, title: String, selectedItem: Item, predicate: NSCompoundPredicate? = nil) {
         self.dependencies = dependencies
         self.selectedItem = selectedItem
+        self.title = title
         
         if let selectedItem = selectedItem as? MyRSSFeed {
             shownItems = selectedItem.myRssItems.filter(NSPredicate(value: true))
@@ -48,7 +52,7 @@ final class RSSItemsTableVM: BaseViewModel, IRSSItemsTableVM {
     }
     
     func updateAllFeeds() {
-        dependencies.dbHandler.updateAll() { [weak self] status in
+        dependencies.repository.updateAllFeeds() { [weak self] status in
             
             // Hiding of the RefreshView is delayed to at least 0.5 s so that the updateLabel is visible.
             let deadline = DispatchTime.now() + .milliseconds(500)

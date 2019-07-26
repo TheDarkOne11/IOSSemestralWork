@@ -23,6 +23,7 @@
 		4BE6058722DF368300BF655F /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B140D9422DDCB750070D05B /* Data.framework */; };
 		4BE6059022DF373400BF655F /* RepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE6058D22DF373400BF655F /* RepositoryTest.swift */; };
 		4BE6059222DF373400BF655F /* TestDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE6058F22DF373400BF655F /* TestDependency.swift */; };
+		4BF267EE22E4BB0C00134F85 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF267ED22E4BB0C00134F85 /* Validator.swift */; };
 		58A361A08B8C1CEA4DBB9531 /* Pods_Data_DataUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BE8B04919DD23BCBAB9C35D /* Pods_Data_DataUnitTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,7 @@
 		4BE6058D22DF373400BF655F /* RepositoryTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryTest.swift; sourceTree = "<group>"; };
 		4BE6058F22DF373400BF655F /* TestDependency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestDependency.swift; sourceTree = "<group>"; };
 		4BE8B04919DD23BCBAB9C35D /* Pods_Data_DataUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Data_DataUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BF267ED22E4BB0C00134F85 /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		5874A52AEAFBCEC7EC053FD1 /* Pods-Data-DataUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Data-DataUnitTests.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-Data-DataUnitTests/Pods-Data-DataUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B996EEDBB8718816FAA19BFC /* Pods-Data.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Data.release.xcconfig"; path = "../../Pods/Target Support Files/Pods-Data/Pods-Data.release.xcconfig"; sourceTree = "<group>"; };
 		BC487D6D661051B52EE2865B /* Pods-Data-DataUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Data-DataUnitTests.release.xcconfig"; path = "../../Pods/Target Support Files/Pods-Data-DataUnitTests/Pods-Data-DataUnitTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				4B140DAB22DDD0C10070D05B /* DBHandler.swift */,
 				4B140DAC22DDD0C10070D05B /* Protocols.swift */,
 				4B140DAD22DDD0C10070D05B /* Repository.swift */,
+				4BF267ED22E4BB0C00134F85 /* Validator.swift */,
 				4B140D9722DDCB750070D05B /* Data.h */,
 				4B140D9822DDCB750070D05B /* Info.plist */,
 			);
@@ -359,6 +362,7 @@
 			files = (
 				4B140DB422DDD0C10070D05B /* DBHandler.swift in Sources */,
 				4B140DB222DDD0C10070D05B /* SpecialItem.swift in Sources */,
+				4BF267EE22E4BB0C00134F85 /* Validator.swift in Sources */,
 				4B140DB522DDD0C10070D05B /* Protocols.swift in Sources */,
 				4B140DB622DDD0C10070D05B /* Repository.swift in Sources */,
 				4B140DB322DDD0C10070D05B /* MyRSSFeed.swift in Sources */,

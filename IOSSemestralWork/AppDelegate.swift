@@ -36,19 +36,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        print("Realm DB location: \(Realm.Configuration.defaultConfiguration.fileURL!)")
+        print("Realm DB location: \(AppDependency.shared.realm.configuration.fileURL!)")
         
         let realm = AppDependency.shared.realm
         if realm.isEmpty {
-            firstTimeInit(AppDependency.shared.dbHandler)
+            firstTimeInit(AppDependency.shared.repository)
         }
 
         // Set background fetch intervals
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
         
         // Set default Toast values
-        ToastManager.shared.duration = 4.0
-        ToastManager.shared.position = .center
+        ToastManager.shared.duration = 2.0
+        ToastManager.shared.position = .bottom
         ToastManager.shared.style.backgroundColor = UIColor.black.withAlphaComponent(0.71)
         
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -63,15 +63,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /**
      Operations which are done only when the app is launched for the first time.
      */
-    private func firstTimeInit(_ dbHandler: DBHandler) {
+    private func firstTimeInit(_ repository: IRepository) {
         AppDependency.shared.userDefaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
         
         if !AppDelegate.isProduction {
-            let rootFolder = AppDependency.shared.rootFolder
+            let rootFolder = repository.rootFolder
             let folderIdnes = Folder(withTitle: "Idnes")
             let folderImages = Folder(withTitle: "WithImages")
             
-            dbHandler.realmEdit(errorMsg: "Could not initiate test DB.") {
+            repository.realmEdit(errorCode: nil) { realm in 
                 rootFolder.folders.append(objectsIn: [folderIdnes, folderImages])
                 rootFolder.feeds.append(MyRSSFeed(title: "FOX", link: "http://feeds.foxnews.com/foxnews/latest"))
                 

@@ -10,9 +10,11 @@ import UIKit
 import RealmSwift
 import Resources
 import Data
+import Common
 
 protocol ItemTableVCFlowDelegate {
-    func toFeedEdit(with feed: MyRSSFeed?)
+    func editOrCreate(feed: MyRSSFeed?)
+    func edit(folder: Folder)
 }
 
 class ItemTableVC: BaseViewController {
@@ -40,7 +42,7 @@ class ItemTableVC: BaseViewController {
         token2.invalidate()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         tableView.reloadData()
     }
     
@@ -83,51 +85,17 @@ class ItemTableVC: BaseViewController {
         }
         
         token = viewModel.shownItems.feeds.observe({ [weak self] changes in
-            guard let tableView = self?.tableView else { return }
-            guard let shownItems = self?.viewModel.shownItems else { return }
-            switch changes {
-            case .initial(_):
-                tableView.reloadData()
-            case .update(_, let deletions, let insertions, let modifications):
-                let offset = shownItems.specialItems.count + shownItems.folders.count
-                tableView.beginUpdates()
-                tableView.insertRows(at: insertions.map { IndexPath(row: $0 + offset, section: 0) },
-                                          with: .automatic)
-                tableView.deleteRows(at: deletions.map { IndexPath(row: $0 + offset, section: 0) },
-                                          with: .automatic)
-                tableView.reloadRows(at: modifications.map { IndexPath(row: $0 + offset, section: 0) },
-                                          with: .automatic)
-                tableView.endUpdates()
-            case .error(let err):
-                fatalError(err.localizedDescription)
-            }
+            self?.tableView.reloadData()
         })
         
         token2 = viewModel.shownItems.folders.observe({ [weak self] changes in
-            guard let tableView = self?.tableView else { return }
-            guard let shownItems = self?.viewModel.shownItems else { return }
-            switch changes {
-            case .initial(_):
-                tableView.reloadData()
-            case .update(_, let deletions, let insertions, let modifications):
-                let offset = shownItems.specialItems.count
-                tableView.beginUpdates()
-                tableView.insertRows(at: insertions.map { IndexPath(row: $0 + offset, section: 0) },
-                                     with: .automatic)
-                tableView.deleteRows(at: deletions.map { IndexPath(row: $0 + offset, section: 0) },
-                                     with: .automatic)
-                tableView.reloadRows(at: modifications.map { IndexPath(row: $0 + offset, section: 0) },
-                                     with: .automatic)
-                tableView.endUpdates()
-            case .error(let err):
-                fatalError(err.localizedDescription)
-            }
+            self?.tableView.reloadData()
         })
     }
     
     @objc
     private func addBarButtonTapped(_ sender: UIBarButtonItem) {
-        flowDelegate?.toFeedEdit(with: nil)
+        flowDelegate?.editOrCreate(feed: nil)
     }
 }
 
@@ -197,7 +165,7 @@ extension ItemTableVC: RefreshControlDelegate {
     }
     
     private func checkStatus(_ status: DownloadStatus) {
-        if status == DownloadStatus.Unreachable {
+        if status == DownloadStatus.unreachable {
             // Internet is unreachable
             print("Internet is unreachable")
             self.view.makeToast(L10n.Error.internetUnreachable)
@@ -238,48 +206,14 @@ extension ItemTableVC {
         let item = shownItems.getItem(at: indexPath.row)
         switch item.type {
         case .folder:
-            presentEditAlert(item as! Folder)
+            flowDelegate?.edit(folder: item as! Folder)
         case .myRssFeed:
-            flowDelegate?.toFeedEdit(with: item as! MyRSSFeed)
+            flowDelegate?.editOrCreate(feed: item as! MyRSSFeed)
         case .myRssItem:
             fatalError("RSSItems should not be in this window")
         case .specialItem:
             fatalError("Should not be able to edit a special item \(item.title)")
         }
-    }
-    
-    /**
-     Creates and presents an alert used for editing the selected folder.
-     
-     - parameter folder: The selected folder.
-     */
-    private func presentEditAlert(_ folder: Folder) {
-        var textField = UITextField()
-        
-        let alert = UIAlertController(title: L10n.ItemTableView.editFolderTitle, message: "", preferredStyle: .alert)
-        let actionCancel = UIAlertAction(title: L10n.Base.actionCancel, style: .cancel)
-        let actionDone = UIAlertAction(title: L10n.Base.actionDone, style: .default) { [weak self] (action) in
-            self?.viewModel.edit(folder, title: textField.text ?? "")
-        }
-        
-        alert.addAction(actionDone)
-        alert.addAction(actionCancel)
-        alert.addTextField { (alertTextField) in
-            alertTextField.placeholder = L10n.ItemTableView.folderNamePlaceholder
-            alertTextField.text = folder.title
-            alertTextField.enablesReturnKeyAutomatically = true
-            
-            textField = alertTextField
-        }
-        
-        // Check for textField changes. Done button is enabled only when the textField isn't empty
-        NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { _ in
-            // Enables and disables Done action. Triggered when value of textField changes
-            let textCount = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0
-            actionDone.isEnabled = textCount > 0
-        }
-        
-        present(alert, animated: true, completion: nil)
     }
     
     /**

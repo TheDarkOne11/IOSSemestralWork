@@ -18,19 +18,17 @@ import RealmSwift
  */
 final class TestDependency{
     lazy var realm: Realm = getRealm()
-    lazy var rootFolder: Folder = getRootFolder()
     lazy var userDefaults: UserDefaults = TestDependency.getUserDefaults()
     
-    lazy var dbHandler: DBHandler = DBHandler(dependencies: self)
     lazy var repository: IRepository = Repository(dependencies: self)
     
-    init() {
-        print("Root folder created: \(rootFolder.itemId)")
-    }
+    public lazy var titleValidator: TitleValidator = TitleValidator()
+    public lazy var itemCreateableValidator: ItemCreateableValidator = ItemCreateableValidator(dependencies: AppDependency.shared)
+    public lazy var rssFeedResponseValidator: RSSFeedResponseValidator = RSSFeedResponseValidator()
 }
 
+extension TestDependency: HasTitleValidator, HasItemCreateableValidator, HasRSSFeedResponseValidator { }
 extension TestDependency: HasRepository { }
-extension TestDependency: HasDBHandler { }
 extension TestDependency: HasUserDefaults {
     private static func getUserDefaults() -> UserDefaults {
         let name = UUID().uuidString
@@ -40,17 +38,6 @@ extension TestDependency: HasUserDefaults {
         userDefaults.removePersistentDomain(forName: name)
         
         return userDefaults
-    }
-}
-extension TestDependency: HasRootFolder {
-    private func getRootFolder() -> Folder {
-        // Create root folder
-        let rootFolder: Folder = Folder(withTitle: L10n.Base.rootFolder)
-        
-        self.dbHandler.create(rootFolder)
-        self.userDefaults.set(rootFolder.itemId, forKey: UserDefaults.Keys.rootFolderItemId.rawValue)
-        
-        return rootFolder
     }
 }
 extension TestDependency: HasRealm {
