@@ -21,7 +21,8 @@ protocol IRSSFeedEditVM {
     var folders: Results<Folder> { get }
     
     var saveBtnAction: Action<Void, MyRSSFeed, RealmObjectError> { get }
-    var canCreateFeedSignal: SignalProducer<DownloadStatus, Never> { get }
+    var validateLinkSignal: SignalProducer<DownloadStatus, Never> { get }
+    var canCreateFeed: MutableProperty<Bool> { get }
     
     /** Returns a folder at the selected index.*/
     func getFolder(at index: Int) -> Folder
@@ -34,10 +35,10 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
     let feedName = MutableProperty<String>("")
     let link = MutableProperty<String>("")
     let feedForUpdate = MutableProperty<MyRSSFeed?>(nil)
+    let canCreateFeed = MutableProperty<Bool>(false)
     
     let selectedFolder: MutableProperty<Folder>
     let folders: Results<Folder>
-    
     
     init(dependencies: Dependencies, feedForUpdate: MyRSSFeed? = nil) {
         self.dependencies = dependencies
@@ -52,6 +53,12 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
         }
         
         folders = dependencies.repository.folders.filter("title != %@", dependencies.repository.rootFolder.title)
+        
+        super.init()
+        
+        canCreateFeed <~ validateLinkSignal.map { downloadStatus -> Bool in
+            return downloadStatus == .OK || downloadStatus == .emptyFeed
+        }
     }
     
     /*
@@ -68,12 +75,16 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
         }
     }
     
-    lazy var canCreateFeedSignal: SignalProducer<DownloadStatus, Never> = {
-        return self.link.producer.flatMap(FlattenStrategy.latest, { [weak self] currLink -> SignalProducer<DownloadStatus, Never> in
-            guard let self = self else { return SignalProducer<DownloadStatus, Never>.init(value: .unreachable) }
-            
-            return self.dependencies.repository.validate(link: currLink)
-        })
+    lazy var validateLinkSignal: SignalProducer<DownloadStatus, Never> = {
+        return self.link.producer
+            .on(value: { [weak self] _ in
+                self?.canCreateFeed.value = false
+            })
+            .flatMap(FlattenStrategy.latest, { [weak self] currLink -> SignalProducer<DownloadStatus, Never> in
+                guard let self = self else { return SignalProducer<DownloadStatus, Never>.init(value: .unreachable) }
+                
+                return self.dependencies.repository.validate(link: currLink)
+            })
             .throttle(2, on: QueueScheduler.main)
     }()
     

@@ -22,6 +22,7 @@ class RSSFeedEditVC: BaseViewController {
     private weak var folderLabel: UILabel!
     private weak var folderNameLabel: UILabel!
     private weak var pickerView: UIPickerView!
+    private weak var doneBarButton: UIBarButtonItem!
     
     private var sections: [UITableView.Section] = []
     
@@ -130,13 +131,14 @@ class RSSFeedEditVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupOnSelectActions()
-        setupBindings()
-        
         navigationItem.title = viewModel.feedForUpdate.value != nil ? L10n.RssEditView.titleUpdate : L10n.RssEditView.titleCreate
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(actionBarButtonTapped(_:)))
+        doneBarButton = navigationItem.rightBarButtonItem
         navigationItem.setHidesBackButton(true, animated: false)
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelBarButtonTapped(_:)))
+        
+        setupOnSelectActions()
+        setupBindings()
     }
     
     private func setupOnSelectActions() {
@@ -157,9 +159,23 @@ class RSSFeedEditVC: BaseViewController {
     private func setupBindings() {
         feedNameField <~> viewModel.feedName
         linkField <~> viewModel.link
+        doneBarButton.reactive.isEnabled <~ viewModel.canCreateFeed
         
-        viewModel.canCreateFeedSignal.startWithValues { downloadStatus in
-            print(downloadStatus)
+        viewModel.validateLinkSignal.startWithValues { [weak self] downloadStatus in
+            guard let self = self else { return }
+            
+            switch downloadStatus {
+            case .OK:
+                print(downloadStatus)
+            case .emptyFeed:
+                print(downloadStatus)
+            case .unreachable:
+                print(downloadStatus)
+            case .doesNotExist:
+                print(downloadStatus)
+            case .notRSSFeed:
+                print(downloadStatus)
+            }
         }
         
         pickerView.reactive.selectedRow(inComponent: 0) <~ viewModel.selectedFolder.map({ [weak self] selectedFolder -> Int in
