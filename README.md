@@ -16,3 +16,5 @@ It has these new features:
 - added Today app extension
 - added basic Unit tests
 - enabled automatic CI using Travis
+- english and czech localization that uses a special library that enables us to get data from a Google Sheet
+- uses Swiftgen library to generate enums of localization strings and assets
