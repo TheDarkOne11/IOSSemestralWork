@@ -10,18 +10,14 @@ import Foundation
 import RealmSwift
 import Alamofire
 import AlamofireRSSParser
-
-public enum DownloadStatus: String {
-    case OK
-    case NotOK
-    case Unreachable
-}
+import ReactiveSwift
+import Common
 
 /**
  This class has all methods for manipulation with Models in Realm database.
  */
 class DBHandler {
-    typealias Dependencies = HasRealm
+    typealias Dependencies = HasRealm & HasRSSFeedResponseValidator
     private let dependencies: Dependencies
     
     lazy var folders: Results<Folder> = self.dependencies.realm.objects(Folder.self)
@@ -106,7 +102,7 @@ class DBHandler {
         
         // Check if internet is reachable
         if !NetworkReachabilityManager()!.isReachable {
-            completed(.Unreachable)
+            completed(.unreachable)
             return
         }
         
@@ -132,6 +128,26 @@ class DBHandler {
         }
     }
     
+    func validate(_ link: String) -> SignalProducer<DownloadStatus, Never> {
+        // Check if internet is reachable
+        if !NetworkReachabilityManager()!.isReachable {
+            return SignalProducer.init(value: .unreachable)
+        }
+        
+        var request = URLRequest(url: NSURL.init(string: link)! as URL)
+        request.httpMethod = "GET"
+        request.timeoutInterval = 2 // 2 secs
+        
+        return SignalProducer<DownloadStatus, Never> { (observer, lifetime) in
+            Alamofire
+                .request(request)
+                .responseRSS() { (response) -> Void in
+                    observer.send(value: self.dependencies.rssFeedResponseValidator.validate(response))
+                    observer.sendCompleted()
+            }
+        }
+    }
+    
     /**
      Downloads items of the selected feed using AlamofireRSSParser.
      - parameter completed: A function that is called when an asynchronous Alamofire request ends.
@@ -141,7 +157,7 @@ class DBHandler {
         
         // Check if internet is reachable
         if !NetworkReachabilityManager()!.isReachable {
-            completed(.Unreachable)
+            completed(.unreachable)
             return
         }
         
@@ -152,33 +168,18 @@ class DBHandler {
         Alamofire
             .request(request)
             .responseRSS() { (response) -> Void in
-                self.checkResponse(myRssFeed, response, completed: completed)
+                let validation = self.dependencies.rssFeedResponseValidator.validate(response)
+                
+                if validation == .OK || validation == .emptyFeed {
+                    if let feed: RSSFeed = response.result.value {
+                        
+                        // Add all items to the MyRSSFeed
+                        self.persistRssItems(feed, myRssFeed)
+                    }
+                }
+                completed(validation)
         }
         
-    }
-    
-    private func checkResponse(_ myRssFeed: MyRSSFeed, _ response: DataResponse<RSSFeed>, completed: @escaping (DownloadStatus) -> Void) {
-        // Validate the response
-        if let mimeType =  response.response?.mimeType {
-            if mimeType != "application/rss+xml" && mimeType != "text/xml" {
-                // Website exists but isn't a RSS feed
-                completed(.NotOK)
-                return
-            }
-        } else {
-            // Website doesn't exist
-            completed(.NotOK)
-            return
-        }
-        
-        // Website is RSS feed, we can store info
-        if let feed: RSSFeed = response.result.value {
-            
-            // Add all items to the MyRSSFeed
-            self.persistRssItems(feed, myRssFeed)
-            
-            completed(.OK)
-        }
     }
     
     /**

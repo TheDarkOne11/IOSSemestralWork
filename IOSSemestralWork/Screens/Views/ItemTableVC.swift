@@ -10,6 +10,7 @@ import UIKit
 import RealmSwift
 import Resources
 import Data
+import Common
 
 protocol ItemTableVCFlowDelegate {
     func editOrCreate(feed: MyRSSFeed?)
@@ -164,7 +165,7 @@ extension ItemTableVC: RefreshControlDelegate {
     }
     
     private func checkStatus(_ status: DownloadStatus) {
-        if status == DownloadStatus.Unreachable {
+        if status == DownloadStatus.unreachable {
             // Internet is unreachable
             print("Internet is unreachable")
             self.view.makeToast(L10n.Error.internetUnreachable)

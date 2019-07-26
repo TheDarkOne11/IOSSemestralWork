@@ -11,6 +11,7 @@ import UIKit
 import Resources
 import Data
 import RealmSwift
+import Common
 
 protocol RSSItemsTableVCFlowDelegate {
     func select(_ rssItem: MyRSSItem, otherRssItems rssItems: Results<MyRSSItem>)
@@ -131,7 +132,7 @@ extension RSSItemsTableVC: RefreshControlDelegate {
     }
     
     private func checkStatus(_ status: DownloadStatus) {
-        if status == DownloadStatus.Unreachable {
+        if status == DownloadStatus.unreachable {
             // Internet is unreachable
             print("Internet is unreachable")
             self.view.makeToast(L10n.Error.internetUnreachable)

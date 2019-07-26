@@ -13,3 +13,11 @@ public enum RealmObjectError: Error {
     case exists
     case titleInvalid
 }
+
+public enum DownloadStatus: String {
+    case OK
+    case emptyFeed
+    case unreachable
+    case doesNotExist
+    case notRSSFeed
+}

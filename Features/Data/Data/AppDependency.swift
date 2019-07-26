@@ -27,9 +27,10 @@ public final class AppDependency{
     
     public lazy var titleValidator: TitleValidator = TitleValidator()
     public lazy var itemCreateableValidator: ItemCreateableValidator = ItemCreateableValidator(dependencies: AppDependency.shared)
+    public lazy var rssFeedResponseValidator: RSSFeedResponseValidator = RSSFeedResponseValidator()
 }
 
-extension AppDependency: HasTitleValidator, HasItemCreateableValidator { }
+extension AppDependency: HasTitleValidator, HasItemCreateableValidator, HasRSSFeedResponseValidator { }
 extension AppDependency: HasRepository { }
 extension AppDependency: HasUserDefaults { }
 extension AppDependency: HasRealm {

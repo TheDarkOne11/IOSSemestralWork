@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4B140D6322DDB6040070D05B /* Common.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B140D6122DDB6040070D05B /* Common.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4B140D7122DDB7470070D05B /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B140D6C22DDB7470070D05B /* Errors.swift */; };
+		4B140D7122DDB7470070D05B /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B140D6C22DDB7470070D05B /* Enums.swift */; };
 		4B140D7222DDB7470070D05B /* Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B140D6E22DDB7470070D05B /* Reactive.swift */; };
 		4B140D7322DDB7470070D05B /* Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B140D6F22DDB7470070D05B /* Other.swift */; };
 		911C6B3A8506BA38A1BFF657 /* Pods_Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D55C62692D3D9BF3650894 /* Pods_Common.framework */; };
@@ -20,7 +20,7 @@
 		4B140D5E22DDB6040070D05B /* Common.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Common.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B140D6122DDB6040070D05B /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		4B140D6222DDB6040070D05B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4B140D6C22DDB7470070D05B /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		4B140D6C22DDB7470070D05B /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		4B140D6E22DDB7470070D05B /* Reactive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reactive.swift; sourceTree = "<group>"; };
 		4B140D6F22DDB7470070D05B /* Other.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Other.swift; sourceTree = "<group>"; };
 		A5D55C62692D3D9BF3650894 /* Pods_Common.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Common.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,7 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				4B140D6D22DDB7470070D05B /* Extensions */,
-				4B140D6C22DDB7470070D05B /* Errors.swift */,
+				4B140D6C22DDB7470070D05B /* Enums.swift */,
 				4B140D6122DDB6040070D05B /* Common.h */,
 				4B140D6222DDB6040070D05B /* Info.plist */,
 			);
@@ -200,7 +200,7 @@
 			files = (
 				4B140D7322DDB7470070D05B /* Other.swift in Sources */,
 				4B140D7222DDB7470070D05B /* Reactive.swift in Sources */,
-				4B140D7122DDB7470070D05B /* Errors.swift in Sources */,
+				4B140D7122DDB7470070D05B /* Enums.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -32,12 +32,13 @@ public protocol IRepository {
     func create(newFolder: Folder, parentFolder: Folder) -> SignalProducer<Folder, RealmObjectError>
     func update(selectedFeed oldFeed: MyRSSFeed, with newFeed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RealmObjectError>
     func update(selectedFolder oldFolder: Folder, with newFolder: Folder, parentFolder: Folder) -> SignalProducer<Folder, RealmObjectError>
-    func updateAll(completed: @escaping (DownloadStatus) -> Void)
+    func updateAllFeeds(completed: @escaping (DownloadStatus) -> Void)
+    func validate(link: String) -> SignalProducer<DownloadStatus, Never>
     func remove(_ item: Item)
 }
 
 public final class Repository: IRepository {
-    public typealias Dependencies = HasRealm & HasUserDefaults
+    public typealias Dependencies = HasRealm & HasUserDefaults & HasRSSFeedResponseValidator
     private let dependencies: Dependencies
     
     private let dbHandler: DBHandler
@@ -236,8 +237,12 @@ extension Repository {
         }
     }
     
-    public func updateAll(completed: @escaping (DownloadStatus) -> Void) {
+    public func updateAllFeeds(completed: @escaping (DownloadStatus) -> Void) {
         dbHandler.updateAll(completed: completed)
+    }
+    
+    public func validate(link: String) -> SignalProducer<DownloadStatus, Never> {
+        return dbHandler.validate(link)
     }
     
     public func remove(_ item: Item) {

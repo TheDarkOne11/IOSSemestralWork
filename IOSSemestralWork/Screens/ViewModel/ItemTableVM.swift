@@ -11,6 +11,7 @@ import ReactiveSwift
 import RealmSwift
 import Resources
 import Data
+import Common
 
 struct ShownItems {
     let specialItems: [SpecialItem]
@@ -102,7 +103,7 @@ final class ItemTableVM: BaseViewModel, IItemTableVM {
     }
     
     func updateAllFeeds() {
-        dependencies.repository.updateAll() { [weak self] status in
+        dependencies.repository.updateAllFeeds() { [weak self] status in
             
             // Hiding of the RefreshView is delayed to at least 0.5 s so that the updateLabel is visible.
             let deadline = DispatchTime.now() + .milliseconds(500)

@@ -10,6 +10,7 @@ import Foundation
 import ReactiveSwift
 import RealmSwift
 import Data
+import Common
 
 protocol IRSSItemsTableVM {
     var selectedItem: Item { get }
@@ -51,7 +52,7 @@ final class RSSItemsTableVM: BaseViewModel, IRSSItemsTableVM {
     }
     
     func updateAllFeeds() {
-        dependencies.repository.updateAll() { [weak self] status in
+        dependencies.repository.updateAllFeeds() { [weak self] status in
             
             // Hiding of the RefreshView is delayed to at least 0.5 s so that the updateLabel is visible.
             let deadline = DispatchTime.now() + .milliseconds(500)

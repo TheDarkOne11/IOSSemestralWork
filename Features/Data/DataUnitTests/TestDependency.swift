@@ -24,9 +24,10 @@ final class TestDependency{
     
     public lazy var titleValidator: TitleValidator = TitleValidator()
     public lazy var itemCreateableValidator: ItemCreateableValidator = ItemCreateableValidator(dependencies: AppDependency.shared)
+    public lazy var rssFeedResponseValidator: RSSFeedResponseValidator = RSSFeedResponseValidator()
 }
 
-extension TestDependency: HasTitleValidator, HasItemCreateableValidator { }
+extension TestDependency: HasTitleValidator, HasItemCreateableValidator, HasRSSFeedResponseValidator { }
 extension TestDependency: HasRepository { }
 extension TestDependency: HasUserDefaults {
     private static func getUserDefaults() -> UserDefaults {
