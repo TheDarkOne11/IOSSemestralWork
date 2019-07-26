@@ -21,6 +21,7 @@ protocol IRSSFeedEditVM {
     var folders: Results<Folder> { get }
     
     var saveBtnAction: Action<Void, MyRSSFeed, RealmObjectError> { get }
+    var canCreateFeedSignal: SignalProducer<DownloadStatus, Never> { get }
     
     /** Returns a folder at the selected index.*/
     func getFolder(at index: Int) -> Folder
@@ -66,6 +67,15 @@ final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
             return self.dependencies.repository.create(rssFeed: newFeed, parentFolder: folder)
         }
     }
+    
+    lazy var canCreateFeedSignal: SignalProducer<DownloadStatus, Never> = {
+        return self.link.producer.flatMap(FlattenStrategy.latest, { [weak self] currLink -> SignalProducer<DownloadStatus, Never> in
+            guard let self = self else { return SignalProducer<DownloadStatus, Never>.init(value: .unreachable) }
+            
+            return self.dependencies.repository.validate(link: currLink)
+        })
+            .throttle(2, on: QueueScheduler.main)
+    }()
     
     /**
      Returns folder at the selected index.

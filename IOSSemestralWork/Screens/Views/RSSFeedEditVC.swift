@@ -158,6 +158,10 @@ class RSSFeedEditVC: BaseViewController {
         feedNameField <~> viewModel.feedName
         linkField <~> viewModel.link
         
+        viewModel.canCreateFeedSignal.startWithValues { downloadStatus in
+            print(downloadStatus)
+        }
+        
         pickerView.reactive.selectedRow(inComponent: 0) <~ viewModel.selectedFolder.map({ [weak self] selectedFolder -> Int in
             self?.pickerView.reloadAllComponents()
             if let index = self?.viewModel.folders.index(of: selectedFolder) {
