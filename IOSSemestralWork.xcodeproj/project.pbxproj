@@ -33,7 +33,6 @@
 
 /* Begin PBXBuildFile section */
 		4B0EA17622C0D6F8004411BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B0EA17222C0D6F8004411BD /* LaunchScreen.storyboard */; };
-		4B0EA17922C0D712004411BD /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0EA17822C0D712004411BD /* TestViewController.swift */; };
 		4B0EA48122C0DF6A004411BD /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 4B0EA48022C0DF6A004411BD /* .gitignore */; };
 		4B140D6A22DDB67D0070D05B /* Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B140D6922DDB67D0070D05B /* Common.framework */; };
 		4B140D6B22DDB67D0070D05B /* Common.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B140D6922DDB67D0070D05B /* Common.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -131,7 +130,6 @@
 		1F43B7345AE8AE020A7E54F4 /* Pods_UnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		32B476AC863420844BE38DAA /* Pods-FeedTodayAppExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FeedTodayAppExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-FeedTodayAppExtension/Pods-FeedTodayAppExtension.release.xcconfig"; sourceTree = "<group>"; };
 		4B0EA17322C0D6F8004411BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		4B0EA17822C0D712004411BD /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		4B0EA48022C0DF6A004411BD /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 		4B140D6922DDB67D0070D05B /* Common.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Common.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B140DA222DDCBF30070D05B /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -235,7 +233,6 @@
 		4BCD96A722CB9A0100F214E2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4B0EA17822C0D712004411BD /* TestViewController.swift */,
 				4BE44F8422CE43560042925A /* RSSFeedEditVC.swift */,
 				4B7E919E22E32080005F018D /* FolderEditVC.swift */,
 				4B53B43822D2494700454E94 /* ItemTableVC.swift */,
@@ -724,7 +721,6 @@
 			files = (
 				4BCD96A622CB99BC00F214E2 /* Base.swift in Sources */,
 				4BE1A7D922D88A5A00762AE0 /* RSSItemsTableVM.swift in Sources */,
-				4B0EA17922C0D712004411BD /* TestViewController.swift in Sources */,
 				4B53B43922D2494700454E94 /* ItemTableVC.swift in Sources */,
 				4B7E91A122E320B3005F018D /* FolderEditVM.swift in Sources */,
 				4BDE2ECF22DB267800AAF3DC /* RSSItemVM.swift in Sources */,
