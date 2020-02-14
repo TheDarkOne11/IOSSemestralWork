@@ -1,6 +1,6 @@
 PODS:
   - ACKLocalization (0.3.3)
-  - Alamofire (4.8.2)
+  - Alamofire (4.9.1)
   - AlamofireRSSParser (2.2.0):
     - Alamofire
   - Overture (0.5.0)
@@ -14,7 +14,7 @@ PODS:
     - Realm (= 3.16.2)
   - SnapKit (4.2.0)
   - SwiftGen (6.1.0)
-  - Toast-Swift (5.0.0)
+  - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
   - ACKLocalization (~> 0.3.3)
@@ -43,7 +43,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   ACKLocalization: d24a1ba1a31ec153ba9ab2dca5a38d653863214e
-  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AlamofireRSSParser: 4feb3c8cedf1fba2759ba30cf37cdf6ba45efd38
   Overture: 2e6252ead5da6d3347f758047f27a31cb469d59d
   ReactiveCocoa: 6d4c37ba236f5d9a7a55b2172cd09f19ba85f574
@@ -52,7 +52,7 @@ SPEC CHECKSUMS:
   RealmSwift: a81e650171ef0a5f999df1ed8d39ba8d6fce88a4
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftGen: f872ca75cbd17bf7103c17f13dcfa0d9a15667b0
-  Toast-Swift: 36f4720243c8582c2be243a60a51e193c761f541
+  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
 PODFILE CHECKSUM: 8c789fcc7936377fb817751f3c335ffa0457ffe0
 
