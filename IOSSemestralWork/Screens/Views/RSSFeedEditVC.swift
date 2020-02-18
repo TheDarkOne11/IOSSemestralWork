@@ -104,12 +104,12 @@ class RSSFeedEditVC: BaseViewController {
         folderLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(16)
             make.bottom.top.equalToSuperview().inset(8)
-            make.trailing.equalTo(folderNameLabel.snp_leading).offset(-16)
+            make.trailing.equalTo(folderNameLabel.snp.leading).offset(-16)
         }
         folderNameLabel.snp.makeConstraints{ make in
             make.trailing.equalToSuperview().inset(16)
             make.bottom.top.equalToSuperview().inset(8)
-            make.leading.equalTo(folderLabel.snp_trailing).offset(-16)
+            make.leading.equalTo(folderLabel.snp.trailing).offset(-16)
         }
         self.folderLabel = folderLabel
         self.folderNameLabel = folderNameLabel

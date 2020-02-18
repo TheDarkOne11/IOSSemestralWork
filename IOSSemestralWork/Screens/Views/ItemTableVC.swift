@@ -208,7 +208,7 @@ extension ItemTableVC {
         case .folder:
             flowDelegate?.edit(folder: item as! Folder)
         case .myRssFeed:
-            flowDelegate?.editOrCreate(feed: item as! MyRSSFeed)
+            flowDelegate?.editOrCreate(feed: item as? MyRSSFeed)
         case .myRssItem:
             fatalError("RSSItems should not be in this window")
         case .specialItem:

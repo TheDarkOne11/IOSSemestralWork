@@ -53,13 +53,13 @@ class RssItemCell: UITableViewCell {
             make.leading.equalToSuperview().inset(16)
             make.trailing.equalToSuperview().inset(16)
             make.top.equalToSuperview().inset(8)
-            make.bottom.equalTo(descLabel.snp_top).offset(-8)
+            make.bottom.equalTo(descLabel.snp.top).offset(-8)
         }
         
         descLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(16)
             make.trailing.equalToSuperview().inset(16)
-            make.bottom.equalTo(timeFeedLabel.snp_top).offset(-16)
+            make.bottom.equalTo(timeFeedLabel.snp.top).offset(-16)
         }
 
         timeFeedLabel.snp.makeConstraints { make in

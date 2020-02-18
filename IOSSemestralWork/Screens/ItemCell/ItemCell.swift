@@ -53,8 +53,8 @@ class ItemCell: UITableViewCell {
         
         titleLabel.snp.makeConstraints { make in
             make.bottom.top.equalToSuperview().inset(8)
-            make.leading.equalTo(typeImage.snp_trailing).offset(16)
-            make.trailing.greaterThanOrEqualTo(numOfItemsLabel.snp_leading).offset(-8)
+            make.leading.equalTo(typeImage.snp.trailing).offset(16)
+            make.trailing.greaterThanOrEqualTo(numOfItemsLabel.snp.leading).offset(-8)
         }
         
         numOfItemsLabel.snp.makeConstraints { make in
