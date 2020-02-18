@@ -60,7 +60,7 @@ class RSSItemVC: BaseViewController {
         
         RSSItemVC.webView.snp.makeConstraints { make in
             make.top.trailing.leading.equalToSuperview()
-            make.bottom.equalTo(toolbar.snp_top)
+            make.bottom.equalTo(toolbar.snp.top)
         }
         
         toolbar.snp.makeConstraints { make in
