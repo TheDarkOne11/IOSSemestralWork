@@ -10,6 +10,7 @@ project 'IOSSemestralWork.xcodeproj'
 inhibit_all_warnings!
 
 CCPod = Struct.new(:name, :version, :git, :branch)
+alamofire = CCPod.new('Alamofire', '~> 4.9.1')
 alamofireRSSParser = CCPod.new('AlamofireRSSParser', '~> 2.2.0')
 realmSwift = CCPod.new('RealmSwift', '~> 3.16.2')
 toastSwift = CCPod.new('Toast-Swift', '~> 5.0.0')
@@ -23,6 +24,7 @@ snapkit = CCPod.new('SnapKit', '~> 4.2')    # Easier programmatic creation of UI
 target 'IOSSemestralWork' do
     inherit! :search_paths
     
+    pod alamofire.name, alamofire.version
     pod alamofireRSSParser.name, alamofireRSSParser.version
     pod realmSwift.name, realmSwift.version
     pod toastSwift.name, toastSwift.version
@@ -41,6 +43,7 @@ end
 
 target 'FeedTodayAppExtension' do
     pod snapkit.name, snapkit.version
+    pod alamofire.name, alamofire.version
     pod alamofireRSSParser.name, alamofireRSSParser.version
     pod realmSwift.name, realmSwift.version
     pod reactiveSwift.name, reactiveSwift.version
@@ -61,6 +64,7 @@ target 'Data' do
     project project_path("Data")
     pod reactiveSwift.name, reactiveSwift.version
     pod realmSwift.name, realmSwift.version
+    pod alamofire.name, alamofire.version
     pod alamofireRSSParser.name, alamofireRSSParser.version
     target 'DataUnitTests' do
 #        project project_path("Data")
