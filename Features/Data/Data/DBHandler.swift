@@ -195,7 +195,7 @@ class DBHandler {
                 let newRssItem = MyRSSItem(item)
                 
                 // Add the item only if it doesn't exist already
-                if rssItems.filter("articleLink CONTAINS[cd] %@", newRssItem.articleLink).count == 0 {
+                if rssItems.filter("articleLink CONTAINS[cd] %@", newRssItem.articleLink ?? "").count == 0 {
                     myRssFeed.myRssItems.append(newRssItem)
                 }
             }

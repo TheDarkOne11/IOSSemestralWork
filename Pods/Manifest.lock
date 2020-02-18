@@ -4,9 +4,9 @@ PODS:
   - AlamofireRSSParser (2.2.0):
     - Alamofire
   - Overture (0.5.0)
-  - ReactiveCocoa (10.0.0):
-    - ReactiveSwift (~> 6.0)
-  - ReactiveSwift (6.0.0)
+  - ReactiveCocoa (10.2.0):
+    - ReactiveSwift (~> 6.2)
+  - ReactiveSwift (6.2.0)
   - Realm (3.16.2):
     - Realm/Headers (= 3.16.2)
   - Realm/Headers (3.16.2)
@@ -21,8 +21,8 @@ DEPENDENCIES:
   - Alamofire (~> 4.9.1)
   - AlamofireRSSParser (~> 2.2.0)
   - Overture (~> 0.5.0)
-  - ReactiveCocoa (~> 10.0.0)
-  - ReactiveSwift (~> 6.0.0)
+  - ReactiveCocoa (~> 10.2.0)
+  - ReactiveSwift (~> 6.2.0)
   - RealmSwift (~> 3.16.2)
   - SnapKit (~> 4.2)
   - SwiftGen (~> 6.1)
@@ -47,14 +47,14 @@ SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AlamofireRSSParser: 4feb3c8cedf1fba2759ba30cf37cdf6ba45efd38
   Overture: 2e6252ead5da6d3347f758047f27a31cb469d59d
-  ReactiveCocoa: 6d4c37ba236f5d9a7a55b2172cd09f19ba85f574
-  ReactiveSwift: 24b7ed245617bbfd30ee0c87779b6c64ac1b4518
+  ReactiveCocoa: a123c42f449c552460a4ee217dd49c76a17c8204
+  ReactiveSwift: 3dc8800378110b13d40b46ab362afa9f6bcffc6c
   Realm: 0e73b4edeb5b6a90da3d83206883b2e34e00eb38
   RealmSwift: a81e650171ef0a5f999df1ed8d39ba8d6fce88a4
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftGen: f872ca75cbd17bf7103c17f13dcfa0d9a15667b0
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 30d96b32ced6f22b0ce0cbd6299ffe4e8e605de3
+PODFILE CHECKSUM: 4405d84c36049925e1bc6dc783c312481b2b0670
 
 COCOAPODS: 1.8.4

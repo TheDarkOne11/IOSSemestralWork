@@ -16,8 +16,8 @@ realmSwift = CCPod.new('RealmSwift', '~> 3.16.2')
 toastSwift = CCPod.new('Toast-Swift', '~> 5.0.0')
 ackLocalization = CCPod.new('ACKLocalization', '~> 0.3.3')
 swiftgen = CCPod.new('SwiftGen', '~> 6.1')
-reactiveSwift = CCPod.new('ReactiveSwift', '~> 6.0.0')
-reactiveCocoa =  CCPod.new('ReactiveCocoa', '~> 10.0.0')    # Enables reactive usage of IOS components (UITextField...)
+reactiveSwift = CCPod.new('ReactiveSwift', '~> 6.2.0')
+reactiveCocoa =  CCPod.new('ReactiveCocoa', '~> 10.2.0')    # Enables reactive usage of IOS components (UITextField...)
 overture = CCPod.new('Overture', '~> 0.5.0' )         # Better functional programming
 snapkit = CCPod.new('SnapKit', '~> 4.2')    # Easier programmatic creation of UI
 
