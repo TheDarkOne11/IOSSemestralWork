@@ -28,7 +28,7 @@ DEPENDENCIES:
   - Toast-Swift (~> 5.0.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - ACKLocalization
     - Alamofire
     - AlamofireRSSParser
@@ -54,6 +54,6 @@ SPEC CHECKSUMS:
   SwiftGen: f872ca75cbd17bf7103c17f13dcfa0d9a15667b0
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 8c789fcc7936377fb817751f3c335ffa0457ffe0
+PODFILE CHECKSUM: 9ee12b55b83701d4dc549f0b5f44a0794792d67c
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4
