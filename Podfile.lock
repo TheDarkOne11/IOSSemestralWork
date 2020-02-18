@@ -18,6 +18,7 @@ PODS:
 
 DEPENDENCIES:
   - ACKLocalization (~> 0.3.3)
+  - Alamofire (~> 4.9.1)
   - AlamofireRSSParser (~> 2.2.0)
   - Overture (~> 0.5.0)
   - ReactiveCocoa (~> 10.0.0)
@@ -28,7 +29,7 @@ DEPENDENCIES:
   - Toast-Swift (~> 5.0.0)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - ACKLocalization
     - Alamofire
     - AlamofireRSSParser
@@ -54,6 +55,6 @@ SPEC CHECKSUMS:
   SwiftGen: f872ca75cbd17bf7103c17f13dcfa0d9a15667b0
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 9ee12b55b83701d4dc549f0b5f44a0794792d67c
+PODFILE CHECKSUM: 30d96b32ced6f22b0ce0cbd6299ffe4e8e605de3
 
 COCOAPODS: 1.8.4
