@@ -12,7 +12,7 @@ inhibit_all_warnings!
 CCPod = Struct.new(:name, :version, :git, :branch)
 alamofire = CCPod.new('Alamofire', '~> 4.9.1')
 alamofireRSSParser = CCPod.new('AlamofireRSSParser', '~> 2.2.0')
-realmSwift = CCPod.new('RealmSwift', '~> 3.16.2')
+realmSwift = CCPod.new('RealmSwift', '~> 4.3.1')
 toastSwift = CCPod.new('Toast-Swift', '~> 5.0.0')
 ackLocalization = CCPod.new('ACKLocalization', '~> 0.3.3')
 swiftgen = CCPod.new('SwiftGen', '~> 6.1')
