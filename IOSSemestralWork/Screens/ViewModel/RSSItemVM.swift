@@ -29,7 +29,7 @@ final class RSSItemVM: BaseViewModel, IRSSItemVM {
     typealias Dependencies = HasRepository & HasUserDefaults
     private let dependencies: Dependencies!
     
-    let otherRssItems: Results<MyRSSItem>
+    let otherRssItems: Array<MyRSSItem>
     let selectedItem: MutableProperty<MyRSSItem>
     let canGoUp = MutableProperty<Bool>(false)
     let canGoDown = MutableProperty<Bool>(false)
@@ -38,7 +38,7 @@ final class RSSItemVM: BaseViewModel, IRSSItemVM {
     
     init(dependencies: Dependencies, otherRssItems: Results<MyRSSItem>) {
         self.dependencies = dependencies
-        self.otherRssItems = otherRssItems
+        self.otherRssItems = Array(otherRssItems)
         
         guard let selectedItem = dependencies.repository.selectedItem.value as? MyRSSItem else {
             fatalError("Selected item must be a RSSItem")
@@ -46,7 +46,7 @@ final class RSSItemVM: BaseViewModel, IRSSItemVM {
         
         self.selectedItem = MutableProperty<MyRSSItem>(selectedItem)
         
-        guard let index = otherRssItems.index(of: selectedItem) else {
+        guard let index = self.otherRssItems.firstIndex(of: selectedItem) else {
             fatalError("Selected item must exist in Realm DB")
         }
         self.currentIndex = index
@@ -54,8 +54,8 @@ final class RSSItemVM: BaseViewModel, IRSSItemVM {
         super.init()
         
         self.selectedItem.producer.startWithValues { [weak self] selectedItem in
-            self?.canGoUp.value = selectedItem.itemId != otherRssItems.first!.itemId
-            self?.canGoDown.value = selectedItem.itemId != otherRssItems.last!.itemId
+            self?.canGoUp.value = selectedItem.itemId != self?.otherRssItems.first!.itemId
+            self?.canGoDown.value = selectedItem.itemId != self?.otherRssItems.last!.itemId
 
             if !selectedItem.isRead {
 //                self?.dependencies.repository.realmEdit(errorCode: nil) { realm in
