@@ -19,7 +19,7 @@ swiftgen = CCPod.new('SwiftGen', '~> 6.1')
 reactiveSwift = CCPod.new('ReactiveSwift', '~> 6.2.0')
 reactiveCocoa =  CCPod.new('ReactiveCocoa', '~> 10.2.0')    # Enables reactive usage of IOS components (UITextField...)
 overture = CCPod.new('Overture', '~> 0.5.0' )         # Better functional programming
-snapkit = CCPod.new('SnapKit', '~> 4.2')    # Easier programmatic creation of UI
+snapkit = CCPod.new('SnapKit', '~> 5.0.1')    # Easier programmatic creation of UI
 
 target 'IOSSemestralWork' do
     inherit! :search_paths
