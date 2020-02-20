@@ -7,9 +7,14 @@
 //
 
 import XCTest
+@testable import IOSSemestralWork
+@testable import Data
+@testable import Common
 
 class UITests: XCTestCase {
-    var app: XCUIApplication!
+    private var dependencies: TestDependency!
+    
+    private var app: XCUIApplication!
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -22,6 +27,21 @@ class UITests: XCTestCase {
         
         app = XCUIApplication()
         app.launchArguments.append("--uitesting")
+    }
+    
+    /**
+     Operations which are done only when the app is launched for the first time.
+     */
+    private func initRealmDb() {
+        let defaults = dependencies.userDefaults
+        
+        // Set important values in UserDefaults
+        defaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
+        
+        dependencies.repository.realmEdit(errorCode: nil) { realm in
+            dependencies.repository.rootFolder.folders.append(Folder(withTitle: "Idnes"))
+            dependencies.repository.rootFolder.feeds.append(MyRSSFeed(title: "Zpravodaj", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj"))
+        }
     }
 
     override func tearDown() {

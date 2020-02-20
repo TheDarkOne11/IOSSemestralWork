@@ -34,20 +34,26 @@ target 'IOSSemestralWork' do
     pod reactiveCocoa.name, reactiveCocoa.version
     pod overture.name, overture.version
     pod snapkit.name, snapkit.version
-end
-
-target 'UnitTests' do
-    pod realmSwift.name, realmSwift.version
-    pod reactiveSwift.name, reactiveSwift.version
-end
-
-target 'FeedTodayAppExtension' do
-    pod snapkit.name, snapkit.version
-    pod alamofire.name, alamofire.version
-    pod alamofireRSSParser.name, alamofireRSSParser.version
-    pod realmSwift.name, realmSwift.version
-    pod reactiveSwift.name, reactiveSwift.version
-    pod reactiveCocoa.name, reactiveCocoa.version
+    
+    target 'UnitTests' do
+        pod realmSwift.name, realmSwift.version
+        pod reactiveSwift.name, reactiveSwift.version
+    end
+    
+    target 'UITests' do
+      pod realmSwift.name, realmSwift.version
+      pod reactiveSwift.name, reactiveSwift.version
+      pod reactiveCocoa.name, reactiveCocoa.version
+    end
+    
+    target 'FeedTodayAppExtension' do
+        pod snapkit.name, snapkit.version
+        pod alamofire.name, alamofire.version
+        pod alamofireRSSParser.name, alamofireRSSParser.version
+        pod realmSwift.name, realmSwift.version
+        pod reactiveSwift.name, reactiveSwift.version
+        pod reactiveCocoa.name, reactiveCocoa.version
+    end
 end
 
 def project_path(projectName)
