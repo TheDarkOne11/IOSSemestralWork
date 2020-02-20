@@ -62,7 +62,6 @@ class ItemTableVC: BaseViewController {
         
         // Initialize PullToRefresh
         tableView.refreshControl = refresher
-        tableView.refreshControl?.accessibilityIdentifier = "ItemTableVC_Refresher"
         
         tableView.register(ItemCell.self, forCellReuseIdentifier: "ItemCell")
         view.addSubview(tableView)

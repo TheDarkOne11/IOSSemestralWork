@@ -32,22 +32,95 @@ class UITests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
+    
+    private func invokePullToRefresh(_ tableView: XCUIElement) {
+        // Drag the screen to activate PullToRefresh
+        let firstCell = tableView.cells.element(boundBy: 0)
+        let start = firstCell.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
+        let finish = firstCell.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 12))
+        start.press(forDuration: 0.5, thenDragTo: finish)
+    }
 
-    func testExample() {
+    /**
+     Check the initial ItemTableVC screen. Check PullToRefresh.
+     */
+    func testBaseItemScreen() {
         app.launch()
         
         let tableView = app.tables["ItemTableVC_TableView"]
+        
+        // Check table itself
         XCTAssertTrue(tableView.exists)
+        XCTAssertEqual(tableView.cells.staticTexts.containing(NSPredicate(format: "label == %@", "All items")).count, 1)
+        XCTAssertEqual(tableView.cells.staticTexts.containing(NSPredicate(format: "label == %@", "Unread items")).count, 1)
+        XCTAssertEqual(tableView.cells.staticTexts.containing(NSPredicate(format: "label == %@", "Starred items")).count, 1)
+        XCTAssertEqual(tableView.cells.staticTexts.containing(NSPredicate(format: "label == %@", "0")).count, 5)
         
+        // PullToRefresh test
+        XCTAssertFalse(tableView.staticTexts["PullToRefresh_UpdateLabel"].exists)
+        invokePullToRefresh(tableView)
+        XCTAssertTrue(tableView.staticTexts["PullToRefresh_UpdateLabel"].exists)
         
-//        let app = XCUIApplication()
-//        let itemtablevcTableviewTable = app/*@START_MENU_TOKEN@*/.tables["ItemTableVC_TableView"]/*[[".otherElements[\"ItemTableVC\"].tables[\"ItemTableVC_TableView\"]",".tables[\"ItemTableVC_TableView\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
-//        itemtablevcTableviewTable.tap()
-//        itemtablevcTableviewTable.swipeDown()
-//        app/*@START_MENU_TOKEN@*/.tables["ItemTableVC_TableView"].staticTexts["Starred items"]/*[[".otherElements[\"ItemTableVC\"].tables[\"ItemTableVC_TableView\"]",".cells.staticTexts[\"Starred items\"]",".staticTexts[\"Starred items\"]",".tables[\"ItemTableVC_TableView\"]"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.swipeDown()
-//        app.navigationBars["Starred items"].buttons["RSSFeed reader"].tap()
-//        itemtablevcTableviewTable.swipeDown()
+        // PullToRefresh added exactly one MyRSSItem to each MyRSSFeed
+        XCTAssertEqual(tableView.cells.staticTexts.containing(NSPredicate(format: "label == %@", "0")).count, 1)
+        XCTAssertEqual(tableView.cells.staticTexts.containing(NSPredicate(format: "label == %@", "1")).count, 2)
+        XCTAssertEqual(tableView.cells.staticTexts.containing(NSPredicate(format: "label == %@", "2")).count, 2)
+    }
+    
+    /**
+     Read one MyRSSItem. Check if number of unread items went down.
+     */
+    func testReadArticle() {
+        app.launch()
         
+        let itemsTableView = app.tables["ItemTableVC_TableView"]
+        let allItemsCell = itemsTableView.staticTexts["All items"]
+        let allItems_backBtn = app.navigationBars["All items"].buttons["RSSFeed reader"]
+        
+        invokePullToRefresh(itemsTableView)
+        
+        allItemsCell.tap()
+        
+        app.tables["RSSItemsTableVC_TableView"].cells.element(boundBy: 0).tap()
+        app.navigationBars.buttons["All items"].tap()
+        allItems_backBtn.tap()
+        
+        // Check if number of unread items is lower than number of all items
+        XCTAssertEqual(itemsTableView.cells.element(boundBy: 0).staticTexts.containing(NSPredicate(format: "label == %@", "2")).count, 1)
+        XCTAssertEqual(itemsTableView.cells.element(boundBy: 1).staticTexts.containing(NSPredicate(format: "label == %@", "1")).count, 1)
+    }
+    
+    /**
+     Try adding a new MyRSSFeed. Does not use internet, uses simplified validation for link.
+     */
+    func testAddFeed() {
+        app.launch()
+        
+        let newName = "New Feed"
+        let newLink = "http://newLink"
+        
+        let addRssFeedNavigationBar = app.navigationBars["Add RSS feed"]
+        let cancelButton = addRssFeedNavigationBar.buttons["Cancel"]
+        let addButton = app.navigationBars["RSSFeed reader"].buttons["Add"]
+        let doneButton = addRssFeedNavigationBar.buttons["Done"]
+        let feedNameField = app.tables["RSSFeedEditVC_TableView"].textFields["RSSFeedEditVC_feedNameField"]
+        let feedLinkField = app.tables["RSSFeedEditVC_TableView"].children(matching: .any).textFields["RSSFeedEditVC_ErrorTextField_LinkField"]
+        
+        addButton.tap()
+        XCTAssertFalse(doneButton.isEnabled)
+        XCTAssertTrue(cancelButton.isEnabled)
+        cancelButton.tap()
+        
+        addButton.tap()
+        feedNameField.tap()
+                feedNameField.typeText(newName)
+        XCTAssertFalse(doneButton.isEnabled)
+        
+        feedLinkField.tap()
+        feedLinkField.typeText(newLink)
+        sleep(2)
+        XCTAssertTrue(doneButton.isEnabled)
+        doneButton.tap()
     }
 
 //    func testLaunchPerformance() {

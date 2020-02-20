@@ -28,6 +28,8 @@ public final class TestRepository: Repository {
                 let currItem: MyRSSItem = MyRSSItem()
                 currItem.title = "Dummy title " + String(cntr)
                 currItem.itemDescription = "Dummy desc " + String(cntr)
+                currItem.date = Date()
+                currItem.articleLink = "Dummy link " + String(cntr)
                 cntr += 1
                 
                 feed.myRssItems.append(currItem)
@@ -40,7 +42,13 @@ public final class TestRepository: Repository {
      */
     override public func validate(link: String) -> SignalProducer<DownloadStatus, Never> {
         return SignalProducer<DownloadStatus, Never> { (observer, lifetime) in
-            observer.send(value: .OK)
+            if link.contains("http") {
+                observer.send(value: .OK)
+            } else if link == "" {
+                observer.send(value: .doesNotExist)
+            } else {
+                observer.send(value: .notRSSFeed)
+            }
             observer.sendCompleted()
         }
     }

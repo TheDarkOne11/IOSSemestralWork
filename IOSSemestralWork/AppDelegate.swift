@@ -45,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      */
     private func prepareRealm() {
         if Globals.isUITesting {
+            UIView.setAnimationsEnabled(false)
             uiTestingInit()
         } else if !Globals.isProduction {
             print("Realm DB location: \(Globals.dependencies.realm.configuration.fileURL!)")
@@ -71,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             folder1.feeds.append(MyRSSFeed(title: "Feed1.1", link: "Link1.1"))
         }
         
-        dependencies.repository.updateAllFeeds { _ in}
+//        dependencies.repository.updateAllFeeds { _ in}
     }
     
     /**

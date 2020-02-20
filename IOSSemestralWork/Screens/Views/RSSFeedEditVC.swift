@@ -78,6 +78,8 @@ class RSSFeedEditVC: BaseViewController {
         let linkField = ErrorTextField()
         secFeedDetails.rows[1].contentView = UIView().addSubViews(linkField.contentView)
         linkField.textField.placeholder = L10n.RssEditView.linkPlaceholder
+        linkField.textField.accessibilityIdentifier = "RSSFeedEditVC_ErrorTextField_LinkField"
+        linkField.errorLabel.accessibilityIdentifier = "RSSFeedEditVC_ErrorTextField_LinkError"
         linkField.contentView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.top.greaterThanOrEqualToSuperview().offset(8)
@@ -86,7 +88,7 @@ class RSSFeedEditVC: BaseViewController {
         }
         self.linkField = linkField
         
-        if(!Globals.isProduction) {
+        if (!Globals.isProduction && !Globals.isUITesting) {
             viewModel.feedName.value = "Reality"
             viewModel.link.value = "https://servis.idnes.cz/rss.aspx?c=reality"
         }
@@ -95,6 +97,7 @@ class RSSFeedEditVC: BaseViewController {
         let addFolderLabel = UILabel()
         secSpecifyFolder.rows[0].contentView = UIView().addSubViews(addFolderLabel)
         addFolderLabel.text = L10n.RssEditView.addFolder
+        addFolderLabel.accessibilityIdentifier = "RSSFeedEditVC_AddFolderLabel"
         addFolderLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.top.equalToSuperview().inset(8)
@@ -119,6 +122,7 @@ class RSSFeedEditVC: BaseViewController {
         }
         self.folderLabel = folderLabel
         self.folderNameLabel = folderNameLabel
+        folderNameLabel.accessibilityIdentifier = "RSSFeedEditVC_FolderNameLabel"
         
         
         let pickerView = UIPickerView()
@@ -126,6 +130,7 @@ class RSSFeedEditVC: BaseViewController {
         secSpecifyFolder.rows[2].isHidden = true
         pickerView.delegate = self
         pickerView.dataSource = self
+        pickerView.accessibilityIdentifier = "RSSFeedEditVC_PickerView"
         pickerView.snp.makeConstraints { make in
             make.leading.trailing.bottom.top.equalToSuperview()
         }

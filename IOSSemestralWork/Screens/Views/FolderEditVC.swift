@@ -55,6 +55,7 @@ class FolderEditVC: BaseViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = UIColor.white
+        tableView.accessibilityIdentifier = "FolderEditVC_TableView"
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "folderEditCell")
         view.addSubview(tableView)
@@ -67,6 +68,8 @@ class FolderEditVC: BaseViewController {
         let secEditFolder = UITableView.Section(rows: 1, header: L10n.FolderEditView.folderData)
         
         errorTextField = ErrorTextField()
+        errorTextField.textField.accessibilityIdentifier = "FolderEditVC_ErrorTextField_TextField"
+        errorTextField.errorLabel.accessibilityIdentifier = "FolderEditVC_ErrorTextField_ErrorLabel"
         secEditFolder.rows[0].contentView = UIView().addSubViews(errorTextField.contentView)
         
         errorTextField.contentView.snp.makeConstraints { make in
