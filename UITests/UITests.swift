@@ -9,14 +9,19 @@
 import XCTest
 
 class UITests: XCTestCase {
+    var app: XCUIApplication!
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        super.setUp()
 
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
 
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        
+        app = XCUIApplication()
+        app.launchArguments.append("--uitesting")
     }
 
     override func tearDown() {
@@ -24,12 +29,20 @@ class UITests: XCTestCase {
     }
 
     func testExample() {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
         app.launch()
-
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        let tableView = app.tables["ItemTableVC_TableView"]
+        XCTAssertTrue(tableView.exists)
+        
+        
+//        let app = XCUIApplication()
+//        let itemtablevcTableviewTable = app/*@START_MENU_TOKEN@*/.tables["ItemTableVC_TableView"]/*[[".otherElements[\"ItemTableVC\"].tables[\"ItemTableVC_TableView\"]",".tables[\"ItemTableVC_TableView\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+//        itemtablevcTableviewTable.tap()
+//        itemtablevcTableviewTable.swipeDown()
+//        app/*@START_MENU_TOKEN@*/.tables["ItemTableVC_TableView"].staticTexts["Starred items"]/*[[".otherElements[\"ItemTableVC\"].tables[\"ItemTableVC_TableView\"]",".cells.staticTexts[\"Starred items\"]",".staticTexts[\"Starred items\"]",".tables[\"ItemTableVC_TableView\"]"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.swipeDown()
+//        app.navigationBars["Starred items"].buttons["RSSFeed reader"].tap()
+//        itemtablevcTableviewTable.swipeDown()
+        
     }
 
     func testLaunchPerformance() {

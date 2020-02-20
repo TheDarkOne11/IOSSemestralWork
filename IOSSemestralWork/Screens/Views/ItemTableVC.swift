@@ -53,13 +53,16 @@ class ItemTableVC: BaseViewController {
     override func loadView() {
         super.loadView()
         view.backgroundColor = .white
+        view.accessibilityIdentifier = "ItemTableVC"
         
         let tableView = UITableView(frame: self.view.bounds, style: UITableView.Style.plain)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.accessibilityIdentifier = "ItemTableVC_TableView"
         
         // Initialize PullToRefresh
         tableView.refreshControl = refresher
+        tableView.refreshControl?.accessibilityIdentifier = "ItemTableVC_Refresher"
         
         tableView.register(ItemCell.self, forCellReuseIdentifier: "ItemCell")
         view.addSubview(tableView)

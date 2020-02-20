@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,9 +20,9 @@
 		4B140DB722DDD0C10070D05B /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B140DAE22DDD0C10070D05B /* AppDependency.swift */; };
 		4B140DB922DDD1010070D05B /* Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B140DB822DDD1010070D05B /* Common.framework */; };
 		4BBFD48C22DF763E00DBD757 /* Resources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBFD48B22DF763E00DBD757 /* Resources.framework */; };
+		4BDA106223FEB63C00E416CC /* TestDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE6058F22DF373400BF655F /* TestDependency.swift */; };
 		4BE6058722DF368300BF655F /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B140D9422DDCB750070D05B /* Data.framework */; };
 		4BE6059022DF373400BF655F /* RepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE6058D22DF373400BF655F /* RepositoryTest.swift */; };
-		4BE6059222DF373400BF655F /* TestDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE6058F22DF373400BF655F /* TestDependency.swift */; };
 		4BF267EE22E4BB0C00134F85 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF267ED22E4BB0C00134F85 /* Validator.swift */; };
 		58A361A08B8C1CEA4DBB9531 /* Pods_Data_DataUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BE8B04919DD23BCBAB9C35D /* Pods_Data_DataUnitTests.framework */; };
 /* End PBXBuildFile section */
@@ -126,6 +126,7 @@
 			children = (
 				4B140DA522DDD0C10070D05B /* Model */,
 				4B140DAE22DDD0C10070D05B /* AppDependency.swift */,
+				4BE6058F22DF373400BF655F /* TestDependency.swift */,
 				4B140DAB22DDD0C10070D05B /* DBHandler.swift */,
 				4B140DAC22DDD0C10070D05B /* Protocols.swift */,
 				4B140DAD22DDD0C10070D05B /* Repository.swift */,
@@ -152,7 +153,6 @@
 			isa = PBXGroup;
 			children = (
 				4BE6058D22DF373400BF655F /* RepositoryTest.swift */,
-				4BE6058F22DF373400BF655F /* TestDependency.swift */,
 				4BE6058622DF368300BF655F /* Info.plist */,
 			);
 			path = DataUnitTests;
@@ -351,6 +351,7 @@
 				4B140DB522DDD0C10070D05B /* Protocols.swift in Sources */,
 				4B140DB622DDD0C10070D05B /* Repository.swift in Sources */,
 				4B140DB322DDD0C10070D05B /* MyRSSFeed.swift in Sources */,
+				4BDA106223FEB63C00E416CC /* TestDependency.swift in Sources */,
 				4B140DAF22DDD0C10070D05B /* Item.swift in Sources */,
 				4B140DB722DDD0C10070D05B /* AppDependency.swift in Sources */,
 				4B140DB022DDD0C10070D05B /* MyRSSItem.swift in Sources */,
@@ -362,7 +363,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BE6059222DF373400BF655F /* TestDependency.swift in Sources */,
 				4BE6059022DF373400BF655F /* RepositoryTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

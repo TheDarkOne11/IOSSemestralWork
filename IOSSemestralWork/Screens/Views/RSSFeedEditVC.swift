@@ -44,11 +44,13 @@ class RSSFeedEditVC: BaseViewController {
     override func loadView() {
         super.loadView()
         view.backgroundColor = .white
+        view.accessibilityIdentifier = "RSSFeedEditVC"
         
         let tableView = UITableView(frame: self.view.bounds, style: UITableView.Style.grouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = UIColor.white
+        tableView.accessibilityIdentifier = "RSSFeedEditVC_TableView"
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "rssFeedEditCell")
         view.addSubview(tableView)
@@ -66,6 +68,7 @@ class RSSFeedEditVC: BaseViewController {
         let feedNameField = UITextField()
         secFeedDetails.rows[0].contentView = UIView().addSubViews(feedNameField)
         feedNameField.placeholder = L10n.RssEditView.namePlaceholder
+        feedNameField.accessibilityIdentifier = "RSSFeedEditVC_feedNameField"
         feedNameField.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.top.equalToSuperview().inset(8)
