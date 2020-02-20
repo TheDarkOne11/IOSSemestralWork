@@ -15,7 +15,9 @@ import RealmSwift
  
  TestDependency is not a singleton because all test cases need their own Realm DB and UserDefaults.
  */
-final class TestDependency{
+final class TestDependency: AllDependencies{
+    public static var shared: AllDependencies = TestDependency()
+    
     lazy var realm: Realm = getRealm()
     lazy var userDefaults: UserDefaults = TestDependency.getUserDefaults()
     
@@ -24,11 +26,8 @@ final class TestDependency{
     public lazy var titleValidator: TitleValidator = TitleValidator()
     public lazy var itemCreateableValidator: ItemCreateableValidator = ItemCreateableValidator(dependencies: self)
     public lazy var rssFeedResponseValidator: RSSFeedResponseValidator = RSSFeedResponseValidator()
-}
 
-extension TestDependency: HasTitleValidator, HasItemCreateableValidator, HasRSSFeedResponseValidator { }
-extension TestDependency: HasRepository { }
-extension TestDependency: HasUserDefaults {
+    // MARK: HasUserDefaults
     private static func getUserDefaults() -> UserDefaults {
         let name = UUID().uuidString
         guard let userDefaults = UserDefaults(suiteName: name) else {
@@ -38,8 +37,9 @@ extension TestDependency: HasUserDefaults {
         
         return userDefaults
     }
-}
-extension TestDependency: HasRealm {
+
+    // MARK: HasRealm
+    
     /**
      Provides Realm DB object. Automatically creates in-memory Realm DB object when testing.
      */

@@ -22,6 +22,7 @@
 		4BBFD48C22DF763E00DBD757 /* Resources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBFD48B22DF763E00DBD757 /* Resources.framework */; };
 		4BDA106223FEB63C00E416CC /* TestDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE6058F22DF373400BF655F /* TestDependency.swift */; };
 		4BDA106623FEC2BE00E416CC /* TestRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA106523FEC2BE00E416CC /* TestRepository.swift */; };
+		4BDA106923FEE08E00E416CC /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA106823FEE08E00E416CC /* Globals.swift */; };
 		4BE6058722DF368300BF655F /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B140D9422DDCB750070D05B /* Data.framework */; };
 		4BE6059022DF373400BF655F /* RepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE6058D22DF373400BF655F /* RepositoryTest.swift */; };
 		4BF267EE22E4BB0C00134F85 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF267ED22E4BB0C00134F85 /* Validator.swift */; };
@@ -56,6 +57,7 @@
 		4B140DB822DDD1010070D05B /* Common.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Common.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BBFD48B22DF763E00DBD757 /* Resources.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Resources.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BDA106523FEC2BE00E416CC /* TestRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRepository.swift; sourceTree = "<group>"; };
+		4BDA106823FEE08E00E416CC /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		4BE6058222DF368300BF655F /* DataUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BE6058622DF368300BF655F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BE6058D22DF373400BF655F /* RepositoryTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryTest.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			children = (
 				4BDA106423FEC26600E416CC /* TestData */,
 				4B140DA522DDD0C10070D05B /* Model */,
+				4BDA106823FEE08E00E416CC /* Globals.swift */,
 				4B140DAE22DDD0C10070D05B /* AppDependency.swift */,
 				4B140DAB22DDD0C10070D05B /* DBHandler.swift */,
 				4B140DAC22DDD0C10070D05B /* Protocols.swift */,
@@ -363,6 +366,7 @@
 				4B140DB522DDD0C10070D05B /* Protocols.swift in Sources */,
 				4B140DB622DDD0C10070D05B /* Repository.swift in Sources */,
 				4B140DB322DDD0C10070D05B /* MyRSSFeed.swift in Sources */,
+				4BDA106923FEE08E00E416CC /* Globals.swift in Sources */,
 				4BDA106223FEB63C00E416CC /* TestDependency.swift in Sources */,
 				4B140DAF22DDD0C10070D05B /* Item.swift in Sources */,
 				4B140DB722DDD0C10070D05B /* AppDependency.swift in Sources */,

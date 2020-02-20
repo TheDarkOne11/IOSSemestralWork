@@ -86,7 +86,7 @@ class RSSFeedEditVC: BaseViewController {
         }
         self.linkField = linkField
         
-        if(!AppDelegate.isProduction) {
+        if(!Globals.isProduction) {
             viewModel.feedName.value = "Reality"
             viewModel.link.value = "https://servis.idnes.cz/rss.aspx?c=reality"
         }

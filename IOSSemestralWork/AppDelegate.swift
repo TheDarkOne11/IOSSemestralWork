@@ -16,34 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var appFlowCoordinator: AppFlowCoordinator!
-    
-    /**
-     Returns true when the scheme is set to production. Otherwise false.
-     */
-    public static let isProduction : Bool = {
-        #if DEBUG
-            print("DEBUG")
-            let dic = ProcessInfo.processInfo.environment
-            if let forceProduction = dic["forceProduction"] , forceProduction == "true" {
-                return true
-            }
-            return false
-        
-        #else
-            print("PRODUCTION")
-            return true
-        #endif
-    }()
-    
-    private let dependency: AppDependency
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        print("Realm DB location: \(AppDependency.shared.realm.configuration.fileURL!)")
         
-        let realm = AppDependency.shared.realm
-        if realm.isEmpty {
-            firstTimeInit(AppDependency.shared.repository)
-        }
+        prepareRealm()
 
         // Set background fetch intervals
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
@@ -62,27 +38,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    // MARK: Realm preparation
+    
     /**
-     Operations which are done only when the app is launched for the first time.
+     Prepares Realm DB data if the application is launched in DEBUG mode or in UI testing mode.
      */
-    private func firstTimeInit(_ repository: IRepository) {
-        AppDependency.shared.userDefaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
-        
-        if !AppDelegate.isProduction {
-            let rootFolder = repository.rootFolder
-            let folderIdnes = Folder(withTitle: "Idnes")
-            let folderImages = Folder(withTitle: "WithImages")
+    private func prepareRealm() {
+        if Globals.isUITesting {
+            uiTestingInit()
+        } else if !Globals.isProduction {
+            print("Realm DB location: \(Globals.dependencies.realm.configuration.fileURL!)")
             
-            repository.realmEdit(errorCode: nil) { realm in 
-                rootFolder.folders.append(objectsIn: [folderIdnes, folderImages])
-                rootFolder.feeds.append(MyRSSFeed(title: "FOX", link: "http://feeds.foxnews.com/foxnews/latest"))
-                
-                folderIdnes.feeds.append(MyRSSFeed(title: "Zpravodaj", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj"))
-                folderIdnes.feeds.append(MyRSSFeed(title: "Sport", link: "https://servis.idnes.cz/rss.aspx?c=sport"))
-                
-                folderImages.feeds.append(MyRSSFeed(title: "Wired", link: "http://wired.com/feed/rss"))
-                folderImages.feeds.append(MyRSSFeed(title: "Lifehacker", link: "https://lifehacker.com/rss"))
+            if Globals.dependencies.realm.isEmpty {
+                firstTimeDebugInit()
             }
+        }
+        
+        
+    }
+    
+    private func uiTestingInit() {
+        let dependencies = Globals.dependencies
+        let defaults = dependencies.userDefaults
+        
+        // Set important values in UserDefaults
+        defaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
+        
+        dependencies.repository.realmEdit(errorCode: nil) { realm in
+            let folder1 = Folder(withTitle: "Folder1")
+            dependencies.repository.rootFolder.folders.append(folder1)
+            dependencies.repository.rootFolder.feeds.append(MyRSSFeed(title: "Feed1", link: "Link1"))
+            folder1.feeds.append(MyRSSFeed(title: "Feed1.1", link: "Link1.1"))
+        }
+        
+        dependencies.repository.updateAllFeeds { _ in}
+    }
+    
+    /**
+     Operations which are done only when the app is launched for the first time in DEBUG mode.
+     */
+    private func firstTimeDebugInit() {
+        Globals.dependencies.userDefaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
+        
+        let repository = Globals.dependencies.repository
+        let rootFolder = repository.rootFolder
+        let folderIdnes = Folder(withTitle: "Idnes")
+        let folderImages = Folder(withTitle: "WithImages")
+        
+        repository.realmEdit(errorCode: nil) { realm in
+            rootFolder.folders.append(objectsIn: [folderIdnes, folderImages])
+            rootFolder.feeds.append(MyRSSFeed(title: "FOX", link: "http://feeds.foxnews.com/foxnews/latest"))
+            
+            folderIdnes.feeds.append(MyRSSFeed(title: "Zpravodaj", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj"))
+            folderIdnes.feeds.append(MyRSSFeed(title: "Sport", link: "https://servis.idnes.cz/rss.aspx?c=sport"))
+            
+            folderImages.feeds.append(MyRSSFeed(title: "Wired", link: "http://wired.com/feed/rss"))
+            folderImages.feeds.append(MyRSSFeed(title: "Lifehacker", link: "https://lifehacker.com/rss"))
         }
     }
     
@@ -100,7 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            switch status {
 //            case .OK:
 //                self.updateUI()
-//                AppDependency.shared.userDefaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
+//                Globals.dependencies.userDefaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
 //                completionHandler(.newData)
 //            case .NotOK:
 //                completionHandler(.failed)

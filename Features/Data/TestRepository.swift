@@ -20,9 +20,10 @@ public final class TestRepository: Repository {
      Adds a dummy `MyRSSItem` to all feeds.
      */
     override public func updateAllFeeds(completed: @escaping (DownloadStatus) -> Void) {
-        var cntr: Int = 0
         
         realmEdit(errorCode: nil) { realm in
+            var cntr: Int = 0
+            
             for feed in self.feeds {
                 let currItem: MyRSSItem = MyRSSItem()
                 currItem.title = "Dummy title " + String(cntr)

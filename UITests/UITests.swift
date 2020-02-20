@@ -11,9 +11,7 @@ import XCTest
 @testable import Data
 @testable import Common
 
-class UITests: XCTestCase {
-    private var dependencies: TestDependency!
-    
+class UITests: XCTestCase {    
     private var app: XCUIApplication!
 
     override func setUp() {
@@ -29,25 +27,6 @@ class UITests: XCTestCase {
         
         // Then we can use ProcessInfo.processInfo.arguments.contains('--uitesting') in the application to check
         app.launchArguments.append("--uitesting")
-    }
-    
-    /**
-     Operations which are done only when the app is launched for the first time.
-     */
-    private func initRealmDb() {
-        let defaults = dependencies.userDefaults
-        
-        // Set important values in UserDefaults
-        defaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
-        
-        dependencies.repository.realmEdit(errorCode: nil) { realm in
-            let folder1 = Folder(withTitle: "Folder1")
-            dependencies.repository.rootFolder.folders.append(folder1)
-            dependencies.repository.rootFolder.feeds.append(MyRSSFeed(title: "Feed1.1", link: ""))
-            folder1.feeds.append(MyRSSFeed(title: "Feed1", link: ""))
-        }
-        
-        dependencies.repository.updateAllFeeds { _ in}
     }
 
     override func tearDown() {
@@ -71,12 +50,12 @@ class UITests: XCTestCase {
         
     }
 
-    func testLaunchPerformance() {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
-                XCUIApplication().launch()
-            }
-        }
-    }
+//    func testLaunchPerformance() {
+//        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
+//            // This measures how long it takes to launch your application.
+//            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
+//                XCUIApplication().launch()
+//            }
+//        }
+//    }
 }
