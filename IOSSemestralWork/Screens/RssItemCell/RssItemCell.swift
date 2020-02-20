@@ -10,6 +10,9 @@ import UIKit
 import SnapKit
 import Data
 
+/**
+ Visual representation of RSS Item UITableViewCell.
+*/
 class RssItemCell: UITableViewCell {
     private weak var titleLabel: UILabel!
     private weak var descLabel: UILabel!
@@ -74,7 +77,12 @@ class RssItemCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+    /**
+     Load data of an Item into the cell.
+     
+     - Parameters:
+        - item: `MyRSSItem` which should be displayed using the `RssItemCell`.
+     */
     func setData(using item: MyRSSItem) {
         titleLabel.text = item.title
         descLabel.text = item.description_NoHtml

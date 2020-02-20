@@ -17,10 +17,13 @@ protocol RSSItemsTableVCFlowDelegate {
     func select(_ rssItem: MyRSSItem, otherRssItems rssItems: Results<MyRSSItem>)
 }
 
+/**
+VC for displaying `MyRSSItem`s.
+*/
 final class RSSItemsTableVC: BaseViewController {
     private let viewModel: IRSSItemsTableVM
     private weak var tableView: UITableView!
-    lazy var refresher = RefreshControl(delegate: self)
+    private lazy var refresher = RefreshControl(delegate: self)
     
     private let flowDelegate: RSSItemsTableVCFlowDelegate
         

@@ -18,6 +18,9 @@ protocol RefreshControlDelegate {
     func lastUpdateDate() -> NSDate
 }
 
+/**
+ Contains PullToRefresh logic for starting/stopping update.
+ */
 class RefreshControl: UIRefreshControl {
     private(set) var refreshView: PullToRefreshView!
     private let delegate: RefreshControlDelegate!

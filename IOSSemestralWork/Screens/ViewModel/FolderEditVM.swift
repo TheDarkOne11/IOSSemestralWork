@@ -21,6 +21,9 @@ protocol IFolderEditVM {
     var canCreateFolderSignal: SignalProducer<RealmObjectError?, Never> { get }
 }
 
+/**
+ VM for Folder edit screen.
+*/
 class FolderEditVM: BaseViewModel, IFolderEditVM {
     typealias Dependencies = HasRepository & HasTitleValidator & HasItemCreateableValidator
     private let dependencies: Dependencies

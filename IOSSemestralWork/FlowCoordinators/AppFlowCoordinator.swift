@@ -11,10 +11,19 @@ import UIKit
 import RealmSwift
 import Data
 
+/**
+ Programatically manages and coordinates flow of the application i. e. when which screen should be shown.
+ */
 class AppFlowCoordinator: BaseFlowCoordinator {
     public var childCoordinators = [BaseFlowCoordinator]()
     weak var navigationController: UINavigationController!
     
+    /**
+     Initial setup.
+     
+     - Parameters:
+        - window: Screen where the application will be shown.
+     */
     func start(in window: UIWindow) {
         // Set up Flow Coordinator
         let navigationController = UINavigationController()

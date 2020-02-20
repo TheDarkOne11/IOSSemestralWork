@@ -23,6 +23,9 @@ protocol FolderEditDelegate {
     func created(folder: Folder)
 }
 
+/**
+ VC for Folder edit screen.
+ */
 class FolderEditVC: BaseViewController {
     private let viewModel: IFolderEditVM
     private weak var tableView: UITableView!

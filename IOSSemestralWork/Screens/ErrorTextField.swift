@@ -11,6 +11,9 @@ import UIKit
 import SnapKit
 import Resources
 
+/**
+ Visual representation of a TextField and a Label used for error messages.
+ */
 public class ErrorTextField {
     public private(set) var contentView: UIStackView!
     public private(set) weak var textField: UITextField!

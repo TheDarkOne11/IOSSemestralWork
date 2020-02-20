@@ -42,6 +42,9 @@ protocol IItemTableVM {
     func getLastUpdateDate() -> NSDate
 }
 
+/**
+ VM for displaying `Folder`s and `MyRSSFeed`s.
+*/
 final class ItemTableVM: BaseViewModel, IItemTableVM {
     typealias Dependencies = HasRepository & HasUserDefaults
     private let dependencies: Dependencies!

@@ -10,6 +10,9 @@ import UIKit
 import SnapKit
 import Data
 
+/**
+ Visual representation of Folder, RSS Feed and SpecialItem UITableViewCell.
+ */
 class ItemCell: UITableViewCell {
     private weak var titleLabel: UILabel!
     private weak var numOfItemsLabel: UILabel!
@@ -66,6 +69,14 @@ class ItemCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Data-loading methods
+    
+    /**
+    Load data of an Item into the cell.
+    
+    - Parameters:
+       - item: `Item` (`Folder`, `MyRSSFeed` or `SpecialItem`) which should be displayed using the `ItemCell`.
+    */
     func setData(using item: Item) {
         switch item.type {
         case .folder:
@@ -80,17 +91,17 @@ class ItemCell: UITableViewCell {
         }
     }
     
-    func setData(using folder: Folder) {
+    private func setData(using folder: Folder) {
         let predicateUnread = NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "isRead == false")])
         setData(title: folder.title, imgName: "folder", itemCount: folder.getRssItemsCount(predicate: predicateUnread), true)
     }
     
-    func setData(using feed: MyRSSFeed) {
+    private func setData(using feed: MyRSSFeed) {
         let count = feed.myRssItems.filter("isRead == false").count
         setData(title: feed.title, imgName: nil, itemCount: count, feed.isOk)
     }
     
-    func setData(title: String?, imgName: String?, itemCount count: Int, _ errorHidden: Bool? = true) {
+    private func setData(title: String?, imgName: String?, itemCount count: Int, _ errorHidden: Bool? = true) {
         titleLabel.text = title
         
         if let imgName = imgName {

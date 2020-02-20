@@ -25,11 +25,14 @@ protocol IRSSItemVM {
     func getScriptCode() -> String
 }
 
+/**
+ VM for displaying one `MyRSSItem`.
+*/
 final class RSSItemVM: BaseViewModel, IRSSItemVM {
     typealias Dependencies = HasRepository & HasUserDefaults
     private let dependencies: Dependencies!
     
-    let otherRssItems: Array<MyRSSItem>
+    private let otherRssItems: Array<MyRSSItem>
     let selectedItem: MutableProperty<MyRSSItem>
     let canGoUp = MutableProperty<Bool>(false)
     let canGoDown = MutableProperty<Bool>(false)
@@ -58,9 +61,6 @@ final class RSSItemVM: BaseViewModel, IRSSItemVM {
             self?.canGoDown.value = selectedItem.itemId != self?.otherRssItems.last!.itemId
 
             if !selectedItem.isRead {
-//                self?.dependencies.repository.realmEdit(errorCode: nil) { realm in
-//                    selectedItem.isRead = true
-//                }
                 self?.set(isRead: true)
             }
         }
@@ -90,9 +90,7 @@ final class RSSItemVM: BaseViewModel, IRSSItemVM {
     
     /**
      Create Javascript code which passes data to the webView.
-     
-     - parameter rssItem: The RSSItem whose data we want to display.
-     
+          
      - returns: The String value of the Javascript code used to pass data into the WKWebView.
      */
     func getScriptCode() -> String {

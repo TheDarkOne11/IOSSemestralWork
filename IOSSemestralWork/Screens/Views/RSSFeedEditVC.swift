@@ -13,6 +13,9 @@ protocol RSSFeedEditFlowDelegate {
     func add(folder: Folder?, delegate: FolderEditDelegate)
 }
 
+/**
+ VC for Feed edit screen.
+ */
 class RSSFeedEditVC: BaseViewController {
     private let viewModel: IRSSFeedEditVM
     private weak var tableView: UITableView!

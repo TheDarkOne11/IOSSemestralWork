@@ -30,8 +30,9 @@ class DBHandler {
     
     /**
      
-     - parameter errorMsg: An error string which displays when an exception is thrown.
-     - parameter editCode: A function where we create, edit or delete any Realm objects.
+     - parameters:
+        - errorCode: A function that is invoked when an exception is caught.
+        - editCode: A function where we create, edit or delete any Realm objects.
      */
     func realmEdit(errorCode: ((Error) -> Void)? = nil, editCode: (Realm) -> Void) {
         do {
@@ -48,6 +49,9 @@ class DBHandler {
     
     // MARK: Item methods
     
+    /**
+     Remove an `Item` from Realm DB.
+     */
     func remove(_ item: Item) {
         switch item.type {
         case .folder:
@@ -93,8 +97,8 @@ class DBHandler {
     // MARK: MyRSSItem methods
     
     /**
-     Downloads items of the all feeds.
-     - parameter completed: A function that is called when all feeds are updated.
+     Downloads `MyRSSItem`s of the all `MyRSSFeed`s.
+     - parameter completed: A function that is called when all `MyRSSFeed`s are updated.
      */
     func updateAll(completed: @escaping (DownloadStatus) -> Void) {
         // DispatchGroup enables us to trigger some code when all async requests are done
@@ -128,6 +132,12 @@ class DBHandler {
         }
     }
     
+    /**
+     Validate that it is possible to download data. Checks network reachability and whether the link itself is reachable.
+     
+     - parameters:
+        - link: URL of the `RSSFeed` we are trying to reach.
+     */
     func validate(_ link: String) -> SignalProducer<DownloadStatus, Never> {
         // Check if internet is reachable
         if !NetworkReachabilityManager()!.isReachable {
@@ -183,7 +193,7 @@ class DBHandler {
     }
     
     /**
-     Persists the new or updated RSS items.
+     Persists the new or updated `MyRSSItem`s.
      */
     private func persistRssItems(_ feed: RSSFeed, _ myRssFeed: MyRSSFeed) {
         realmEdit() { realm in

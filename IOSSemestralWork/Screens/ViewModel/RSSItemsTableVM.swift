@@ -23,6 +23,9 @@ protocol IRSSItemsTableVM {
     func lastUpdateDate() -> NSDate
 }
 
+/**
+ VM for displaying `MyRSSItem`s.
+*/
 final class RSSItemsTableVM: BaseViewModel, IRSSItemsTableVM {
     typealias Dependencies = HasRepository & HasUserDefaults
     private let dependencies: Dependencies!

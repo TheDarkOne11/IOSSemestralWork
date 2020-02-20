@@ -14,6 +14,9 @@ import UIKit
 import WebKit
 import Resources
 
+/**
+ VC for displaying one `MyRSSItem`.
+ */
 class RSSItemVC: BaseViewController {
     private let viewModel: IRSSItemVM
     private weak var toolbar: UIToolbar!
@@ -76,7 +79,6 @@ class RSSItemVC: BaseViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(asset: Asset.toWebsite), style: .plain, target: self, action: #selector(toWebsiteButtonTapped(_:)))
     }
     
-    //TODO: Make UIBarButtonItem with custom UIView to show title and image
     private func initBottomToolbar() -> UIToolbar {
         let toolbar = UIToolbar()
         view.addSubview(toolbar)

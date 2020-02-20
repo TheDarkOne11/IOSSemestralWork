@@ -60,6 +60,9 @@ extension UITableView {
 }
 
 extension Bundle {
+    /**
+     A resources bundle used by this application.
+     */
     public static let resources: Bundle = {
         guard let bundle = Bundle(identifier: "cz.budikpet.IOSSemestralWork.Resources") else {
             fatalError("Resources bundle must exist.")

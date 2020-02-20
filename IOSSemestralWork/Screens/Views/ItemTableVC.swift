@@ -17,6 +17,9 @@ protocol ItemTableVCFlowDelegate {
     func edit(folder: Folder)
 }
 
+/**
+ VC for displaying `Folder`s and `MyRSSFeed`s.
+ */
 class ItemTableVC: BaseViewController {
     private let viewModel: IItemTableVM
     private weak var tableView: UITableView!
@@ -24,8 +27,9 @@ class ItemTableVC: BaseViewController {
     
     var flowDelegate: ItemTableVCFlowDelegate?
     
-    var token: NotificationToken!
-    var token2: NotificationToken!
+    // Realm observer tokens
+    private var tokenFeeds: NotificationToken!
+    private var tokenFolders: NotificationToken!
     
     init(_ viewModel: IItemTableVM) {
         self.viewModel = viewModel
@@ -38,8 +42,8 @@ class ItemTableVC: BaseViewController {
     }
     
     deinit {
-        token.invalidate()
-        token2.invalidate()
+        tokenFeeds.invalidate()
+        tokenFolders.invalidate()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -84,11 +88,11 @@ class ItemTableVC: BaseViewController {
             self?.tableView.reloadData()
         }
         
-        token = viewModel.shownItems.feeds.observe({ [weak self] changes in
+        tokenFeeds = viewModel.shownItems.feeds.observe({ [weak self] changes in
             self?.tableView.reloadData()
         })
         
-        token2 = viewModel.shownItems.folders.observe({ [weak self] changes in
+        tokenFolders = viewModel.shownItems.folders.observe({ [weak self] changes in
             self?.tableView.reloadData()
         })
     }

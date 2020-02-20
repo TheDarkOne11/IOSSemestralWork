@@ -28,6 +28,9 @@ protocol IRSSFeedEditVM {
     func getFolder(at index: Int) -> Folder
 }
 
+/**
+VM for Feed edit screen.
+*/
 final class RSSFeedEditVM: BaseViewModel, IRSSFeedEditVM {
     typealias Dependencies = HasRepository
     private let dependencies: Dependencies

@@ -37,6 +37,9 @@ public protocol IRepository {
     func remove(_ item: Item)
 }
 
+/**
+ An interface for communication with 3rd party software such as DBs.
+ */
 public final class Repository: IRepository {
     public typealias Dependencies = HasRealm & HasUserDefaults & HasRSSFeedResponseValidator
     private let dependencies: Dependencies
@@ -125,6 +128,12 @@ public final class Repository: IRepository {
         return folderNames
     }
     
+    /**
+     Checks whether the `Item` exists in the Realm DB using appropriate `Results` collection.
+     
+     - Parameters:
+        - item: `Folder`, `MyRSSFeed` or `MyRSSItem` whose existence we want to check.
+     */
     public func exists(_ item: Item) -> Item? {
         switch item.type {
         case .folder:
@@ -148,6 +157,13 @@ public final class Repository: IRepository {
 // MARK: CRUD methods
 
 extension Repository {
+    /**
+     Create new `MyRSSFeed`.
+     
+     - Parameters:
+        - feed: Data of the new `MyRSSFeed` to create.
+        - parentFolder: The `Folder` in which the new `MyRSSFeed` should be created.
+     */
     public func create(rssFeed feed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RealmObjectError> {
         return SignalProducer<MyRSSFeed, RealmObjectError> { (observer, lifetime) in
             // Check for duplicates
@@ -169,6 +185,13 @@ extension Repository {
         }
     }
     
+    /**
+    Create new `Folder`.
+    
+    - parameters:
+        - newFolder: Data of the new `Folder` to create.
+        - parentFolder: The `Folder` in which the new `Folder` should be created.
+    */
     public func create(newFolder: Folder, parentFolder: Folder) -> SignalProducer<Folder, RealmObjectError> {
         return SignalProducer<Folder, RealmObjectError> { (observer, lifetime) in
             if self.exists(newFolder) != nil {
@@ -188,6 +211,14 @@ extension Repository {
         }
     }
     
+    /**
+     Updates `MyRSSFeed` with new data.
+     
+     - parameters:
+        - oldFeed: The `MyRSSFeed` that exists in the Realm DB and should be updated.
+        - newFeed: The `MyRSSFeed` which only contains the new data.
+        - parentFolder: The `Folder` in which the updated `MyRSSFeed` should be located.
+     */
     public func update(selectedFeed oldFeed: MyRSSFeed, with newFeed: MyRSSFeed, parentFolder: Folder) -> SignalProducer<MyRSSFeed, RealmObjectError> {
         return SignalProducer<MyRSSFeed, RealmObjectError> { (observer, lifetime) in
             self.dbHandler.realmEdit(errorCode: { error in
@@ -213,6 +244,14 @@ extension Repository {
         }
     }
     
+    /**
+    Updates `Folder` with new data.
+    
+    - parameters:
+       - oldFeed: The `Folder` that exists in the Realm DB and should be updated.
+       - newFeed: The `Folder` which only contains the new data.
+       - parentFolder: The `Folder` in which the updated `Folder` should be located.
+    */
     public func update(selectedFolder oldFolder: Folder, with newFolder: Folder, parentFolder: Folder) -> SignalProducer<Folder, RealmObjectError> {
         return SignalProducer<Folder, RealmObjectError> { (observer, lifetime) in
             self.dbHandler.realmEdit(errorCode: { error in
@@ -237,14 +276,29 @@ extension Repository {
         }
     }
     
+    /**
+    Downloads `MyRSSItem`s of the all `MyRSSFeed`s.
+     
+    - parameters:
+        - completed: A function that is called when all `MyRSSFeed`s are updated.
+    */
     public func updateAllFeeds(completed: @escaping (DownloadStatus) -> Void) {
         dbHandler.updateAll(completed: completed)
     }
     
+    /**
+    Validate that it is possible to download data. Checks network reachability and whether the link itself is reachable.
+    
+    - parameters:
+       - link: URL of the `RSSFeed` we are trying to reach.
+    */
     public func validate(link: String) -> SignalProducer<DownloadStatus, Never> {
         return dbHandler.validate(link)
     }
     
+    /**
+     Remove an item from Realm DB.
+     */
     public func remove(_ item: Item) {
         dbHandler.remove(item)
     }
