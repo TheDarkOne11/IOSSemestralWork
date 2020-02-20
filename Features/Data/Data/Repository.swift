@@ -40,13 +40,13 @@ public protocol IRepository {
 /**
  An interface for communication with 3rd party software such as DBs.
  */
-public final class Repository: IRepository {
+public class Repository: IRepository {
     public typealias Dependencies = HasRealm & HasUserDefaults & HasRSSFeedResponseValidator
     private let dependencies: Dependencies
     
-    private let dbHandler: DBHandler
+    internal let dbHandler: DBHandler
     
-    private var _rootFolder: Folder!
+    internal var _rootFolder: Folder!
     public var rootFolder: Folder {
         return _rootFolder
     }
@@ -152,11 +152,9 @@ public final class Repository: IRepository {
             return nil
         }
     }
-}
 
-// MARK: CRUD methods
+    // MARK: CRUD methods
 
-extension Repository {
     /**
      Create new `MyRSSFeed`.
      

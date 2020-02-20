@@ -26,6 +26,8 @@ class UITests: XCTestCase {
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
         
         app = XCUIApplication()
+        
+        // Then we can use ProcessInfo.processInfo.arguments.contains('--uitesting') in the application to check
         app.launchArguments.append("--uitesting")
     }
     
@@ -39,9 +41,13 @@ class UITests: XCTestCase {
         defaults.set(NSDate(), forKey: UserDefaults.Keys.lastUpdate.rawValue)
         
         dependencies.repository.realmEdit(errorCode: nil) { realm in
-            dependencies.repository.rootFolder.folders.append(Folder(withTitle: "Idnes"))
-            dependencies.repository.rootFolder.feeds.append(MyRSSFeed(title: "Zpravodaj", link: "https://servis.idnes.cz/rss.aspx?c=zpravodaj"))
+            let folder1 = Folder(withTitle: "Folder1")
+            dependencies.repository.rootFolder.folders.append(folder1)
+            dependencies.repository.rootFolder.feeds.append(MyRSSFeed(title: "Feed1.1", link: ""))
+            folder1.feeds.append(MyRSSFeed(title: "Feed1", link: ""))
         }
+        
+        dependencies.repository.updateAllFeeds { _ in}
     }
 
     override func tearDown() {

@@ -34,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         #endif
     }()
+    
+    private let dependency: AppDependency
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         print("Realm DB location: \(AppDependency.shared.realm.configuration.fileURL!)")

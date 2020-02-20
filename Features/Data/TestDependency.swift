@@ -9,7 +9,6 @@
 import Foundation
 import RealmSwift
 @testable import Resources
-@testable import Data
 
 /**
  Mock of [AppDependency](x-source-tag://appDependency) singleton. This class is used at its place for Dependency Injection.
@@ -20,10 +19,10 @@ final class TestDependency{
     lazy var realm: Realm = getRealm()
     lazy var userDefaults: UserDefaults = TestDependency.getUserDefaults()
     
-    lazy var repository: IRepository = Repository(dependencies: self)
+    lazy var repository: IRepository = TestRepository(dependencies: self)
     
     public lazy var titleValidator: TitleValidator = TitleValidator()
-    public lazy var itemCreateableValidator: ItemCreateableValidator = ItemCreateableValidator(dependencies: AppDependency.shared)
+    public lazy var itemCreateableValidator: ItemCreateableValidator = ItemCreateableValidator(dependencies: self)
     public lazy var rssFeedResponseValidator: RSSFeedResponseValidator = RSSFeedResponseValidator()
 }
 
