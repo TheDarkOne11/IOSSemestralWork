@@ -1,0 +1,6 @@
+framework module Pods_IOSSemestralWork_UnitTests {
+  umbrella header "Pods-IOSSemestralWork-UnitTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

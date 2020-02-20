@@ -51,6 +51,7 @@ final class RSSItemsTableVC: BaseViewController {
         tableView.delegate = self
         tableView.estimatedRowHeight = 120
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.accessibilityIdentifier = "RSSItemsTableVC_TableView"
         
         // Initialize PullToRefresh
         tableView.refreshControl = refresher
