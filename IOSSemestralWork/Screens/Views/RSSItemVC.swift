@@ -31,6 +31,7 @@ class RSSItemVC: BaseViewController {
      */
     private static var webView: WKWebView = {
         let webView = WKWebView(frame: .zero)
+        webView.accessibilityIdentifier = "RSSItemVC_WebView"
         
         // Load HTML template
         if let url = Bundle.resources.url(forResource: "RSSItemFormat", withExtension: "html") {

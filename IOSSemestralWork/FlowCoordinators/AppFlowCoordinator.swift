@@ -30,18 +30,18 @@ class AppFlowCoordinator: BaseFlowCoordinator {
         window.rootViewController = navigationController
         self.navigationController = navigationController
         
-        AppDependency.shared.repository.selectedItem.producer
+        Globals.dependencies.repository.selectedItem.producer
             .startWithValues { [weak navigationController] item in
                 switch item.type {
 
                 case .folder:
-                    let vm = ItemTableVM(dependencies: AppDependency.shared)
+                    let vm = ItemTableVM(dependencies: Globals.dependencies)
                     let vc = ItemTableVC(vm)
                     vc.flowDelegate = self
                     navigationController?.pushViewController(vc, animated: true)
                 case .myRssFeed:
                     let item = item as! MyRSSFeed
-                    let vm = RSSItemsTableVM(dependencies: AppDependency.shared, title: item.title, selectedItem: item)
+                    let vm = RSSItemsTableVM(dependencies: Globals.dependencies, title: item.title, selectedItem: item)
                     let vc = RSSItemsTableVC(vm, delegate: self)
                     navigationController?.pushViewController(vc, animated: true)
                 case .myRssItem:
@@ -49,7 +49,7 @@ class AppFlowCoordinator: BaseFlowCoordinator {
                 case .specialItem:
                     let item = item as! SpecialItem
                     let actionResult = item.action()
-                    let vm = RSSItemsTableVM(dependencies: AppDependency.shared, title: item.title, selectedItem: actionResult.0, predicate: actionResult.1)
+                    let vm = RSSItemsTableVM(dependencies: Globals.dependencies, title: item.title, selectedItem: actionResult.0, predicate: actionResult.1)
                     let vc = RSSItemsTableVC(vm, delegate: self)
                     navigationController?.pushViewController(vc, animated: true)
                 }
@@ -65,7 +65,7 @@ extension AppFlowCoordinator: FolderEditFlowDelegate {
 
 extension AppFlowCoordinator: RSSFeedEditFlowDelegate {
     func add(folder: Folder?, delegate: FolderEditDelegate) {
-        let vm = FolderEditVM(dependencies: AppDependency.shared, folderForUpdate: folder)
+        let vm = FolderEditVM(dependencies: Globals.dependencies, folderForUpdate: folder)
         let vc = FolderEditVC(vm)
         vc.flowDelegate = self
         vc.delegate = delegate
@@ -79,14 +79,14 @@ extension AppFlowCoordinator: RSSFeedEditFlowDelegate {
 
 extension AppFlowCoordinator: ItemTableVCFlowDelegate {
     func edit(folder: Folder) {
-        let vm = FolderEditVM(dependencies: AppDependency.shared, folderForUpdate: folder)
+        let vm = FolderEditVM(dependencies: Globals.dependencies, folderForUpdate: folder)
         let vc = FolderEditVC(vm)
         vc.flowDelegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
     func editOrCreate(feed: MyRSSFeed?) {
-        let vm = RSSFeedEditVM(dependencies: AppDependency.shared, feedForUpdate: feed)
+        let vm = RSSFeedEditVM(dependencies: Globals.dependencies, feedForUpdate: feed)
         let vc = RSSFeedEditVC(vm)
         vc.flowDelegate = self
         navigationController?.pushViewController(vc, animated: true)
@@ -95,7 +95,7 @@ extension AppFlowCoordinator: ItemTableVCFlowDelegate {
 
 extension AppFlowCoordinator: RSSItemsTableVCFlowDelegate {
     func select(_ rssItem: MyRSSItem, otherRssItems: Results<MyRSSItem>) {
-        let vm = RSSItemVM(dependencies: AppDependency.shared, otherRssItems: otherRssItems)
+        let vm = RSSItemVM(dependencies: Globals.dependencies, otherRssItems: otherRssItems)
         let vc = RSSItemVC(vm)
         navigationController?.pushViewController(vc, animated: true)
     }

@@ -19,7 +19,7 @@ class TodayVC: UIViewController, NCWidgetProviding {
     private weak var unreadLabel: UILabel!
     private weak var starredLabel: UILabel!
     
-    private lazy var rssItems: Results<MyRSSItem> = AppDependency.shared.realm.objects(MyRSSItem.self)
+    private lazy var rssItems: Results<MyRSSItem> = Globals.dependencies.realm.objects(MyRSSItem.self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
