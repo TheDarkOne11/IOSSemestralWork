@@ -7,17 +7,6 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		4BE7641722D2270400A250B4 /* Generate Preprocessor file */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 4BE7641A22D2270400A250B4 /* Build configuration list for PBXAggregateTarget "Generate Preprocessor file" */;
-			buildPhases = (
-				4BE7641B22D2272600A250B4 /* Generate preprocessor file */,
-			);
-			dependencies = (
-			);
-			name = "Generate Preprocessor file";
-			productName = "Generate Preprocessor file";
-		};
 		4BFF774E22C0FD2B008047CB /* Localization */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 4BFF775122C0FD2B008047CB /* Build configuration list for PBXAggregateTarget "Localization" */;
@@ -87,13 +76,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4BE1B2EB22DC7D0A00D33E85;
 			remoteInfo = FeedTodayAppExtension;
-		};
-		4BE7641C22D2275C00A250B4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4BE8A5EF21D6CB05009B66F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4BE7641722D2270400A250B4;
-			remoteInfo = "Generate Preprocessor file";
 		};
 		4BE8021422CCED500014DED4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -487,7 +469,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				4BE7641D22D2275C00A250B4 /* PBXTargetDependency */,
 				4BE1B2F722DC7D0A00D33E85 /* PBXTargetDependency */,
 			);
 			name = IOSSemestralWork;
@@ -516,9 +497,6 @@
 								enabled = 1;
 							};
 						};
-					};
-					4BE7641722D2270400A250B4 = {
-						CreatedOnToolsVersion = 10.2.1;
 					};
 					4BE8020E22CCED500014DED4 = {
 						CreatedOnToolsVersion = 10.2.1;
@@ -557,7 +535,6 @@
 			targets = (
 				4BE8A5F621D6CB05009B66F0 /* IOSSemestralWork */,
 				4BFF774E22C0FD2B008047CB /* Localization */,
-				4BE7641722D2270400A250B4 /* Generate Preprocessor file */,
 				4BE8020E22CCED500014DED4 /* UnitTests */,
 				4BE1B2EB22DC7D0A00D33E85 /* FeedTodayAppExtension */,
 				4BDA105023FEA78200E416CC /* UITests */,
@@ -662,24 +639,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		4BE7641B22D2272600A250B4 /* Generate preprocessor file */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Generate preprocessor file";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nsh \"$PROJECT_DIR/Configs/phase_generatePreprocessHeaders.sh\"\n";
 		};
 		4BFF775222C0FD33008047CB /* Download localized strings from online spreadsheet */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -843,11 +802,6 @@
 			target = 4BE1B2EB22DC7D0A00D33E85 /* FeedTodayAppExtension */;
 			targetProxy = 4BE1B2F622DC7D0A00D33E85 /* PBXContainerItemProxy */;
 		};
-		4BE7641D22D2275C00A250B4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4BE7641722D2270400A250B4 /* Generate Preprocessor file */;
-			targetProxy = 4BE7641C22D2275C00A250B4 /* PBXContainerItemProxy */;
-		};
 		4BE8021522CCED500014DED4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4BE8A5F621D6CB05009B66F0 /* IOSSemestralWork */;
@@ -950,24 +904,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		4BE7641822D2270400A250B4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 634A34CZA9;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		4BE7641922D2270400A250B4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 634A34CZA9;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -1229,15 +1165,6 @@
 			buildConfigurations = (
 				4BE1B2F922DC7D0A00D33E85 /* Debug */,
 				4BE1B2FA22DC7D0A00D33E85 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4BE7641A22D2270400A250B4 /* Build configuration list for PBXAggregateTarget "Generate Preprocessor file" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4BE7641822D2270400A250B4 /* Debug */,
-				4BE7641922D2270400A250B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
